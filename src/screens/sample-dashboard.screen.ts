@@ -29,7 +29,9 @@ class SampleDashboardScreen extends BaseScreen {
       process.cwd(),
       'src/fixtures/electron-smoke-app/index.html',
     );
-    const sampleHtml = fs.readFileSync(sampleHtmlPath, 'utf8');
+    const sampleHtml = fs
+      .readFileSync(sampleHtmlPath, 'utf8')
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
 
     await browser.execute((html) => {
       document.open();

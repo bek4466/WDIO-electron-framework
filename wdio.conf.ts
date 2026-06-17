@@ -31,6 +31,7 @@ export const config: WdioTestrunnerConfig = {
   suites: {
     smoke: ['./src/specs/smoke/**/*.spec.ts'],
     regression: ['./src/specs/regression/**/*.spec.ts'],
+    sampleJson: ['./src/specs/smoke/json-sample-dashboard.spec.ts'],
     e2eJson: [
       './e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts',
       './e2e/tests/regression/NBP/TestMaster.e2e-spec.ts',

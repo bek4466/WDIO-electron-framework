@@ -72,6 +72,7 @@ docs/confluence/                Confluence-ready framework documentation and dia
 yarn clean
 yarn test:smoke
 yarn test:regression
+yarn test:json-sample
 yarn test:e2e-json
 yarn typecheck
 yarn format
