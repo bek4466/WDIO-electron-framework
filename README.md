@@ -61,6 +61,7 @@ src/support/                    Shared selectors, waits, and assertions
 src/fixtures/electron-smoke-app/ Local Electron 41 smoke app
 scripts/                        Maintenance and validation scripts
 docs/                           Usage notes
+docs/confluence/                Confluence-ready framework documentation and diagrams
 ```
 
 ## Common Commands
