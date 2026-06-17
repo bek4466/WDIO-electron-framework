@@ -18,7 +18,7 @@ function getSampleAppBinaryPath(): string {
   if (process.platform === 'darwin') {
     return path.resolve(
       process.cwd(),
-      'dist/electron-smoke-app/Electron.app/Contents/MacOS/Electron',
+      'dist/electron-smoke-app/Electron 41 Smoke App.app/Contents/MacOS/Electron 41 Smoke App',
     );
   }
 
