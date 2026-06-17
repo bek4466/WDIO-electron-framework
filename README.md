@@ -75,6 +75,17 @@ yarn allure:generate
 yarn allure:open
 ```
 
+## Allure Reporting
+
+Each WDIO run writes Allure results to `reports/allure-results`. Generate the HTML report after a run with:
+
+```bash
+yarn allure:generate
+yarn allure:open
+```
+
+The report includes suite/epic/feature/story labels, severity, owner, tags, environment metadata, JSON attachments for useful runtime state, and failure screenshots.
+
 ## Framework Notes
 
 - Page object model starts with `BaseScreen` in `src/pages/base.screen.ts`.
