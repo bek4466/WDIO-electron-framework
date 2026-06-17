@@ -29,6 +29,7 @@ type VideoState = {
 const videoStates = new Map<string, VideoState>();
 const shouldRecordVideo = process.env.E2E_RECORD_VIDEO === 'true';
 const videoMaxSeconds = Math.max(1, Number(process.env.E2E_VIDEO_MAX_SECONDS ?? 10));
+const videoFps = Math.max(1, Number(process.env.E2E_VIDEO_FPS ?? 10));
 const maxAttachmentBytes = Number(process.env.E2E_LOG_ATTACHMENT_BYTES ?? 80_000);
 
 function sanitizeFileName(value: string): string {
@@ -184,26 +185,43 @@ export async function startEvidenceCapture(test: TestLike): Promise<void> {
     return;
   }
 
-  if (process.platform !== 'darwin') {
-    state.reason = 'Native video recording is currently configured for macOS screencapture.';
+  if (process.platform !== 'win32') {
+    state.reason = `Windows video recording is skipped on ${process.platform}. Final framework video capture is configured for Windows runs.`;
     return;
   }
 
   const filePath = path.join(
     reportPaths.videos,
-    `${Date.now()}-${sanitizeFileName(test.title)}.mov`,
+    `${Date.now()}-${sanitizeFileName(test.title)}.mp4`,
   );
-  const recorder = spawn('/usr/sbin/screencapture', [
-    '-v',
-    `-V${videoMaxSeconds}`,
-    '-x',
-    '-k',
-    filePath,
-  ]);
+  const recorder = spawn(
+    'ffmpeg',
+    [
+      '-y',
+      '-f',
+      'gdigrab',
+      '-framerate',
+      String(videoFps),
+      '-i',
+      'desktop',
+      '-t',
+      String(videoMaxSeconds),
+      '-pix_fmt',
+      'yuv420p',
+      filePath,
+    ],
+    {
+      windowsHide: true,
+    },
+  );
 
   state.process = recorder;
   state.filePath = filePath;
   state.started = true;
+  recorder.on('error', (error) => {
+    state.started = false;
+    state.reason = `Unable to start ffmpeg. Install ffmpeg on the Windows runner and make sure it is available in PATH. ${error.message}`;
+  });
   recorder.stdout.on('data', (chunk) => {
     state.stdout += String(chunk);
   });
@@ -229,22 +247,27 @@ async function stopVideoCapture(test: TestLike): Promise<void> {
   }
 
   await new Promise<void>((resolve) => {
-    const timeout = setTimeout(
-      () => {
-        state.process?.kill('SIGKILL');
-        resolve();
-      },
-      videoMaxSeconds * 1000 + 3000,
-    );
+    const timeout = setTimeout(() => {
+      state.process?.kill();
+      resolve();
+    }, 5000);
 
     state.process?.once('exit', () => {
       clearTimeout(timeout);
       resolve();
     });
 
-    if (state.process?.exitCode !== null) {
+    if (!state.started || state.process?.exitCode !== null) {
       clearTimeout(timeout);
       resolve();
+      return;
+    }
+
+    if (state.process?.stdin.writable) {
+      state.process.stdin.write('q');
+      state.process.stdin.end();
+    } else {
+      state.process?.kill();
     }
   });
 
@@ -254,7 +277,7 @@ async function stopVideoCapture(test: TestLike): Promise<void> {
     await allureReporter.addAttachment(
       'Test execution video',
       fs.readFileSync(filePath),
-      'video/quicktime',
+      'video/mp4',
     );
     return;
   }
@@ -264,10 +287,12 @@ async function stopVideoCapture(test: TestLike): Promise<void> {
     available: false,
     filePath,
     maxSeconds: videoMaxSeconds,
+    fps: videoFps,
     stdout: state.stdout,
     stderr: state.stderr,
     reason:
-      'Native recording did not produce a video. Check macOS Screen Recording permission for the terminal process.',
+      state.reason ??
+      'Windows ffmpeg recording did not produce a video. Confirm ffmpeg is installed, available in PATH, and allowed to capture the desktop session.',
   });
 }
 
