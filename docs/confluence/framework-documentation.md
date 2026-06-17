@@ -170,11 +170,17 @@ yarn allure:open
 The report includes:
 
 - suite, epic, feature, and story labels
-- severity, owner, and tags
+- severity, owner, tags, and links
 - environment metadata
-- named steps
-- JSON attachments for useful runtime state
-- screenshots and failure details for failed tests
+- named business steps
+- JSON test data and runtime state attachments
+- final screenshots for every test
+- failure details for failed tests
+- browser console availability or log output
+- WDIO and ChromeDriver log tails
+- optional Windows video evidence through `ffmpeg`
+
+See `docs/confluence/allure-evidence-and-steps.md` for the detailed reporting strategy.
 
 ## Adding New Test Coverage
 

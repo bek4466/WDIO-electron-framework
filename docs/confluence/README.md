@@ -10,6 +10,8 @@ Recommended Confluence page structure:
    - Source: `architecture-diagrams.md`
 3. `Test Authoring Guide`
    - Source: `test-authoring-guide.md`
+4. `Allure Evidence and Step Reporting`
+   - Source: `allure-evidence-and-steps.md`
 
 ## Upload Notes
 
