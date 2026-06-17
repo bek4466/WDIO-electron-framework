@@ -1,0 +1,63 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key - duplicate values.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3153\", https://extron.atlassian.net/browse/TOOL-3153",
+      "TestCaseLink": "\"Test Case: TOOL-T667\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T667",
+      "TestCaseHeader": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key - duplicate values."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "1.2.3",
+        "devices.1.network.interfaces.0.address": "1.2.3",
+        "devices.2.network.interfaces.0.address": "1.2.3",
+        "devices.3.network.interfaces.0.address": "1.2.3"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Primary Controller - network.interfaces.address: Invalid - Must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces.address: Invalid - Must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces.address: Invalid - Must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces.address: Invalid - Must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

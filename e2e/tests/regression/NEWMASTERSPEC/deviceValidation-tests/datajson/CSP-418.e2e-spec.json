@@ -1,0 +1,97 @@
+{
+    "Execute":["TestCase1","TestCase2"],
+  
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid file path for system.irfile_folder_path gives appropriate Warning messages",
+            "Owner": "Amit B",
+            "SuiteType": "System Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-209\", https://extron.atlassian.net/browse/CSP-209",
+            "UserStory": "CSP-209: system.irfile_folder_path",
+            "TaskLink": "\"Task Issue: CSP-418\", https://extron.atlassian.net/browse/CSP-418",
+            "TestCaseLink": "\"Test Case: CSP-T587\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T587",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData":{
+               
+                "system.irfile_folder_path": "not a path"
+              
+                }
+    
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "system.irfile_folder_path: Invalid - Invalid path: *.*",
+                    "MessageType":"Warning",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+    ,
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid file path (Non Existent file path) for system folder(rfile_folder_path) gives appropriate warning messages",
+            "Owner": "Amit B",
+            "SuiteType": "System Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-209\", https://extron.atlassian.net/browse/CSP-209",
+            "UserStory": "CSP-209: system.irfile_folder_path",
+            "TaskLink": "\"Task Issue: CSP-418\", https://extron.atlassian.net/browse/CSP-418",
+            "TestCaseLink": "\"Test Case: CSP-T585\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T585",
+             "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData":{
+               
+                "system.irfile_folder_path": "*.adr"
+              
+                }
+    
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "system.irfile_folder_path: Invalid - Invalid path: *.*",
+                    "MessageType":"Warning",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+    }

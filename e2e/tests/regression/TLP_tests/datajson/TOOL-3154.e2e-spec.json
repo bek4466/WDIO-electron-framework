@@ -1,0 +1,223 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2638\", https://extron.atlassian.net/browse/TOOL-2638",
+            "UserStory": "TOOL-2638 (TLP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3154\", https://extron.atlassian.net/browse/TOOL-3154",
+            "TestCaseLink": "\"Test Case: TOOL-T627\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320794",
+            "TestCaseHeader": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "My Peripheral Device",
+                "devices.2.name": "My Peripheral Device 2",
+                "devices.3.name": "My Peripheral Device 3"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Peripheral Device - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 2 - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 3 - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates matching of Peripheral Device hardware at the time of Deploy",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2638\", https://extron.atlassian.net/browse/TOOL-2638",
+            "UserStory": "TOOL-2638 (TLP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3154\", https://extron.atlassian.net/browse/TOOL-3154",
+            "TestCaseLink": "\"Test Case: TOOL-T628 (1.0) \", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320795",
+            "TestCaseHeader": "Verify that a info message validates matching of Peripheral Device hardware at the time of Deploy"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.1.name": "My Peripheral Device",
+                "devices.2.name": "My Peripheral Device 2",
+                "devices.3.name": "My Peripheral Device 3"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Peripheral Device - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 2 - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 3 - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2638\", https://extron.atlassian.net/browse/TOOL-2638",
+            "UserStory": "TOOL-2638 (TLP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3154\", https://extron.atlassian.net/browse/TOOL-3154",
+            "TestCaseLink": "\"Test Case: TOOL-T629 (1.0) \", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320796",
+            "TestCaseHeader": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.1.name": "My Peripheral Device",
+                "devices.2.name": "My Peripheral Device 2",
+                "devices.3.name": "My Peripheral Device 3"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Peripheral Device - Hardware found : Connected to device at 10.113.89.255",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 2 - Hardware found : Connected to device at 10.113.89.249",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 3 - Hardware found : Connected to device at 10.113.89.176",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2638\", https://extron.atlassian.net/browse/TOOL-2638",
+            "UserStory": "TOOL-2638 (TLP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3154\", https://extron.atlassian.net/browse/TOOL-3154",
+            "TestCaseLink": "\"Test Case: TOOL-T630 (1.0) \", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320797",
+            "TestCaseHeader": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "DeleteData": [
+                "devices.1.name",
+                "devices.2.name",
+                "devices.3.name"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[1] - Hardware found : Connected to device at 10.113.89.255.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[2] - Hardware found : Connected to device at 10.113.89.249.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[3] - Hardware found : Connected to device at 10.113.89.176.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

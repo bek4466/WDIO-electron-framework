@@ -1,0 +1,204 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify PCF Only contains Credentials for devices with Alias's described",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3700\", https://extron.atlassian.net/browse/TOOL-3700",
+      "UserStory": "Project Credentials: PCF contains Devices Alias that is NOT listed in the Project Descriptor",
+      "TaskLink": "\"Task Issue: TOOL-3754\", https://extron.atlassian.net/browse/TOOL-3754",
+      "TestCaseLink": "\"Test Case: TOOL-T4532\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4532",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "1220Alias",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "TLP 725T",
+        "devices.2.part_number": "60-1562-02",
+        "devices.2.alias": "725Alias",
+        "devices.2.network.host_network_type": "LAN",
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<TLP725T_TLP>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "EditProjectFile": {
+        "DeleteData": [
+          "devices.2"
+        ]
+      },
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "DeviceName": {
+            "row_2": {
+              "isEmpty": true
+            }
+          },
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      },
+      "EditProjectFile_2": {
+        "InsertTestData": {
+          "devices.2.name": "TLP 725T",
+          "devices.2.part_number": "60-1562-02",
+          "devices.2.alias": "725Alias",
+          "devices.2.network.host_network_type": "LAN",
+          "devices.2.network.interfaces": [],
+          "devices.2.network.interfaces.0.address": "<<TLP725T_TLP>>",
+          "devices.2.network.interfaces.0.type": "LAN"
+        }
+      },
+      "DeployPage_2": {
+        "ProjectCredentialsBtn_2": {
+          "click": {}
+        },
+        "ProjectCredentialsPopUp_2": {
+          "DeviceName": {
+            "row_2": {
+              "isEmpty": true
+            }
+          },
+          "UsernameField": {
+            "exists": true,
+            "row_2": {
+              "matches": ""
+            }
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify PCF Only contains Credentials for devices with Alias's described after deploying",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3700\", https://extron.atlassian.net/browse/TOOL-3700",
+      "UserStory": "Project Credentials: PCF contains Devices Alias that is NOT listed in the Project Descriptor",
+      "TaskLink": "\"Task Issue: TOOL-3754\", https://extron.atlassian.net/browse/TOOL-3754",
+      "TestCaseLink": "\"Test Case: TOOL-T4533\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4533",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "1220Alias",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "TLP 725T",
+        "devices.2.part_number": "60-1562-02",
+        "devices.2.alias": "725Alias",
+        "devices.2.network.host_network_type": "LAN",
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<TLP725T_TLP>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "EditProjectFile": {
+        "DeleteData": [
+          "devices.2"
+        ]
+      },
+      "DeployAction": ["Deploy"],
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "DeviceName": {
+            "row_2": {
+              "isEmpty": true
+            }
+          },
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      },
+      "EditProjectFile_2": {
+        "InsertTestData": {
+          "devices.2.name": "TLP 725T",
+          "devices.2.part_number": "60-1562-02",
+          "devices.2.alias": "725Alias",
+          "devices.2.network.host_network_type": "LAN",
+          "devices.2.network.interfaces": [],
+          "devices.2.network.interfaces.0.address": "<<TLP725T_TLP>>",
+          "devices.2.network.interfaces.0.type": "LAN"
+        }
+      },
+      "DeployPage_2": {
+        "ProjectCredentialsBtn_2": {
+          "click": {}
+        },
+        "ProjectCredentialsPopUp_2": {
+          "DeviceName": {
+            "row_2": {
+              "isEmpty": true
+            }
+          },
+          "UsernameField": {
+            "exists": true,
+            "row_2": {
+              "matches": ""
+            }
+          }
+        }
+      }
+    }
+  }
+}

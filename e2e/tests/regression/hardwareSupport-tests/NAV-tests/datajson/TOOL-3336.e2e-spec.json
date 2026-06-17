@@ -1,0 +1,264 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for Invalid (NAV Peripheral) devices.network.interfaces.address key  - not a string.",
+            "Owner": "Austin Lee",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3336\", https://extron.atlassian.net/browse/TOOL-3336",
+            "TestCaseLink": "\"Test Case: TOOL-T904\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T904",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator : Navigator",
+                "devices.1.network.interfaces.0.address": 1111,
+                "devices.2.name": "NAV E 101 : NAVE_101",
+                "devices.2.network.interfaces.0.address": 2222,
+                "devices.3.name": "NAV SD 101 : NAVSD_101",
+                "devices.3.network.interfaces.0.address": 3333
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : Navigator - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 : NAVE_101 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 : NAVSD_101 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for invalid NAV peripheral devices.alias -Duplicate.(ALREADY AUTOMATED, DISABLED)",
+            "Owner": "Austin Lee",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3336\", https://extron.atlassian.net/browse/TOOL-3336",
+            "TestCaseLink": "\"Test Case: TOOL-T905\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T905",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator : Navigator",
+                "devices.1.network.interfaces.0.address": "1.1.1",
+                "devices.2.name": "NAV E 101 : NAVE_101",
+                "devices.2.network.interfaces.0.address": "2.2.2",
+                "devices.3.name": "NAV SD 101 : NAVSD_101",
+                "devices.3.network.interfaces.0.address": "3.3.3"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : Navigator - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 : NAVE_101 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 : NAVSD_101 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for Missing (NAV Peripheral) devices.network.interfaces.address key.",
+            "Owner": "Austin Lee",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3336\", https://extron.atlassian.net/browse/TOOL-3336",
+            "TestCaseLink": "\"Test Case: TOOL-T906\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T906",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator : Navigator",
+                "devices.2.name": "NAV E 101 : NAVE_101",
+                "devices.3.name": "NAV SD 101 : NAVSD_101"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.1.network.interfaces.0.address",
+                "devices.2.network.interfaces.0.address",
+                "devices.3.network.interfaces.0.address"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : Navigator - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 : NAVE_101 - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 : NAVSD_101 - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for invalid (NAV Peripheral) devices.network.interfaces.address key - duplicate values.",
+            "Owner": "Austin Lee",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3336\", https://extron.atlassian.net/browse/TOOL-3336",
+            "TestCaseLink": "\"Test Case: TOOL-T907\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T907",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator : Navigator",
+                "devices.2.name": "NAV E 101 : Navigator",
+                "devices.3.name": "NAV SD 101 : Navigator",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.2.network.interfaces.0.address": "Navigator",
+                "devices.3.network.interfaces.0.address": "Navigator"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : Navigator - network.interfaces.address: Invalid - Must be unique",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 : Navigator - network.interfaces.address: Invalid - Must be unique",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 : Navigator - network.interfaces.address: Invalid - Must be unique",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

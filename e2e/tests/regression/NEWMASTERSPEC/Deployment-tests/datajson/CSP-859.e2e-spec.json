@@ -1,0 +1,109 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Dual NIC Controller system deploys with software on LAN and Dual NIC device on AVLAN",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-553\", https://extron.atlassian.net/browse/CSP-553",
+            "UserStory": "CSP-553 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-667\", https://extron.atlassian.net/browse/CSP-667",
+            "TestCaseLink": "\"Test Case: CSP-T891\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T891",
+            "ProjectFile": "GoldenDualnicProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Controller",
+                "devices.0.part_number": "60-1431-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+                "devices.1.name": "Second Dual NIC",
+                "devices.1.part_number": "60-1414-01",
+                "devices.1.network.interfaces.0.address": "<<AV_IPL_PROS6_singlenic_AV>>",
+                "devices.1.network.interfaces.0.type": "AVLAN",
+                "devices.1.network.host_network_type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<matchWithSecondaryController>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Dual NIC Controller system deploys with software on LAN and Dual NIC device on LAN",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-553\", https://extron.atlassian.net/browse/CSP-553",
+            "UserStory": "CSP-553 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-667\", https://extron.atlassian.net/browse/CSP-667",
+            "TestCaseLink": "\"Test Case: CSP-T1091\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1091",
+            "ProjectFile": "GoldenDualnicProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Controller",
+                "devices.0.part_number": "60-1431-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+                "devices.1.name": "Second Dual NIC"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<matchWithSecondaryController>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,121 @@
+{
+  "Execute":["TestCase1", "TestCase2"],
+  "TestCase1": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify there should be error message in message pane for invalid (NAV Peripheral) devices.network.interfaces.address key - duplicate values.",
+          "Owner": "Kiran Shrestha",
+          "SuiteType": "Deployment Test",
+          "UserStoryLink": "\"User Story: TOOL-1682\", https://extron.atlassian.net/browse/TOOL-1682",
+          "UserStory": "TOOL-1682 (NAV Endpoints Bad Scenarios)",
+          "TaskLink": "\"Task Issue: TOOL-1355\", https://extron.atlassian.net/browse/TOOL-1355",
+          "TestCaseLink": "\"Test Case: CSP-T1181\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1181",
+          "ProjectFile": "NavProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+          "ModifyTestData": {
+            "devices.0.part_number": "60-1431-01",
+            "devices.0.network.interfaces.0.address": "1.2.3.4",
+            "devices.1.part_number": "60-1534-01",
+            "devices.1.network.interfaces.0.address": "1.2.3.4",
+            "devices.2.part_number": "60-1525-12",
+            "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+            "devices.3.part_number": "60-1525-14",
+            "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+          },
+          "InsertTestData": {
+          },
+          "DeleteData": [
+          ]
+      },        
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                  "MessageText": "<<duplicateDeviceAddress>>",
+                  "MessageType": "Error",
+                  "Exist": true
+              }
+          ]
+      },
+      "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+        "TestDescription": "Verify there should be error message in message pane for invalid (NAV Peripheral) devices.network.interfaces.address key - duplicate values.",
+        "Owner": "Kiran Shrestha",
+        "SuiteType": "Deployment Test",
+        "UserStoryLink": "\"User Story: TOOL-1682\", https://extron.atlassian.net/browse/TOOL-1682",
+        "UserStory": "TOOL-1682 (NAV Endpoints Bad Scenarios)",
+        "TaskLink": "\"Task Issue: TOOL-1355\", https://extron.atlassian.net/browse/TOOL-1355",
+        "TestCaseLink": "\"Test Case: CSP-T1182 \", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1182",
+        "ProjectFile": "NavProject\\systeminfo.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.alias": "temp",
+          "devices.0.part_number": "60-1431-01",
+          "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+          "devices.1.part_number": "60-1534-01",
+          "devices.1.alias": "ProcessorAlias",
+          "devices.1.network.interfaces.0.address": "<<Navigator>>",
+          "devices.2.part_number": "60-1525-12",
+          "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+          "devices.3.part_number": "60-1525-14",
+          "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+        },
+        "InsertTestData": {
+        },
+        "DeleteData": [
+        ]
+    },        
+    "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+    "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+            {
+                "MessageText": "<<primaryTlpAliasMessage>>",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ]
+    },
+    "Execute": "True"
+  }
+}

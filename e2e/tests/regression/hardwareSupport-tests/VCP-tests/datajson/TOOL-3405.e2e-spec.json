@@ -1,0 +1,166 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate error message is thrown if system is invalid due to incompatible HW",
+            "Owner": "Austin Lee",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3405\", https://extron.atlassian.net/browse/TOOL-3405",
+            "TestCaseLink": "\"Test Case: TOOL-T886\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T886",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "system.primary_device_alias": "ProcessorAlias_2",
+                "devices.0.name": "VCP",
+                "devices.0.part_number": "60-1838-01",
+                "devices.0.network.interfaces.0.address": "VCP_LAN"
+            },
+            "InsertTestData": {
+                "devices.0.network.host_network_type": "LAN",
+                "devices.2.name": "IPCP Controller : Pro550_IPCP",
+                "devices.2.part_number": "60-1418-01",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "Pro550_IPCP",
+                "devices.2.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Invalid : Primary controller doesn't support the peripheral device",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestVCP - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that when VCP is configured as Primary Controller Device with IPCP/IPL Live address, appropriate error message is thrown during the deployment",
+            "Owner": "Austin Lee",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3405\", https://extron.atlassian.net/browse/TOOL-3405",
+            "TestCaseLink": "\"Test Case: TOOL-T965\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T965",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "devices.0.name": "VCP",
+                "devices.0.part_number": "60-1838-01",
+                "devices.0.network.interfaces.0.address": "Pro550_IPCP"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Hardware Incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestVCP - Project deployment failed.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that when VCP is configured as Primary Controller Device with TLP Pro w LL Live address, appropriate error message is thrown during the deployment",
+            "Owner": "Austin Lee",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3405\", https://extron.atlassian.net/browse/TOOL-3405",
+            "TestCaseLink": "\"Test Case: TOOL-T966\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T966",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "devices.0.name": "VCP",
+                "devices.0.part_number": "60-1838-01",
+                "devices.0.network.interfaces.0.address": "TLP300M_LL"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP Hardware Incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestVCP - Project deployment failed.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

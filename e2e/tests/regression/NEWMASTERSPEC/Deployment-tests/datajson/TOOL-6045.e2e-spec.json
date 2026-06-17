@@ -1,0 +1,331 @@
+{
+    "Execute": [
+        "TestCase1A",
+        "TestCase1B",
+        "TestCase1C",
+        "TestCase2"
+    ],
+    "TestCase1A": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+            "Owner": "Kiran",
+            "SuiteType": "UCS-tests",
+            "UserStoryLink": "\"User Story: TOOL-6020\", https://extron.atlassian.net/browse/TOOL-6020 ",
+            "UserStory": "TOOL-6020 (CSDU: UCS SR 501)",
+            "TaskLink": "\"Task Issue: TOOL-6044\", https://extron.atlassian.net/browse/TOOL-6044 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "UcsDeployment",
+                "devices.0.name": "TLP 300M wLL",
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.name": "UCS SR 501",
+                "devices.1.alias": "SPDeviceAlias",
+                "devices.1.part_number": "60-1798-13",
+                "devices.1.network.interfaces.0.address": "<<UCSSR501>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "UcsDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<pairingPositiveMessageFirstPartAddress>><<UCSSR501>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<dualnicPairingMessagePart1>><<UCSSR501>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<HardwareFoundMessage>><<UCSSR501>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP 300M wLL<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase1B": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+            "Owner": "Kiran",
+            "SuiteType": "UCS-tests",
+            "UserStoryLink": "\"User Story: TOOL-6020\", https://extron.atlassian.net/browse/TOOL-6020 ",
+            "UserStory": "TOOL-6020 (CSDU: UCS SR 501)",
+            "TaskLink": "\"Task Issue: TOOL-6044\", https://extron.atlassian.net/browse/TOOL-6044 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "UcsDeployment",
+                "devices.0.name": "IPCP350XI",
+                "devices.0.part_number": "60-1912-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+                "devices.1.name": "UCS SR 501",
+                "devices.1.alias": "SPDeviceAlias",
+                "devices.1.part_number": "60-1798-13",
+                "devices.1.network.interfaces.0.address": "<<UCSSR501>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "UcsDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<pairingPositiveMessageFirstPartAddress>><<UCSSR501>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<dualnicPairingMessagePart1>><<UCSSR501>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<HardwareFoundMessage>><<UCSSR501>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP350XI<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase1C": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+            "Owner": "Kiran",
+            "SuiteType": "UCS-tests",
+            "UserStoryLink": "\"User Story: TOOL-6020\", https://extron.atlassian.net/browse/TOOL-6020 ",
+            "UserStory": "TOOL-6020 (CSDU: UCS SR 501)",
+            "TaskLink": "\"Task Issue: TOOL-6044\", https://extron.atlassian.net/browse/TOOL-6044 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "UcsDeployment",
+                "devices.0.name": "IPCP360QXI",
+                "devices.0.part_number": "60-1916-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.1.name": "UCS SR 501",
+                "devices.1.alias": "SPDeviceAlias",
+                "devices.1.part_number": "60-1798-13",
+                "devices.1.network.interfaces.0.address": "<<UCSSR501>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "UcsDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<pairingPositiveMessageFirstPartAddress>><<UCSSR501>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<dualnicPairingMessagePart1>><<UCSSR501>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<HardwareFoundMessage>><<UCSSR501>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UCS SR 501<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP360QXI<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "UcsDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device gives appropriate Error hardware message when unsupported on Primary",
+            "Owner": "Kiran",
+            "SuiteType": "UCS-tests",
+            "UserStoryLink": "\"User Story: TOOL-6020\", https://extron.atlassian.net/browse/TOOL-6020 ",
+            "UserStory": "TOOL-6020 (CSDU: UCS SR 501)",
+            "TaskLink": "\"Task Issue: TOOL-6045\", https://extron.atlassian.net/browse/TOOL-6045 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4620\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4620 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<Pro350__IPCP>>",
+                "devices.1.name": "UCS SR 501",
+                "devices.1.alias": "SPDeviceAlias",
+                "devices.1.part_number": "60-1798-13",
+                "devices.1.network.interfaces.0.address": "<<UCSSR501>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "UCS SR 501<<primaryNoSupportPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

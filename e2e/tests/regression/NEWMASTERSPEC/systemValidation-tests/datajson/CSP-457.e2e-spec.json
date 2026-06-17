@@ -1,0 +1,55 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that peripheral device having \"devices.network.host_network_type\" as \"AVLAN\" has good deploy",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1670\", https://extron.atlassian.net/browse/TOOL-1670",
+            "UserStory": "TOOL-1670 (system.code_folder_path)",
+            "TaskLink": "\"Task Issue: TOOL-1407\", https://extron.atlassian.net/browse/TOOL-1407",
+            "TestCaseLink": "\"Test Case: TOOL-T2553\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2553",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.network.host_network_type": "AVLAN",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.host_network_type": "AVLAN"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

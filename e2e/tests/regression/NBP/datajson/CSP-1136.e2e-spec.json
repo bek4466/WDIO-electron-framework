@@ -1,0 +1,201 @@
+{
+    "TestCase1": {
+        "TestDescription": "Verify that a info message validates matching of Peripheral Device hardware at the time of Deploy",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1588\", \"https://extron.atlassian.net/browse/TOOL-1588\"",
+        "UserStory": "TOOL-1588 (NBP Happy Path  Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1136\", \"https://extron.atlassian.net/browse/CSP-1136\"",
+        "TestCaseLink": "\"Test Case: TOOL-T628\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T628\"",
+        "TestCaseHeader": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Hardware Match : Device matched with live device on the network.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": true            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)(Duplicate)",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1588\", \"https://extron.atlassian.net/browse/TOOL-1588\"",
+        "UserStory": "TOOL-1588 (NBP Happy Path  Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1136\", \"https://extron.atlassian.net/browse/CSP-1136\"",
+        "TestCaseLink": "\"Test Case: TOOL-T632\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T632\"",
+        "TestCaseHeader": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Hardware found : Connected to device at 10.113.89.214.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": true            }
+        ],
+        "Execute": "False"
+    },
+    "TestCase3": {
+        "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1588\", \"https://extron.atlassian.net/browse/TOOL-1588\"",
+        "UserStory": "TOOL-1588 (NBP Happy Path  Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1136\", \"https://extron.atlassian.net/browse/CSP-1136\"",
+        "TestCaseLink": "\"Test Case: TOOL-T632\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T632\"",
+        "TestCaseHeader": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "DeleteData":["devices.1.name"],
+        "VerifyMessage": [
+            {
+                "MessageText": "device[1] - Hardware found : Connected to device at 10.113.89.214.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "device[1] - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": true            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1588\", \"https://extron.atlassian.net/browse/TOOL-1588\"",
+        "UserStory": "TOOL-1588 (NBP Happy Path  Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1136\", \"https://extron.atlassian.net/browse/CSP-1136\"",
+        "TestCaseLink": "\"Test Case: TOOL-T179\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T179\"",
+        "TestCaseHeader": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Correct Credentials : Device's credentials are valid.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": true            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1588\", \"https://extron.atlassian.net/browse/TOOL-1588\"",
+        "UserStory": "TOOL-1588 (NBP Happy Path  Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1136\", \"https://extron.atlassian.net/browse/CSP-1136\"",
+        "TestCaseLink": "\"Test Case: TOOL-T3261\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3261\"",
+        "TestCaseHeader": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "DeleteData": ["devices.1.extron_control_web_id"],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - extron_control_web_id: Default value used \"([a-zA-Z0-9]{40,40})\"",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": true            }
+        ],
+        "Execute": "True"
+    }
+}

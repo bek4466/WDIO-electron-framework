@@ -1,0 +1,56 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that there should be an error \"Device credentials are incorrect\" in message window while retrieving trace, if Primary controller s credentials are incorrect.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Message Pane",
+            "UserStoryLink": "\"CSP-109:As FG, I want to know why I am not able to connect to the primary controller to retrieve the program log so that I can fix the issue\", https://extron.atlassian.net/browse/CSP-109",
+            "UserStory": "CSP-109:As FG, I want to know why I am not able to connect to the primary controller to retrieve the program log so that I can fix the issue",
+            "TaskLink": "\"Task Issue: CSP-180\", https://extron.atlassian.net/browse/CSP-180",
+            "TestCaseLink": "\"Test Case: CSP-T211\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T211",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "notadmin",
+                "pass": "notextron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "VerifyTroubleShootingMessage": [
+                {
+                    "MessageText": "<<controllerCredentialsIncorrectMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "Execute": [
+      "TestCase1"
+    ],
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify there should be a message for incompatible hardware.",
+        "Owner": "Miguel Cruz",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-914\", https://extron.atlassian.net/browse/CSP-914",
+        "UserStory": "NAVigator Bas Scenarios",
+        "TaskLink": "\"Task Issue: CSP-1004\", https://extron.atlassian.net/browse/CSP-1004",
+        "TestCaseLink": "\"Test Case: CSP-T1146\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1146",
+        "ProjectFile": "NavProject\\systeminfo.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.name": "My NAV Device",
+          "devices.1.part_number": "60-1431-01"
+        },
+        "InsertTestData": {},
+        "DeleteData": []
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "My NAV Device<<hardwareIncompatibleNAV>>",
+            "MessageType": "Error",
+            "Exist": true
+          },
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    }
+  }

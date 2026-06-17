@@ -1,0 +1,110 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify the functionality of Signout Dialogue box",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-4671\", https://extron.atlassian.net/browse/TOOL-4671",
+      "UserStory": "TOOL-4671 (Updating the Sign-out Dialog box)",
+      "TaskLink": "\"Task Issue: TOOL-4721\", https://extron.atlassian.net/browse/TOOL-4721",
+      "TestCaseLink": "\"Test Case: TOOL-T4747\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/84126649",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Steps": {
+      "SignOutAction": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp": {
+        "Title": {
+          "matchesText": "<<popUpSignOutTitle>>"
+        },
+        "Text1": {
+          "matchesText": "<<popUpSignOutText1>>"
+        },
+        "Text2": {
+          "matchesText": "<<popUpSignOutText2>>"
+        },
+        "signOutBtn": {
+          "exists": true
+        },
+        "cancelBtn": {
+          "exists": true
+        },
+        "XBtn": {
+          "exists": true
+        },
+        "cancelBtn_2": {
+          "click": {}
+        }
+      },
+      "SignOutAction_2": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp_2": {
+        "XBtn": {
+          "click": null
+        }
+      },
+      "SignOutAction_3": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp_3": {
+        "signOutBtn": {
+          "click": null
+        }
+      },
+      "AppAction": [
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "SignOutAction_4": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp_4": {
+        "Title": {
+          "matchesText": "<<popUpSignOutTitle>>"
+        },
+        "Text1": {
+          "matchesText": "<<popUpSignOutText1>>"
+        },
+        "Text2": {
+          "matchesText": "<<popUpSignOutText2>>"
+        },
+        "signOutBtn": {
+          "exists": true
+        },
+        "cancelBtn": {
+          "exists": true
+        },
+        "XBtn": {
+          "exists": true
+        },
+        "cancelBtn_2": {
+          "click": {}
+        }
+      },
+      "SignOutAction_5": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp_5": {
+        "XBtn": {
+          "click": null
+        }
+      },
+      "SignOutAction_6": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp_6": {
+        "signOutBtn": {
+          "click": null
+        }
+      }
+    },
+    "Execute": "True"
+  }
+}

@@ -59,6 +59,8 @@ src/specs/regression/           Broader regression coverage
 src/test-data/                  Data-driven test inputs and expected values
 src/support/                    Shared selectors, waits, and assertions
 src/fixtures/electron-smoke-app/ Local Electron 41 smoke app
+e2e/src/                        Imported legacy E2E page objects and JSON data
+e2e/tests/                      Imported legacy E2E specs and JSON-driven master specs
 scripts/                        Maintenance and validation scripts
 docs/                           Usage notes
 docs/confluence/                Confluence-ready framework documentation and diagrams
@@ -70,6 +72,7 @@ docs/confluence/                Confluence-ready framework documentation and dia
 yarn clean
 yarn test:smoke
 yarn test:regression
+yarn test:e2e-json
 yarn typecheck
 yarn format
 yarn allure:generate

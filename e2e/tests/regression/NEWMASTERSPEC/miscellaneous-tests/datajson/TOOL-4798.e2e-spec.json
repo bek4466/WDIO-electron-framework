@@ -1,0 +1,181 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that extron.log files or contents of the extron.log files are deleted from the specified path",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Miscellaneous Test",
+      "UserStoryLink": "\"User Story: TOOL-4790\", https://extron.atlassian.net/browse/TOOL-4790",
+      "UserStory": "TOOL-4790 (Disable logging for the extron.log file )",
+      "TaskLink": "\"Task Issue: TOOL-4798\", https://extron.atlassian.net/browse/TOOL-4798",
+      "TestCaseLink": "\"Test Case: T4774\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/87344149",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "IPCP550_IPCP_singlenic",
+        "devices.2.alias": "ProcessorAlias_2",
+        "devices.2.part_number": "60-1418-01",
+        "devices.2.network": {},
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "MiscellaneousAction": [
+        "ExtronLogFileDoesNotExist"
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that after logging in as Certified User, extron.log files are not generated",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Miscellaneous Test",
+      "UserStoryLink": "\"User Story: TOOL-4790\", https://extron.atlassian.net/browse/TOOL-4790",
+      "UserStory": "TOOL-4790 (Disable logging for the extron.log file )",
+      "TaskLink": "\"Task Issue: TOOL-4798\", https://extron.atlassian.net/browse/TOOL-4798",
+      "TestCaseLink": "\"Test Case: T4775\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/87349974",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "IPCP550_IPCP_singlenic",
+        "devices.2.alias": "ProcessorAlias_2",
+        "devices.2.part_number": "60-1418-01",
+        "devices.2.network": {},
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "MiscellaneousAction": [
+        "ExtronLogFileDoesNotExist"
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that after logging in as Uncertified User, extron.log files are not generated",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Miscellaneous Test",
+      "UserStoryLink": "\"User Story: TOOL-4790\", https://extron.atlassian.net/browse/TOOL-4790",
+      "UserStory": "TOOL-4790 (Disable logging for the extron.log file )",
+      "TaskLink": "\"Task Issue: TOOL-4798\", https://extron.atlassian.net/browse/TOOL-4798",
+      "TestCaseLink": "\"Test Case: T4778\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/87353384",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "IPCP550_IPCP_singlenic",
+        "devices.2.alias": "ProcessorAlias_2",
+        "devices.2.part_number": "60-1418-01",
+        "devices.2.network": {},
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "MiscellaneousAction": [
+        "ExtronLogFileDoesNotExist"
+      ]
+    },
+    "Execute": "True"
+  }
+}

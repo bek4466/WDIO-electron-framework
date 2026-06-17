@@ -1,0 +1,67 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Message pane displays correct credentials messages and addresses matching live devices in UI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", https://extron.atlassian.net/browse/TOOL-2327",
+            "UserStory": "TOOL-2327: Data File - Bad Scenarios",
+            "TaskLink": "\"Task Issue: TOOL-2420\", https://extron.atlassian.net/browse/TOOL-2420",
+            "TestCaseLink": "\"Test Case: TOOL-T343\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T343",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.1.name": "Secondary Device"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Secondary Device<<pairingPositiveMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Primary Device<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Primary Device<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Primary Device<<HardwareFoundMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

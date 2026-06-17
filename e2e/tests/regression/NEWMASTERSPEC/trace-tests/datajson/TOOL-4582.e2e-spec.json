@@ -1,0 +1,199 @@
+{
+    "Execute": [
+        "TestCase",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Trace log orders the entries with newest on bottom",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Trace",
+            "UserStoryLink": "\"User Story: TOOL-1598\", https://extron.atlassian.net/browse/TOOL-1598",
+            "UserStory": "TOOL-1598 (As Francisco, I want to see the triggered events in trace, so I know what is going on with my system)",
+            "TaskLink": "\"Task Issue: TOOL-1896\", https://extron.atlassian.net/browse/TOOL-1896",
+            "TestCaseLink": "\"Test Case: CSP-T43\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T43?projectId=12130",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [],
+            "Timeout_5": "medium",
+            "TroubleshootingPage": {
+                "StartTraceBtn": {
+                    "exists": true
+                },
+                "Spinner": {
+                    "exists": false
+                }
+            },
+            "Timeout": "fast",
+            "TroubleshootingPage_5": {
+                "StartTraceBtn": {
+                    "click": null
+                }
+            },
+            "Timeout_6": "fast",
+            "TroubleshootingPage_2": {
+                "StopTraceBtn": {
+                    "exists": true
+                },
+                "Spinner": {
+                    "exists": true
+                }
+            },
+            "Timeout_2": "medium",
+            "TroubleshootingAction_2": [
+                "verifyTraceMessageOrderedNewestOnTop"
+            ],
+            "TroubleshootingPage_3": {
+                "StopTraceBtn": {
+                    "click": null
+                }
+            },
+            "Timeout_3": "medium",
+            "TroubleshootingPage_4": {
+                "StartTraceBtn": {
+                    "exists": true
+                },
+                "Spinner": {
+                    "exists": false
+                }
+            },
+            "Timeout_4": "medium"
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be an error 'Device incompatible.' inside message window while retrieving trace, if device is incompatible.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Trace",
+            "UserStoryLink": "\"User Story: TOOL-1600\", https://extron.atlassian.net/browse/TOOL-1600",
+            "UserStory": "TOOL-1600 (As FG, I want to know why I am not able to connect to the device to start trace so that I can fix the issue)",
+            "TaskLink": "\"Task Issue: TOOL-4582\", https://extron.atlassian.net/browse/TOOL-4582",
+            "TestCaseLink": "\"Test Case: TOOL-T2337\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2337",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "<<TLP725T_TLP>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "DeployAction_2": [
+                "ClearMessagePane"
+            ],
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "DeployAction_3": [],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<incompatibleDeviceMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Trace Session stopped remains persistent when switching views",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Trace",
+            "UserStoryLink": "\"User Story: TOOL-1654\", https://extron.atlassian.net/browse/TOOL-1654",
+            "UserStory": "TOOL-1654 (State Management - Trace Status & Content to Remain Consistent)",
+            "TaskLink": "\"Task Issue: TOOL-4582\", https://extron.atlassian.net/browse/TOOL-4582",
+            "TestCaseLink": "\"Test Case: TOOL-T2798\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2798",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [],
+            "TroubleshootingPage": {
+                "StartTraceBtn": {
+                    "exists": true
+                }
+            },
+            "DeployAction_2": [],
+            "TroubleshootingAction_2": [],
+            "TroubleshootingPage_2": {
+                "StartTraceBtn": {
+                    "exists": true
+                }
+            }
+        }
+    }
+}

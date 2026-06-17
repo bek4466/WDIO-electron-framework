@@ -1,0 +1,101 @@
+{
+    "Execute":["TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing keys for system.code_folder_path give appropriate error messages (DUPLICATE)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-1670: system.code_folder_path\", https://extron.atlassian.net/browse/TOOL-1670",
+            "UserStory": "TOOL-1670: system.code_folder_path",
+            "TaskLink": "\"Task Issue: CSP-415\", https://extron.atlassian.net/browse/CSP-415",
+            "TestCaseLink": "\"Test Case: CSP-T356\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T356",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": [
+                "system.code_folder_path"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingCodeFolder>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid file path for system.code_folder_path gives appropriate error messages",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-1670: system.code_folder_path\", https://extron.atlassian.net/browse/TOOL-1670",
+            "UserStory": "TOOL-1670: system.code_folder_path",
+            "TaskLink": "\"Task Issue: CSP-415\", https://extron.atlassian.net/browse/CSP-415",
+            "TestCaseLink": "\"Test Case: TOOL-T2451\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2451",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.code_folder_path" : "122.122.122"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidCodeFolderPathMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

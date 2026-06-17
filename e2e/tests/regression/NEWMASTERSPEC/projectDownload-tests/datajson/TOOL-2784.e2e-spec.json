@@ -1,0 +1,61 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2770\", https://extron.atlassian.net/browse/TOOL-2770",
+            "UserStory": "TOOL-2770 (Password Obfuscation)",
+            "TaskLink": "\"Task Issue: TOOL-2784\", https://extron.atlassian.net/browse/TOOL-2784",
+            "TestCaseLink": "\"Test Case: TOOL-T515\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T515",
+            "TestDescription": "Verify project download password obfuscation",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "ProjectDownloadSidePanel": {
+                    "usernameInput": {
+                        "set": "device"
+                    },
+                    "passwordInput": {
+                        "set": "extron",
+                        "isObfuscated": true
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

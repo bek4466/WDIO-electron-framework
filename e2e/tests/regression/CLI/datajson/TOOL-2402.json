@@ -1,0 +1,50 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that CLI -c parameter opens CLI(Deprecated)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2371\", https://extron.atlassian.net/browse/TOOL-2371",
+            "UserStory": "TOOL-2371 (CLI Deploy - Triggering UI vs CLI)",
+            "TaskLink": "\"Task Issue: TOOL-2402\", https://extron.atlassian.net/browse/TOOL-2402",
+            "TestCaseLink": "\"Test Case: TOOL-T316\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T316\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that CLI -c parameter opens CLI"
+        },
+        "Steps": {
+            "CommandLineParams": "-c",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "Usage: csdu.cmd -c [options] [command]Options:  -c, --cli             open CLI version of application  -u, --user-interface  open UI version of application  -h, --help            display help for command  -v, --version         output of the version number  Commands:  deploy [options]      deploy control system  help [command]        display help for commandFor more information enter:csdu.cmd -c [command] --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that CLI --cli parameter opens CLI(Deprecated)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2371\", https://extron.atlassian.net/browse/TOOL-2371",
+            "UserStory": "TOOL-2371 (CLI Deploy - Triggering UI vs CLI)",
+            "TaskLink": "\"Task Issue: TOOL-2402\", https://extron.atlassian.net/browse/TOOL-2402",
+            "TestCaseLink": "\"Test Case: TOOL-T369\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T369\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that CLI --cli parameter opens CLI"
+        },
+        "Steps": {
+            "CommandLineParams": "--cli",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "Usage: csdu.cmd -c [options] [command]Options:  -c, --cli             open CLI version of application  -u, --user-interface  open UI version of application  -h, --help            display help for command  -v, --version         output of the version number  Commands:  deploy [options]      deploy control system  help [command]        display help for commandFor more information enter:csdu.cmd -c [command] --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a Primary Device that is unreachable on the network gives appropriate error message (Index identifier scenario)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-428\", https://extron.atlassian.net/browse/CSP-428",
+            "UserStory": "Hardware Not Found",
+            "TaskLink": "\"Task Issue: CSP-576\", https://extron.atlassian.net/browse/CSP-576",
+            "TestCaseLink": "\"Test Case: CSP-T733\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T733",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "<<OFFLINECONTROLLER>>"
+            },
+            "DeleteData":["devices.0.name"]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<unreachablePrimaryDeviceMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a Peripheral Device that is unreachable on the network gives appropriate error message (Index identifier scenario)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-428\", https://extron.atlassian.net/browse/CSP-428",
+            "UserStory": "Hardware Not Found",
+            "TaskLink": "\"Task Issue: CSP-575\", https://extron.atlassian.net/browse/CSP-575",
+            "TestCaseLink": "\"Test Case: CSP-T700\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T700",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Peripheral Device",
+                "devices.1.network.interfaces.0.address": "<<OFFLINECONTROLLER>>"
+            },
+            "DeleteData":["devices.1.name"]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<unreachablePeripheralDeviceMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,269 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Corrupted Project Credentials File displays correct error",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3603\", https://extron.atlassian.net/browse/TOOL-3603",
+      "UserStory": "Project Credentials File: CSDU Cannot Access Project Credentials",
+      "TaskLink": "\"Task Issue: TOOL-3752\", https://extron.atlassian.net/browse/TOOL-3752",
+      "TestCaseLink": "\"Test Case: TOOL-T4522\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4522",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "CommonMethod": {
+        "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat"
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Timeout": "fast",
+      "CommonMethod_2": {
+        "appendToFile": {
+          "filePath": "CredentialsProject\\systeminfoTmp-credential.dat",
+          "text": "ThisIsInvalidText"
+        }
+      },
+      "Timeout_2": "fast",
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": {}
+        }
+      },
+      "Timeout_3": "fast",
+      "DeployPage_2": {
+        "ProjectCredentialsPopUp": {
+          "CloseBtn": {
+            "click": {}
+          }
+        }
+      },
+      "Banner": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction": [],
+      "Banner_2": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "ProfileAction": [],
+      "Banner_3": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "AboutAction": [],
+      "Banner_4": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "CommonMethod_3": {
+        "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat"
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Corrupted Project Credentials File displays correct error when using Features",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3603\", https://extron.atlassian.net/browse/TOOL-3603",
+      "UserStory": "Project Credentials File: CSDU Cannot Access Project Credentials",
+      "TaskLink": "\"Task Issue: TOOL-3752\", https://extron.atlassian.net/browse/TOOL-3752",
+      "TestCaseLink": "\"Test Case: TOOL-T4523\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4523",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "CommonMethod": {
+        "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat"
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Timeout": "fast",
+      "CommonMethod_2": {
+        "appendToFile": {
+          "filePath": "CredentialsProject\\systeminfoTmp-credential.dat",
+          "text": "ThisIsInvalidText"
+        }
+      },
+      "Timeout_2": "fast",
+      "DeployAction": [
+        "Deploy",
+        "DeployCodeOnly"
+      ],
+      "Banner": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction": [
+        "StartProgramLog",
+        "StartTrace",
+        "RefreshProgramLog"
+      ],
+      "Banner_2": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "ProfileAction": [],
+      "Banner_3": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "AboutAction": [],
+      "Banner_4": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "CommonMethod_3": {
+        "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat"
+      }
+    }
+  }
+}

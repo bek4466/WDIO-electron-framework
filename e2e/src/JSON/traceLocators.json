@@ -1,0 +1,43 @@
+{
+    "traceTextTitle": "#trace-header-title",
+    "startTraceBtn": "//*[@id='trace-header-bar']/div[2]/sync-icon-button[1]/div/button",
+    "clearTraceBtn": "//*[@id='trace-header-bar']/div[2]/sync-icon-button[2]/div/button",
+    "stopTraceBtn": "//*[@id='trace-header-bar']/div[2]/sync-icon-button[1]",
+    "traceSpinnerIcon": "//img[@class='rotating']",
+    "traceIPaddressHeader": "#trace-table-tableColumn-1",
+    "traceTimeHeader": "#trace-table-tableColumn-2",
+    "traceMessageHeader": "#trace-table-tableColumn-3",
+    "IPaddressCol": {
+        "row1IPaddress": "//*[@id='row-trace-table-0']/td[1]",
+        "row2IPaddress": "//*[@id='row-trace-table-1']/td[1]",
+        "row3IPaddress": "//*[@id='row-trace-table-2']/td[1]",
+        "row4IPaddress": "//*[@id='row-trace-table-3']/td[1]",
+        "row5IPaddress": "//*[@id='row-trace-table-4']/td[1]"
+    },
+    "TimeCol": {
+        "row1Time": "//*[@id='row-trace-table-0']/td[2]",
+        "row2Time": "//*[@id='row-trace-table-1']/td[2]",
+        "row3Time": "//*[@id='row-trace-table-2']/td[2]",
+        "row4Time": "//*[@id='row-trace-table-3']/td[2]",
+        "row5Time": "//*[@id='row-trace-table-4']/td[2]"
+    },
+    "MessageCol": {
+        "row1Message": "//*[@id='row-trace-table-0']/td[3]",
+        "row2Message": "//*[@id='row-trace-table-1']/td[3]",
+        "row3Message": "//*[@id='row-trace-table-2']/td[3]",
+        "row4Message": "//*[@id='row-trace-table-3']/td[3]",
+        "row5Message": "//*[@id='row-trace-table-4']/td[3]"
+    },
+    "traceTable": "(//table[@class='sync-data-table sync-data-table-fixed'])[2]",
+    "tracecolumns": "#trace-table-tableColumn-1",
+    "tracerows" : "//*[@id='trace-table-header-row']",
+    "tracecell" : "//*[@id='row-trace-table-1']/td[1]",
+    "traceTable1": "(//table[@class='sync-data-table sync-data-table-fixed'])[2]",
+    "tracecolumns1": "//*[@id='trace-table-header-row']",
+    "tracerows1" :  "//*[@id='row-trace-table-1']",
+    "tracecell1" :  "//*[@id='row-trace-table-1']/td[1]",
+    "rootTraceTable" : "//div[@id='trace-table']",
+    "exportTraceButton": "//div[@class='trace-header-button']/sync-icon-button[@text='Export']",
+    "recordsHeader": "//span[contains ( text(), 'No Records Found')]",
+    "traceCounter": "//*[@id='trace-header-message-count']"
+}

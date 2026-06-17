@@ -1,0 +1,406 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Project Credentials Pop Up works correctly with devices IPv6 address",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Credentials Test",
+            "UserStoryLink": "\"User Story: TOOL-5938\", https://extron.atlassian.net/browse/TOOL-5938 ",
+            "UserStory": "TOOL-5938 (Connection Manager - Bad Scenarios - Offline Validation)",
+            "TaskLink": "\"Task Issue: TOOL-6193\", https://extron.atlassian.net/browse/TOOL-6193 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4982\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4982 ",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "<<IPV6Only_Device>>",
+                "devices.0.part_number": "<<IPV6Only_Device_PartNumber>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "1:2:3:4:5:6:7:8"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPV6Only_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN",
+                "devices.2": {},
+                "devices.2.name": "DUALIP_HOSTNAME",
+                "devices.2.part_number": "<<DUAL_IPV6_Device_PartNumber>>",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.network": {},
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "<<DUAL_IPV4_Device>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3": {},
+                "devices.3.name": "Second TLP Pro 1022T",
+                "devices.3.alias": "Peripheral_2",
+                "devices.3.part_number": "60-1601-02",
+                "devices.3.network": {},
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "SomeHostName",
+                "devices.3.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "zero",
+                "pass": "extron"
+            },
+            {
+                "user": "one",
+                "pass": "extron"
+            },
+            {
+                "user": "two",
+                "pass": "extron"
+            },
+            {
+                "user": "three",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProjectCredentialsBtn": {
+                    "click": null
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage2": {
+                "ProjectCredentialsPopUp": {
+                    "WarningIcon": {
+                        "row_0": {
+                            "exists": false
+                        },
+                        "row_1": {
+                            "exists": false
+                        },
+                        "row_2": {
+                            "exists": false
+                        },
+                        "row_3": {
+                            "exists": false
+                        }
+                    },
+                    "Address": {
+                        "row_0": {
+                            "verifyIP": "<<IPV6Only_Device>>"
+                        },
+                        "row_1": {
+                            "verifyIP": "1:2:3:4:5:6:7:8"
+                        },
+                        "row_2": {
+                            "verifyIP": "<<DUAL_IPV4_Device>>"
+                        },
+                        "row_3": {
+                            "verifyIP": "SomeHostName"
+                        }
+                    },
+                    "UsernameField": {
+                        "row_0": {
+                            "matches": "zero"
+                        },
+                        "row_1": {
+                            "matches": "one"
+                        },
+                        "row_2": {
+                            "matches": "two"
+                        },
+                        "row_3": {
+                            "matches": "three"
+                        }
+                    }
+                }
+            },
+            "Timeout2": "fast",
+            "DeployPage3": {
+                "ProjectCredentialsPopUp_2": {
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout4": "fast"
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Project Credentials Pop Up works correctly with devices having IPv6 address (Protected Project)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Credentials Test",
+            "UserStoryLink": "\"User Story: TOOL-5938\", https://extron.atlassian.net/browse/TOOL-5938 ",
+            "UserStory": "TOOL-5938 (Connection Manager - Bad Scenarios - Offline Validation)",
+            "TaskLink": "\"Task Issue: TOOL-6193\", https://extron.atlassian.net/browse/TOOL-6193 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4983\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4983 ",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "<<IPV6Only_Device>>",
+                "devices.0.part_number": "<<IPV6Only_Device_PartNumber>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "1:2:3:4:5:6:7:8"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPV6Only_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN",
+                "devices.2": {},
+                "devices.2.name": "DUALIP_HOSTNAME",
+                "devices.2.part_number": "<<DUAL_IPV6_Device_PartNumber>>",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.network": {},
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "<<DUAL_IPV4_Device>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3": {},
+                "devices.3.name": "Second TLP Pro 1022T",
+                "devices.3.alias": "Peripheral_2",
+                "devices.3.part_number": "60-1601-02",
+                "devices.3.network": {},
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "SomeHostName",
+                "devices.3.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "zero",
+                "pass": "extron"
+            },
+            {
+                "user": "one",
+                "pass": "extron"
+            },
+            {
+                "user": "two",
+                "pass": "extron"
+            },
+            {
+                "user": "three",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProtectProjectBtn": {
+                    "click": null
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage2": {
+                "ProtectProjectPopUp": {
+                    "passwordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "reenterPasswordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "selectBtn": {
+                        "setPath": "TmpDownloadProject"
+                    },
+                    "createBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout2": "fast",
+            "DeployPage3": {
+                "ProjectFilePathInput": {
+                    "setPath": "TmpDownloadProject\\systemInfoTmp.cspp"
+                }
+            },
+            "Timeout3": "fast",
+            "DeployPage4": {
+                "ProjectCredentialsBtn": {
+                    "click": null
+                }
+            },
+            "Timeout4": "fast",
+            "DeployPage5": {
+                "ProjectCredentialsPopUp": {
+                    "WarningIcon": {
+                        "row_0": {
+                            "exists": false
+                        },
+                        "row_1": {
+                            "exists": false
+                        },
+                        "row_2": {
+                            "exists": false
+                        },
+                        "row_3": {
+                            "exists": false
+                        }
+                    },
+                    "Address": {
+                        "row_0": {
+                            "verifyIP": "<<IPV6Only_Device>>"
+                        },
+                        "row_1": {
+                            "verifyIP": "1:2:3:4:5:6:7:8"
+                        },
+                        "row_2": {
+                            "verifyIP": "<<DUAL_IPV4_Device>>"
+                        },
+                        "row_3": {
+                            "verifyIP": "SomeHostName"
+                        }
+                    },
+                    "UsernameField": {
+                        "row_0": {
+                            "matches": "zero"
+                        },
+                        "row_1": {
+                            "matches": "one"
+                        },
+                        "row_2": {
+                            "matches": "two"
+                        },
+                        "row_3": {
+                            "matches": "three"
+                        }
+                    }
+                }
+            },
+            "Timeout5": "fast",
+            "DeployPage6": {
+                "ProjectCredentialsPopUp_2": {
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout6": "fast"
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify address field in Protect Credentials Pop Up shows warning icon if device has invalid address (Protected Project)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Credentials Test",
+            "UserStoryLink": "\"User Story: TOOL-5938\", https://extron.atlassian.net/browse/TOOL-5938",
+            "UserStory": "TOOL-5938 (IPv6 Project Credentials)",
+            "TaskLink": "\"Task Issue: TOOL-6193\", https://extron.atlassian.net/browse/TOOL-6193",
+            "TestCaseLink": "\"Test Case: TOOL-T4993\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/TOOL-T4993 ",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": true,
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "_hostname"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPCP550_IPCP_singlenic",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.part_number": "60-1418-01",
+                "devices.2.network": {},
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.name": "IPCP555Qxi",
+                "devices.3.alias": "ProcessorAlias_3",
+                "devices.3.part_number": "60-1917-01",
+                "devices.3.network": {},
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "2001:0db8:85a3::8a2e:0370:7334:12345",
+                "devices.3.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [],
+        "Steps": {
+            "DeployPage": {
+                "ProtectProjectBtn": {
+                    "click": null
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage2": {
+                "ProtectProjectPopUp": {
+                    "passwordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "reenterPasswordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "selectBtn": {
+                        "setPath": "TmpDownloadProject"
+                    },
+                    "createBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout2": "medium",
+            "DeployPage3": {
+                "ProjectFilePathInput": {
+                    "setPath": "TmpDownloadProject\\systemInfoTmp.cspp"
+                }
+            },
+            "Timeout3": "medium",
+
+            "DeployPage4": {
+                "ProjectCredentialsBtn": {
+                    "click": null
+                }
+            },
+            "Timeout4": "fast",
+            "DeployPage5": {
+                "ProjectCredentialsPopUp": {
+                    "WarningIcon": {
+                        "row_0": {
+                            "exists": true
+                        },
+                        "row_1": {
+                            "exists": true
+                        },
+                        "row_3": {
+                            "exists": true
+                        }
+                    },
+                    "DeviceName": {
+                        "row_0": {
+                            "isEmpty": true
+                        },
+                        "row_1": {
+                            "isEmpty": true
+                        },
+                        "row_3": {
+                            "isEmpty": true
+                        }
+                    }
+                }
+            },
+            "Timeout5": "fast",
+            "DeployPage6": {
+                "ProjectCredentialsPopUp_2": {
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

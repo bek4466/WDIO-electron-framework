@@ -1,0 +1,194 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2", "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Endorsement",
+            "UserStoryLink": "\"User Story: TOOL-2256\", https://extron.atlassian.net/browse/TOOL-2256",
+            "UserStory": "TOOL-2256 (Provide certified/uncertified users the ability to deploy the shared project files)",
+            "TaskLink": "\"Task Issue: TOOL-2302\", https://extron.atlassian.net/browse/TOOL-2302",
+            "TestCaseLink": "\"Test Case: TOOL-T253\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T253",
+            "TestDescription": "Certified user is able to deploy project certified by another certified user.",
+            "ProjectFile": "ProjectEndorsementProject-2256\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "ProcessorAlias",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Certify"
+            ],
+            "AppAction": [
+                "Logout",
+                {
+                    "user": "certified",
+                    "pass": "certified"
+                }
+            ],
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "ProjectEndorsementProject-2256\\systeminfoTmp.json"
+                }
+            },
+            "DeployAction_2": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Endorsement",
+            "UserStoryLink": "\"User Story: TOOL-2256\", https://extron.atlassian.net/browse/TOOL-2256",
+            "UserStory": "TOOL-2256 (Provide certified/uncertified users the ability to deploy the shared project files)",
+            "TaskLink": "\"Task Issue: TOOL-2302\", https://extron.atlassian.net/browse/TOOL-2302",
+            "TestCaseLink": "\"Test Case: TOOL-T255\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T255",
+            "TestDescription": "Verify that when Certified User certifies a project an additional .dat file is created within Project folder",
+            "ProjectFile": "ProjectEndorsementProject-2256\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "ProcessorAlias",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Certify"
+            ],
+            "CommonMethod": {
+                "findFile": {
+                    "path": "ProjectEndorsementProject-2256\\systeminfoTmp-certification.dat"
+                }
+            }
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Endorsement",
+            "UserStoryLink": "\"User Story: TOOL-2256\", https://extron.atlassian.net/browse/TOOL-2256",
+            "UserStory": "TOOL-2256 (Provide certified/uncertified users the ability to deploy the shared project files)",
+            "TaskLink": "\"Task Issue: TOOL-2302\", https://extron.atlassian.net/browse/TOOL-2302",
+            "TestCaseLink": "\"Test Case: TOOL-T256\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T256",
+            "TestDescription": "Certified user is able to deploy project certified by another certified user after being edited.",
+            "ProjectFile": "ProjectEndorsementProject-2256\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "ProcessorAlias",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Certify"
+            ],
+            "AppAction": [
+                "Logout",
+                {
+                    "user": "certified",
+                    "pass": "certified"
+                }
+            ],
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "ProjectEndorsementProject-2256\\systeminfoTmp.json"
+                }
+            },
+            "CommonMethod": {
+                "replaceTextInFile": {
+                    "filePath": "ProjectEndorsementProject-2256\\src\\main.py",
+                    "textToReplace": "print",
+                    "newText": "printf"
+                }
+            },
+            "DeployAction_2": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "CommonMethod_2": {
+                "replaceTextInFile": {
+                    "filePath": "ProjectEndorsementProject-2256\\src\\main.py",
+                    "textToReplace": "printf",
+                    "newText": "print"
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Dual NIC Primary Device that has incorrect specified LAN address gives appropriate error message",
+            "Owner": "Kiran S",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3219\", \"https://extron.atlassian.net/browse/TOOL-3219\"",
+            "TestCaseLink": "\"Test Case: TOOL-T838 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173498\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as Dual NIC Primary Device that has incorrect specified LAN address gives appropriate error message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "IPCP Pro 355"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "192.168.254.251",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {	
+                    "MessageText": "IPCP Pro 355 - Incorrect Address : Specified: 192.168.254.251, Required: 192.168.254.250. The specified device address must match the live address in order to build and upload to it.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Dual NIC Primary Device has specified LAN address of a single NIC device gives appropriate warning message",
+            "Owner": "Kiran S",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3219\", \"https://extron.atlassian.net/browse/TOOL-3219\"",
+            "TestCaseLink": "\"Test Case: TOOL-T839 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173499\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as Dual NIC Primary Device has specified LAN address of a single NIC device gives appropriate warning message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "IPCP350_IPCP_singlenic",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "IPCP Pro 355"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "IPCP Pro 355 - Hardware mismatch : The specified device does not match live device on the network.",
+                "MessageType": "Warning",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    }
+}

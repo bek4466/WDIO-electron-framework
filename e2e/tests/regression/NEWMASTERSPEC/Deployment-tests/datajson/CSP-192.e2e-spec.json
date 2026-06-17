@@ -1,0 +1,103 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate devices -eBUS- do not show up in \"Kevin Settings\"",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: CSP-20\", https://extron.atlassian.net/browse/CSP-20",
+            "UserStory": "CSP-20 (As Francisco, I want to enter my credentials for the Destiny file so that I can deploy my system)",
+            "TaskLink": "\"Task Issue: TOOL-1849\", https://extron.atlassian.net/browse/TOOL-1849",
+            "TestCaseLink": "\"Test Case: CSP-T55\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T55",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPCP550_IPCP_singlenic",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.part_number": "60-1418-01",
+                "devices.2.network": {},
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.ebus_id": 3,
+                "devices.3.name": "EBP 110EU/MK",
+                "devices.3.part_number": "60-1190-30",
+                "devices.3.alias": "eBUSAlias",
+                "devices.3.extron_control_web_id": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProjectCredentialsBtn": {
+                    "click": null
+                },
+                "ProjectCredentialsPopUp": {
+                    "isOpen": true,
+                    "DeviceName": {
+                        "row_0": {
+                            "exists": true
+                        }
+                    },
+                    "Address": {
+                        "row_0": {
+                            "exists": true
+                        }
+                    },
+                    "UsernameField": {
+                        "row_3": {
+                            "exists": false
+                        }
+                    },
+                    "PasswordField": {
+                        "row_3": {
+                            "exists": false
+                        }
+                    },
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

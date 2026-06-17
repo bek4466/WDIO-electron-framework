@@ -1,0 +1,144 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify extracted project overwrite previous projects with name conflicts",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5331\", https://extron.atlassian.net/browse/TOOL-5331 ",
+      "UserStory": "TOOL-5331: Extraction Process",
+      "TaskLink": "\"Task Issue: TOOL-5545\", https://extron.atlassian.net/browse/TOOL-5545 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4927\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4927 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout": "medium",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "exists": true,
+          "click": null
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage3": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "extractBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout5": "fast",
+      "CommonMethod2": {
+        "saveFileModifiedDate": {
+          "filePath": "TmpDownloadProject\\AlarmClock.json"
+        }
+      },
+      "DeployPage4": {
+        "ExtractProjectBtn": {
+          "exists": true,
+          "click": null
+        }
+      },
+      "Timeout7": "fast",
+      "DeployPage5": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "extractBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout4": "fast",
+      "CommonMethod3": {
+        "compareFileModifiedDateToSavedDate": {
+          "filePath": "TmpDownloadProject\\AlarmClock.json",
+          "expect": "DifferentFromSaved"
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify when extracting a project to a destination folder with unsupported characters extraction will fail with an error",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5331\", https://extron.atlassian.net/browse/TOOL-5331 ",
+      "UserStory": "TOOL-5331: Extraction Process",
+      "TaskLink": "\"Task Issue: TOOL-5545\", https://extron.atlassian.net/browse/TOOL-5545 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4928\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4928 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout": "medium",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "exists": true,
+          "click": null
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage3": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "Unsupported@TmpDownloadProject"
+          },
+          "extractBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout5": "fast",
+      "CommonMethod2": {
+        "cannotFindFile": {
+          "path": "TmpDownloadProject\\AlarmClock.json"
+        }
+      },
+      "Banner": {
+        "BannerText": {
+          "verifyTextMatches": "<<extractFailBannerText>>"
+        }
+      }
+    }
+  }
+}

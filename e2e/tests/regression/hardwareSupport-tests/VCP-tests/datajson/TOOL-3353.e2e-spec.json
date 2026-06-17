@@ -1,0 +1,46 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Single NIC Primary Device has specified LAN address of a dual NIC device gives appropriate warning message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3353\", https://extron.atlassian.net/browse/TOOL-3353",
+            "TestCaseLink": "\"Test Case: TOOL-T840\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173500",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "IPCP350_Xi_IPCP"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

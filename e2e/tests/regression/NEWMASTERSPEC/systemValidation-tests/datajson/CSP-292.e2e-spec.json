@@ -1,0 +1,130 @@
+{
+  "Execute": ["TestCase1","TestCase2"],
+
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that absence of \"system.primary_device_alias\" in destiny gives appropriate error message",
+      "Owner": "Amit B",
+      "SuiteType": "System Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1676\", https://extron.atlassian.net/browse/TOOL-1676",
+      "UserStory": "system.primary_device_alias",
+      "TaskLink": "\"Task Issue: TOOL-4162\", https://extron.atlassian.net/browse/TOOL-4162",
+      "TestCaseLink": "\"Test Case: TOOL-T3515\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3515",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "DeleteData": ["system.primary_device_alias"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingAliasMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deployFailedMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "InsertTestData": {
+          "system.primary_device_alias": "ProcessorAlias"
+        }
+      },
+      "Timeout": "fast",
+      "DeployAction_2": ["ClearMessagePane", "Deploy"],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid  \"system.primary_device_alias\" in destiny gives appropriate error message",
+      "Owner": "Amit B",
+      "SuiteType": "System Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1676\", https://extron.atlassian.net/browse/TOOL-1676",
+      "UserStory": "system.primary_device_alias",
+      "TaskLink": "\"Task Issue: TOOL-4162\", https://extron.atlassian.net/browse/TOOL-4162",
+      "TestCaseLink": "\"Test Case: TOOL-T3516\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3516",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.primary_device_alias": 88
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<malformedAliasMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deployFailedMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "ModifyTestData": {
+          "system.primary_device_alias": "ProcessorAlias"
+        }
+      },
+      "Timeout": "fast",
+      "DeployAction_2": ["ClearMessagePane", "Deploy"],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

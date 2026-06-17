@@ -1,0 +1,162 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Uncertified User can Deploy after Credentials Changes from Certified User",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3714\", https://extron.atlassian.net/browse/TOOL-3714",
+      "UserStory": "TOOL-3714 Project Credentials File should not be certified",
+      "TaskLink": "\"Task Issue: TOOL-3571\", https://extron.atlassian.net/browse/TOOL-3571",
+      "TestCaseLink": "\"Test Case: TOOL-T4536\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/21138420",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Certify"],
+      "ChangeCredentials": [
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout" : "medium",
+      "AppAction2": [
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        }
+      },
+      "ChangeCredentials2": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "joe",
+          "pass": "extron"
+        }
+      ],
+      "DeployAction2": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Uncertified User can Deploy After inputting Device Credentials",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3714\", https://extron.atlassian.net/browse/TOOL-3714",
+      "UserStory": "TOOL-3714 Project Credentials File should not be certified",
+      "TaskLink": "\"Task Issue: TOOL-3571\", https://extron.atlassian.net/browse/TOOL-3571",
+      "TestCaseLink": "\"Test Case: TOOL-T4537\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/21138421",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Certify"],
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout" : "medium",
+      "AppAction2": [
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        }
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "DeployAction_2": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    }
+  }
+}

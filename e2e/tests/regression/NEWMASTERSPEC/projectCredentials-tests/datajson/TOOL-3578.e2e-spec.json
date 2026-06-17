@@ -1,0 +1,76 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials UI save success displays a toast",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3545\", https://extron.atlassian.net/browse/TOOL-3545",
+      "UserStory": "TOOL-3545 Project Credentials: Creation/Edit Success Toaster",
+      "TaskLink": "\"Task Issue: TOOL-3578\", https://extron.atlassian.net/browse/TOOL-3578",
+      "TestCaseLink": "\"Test Case: TOOL-T3375\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3375",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "",
+        "pass": ""
+      },
+      {
+        "user": "",
+        "pass": ""
+      }
+    ],
+    "Steps": {
+      "MiscellaneousAction": [
+        "DeleteCredentialsFile"
+      ],
+      "DeployAction": [
+        "Deploy"
+      ],
+      "Timeout": "fast",
+      "DeployPage": {
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "setUsername": "admin"
+            },
+            "row_1": {
+              "setUsername": "admin"
+            }
+          },
+          "PasswordField": {
+            "row_0": {
+              "setPassword": "extron"
+            },
+            "row_1": {
+              "setPassword": "extron"
+            }
+          },
+          "SaveBtn": {
+            "click": null
+          }
+        }
+      },
+      "Toast": {
+        "VerifyMessage": "<<successSavedCredentials>>"
+      }
+    }
+  }
+}

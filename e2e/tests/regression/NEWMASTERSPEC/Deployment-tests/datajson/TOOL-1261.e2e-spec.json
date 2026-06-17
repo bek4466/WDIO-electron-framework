@@ -1,0 +1,163 @@
+{
+  "Execute": [ "TestCase1","TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify deployment should go through, if system info has address as host name.",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Deployment",
+      "UserStoryLink": "\"User Story: TOOL-1595\", https://extron.atlassian.net/browse/TOOL-1595 ",
+      "UserStory": "TOOL-1595 (As Francisco Garcia,  I want to be able to use Hostnames to identify my devices, So that I have easier device identification readability.)",
+      "TaskLink": "\"Task Issue: TOOL-1261\", https://extron.atlassian.net/browse/TOOL-1261 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4364\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4364 ",
+      "ProjectFile": "DHCPProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.system_id": "1339",
+        "devices.0.name": "Primary_control",
+        "devices.1.name": "Peripheral1",
+        "devices.1.network.interfaces.0.address": "<<ProS6_IPL>>",
+        "devices.2.name": "Peripheral2",
+        "devices.2.network.interfaces.0.address": "<<TLP725T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+            "MessageText": "Peripheral1<<pairingPositiveMessage>> using address (<<ProS6_IPL>>) with systemId (1339)",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "Peripheral2<<pairingPositiveMessage>> using address (<<TLP725T_TLP>>) with systemId (1339)",
+            "MessageType": "Info",
+            "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [
+        "RefreshProgramLog"
+      ],
+      "Timeout": 3000,
+      "VerifyProgramMessageLogs": [
+        {
+          "MessageText": " ",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction2": [
+        "StartTrace"
+      ],
+      "VerifyTraceMessage": [
+        {
+          "MessageText": "<<traceMessage>>",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction3": [
+        "StopProgramLog"
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Deployment with AV LAN peripherals using Hostname.",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Deployment",
+      "UserStoryLink": "\"User Story: TOOL-1595\", https://extron.atlassian.net/browse/TOOL-1595 ",
+      "UserStory": "TOOL-1595 (As Francisco Garcia,  I want to be able to use Hostnames to identify my devices, So that I have easier device identification readability.)",
+      "TaskLink": "\"Task Issue: TOOL-1261\", https://extron.atlassian.net/browse/TOOL-1261 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4364\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4365 ",
+      "ProjectFile": "DHCPProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.system_id": "1399",
+        "devices.0.network.interfaces.0.address": "<<Table_Pro_555_W_AVLAN>>.extron.com",
+        "devices.0.network.interfaces.1.address": "<<Table_Pro_555_W_AVLAN>>.local",
+        "devices.0.name": "Primary_control",
+        "devices.0.part_number":"60-1434-01",
+        "devices.1.name": "Peripheral1",
+        "devices.1.part_number":"60-1418-01",
+        "devices.1.network.interfaces.0.address": "<<Table_Pro_550_AVLAN_to_Pro555>>.local",
+        "devices.1.network.host_network_type":"AVLAN",
+        "devices.2.name": "Peripheral2",
+        "devices.2.network.interfaces.0.address": "<<TLP725T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+            "MessageText": "Peripheral1<<pairingPositiveMessage>> using address (<<Table_Pro_550_AVLAN_to_Pro555>>.local) with systemId (1399)",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "Peripheral2<<pairingPositiveMessage>> using address (<<TLP725T_TLP>>) with systemId (1399)",
+            "MessageType": "Info",
+            "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

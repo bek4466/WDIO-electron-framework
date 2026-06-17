@@ -1,0 +1,164 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deploying code only of a project with a changed Datafile filename will result in a specified error",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for Data File filename changes\", https://extron.atlassian.net/browse/TOOL-4287 ",
+            "UserStory": "TOOL-4287: As a Control System Programmer or AV Technician, I want to be notified when CSDU can’t access project resources (or can’t find them), So that I won’t have to force close the app and re-select my project.  ",
+            "TaskLink": "\"Task Issue: TOOL-4318\", https://extron.atlassian.net/browse/TOOL-4318 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4655\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4655 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.data_file_path": "dataFile_rename\\DataFile.json"
+            },
+            "DeleteData": []
+        },
+        "Steps": {
+            "CommonMethod": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\dataFile_rename\\DataFile.json",
+                        "newPath": "DeployProject\\dataFile_rename\\newfileName.json"
+                    }
+                ]
+            },
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "DeployPage2": {
+                "VerifyProjectFileErrorMessage": [
+                    {
+                        "MessageText": "<<notFoundDataFilePath>>",
+                        "Exist": true
+                    }
+                ],
+                "DeployBtn": {
+                    "isDisabled": null
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": null
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                },
+                "ProjectCredentialsBtn": {
+                    "isDisabled": true
+                }
+            },
+            "CommonMethod_2": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\dataFile_rename\\newfileName.json",
+                        "newPath": "DeployProject\\dataFile_rename\\DataFile.json"
+                    }
+                ]
+            }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deploying a project with a changed Datafile filename will result in a specified error instead of a generic addresses not found.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for Data File filename changes\", https://extron.atlassian.net/browse/TOOL-4287 ",
+            "UserStory": "TOOL-4287: As a Control System Programmer or AV Technician, I want to be notified when CSDU can’t access project resources (or can’t find them), So that I won’t have to force close the app and re-select my project.  ",
+            "TaskLink": "\"Task Issue: TOOL-4318\", https://extron.atlassian.net/browse/TOOL-4318 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4654\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4654 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.data_file_path": "dataFile_rename\\DataFile.json"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "CommonMethod": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\dataFile_rename\\DataFile.json",
+                        "newPath": "DeployProject\\dataFile_rename\\newfileName.json"
+                    }
+                ]
+            },
+            "DeployAction": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "DeployPage": {
+                "VerifyProjectFileErrorMessage": [
+                    {
+                        "MessageText": "<<notFoundDataFilePath>>",
+                        "Exist": true
+                    }
+                ],
+                "DeployBtn": {
+                    "isDisabled": true
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": true
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                },
+                "ProjectCredentialsBtn": {
+                    "isDisabled": true
+                }
+            },
+            "CommonMethod_2": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\dataFile_rename\\newfileName.json",
+                        "newPath": "DeployProject\\dataFile_rename\\DataFile.json"
+                    }
+                ]
+            }
+        }
+    }
+}

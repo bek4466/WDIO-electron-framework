@@ -1,0 +1,263 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for NAV device's invalid part number- Invalid type.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3334\", https://extron.atlassian.net/browse/TOOL-3334",
+            "TestCaseLink": "\"Test Case: TOOL-T895\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861859",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.1.part_number":  true,
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.2.part_number": true,
+                "devices.3.network.interfaces.0.address": "NAVSD_101",
+                "devices.3.part_number": true
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : 10.113.81.83 - part_number: Invalid - Must be a string e.g. \"part_number\": \"11-2222-33\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - part_number: Invalid - Must be a string e.g. \"part_number\": \"11-2222-33\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - part_number: Invalid - Must be a string e.g. \"part_number\": \"11-2222-33\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for NAV device's invalid part number key -PN not known or Invalid Format.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3334\", https://extron.atlassian.net/browse/TOOL-3334",
+            "TestCaseLink": "\"Test Case: TOOL-T897\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861861",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.1.part_number": "abcde",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.2.part_number": "abcde",
+                "devices.3.network.interfaces.0.address": "NAVSD_101",
+                "devices.3.part_number": "abcde"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : 10.113.81.83 - part_number: Invalid - Hardware is not supported",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - part_number: Invalid - Hardware is not supported",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - part_number: Invalid - Hardware is not supported",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for Missing (NAV peripheral) devices.alias.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3334\", https://extron.atlassian.net/browse/TOOL-3334",
+            "TestCaseLink": "\"Test Case: TOOL-T898\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861862",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.3.network.interfaces.0.address": "NAVSD_101"
+            },
+            "InsertTestData": {},
+            "DeleteData": [
+                "devices.1.alias",
+                "devices.2.alias",
+                "devices.3.alias"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : 10.113.81.83 - alias: Missing key - e.g. \"alias\": \"device_alias\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - alias: Missing key - e.g. \"alias\": \"device_alias\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - alias: Missing key - e.g. \"alias\": \"device_alias\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for Invalid (NAV peripheral) devices.alias - not a string.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3334\", https://extron.atlassian.net/browse/TOOL-3334",
+            "TestCaseLink": "\"Test Case: TOOL-T899\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861863",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.1.alias": true,
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.2.alias": true,
+                "devices.3.network.interfaces.0.address": "NAVSD_101",
+                "devices.3.alias": true
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : 10.113.81.83 - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

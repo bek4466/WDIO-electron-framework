@@ -1,0 +1,212 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid value for \"devices.network.host_network_type\" (peripheral device) device gives appropriate error message.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3148\", https://extron.atlassian.net/browse/TOOL-3148",
+      "TestCaseLink": "\"Test Case: TOOL-T647\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T647",
+      "TestCaseHeader": "Verify that invalid value for \"devices.network.host_network_type\" (peripheral device) device gives appropriate error message."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.network.host_network_type": "randomntext",
+        "devices.2.network.host_network_type": "randomntext",
+        "devices.3.network.host_network_type": "randomntext"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.host_network_type: Invalid - Valid values include \"LAN\", \"AVLAN\", \"OOB\", \"NAV\" e.g. \"host_network_type\": \"LAN\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.host_network_type: Invalid - Valid values include \"LAN\", \"AVLAN\", \"OOB\", \"NAV\" e.g. \"host_network_type\": \"LAN\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.host_network_type: Invalid - Valid values include \"LAN\", \"AVLAN\", \"OOB\", \"NAV\" e.g. \"host_network_type\": \"LAN\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid \"devices.network.host_network_type\" (not a string) for peripheral device gives appropriate error message.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3148\", https://extron.atlassian.net/browse/TOOL-3148",
+      "TestCaseLink": "\"Test Case: TOOL-T648\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T648",
+      "TestCaseHeader": "Verify that invalid \"devices.network.host_network_type\" (not a string) for peripheral device gives appropriate error message."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.network.host_network_type": true,
+        "devices.2.network.host_network_type": true,
+        "devices.3.network.host_network_type": true
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.host_network_type: Invalid - Must be a string e.g. \"host_network_type\": \"LAN\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.host_network_type: Invalid - Must be a string e.g. \"host_network_type\": \"LAN\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.host_network_type: Invalid - Must be a string e.g. \"host_network_type\": \"LAN\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that more than 128 characters in \"devices.name\"(Peripheral Device ) in destiny gives appropriate error message.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3148\", https://extron.atlassian.net/browse/TOOL-3148",
+      "TestCaseLink": "\"Test Case: TOOL-T649\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T649",
+      "TestCaseHeader": "Verify that more than 128 characters in \"devices.name\"(Peripheral Device ) in destiny gives appropriate error message."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.name": "1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est massa, pellentesque lobortis condimentum in, interdum a nisi. Cras sit amet metus in ex tincidunt venenatis. Integer eget est lacus. Quisque et ornare arcu, id ultricies arcu. Suspendisse potenti. Cras nisl libero, dapibus vel eros et, eleifend eleifend mi. Donec non euismod dolor. Suspendisse auctor id nunc eu lobortis. Nunc id hendrerit tellus. Curabitur auctor scelerisque lectus, nec ultrices mi varius volutpat. Morbi ut vehicula orci. Aenean sed eros quis massa mattis suscipit a in nisl. Sed placerat leo id turpis suscipit, in ultrices orci egestas. Nulla consequat nec mi ut accumsan. In posuere, turpis vel pretium posuere, sapien sapien lobortis ipsum, fermentum feugiat nunc justo vitae odio. Pellentesque et enim pellentesque, varius tellus quis, posuere elit. Suspendisse pretium sed.",
+        "devices.2.name": "2Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est massa, pellentesque lobortis condimentum in, interdum a nisi. Cras sit amet metus in ex tincidunt venenatis. Integer eget est lacus. Quisque et ornare arcu, id ultricies arcu. Suspendisse potenti. Cras nisl libero, dapibus vel eros et, eleifend eleifend mi. Donec non euismod dolor. Suspendisse auctor id nunc eu lobortis. Nunc id hendrerit tellus. Curabitur auctor scelerisque lectus, nec ultrices mi varius volutpat. Morbi ut vehicula orci. Aenean sed eros quis massa mattis suscipit a in nisl. Sed placerat leo id turpis suscipit, in ultrices orci egestas. Nulla consequat nec mi ut accumsan. In posuere, turpis vel pretium posuere, sapien sapien lobortis ipsum, fermentum feugiat nunc justo vitae odio. Pellentesque et enim pellentesque, varius tellus quis, posuere elit. Suspendisse pretium sed.",
+        "devices.3.name": "3Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est massa, pellentesque lobortis condimentum in, interdum a nisi. Cras sit amet metus in ex tincidunt venenatis. Integer eget est lacus. Quisque et ornare arcu, id ultricies arcu. Suspendisse potenti. Cras nisl libero, dapibus vel eros et, eleifend eleifend mi. Donec non euismod dolor. Suspendisse auctor id nunc eu lobortis. Nunc id hendrerit tellus. Curabitur auctor scelerisque lectus, nec ultrices mi varius volutpat. Morbi ut vehicula orci. Aenean sed eros quis massa mattis suscipit a in nisl. Sed placerat leo id turpis suscipit, in ultrices orci egestas. Nulla consequat nec mi ut accumsan. In posuere, turpis vel pretium posuere, sapien sapien lobortis ipsum, fermentum feugiat nunc justo vitae odio. Pellentesque et enim pellentesque, varius tellus quis, posuere elit. Suspendisse pretium sed."
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est massa, pellentesque lobortis condimentum in, interdum a nisi. Cras sit amet metus in ex tincidunt venenatis. Integer eget est lacus. Quisque et ornare arcu, id ultricies arcu. Suspendisse potenti. Cras nisl libero, dapibus vel eros et, eleifend eleifend mi. Donec non euismod dolor. Suspendisse auctor id nunc eu lobortis. Nunc id hendrerit tellus. Curabitur auctor scelerisque lectus, nec ultrices mi varius volutpat. Morbi ut vehicula orci. Aenean sed eros quis massa mattis suscipit a in nisl. Sed placerat leo id turpis suscipit, in ultrices orci egestas. Nulla consequat nec mi ut accumsan. In posuere, turpis vel pretium posuere, sapien sapien lobortis ipsum, fermentum feugiat nunc justo vitae odio. Pellentesque et enim pellentesque, varius tellus quis, posuere elit. Suspendisse pretium sed. - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "2Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est massa, pellentesque lobortis condimentum in, interdum a nisi. Cras sit amet metus in ex tincidunt venenatis. Integer eget est lacus. Quisque et ornare arcu, id ultricies arcu. Suspendisse potenti. Cras nisl libero, dapibus vel eros et, eleifend eleifend mi. Donec non euismod dolor. Suspendisse auctor id nunc eu lobortis. Nunc id hendrerit tellus. Curabitur auctor scelerisque lectus, nec ultrices mi varius volutpat. Morbi ut vehicula orci. Aenean sed eros quis massa mattis suscipit a in nisl. Sed placerat leo id turpis suscipit, in ultrices orci egestas. Nulla consequat nec mi ut accumsan. In posuere, turpis vel pretium posuere, sapien sapien lobortis ipsum, fermentum feugiat nunc justo vitae odio. Pellentesque et enim pellentesque, varius tellus quis, posuere elit. Suspendisse pretium sed. - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "3Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est massa, pellentesque lobortis condimentum in, interdum a nisi. Cras sit amet metus in ex tincidunt venenatis. Integer eget est lacus. Quisque et ornare arcu, id ultricies arcu. Suspendisse potenti. Cras nisl libero, dapibus vel eros et, eleifend eleifend mi. Donec non euismod dolor. Suspendisse auctor id nunc eu lobortis. Nunc id hendrerit tellus. Curabitur auctor scelerisque lectus, nec ultrices mi varius volutpat. Morbi ut vehicula orci. Aenean sed eros quis massa mattis suscipit a in nisl. Sed placerat leo id turpis suscipit, in ultrices orci egestas. Nulla consequat nec mi ut accumsan. In posuere, turpis vel pretium posuere, sapien sapien lobortis ipsum, fermentum feugiat nunc justo vitae odio. Pellentesque et enim pellentesque, varius tellus quis, posuere elit. Suspendisse pretium sed. - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid \"devices.network.host_network_type\" (not a string) for peripheral device gives appropriate error message.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3148\", https://extron.atlassian.net/browse/TOOL-3148",
+      "TestCaseLink": "\"Test Case: TOOL-T648\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T648",
+      "TestCaseHeader": "Verify that invalid \"devices.network.host_network_type\" (not a string) for peripheral device gives appropriate error message."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.name": "My Peripheral Device",
+        "devices.2.name": "My Peripheral Device",
+        "devices.3.name": "My Peripheral Device"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device - name: Invalid - Value must be unique",
+          "MessageType": "Warning",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a missing name key gives the appropriate info message (Primary)",
+      "Owner": "Austin Lee",
+      "SuiteType": "Q xi Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-3105\", https://extron.atlassian.net/browse/TOOL-3105",
+      "UserStory": "TOOL-3105 (355MQ xi Device Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3204\", https://extron.atlassian.net/browse/TOOL-3204",
+      "TestCaseLink": "\"Test Case: TOOL-T761\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T761"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+        "devices.0.part_number": "60-1991-01",
+        "devices.1.name": "My Peripheral Device"
+      },
+      "InsertTestData": {
+        "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+        "devices.0.network.interfaces.1.type": "AVLAN"
+      },
+      "DeleteData": ["devices.0.name"]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "device[0] - name: Missing key - Default value used \"device[0]\"",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a missing name key gives the appropriate info message (Peripheral)",
+      "Owner": "Austin Lee",
+      "SuiteType": "Q xi Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-3105\", https://extron.atlassian.net/browse/TOOL-3105",
+      "UserStory": "TOOL-3105 (355MQ xi Device Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3204\", https://extron.atlassian.net/browse/TOOL-3204",
+      "TestCaseLink": "\"Test Case: TOOL-T766\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T766"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+        "devices.1.part_number": "60-1991-01"
+      },
+      "InsertTestData": {
+        "devices.1.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+        "devices.1.network.interfaces.1.type": "AVLAN"
+      },
+      "DeleteData": ["devices.1.name"]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "device[1] - name: Missing key - Default value used \"device[1]\"",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a missing part number key gives the appropriate error message (Primary)",
+      "Owner": "Austin Lee",
+      "SuiteType": "Q xi Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-3105\", https://extron.atlassian.net/browse/TOOL-3105",
+      "UserStory": "TOOL-3105 (355MQ xi Device Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3204\", https://extron.atlassian.net/browse/TOOL-3204",
+      "TestCaseLink": "\"Test Case: TOOL-T771\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T771"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+        "devices.0.name": "My Device",
+        "devices.1.name": "My Peripheral Device"
+      },
+      "InsertTestData": {
+        "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+        "devices.0.network.interfaces.1.type": "AVLAN"
+      },
+      "DeleteData": ["devices.0.part_number"]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "My Device - part_number: Missing key - e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "Project deployment failed.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a missing alias key gives the appropriate error message (Primary)",
+      "Owner": "Austin Lee",
+      "SuiteType": "Q xi Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-3105\", https://extron.atlassian.net/browse/TOOL-3105",
+      "UserStory": "TOOL-3105 (355MQ xi Device Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3204\", https://extron.atlassian.net/browse/TOOL-3204",
+      "TestCaseLink": "\"Test Case: TOOL-T776\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T776"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+        "devices.0.name": "My Device",
+        "devices.1.name": "My Peripheral Device"
+      },
+      "InsertTestData": {
+        "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+        "devices.0.network.interfaces.1.type": "AVLAN"
+      },
+      "DeleteData": ["devices.0.alias"]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "My Device - alias: Missing key - e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "Project deployment failed.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

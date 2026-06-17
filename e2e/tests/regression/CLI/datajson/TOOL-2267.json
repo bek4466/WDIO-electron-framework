@@ -1,0 +1,35 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that CLI Deploy Command Works and deployment is successful",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2058\", https://extron.atlassian.net/browse/TOOL-2058",
+            "UserStory": "TOOL-2058 (CLI Deploy - Deploy Command - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2267\", https://extron.atlassian.net/browse/TOOL-2267",
+            "TestCaseLink": "\"Test Case: TOOL-T153\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T153\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that CLI Deploy Command Works and deployment is successful"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "default",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

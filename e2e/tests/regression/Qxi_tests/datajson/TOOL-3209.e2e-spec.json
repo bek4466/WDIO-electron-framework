@@ -1,0 +1,230 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a network.interfaces value of an empty array gives the appropriate error message (Primary)",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3107\", https://extron.atlassian.net/browse/TOOL-3107",
+      "UserStory": "TOOL-3107 355 MQxi Validation",
+      "TaskLink": "\"Task Issue: TOOL-3209\", https://extron.atlassian.net/browse/TOOL-3209",
+      "TestCaseLink": "\"Test Case: TOOL-T810\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T810",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify that a network.interfaces value of an empty array gives the appropriate error message (Primary)"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "Primary Dev",
+        "devices.0.network.interfaces": [],
+        "devices.0.part_number": "60-1991-01"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Primary Dev - network.interfaces: Invalid - Cannot be empty e.g. \"interfaces\": []",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a missing network.interfaces key gives the appropriate error message (Primary)",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3107\", https://extron.atlassian.net/browse/TOOL-3107",
+      "UserStory": "TOOL-3107 355 MQxi Validation",
+      "TaskLink": "\"Task Issue: TOOL-3209\", https://extron.atlassian.net/browse/TOOL-3209",
+      "TestCaseLink": "\"Test Case: TOOL-T826\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T826",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify that a missing network.interfaces key gives the appropriate error message (Primary)"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "DeleteData": ["devices.0.network.interfaces"],
+      "ModifyTestData": {
+        "devices.0.name": "Primary Device",
+        "devices.0.part_number": "60-1991-01"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Primary Device - network.interfaces: Missing key - e.g. \"interfaces\": []",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a missing network.interfaces.address key gives the appropriate error message (Peripheral)",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3107\", https://extron.atlassian.net/browse/TOOL-3107",
+      "UserStory": "TOOL-3107 355 MQxi Validation",
+      "TaskLink": "\"Task Issue: TOOL-3209\", https://extron.atlassian.net/browse/TOOL-3209",
+      "TestCaseLink": "\"Test Case: TOOL-T819\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T819",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify that a missing network.interfaces.address key gives the appropriate error message (Peripheral)"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "DeleteData": ["devices.1.network.interfaces.0.address"],
+      "ModifyTestData": {
+        "devices.1.name": "Peripheral Device",
+        "devices.1.part_number": "60-1991-01"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Peripheral Device - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a duplicate network.interfaces.address value gives the appropriate error message (Peripheral)",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3107\", https://extron.atlassian.net/browse/TOOL-3107",
+      "UserStory": "TOOL-3107 355 MQxi Validation",
+      "TaskLink": "\"Task Issue: TOOL-3209\", https://extron.atlassian.net/browse/TOOL-3209",
+      "TestCaseLink": "\"Test Case: TOOL-T824\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T824",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify that a duplicate network.interfaces.address value gives the appropriate error message (Peripheral)"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.name": "Peripheral Device",
+        "devices.1.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+        "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+        "devices.0.part_number": "60-1991-01"
+      }
+    },
+
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Peripheral Device - network.interfaces.address: Invalid - Must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a network.interfaces.address value of an invalid IPv4 address gives the appropriate error message (Peripheral)",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3107\", https://extron.atlassian.net/browse/TOOL-3107",
+      "UserStory": "TOOL-3107 355 MQxi Validation",
+      "TaskLink": "\"Task Issue: TOOL-3209\", https://extron.atlassian.net/browse/TOOL-3209",
+      "TestCaseLink": "\"Test Case: TOOL-T816\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T816",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify that a network.interfaces.address value of an invalid IPv4 address gives the appropriate error message (Peripheral)"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.name": "Peripheral Device",
+        "devices.1.network.interfaces.0.address": "192.168.254.999",
+        "devices.0.part_number": "60-1991-01"
+      }
+    },
+
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Peripheral Device - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

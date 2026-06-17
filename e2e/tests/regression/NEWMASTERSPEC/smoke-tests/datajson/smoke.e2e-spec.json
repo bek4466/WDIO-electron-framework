@@ -1,0 +1,391 @@
+{
+    "Execute": [
+        "profilePage_buttonCheck",
+        "aboutPage_buttonCheck",
+        "troubleshootingPage_buttonCheck",
+        "protect_and_extract",
+        "deployPage_credentialPopUp_downloadSidePanel_buttonCheck",
+        "deployment_and_deployCodeOnly"
+    ],
+    "profilePage_buttonCheck": {
+        "TestCaseInfo": {
+            "TestDescription": "Check buttons on the profile page.",
+            "Owner": "Kiran",
+            "SuiteType": "Smoke",
+            "UserStoryLink": "Smoke, N/A",
+            "UserStory": "Smoke",
+            "TaskLink": "ProfilePage, /ProfilePage",
+            "TestCaseLink": "ProfilePageTest, N/A",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Steps": {
+            "ProfileAction": [],
+            "ProfilePage": {
+                "TitleText": {
+                    "exists": null
+                },
+                "LicenseTitle": {
+                    "exists": null
+                },
+                "ExpirationText": {
+                    "exists": null
+                },
+                "StatusText": {
+                    "exists": null
+                },
+                "RemainingDaysText": {
+                    "exists": null
+                },
+                "LastRenewedDateText": {
+                    "exists": null
+                },
+                "RenewBtn": {
+                    "exists": null
+                }
+            }
+        }
+    },
+    "aboutPage_buttonCheck": {
+        "TestCaseInfo": {
+            "TestDescription": "Check buttons on the profile page.",
+            "Owner": "Kiran",
+            "SuiteType": "Smoke",
+            "UserStoryLink": "Smoke, N/A",
+            "UserStory": "Smoke",
+            "TaskLink": "AboutPage, /AboutPage",
+            "TestCaseLink": "AboutPageTest, N/A",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Steps": {
+            "AboutAction": [
+                "AllSubmenuExist",
+                "AllAboutPageElementsExist"
+            ]
+        }
+    },
+    "troubleshootingPage_buttonCheck": {
+        "TestCaseInfo": {
+            "TestDescription": "Check buttons on the troubleshooting page.",
+            "Owner": "Kiran",
+            "SuiteType": "Smoke",
+            "UserStoryLink": "Smoke, N/A",
+            "UserStory": "Smoke",
+            "TaskLink": "TroubleshootingPage, /TroubleshootingPage",
+            "TestCaseLink": "TroubleshootingPage, N/A",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Steps": {
+            "TroubleshootingAction": [
+                "NoTraceMessage",
+                "VerifyTraceCountNotPresent"
+            ],
+            "TroubleshootingPage": {
+                "StartProgramBtn": {
+                    "exists": true
+                },
+                "RefreshLogBtn": {
+                    "exists": true
+                },
+                "StartTraceBtn": {
+                    "exists": true
+                }
+            }
+        }
+    },
+    "protect_and_extract": {
+        "TestCaseInfo": {
+            "TestDescription": "Protect then Extract basic",
+            "Owner": "Kiran",
+            "SuiteType": "Smoke",
+            "UserStoryLink": "Smoke, N/A",
+            "UserStory": "Smoke",
+            "TaskLink": "ProtectExtract, /ProtectExtract",
+            "TestCaseLink": "ProtectExtract, N/A",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfo.json"
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage_2": {
+                "ProtectProjectBtn": {
+                    "isEnabled": true,
+                    "click": null
+                }
+            },
+            "Timeout_2": "fast",
+            "DeployPage_3": {
+                "ProtectProjectPopUp": {
+                    "passwordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "reenterPasswordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "allowDeployAndTroubleshootWithoutPasswordCheckBox": {
+                        "click": null
+                    },
+                    "selectBtn": {
+                        "setPath": "TmpDownloadProject"
+                    },
+                    "createBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout_3": "fast",
+            "DeployPage_4": {
+                "ProtectProjectPopUp": {
+                    "successLink": {
+                        "exists": true
+                    }
+                }
+            },
+            "CommonMethod": {
+                "findFile": {
+                    "path": "TmpDownloadProject\\systeminfo.cspp"
+                }
+            },
+            "DeployPage_5": {
+                "ProjectFilePathInput": {
+                    "setPath": "TmpDownloadProject\\systeminfo.cspp"
+                }
+            },
+            "Timeout_4": "fast",
+            "DeployPage_6": {
+                "ExtractProjectBtn": {
+                    "exists": true,
+                    "isEnabled": true,
+                    "click": null
+                }
+            },
+            "Timeout_5": "fast",
+            "DeployPage_7": {
+                "ExtractProjectPopUp": {
+                    "passwordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "selectBtn": {
+                        "setPath": "TmpDownloadProject"
+                    }
+                }
+            },
+            "Timeout_6": "fast",
+            "DeployPage_8": {
+                "ExtractProjectPopUp": {
+                    "extractBtn": {
+                        "isEnabled": true,
+                        "click": null
+                    }
+                }
+            },
+            "Timeout_7": "slow",
+            "DeployPage_9": {
+                "ExtractProjectPopUp": {
+                    "successLink": {
+                        "textMatches": "<<extractSuccessMessage>>"
+                    }
+                }
+            },
+            "CommonMethod_2": {
+                "findFile": {
+                    "path": "TmpDownloadProject\\systeminfo.json"
+                },
+                "findFile_2": {
+                    "path": "TmpDownloadProject\\systeminfo-certification.dat"
+                },
+                "findFile_3": {
+                    "path": "TmpDownloadProject\\systeminfo-credential.dat"
+                }
+            }
+        }
+    },
+    "deployPage_credentialPopUp_downloadSidePanel_buttonCheck": {
+        "TestCaseInfo": {
+            "TestDescription": "Check buttons on the deploy page.",
+            "Owner": "Kiran",
+            "SuiteType": "Smoke",
+            "UserStoryLink": "Smoke, N/A",
+            "UserStory": "Smoke",
+            "TaskLink": "DeployPage, /DeployPage",
+            "TestCaseLink": "DeployPage, N/A",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                },
+                "DeployCodeOnlyBtn": {
+                    "isEnabled": null
+                },
+                "CertifyProjectBtn": {
+                    "isVisible": true
+                },
+                "ProtectProjectBtn": {
+                    "isEnabled": true
+                },
+                "DownloadProjectInput": {
+                    "setIp": "123.123.123.123"
+                },
+                "DownloadProjectBtn": {
+                    "exists": true,
+                    "isVisible": true
+                },
+                "DeployBtn": {
+                    "isEnabled": null
+                },
+                "ProjectCredentialsBtn": {
+                    "isEnabled": true,
+                    "click": null
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage_2": {
+                "ProjectCredentialsPopUp": {
+                    "DeviceName": {
+                        "row_0": {
+                            "verifyDeviceInfo": "IPCP Pro 350"
+                        }
+                    },
+                    "Address": {
+                        "row_0": {
+                            "exists": true
+                        }
+                    },
+                    "UsernameField": {
+                        "row_0": {
+                            "matches": "admin"
+                        }
+                    },
+                    "PasswordField": {
+                        "row_0": {
+                            "exists": true
+                        }
+                    },
+                    "SaveBtn": {
+                        "isVisible": true
+                    },
+                    "CancelBtn": {
+                        "isVisible": true,
+                        "click": null
+                    }
+                }
+            },
+            "Timeout_2": "fast",
+            "DeployPage_3": {
+                "DownloadProjectBtn": {
+                    "click": null
+                }
+            },
+            "Timeout_3": "superFast",
+            "DeployPage_4": {
+                "ProjectDownloadSidePanel": {
+                    "usernameInput": {
+                        "isEmpty": true
+                    },
+                    "passwordInput": {
+                        "isEmpty": true
+                    },
+                    "DownloadBtn": {
+                        "exists": true
+                    },
+                    "CloseSidePanelBtn": {
+                        "click": null
+                    }
+                },
+                "DownloadProjectInput": {
+                    "clearInput": null
+                }
+            }
+        }
+    },
+    "deployment_and_deployCodeOnly": {
+        "TestCaseInfo": {
+            "TestDescription": "Deploy with a Primary, Secondary and .",
+            "Owner": "Kiran",
+            "SuiteType": "Smoke",
+            "UserStoryLink": "Smoke, N/A",
+            "UserStory": "Smoke",
+            "TaskLink": "ProfilePage, /ProfilePage",
+            "TestCaseLink": "ProfilePageTest, N/A",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.0.part_number": "60-1916-01"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN",
+                "devices.2": {},
+                "devices.2.name": "IPCP350XI",
+                "devices.2.part_number": "60-1912-01",
+                "devices.2.alias": "Test_Rack_Pro350_2",
+                "devices.2.network": {},
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0": {},
+                "devices.2.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+                "devices.2.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP350XI<<HardwareFoundMessage>><<IPCP350_Xi_IPCP>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP Pro 350<<HardwareFoundMessage>><<IPCP360_Qxi_LAN>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP Pro 1022T<<HardwareFoundMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

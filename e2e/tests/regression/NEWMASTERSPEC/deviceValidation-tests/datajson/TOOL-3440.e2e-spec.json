@@ -1,0 +1,189 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that layout of the TLP GUI is validated at the time of Deployment",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1650\", https://extron.atlassian.net/browse/TOOL-1650",
+      "UserStory": "Layout Validation (Excluding - ECW, iOS, Android, TLI Devices)",
+      "TaskLink": "\"Task Issue: TOOL-3440\", https://extron.atlassian.net/browse/TOOL-3340",
+      "TestCaseLink": "\"Test Case: CSP-T982\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T982",
+      "ProjectFile": "TLPLayoutProject\\project.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP360_dualnic_DHCP>>",
+        "devices.1.network.interfaces.0.address": "<<TLP1525TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidLayoutFileNoMatch>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that layout of the TLP GUI is validated at the time of Deployment",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1650\", https://extron.atlassian.net/browse/TOOL-1650",
+      "UserStory": "Layout Validation (Excluding - ECW, iOS, Android, TLI Devices)",
+      "TaskLink": "\"Task Issue: TOOL-3440\", https://extron.atlassian.net/browse/TOOL-3340",
+      "TestCaseLink": "\"Test Case: TOOL-T1012\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T1012",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.network.interfaces.0.address": "<<TLP300M_LL>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidLayoutFileNoMatch>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that layout of the TLP GUI is validated at the time of Deployment (Multiple Devices Case)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1650\", https://extron.atlassian.net/browse/TOOL-1650",
+      "UserStory": "Layout Validation (Excluding - ECW, iOS, Android, TLI Devices)",
+      "TaskLink": "\"Task Issue: TOOL-3440\", https://extron.atlassian.net/browse/TOOL-3340",
+      "TestCaseLink": "\"Test Case: CSP-T1013\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T1013",
+      "ProjectFile": "TLPLayoutProject\\project.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP360_dualnic_DHCP>>",
+        "devices.1.network.interfaces.0.address": "<<TLP1525TG>>",
+        "devices.2": {},
+        "devices.2.name": "TLP 725T",
+        "devices.2.part_number": "60-1562-02",
+        "devices.2.alias": "PanelAlias_2",
+        "devices.2.network": {},
+        "devices.2.network.host_network_type": "LAN",
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0": {},
+        "devices.2.network.interfaces.0.address": "<<TLP725T_TLP>>",
+        "devices.2.network.interfaces.0.type": "<<LAN>>",
+        "devices.2.ui": {},
+        "devices.2.ui.layout_file": "TLP_725T.gdl",
+        "devices.2.ui.enable_click_sound": true,
+        "devices.2.ui.thumb_change_report_interval": 0.1,
+        "devices.2.ui.thumb_to_fill_sync_time": 0.5,
+        "devices.3": {},
+        "devices.3.name": "TLP 725C NC",
+        "devices.3.part_number": "60-1564-12",
+        "devices.3.alias": "PanelAlias_3",
+        "devices.3.network": {},
+        "devices.3.network.host_network_type": "LAN",
+        "devices.3.network.interfaces": [],
+        "devices.3.network.interfaces.0": {},
+        "devices.3.network.interfaces.0.address": "<<TLP725CNC>>",
+        "devices.3.network.interfaces.0.type": "<<LAN>>",
+        "devices.3.ui": {},
+        "devices.3.ui.layout_file": "TLP_725T.gdl",
+        "devices.3.ui.enable_click_sound": true,
+        "devices.3.ui.thumb_change_report_interval": 0.1,
+        "devices.3.ui.thumb_to_fill_sync_time": 0.5
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidLayoutFileNoMatch>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

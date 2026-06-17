@@ -1,0 +1,54 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deployment is successful with no error messages and Peripheral (TLP NC) device is correctly paired on good deploy",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"TOOL-1737: TLP 1225, 1525 & 1725 MG/TG - System Validation\", https://extron.atlassian.net/browse/TOOL-1737",
+            "UserStory": "TOOL-1737: TLP 1225, 1525 & 1725 MG/TG - System Validation",
+            "TaskLink": "\"Task Issue: TOOL-1466\", https://extron.atlassian.net/browse/TOOL-1466",
+            "TestCaseLink": "\"Test Case: TOOL-T3241\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3241",
+            "ProjectFile": "TLPTGMGProject\\systeminfo.json"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.2.name": "TLP",
+                "devices.2.network.interfaces.0.address": "<<TLP1525TG>>",
+                "devices.2.part_number": "60-1790-02"
+            },
+            "DeleteData": []
+        },
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP<<pairingPositiveMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

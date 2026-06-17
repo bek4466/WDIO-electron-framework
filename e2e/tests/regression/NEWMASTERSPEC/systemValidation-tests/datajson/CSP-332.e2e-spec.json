@@ -1,0 +1,125 @@
+{
+  "Execute": ["TestCase1"],
+
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that missing keys for system.irfile_folder_path give appropriate Info messages",
+      "Owner": "Amit B",
+      "SuiteType": "System Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1674\", https://extron.atlassian.net/browse/TOOL-1674",
+      "UserStory": "system.irfile_folder_path ",
+      "TaskLink": "\"Task Issue: TOOL-4162\", https://extron.atlassian.net/browse/TOOL-4162",
+      "TestCaseLink": "\"Test Case: TOOL-T3650\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3650",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "DeleteData": ["system.irfile_folder_path"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingIrFolder>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "InsertTestData": {
+          "system.irfile_folder_path": "IrDriver"
+        }
+      },
+      "DeployAction_2": ["Deploy"],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid file path for system.irfile_folder_path gives appropriate error messages(DEPRECATED)",
+      "Owner": "Amit B",
+      "SuiteType": "System Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1674\", https://extron.atlassian.net/browse/TOOL-1674",
+      "UserStory": "system.irfile_folder_path",
+      "TaskLink": "\"Task Issue: TOOL-4162\", https://extron.atlassian.net/browse/TOOL-4162",
+      "TestCaseLink": "\"Test Case: TOOL-T3792\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3792",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "InsertTestData": {
+        "system.irfile_folder_path": "abc*file.eir."
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidIrFolderPath>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "ModifyTestData": {
+          "system.irfile_folder_path": "IrDriver"
+        }
+      },
+      "DeployAction_2": ["Deploy"],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

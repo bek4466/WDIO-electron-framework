@@ -1,0 +1,192 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Proper Error Message displayed when User changes JSON file without re-adding credentials (Peripheral)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-4047\", https://extron.atlassian.net/browse/TOOL-4047",
+            "UserStory": "TOOL-4047 Project Credentials File: Updating Credentials Missing/Incorrect validation message + workflow (Peripheral)",
+            "TaskLink": "\"Task Issue: TOOL-4260\", https://extron.atlassian.net/browse/TOOL-4260",
+            "TestCaseLink": "\"Test Case: TOOL-T4598\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4598",
+            "ProjectFile": "DeployProject\\systeminfoNoPeripheral.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "InsertTestData": {}
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "InsertTestData": {
+                    "devices.1.name": "TLP Pro 1022T",
+                    "devices.1.part_number": "60-1601-02",
+                    "devices.1.alias": "tlp1220",
+                    "devoces.1.extron_control_web_id": "match",
+                    "devices.1.network": {},
+                    "devices.1.network.host_network_type": "LAN",
+                    "devices.1.network.interfaces": [],
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                    "devices.1.network.interfaces.0.type": "LAN",
+                    "devices.1.ui" : {},
+                    "devices.1.ui.layout_file": "1020t_expandedVariablesFixes.gdl",
+                    "devices.1.ui.enable_click_sound": true,
+                    "devices.1.ui.click_sound_file": "touch.wav",
+                    "devices.1.ui.press_feedback": "none",
+                    "devices.1.ui.thumb_change_report_interval": 0.1,
+                    "devices.1.ui.thumb_to_fill_sync_time": 0.5
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 1022T<<incorrectCredentialsPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Proper Error Message displayed when User changes JSON file and Cancels PC Workflow (Peripheral)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-4047\", https://extron.atlassian.net/browse/TOOL-4047",
+            "UserStory": "TOOL-4047 Project Credentials File: Updating Credentials Missing/Incorrect validation message + workflow (Peripheral)",
+            "TaskLink": "\"Task Issue: TOOL-4260\", https://extron.atlassian.net/browse/TOOL-4260",
+            "TestCaseLink": "\"Test Case: TOOL-T4621\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4621",
+            "ProjectFile": "DeployProject\\systeminfoNoPeripheral.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "InsertTestData": {}
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "InsertTestData": {
+                    "devices.1.name": "TLP Pro 1022T",
+                    "devices.1.part_number": "60-1601-02",
+                    "devices.1.alias": "tlp1220",
+                    "devoces.1.extron_control_web_id": "match",
+                    "devices.1.network": {},
+                    "devices.1.network.host_network_type": "LAN",
+                    "devices.1.network.interfaces": [],
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                    "devices.1.network.interfaces.0.type": "LAN",
+                    "devices.1.ui" : {},
+                    "devices.1.ui.layout_file": "1020t_expandedVariablesFixes.gdl",
+                    "devices.1.ui.enable_click_sound": true,
+                    "devices.1.ui.click_sound_file": "touch.wav",
+                    "devices.1.ui.press_feedback": "none",
+                    "devices.1.ui.thumb_change_report_interval": 0.1,
+                    "devices.1.ui.thumb_to_fill_sync_time": 0.5
+                }
+            },
+            "DeployPage": {
+                "ProjectCredentialsBtn": {
+                    "click": {}
+                },
+                "ProjectCredentialsPopUp": {
+                    "CancelBtn":{
+                        "click": {}
+                    }
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 1022T<<incorrectCredentialsPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Proper Error Message displayed when User changes JSON file after saving Project Credentials (Peripheral)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-4047\", https://extron.atlassian.net/browse/TOOL-4047",
+            "UserStory": "TOOL-4047 Project Credentials File: Updating Credentials Missing/Incorrect validation message + workflow (Peripheral)",
+            "TaskLink": "\"Task Issue: TOOL-4260\", https://extron.atlassian.net/browse/TOOL-4260",
+            "TestCaseLink": "\"Test Case: TOOL-T4622\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4622",
+            "ProjectFile": "DeployProject\\systeminfoNoPeripheral.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "InsertTestData": {}
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "InsertTestData": {
+                    "devices.1.name": "TLP Pro 1022T",
+                    "devices.1.part_number": "60-1601-02",
+                    "devices.1.alias": "tlp1220",
+                    "devoces.1.extron_control_web_id": "match",
+                    "devices.1.network": {},
+                    "devices.1.network.host_network_type": "LAN",
+                    "devices.1.network.interfaces": [],
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                    "devices.1.network.interfaces.0.type": "LAN",
+                    "devices.1.ui" : {},
+                    "devices.1.ui.layout_file": "1020t_expandedVariablesFixes.gdl",
+                    "devices.1.ui.enable_click_sound": true,
+                    "devices.1.ui.click_sound_file": "touch.wav",
+                    "devices.1.ui.press_feedback": "none",
+                    "devices.1.ui.thumb_change_report_interval": 0.1,
+                    "devices.1.ui.thumb_to_fill_sync_time": 0.5
+                }
+            },
+            "DeployPage": {
+                "ProjectCredentialsBtn": {
+                    "click": {}
+                },
+                "ProjectCredentialsPopUp": {
+                    "SaveBtn":{
+                        "click": {}
+                    }
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 1022T<<incorrectCredentialsPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

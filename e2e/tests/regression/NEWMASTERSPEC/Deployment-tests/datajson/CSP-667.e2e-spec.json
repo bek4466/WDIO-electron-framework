@@ -1,0 +1,81 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate messages are displayed in the Message Pane at the time of unsuccessful deploy",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-553\", https://extron.atlassian.net/browse/CSP-553",
+            "UserStory": "CSP-553 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-667\", https://extron.atlassian.net/browse/CSP-667",
+            "TestCaseLink": "\"Test Case: CSP-T891\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T891",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "",
+                "pass": ""
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate messages are displayed in the Message Pane at the time of successful deploy",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-553\", https://extron.atlassian.net/browse/CSP-553",
+            "UserStory": "CSP-553 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-667\", https://extron.atlassian.net/browse/CSP-667",
+            "TestCaseLink": "\"Test Case: CSP-T892\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T892",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

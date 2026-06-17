@@ -1,0 +1,66 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify User should be able to click on login, if user closed the SSO window.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2282\", https://extron.atlassian.net/browse/TOOL-2282",
+      "UserStory": "TOOL-2282 (As CSDU user, I want to be able to figure out why I am unable to log into CSDU.)",
+      "TaskLink": "\"Task Issue: TOOL-4292\", https://extron.atlassian.net/browse/TOOL-4292",
+      "TestCaseLink": "\"Test Case: TOOL-T324\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T324",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout_2": "15000",
+      "LoginPage": {
+        "SignInBtn": {
+          "click": null
+        }
+      },
+      "LoginPopUp": {
+        "enterCredentials": {
+          "user": "certified",
+          "pass": "certified"
+        },
+        "closePopUp": true
+      }
+    },
+    "Execute": "True"
+  }
+}

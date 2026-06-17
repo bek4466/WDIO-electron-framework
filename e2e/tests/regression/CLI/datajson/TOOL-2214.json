@@ -1,0 +1,139 @@
+{"TestCase1":
+    { 
+    "TestCaseInfo" : {
+        "TestDescription":"Verify there should be error message in message pane for missing primary devices.alias for CLI",
+        "Owner":"Amit B",
+        "SuiteType":"Device Validation",
+        "UserStoryLink":"\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+        "UserStory":"TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+        "TaskLink":"\"Task Issue: TOOL-2214\", \"https://extron.atlassian.net/browse/TOOL-2214\"",
+        "TestCaseLink":"\"Test Case: TOOL-T191\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T191\"",
+        "EnvironmentFile":"C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+        "TestCaseHeader":"Verify there should be error message in message pane for missing primary devices.alias for CLI"
+    },
+    "Preconditions" : {
+        "ModifyTestData":{
+        "devices.0.name":"Primary Controller"
+        },
+        "DeleteData":["devices.0.alias"]
+    },
+    "Steps":{
+        "CommandLineParams" : "cliCommand",
+        "VerifyExitCode": "FailedDeploy",
+        "VerifyCLIMessage":[
+            {"MessageText":"error: NBPProject - Project deployment failed.", "MessageType":"Error","Exist":true},
+            {"MessageText":"error: Primary Controller - alias: Missing key - e.g. \"alias\": \"device_alias\"", "MessageType":"Error","Exist":true}]
+        },
+        "Execute":"True"
+    },
+    "TestCase2":
+    { 
+        "TestCaseInfo" : {
+            "TestDescription":"Verify there should be error message in message pane for invalid primary devices.alias for CLI - Empty",
+            "Owner":"Amit B",
+            "SuiteType":"Device Validation",
+            "UserStoryLink":"\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+            "UserStory":"TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+            "TaskLink":"\"Task Issue: TOOL-2214\", \"https://extron.atlassian.net/browse/TOOL-2214\"",
+            "TestCaseLink":"\"Test Case: TOOL-T192\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T192\"",
+            "EnvironmentFile":"C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader":"Verify there should be error message in message pane for invalid primary devices.alias for CLI - Empty"
+        },
+        "Preconditions" : {
+            "ModifyTestData":{
+            "devices.0.name":"Primary Controller",
+            "devices.0.alias" : true
+            }
+        },
+        "Steps":{
+            "CommandLineParams" : "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage":[
+                {"MessageText":"error: NBPProject - Project deployment failed.", "MessageType":"Error","Exist":true},
+                {"MessageText":"error: Primary Controller - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"", "MessageType":"Error","Exist":true}]
+            },
+            "Execute":"True"
+        },
+    "TestCase3":
+    { 
+        "TestCaseInfo" : {
+            "TestDescription":"Verify there should be error message in message pane for missing primary devices.alias for CLI - Empty String",
+            "Owner":"Amit B",
+            "SuiteType":"Device Validation",
+            "UserStoryLink":"\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+            "UserStory":"TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+            "TaskLink":"\"Task Issue: TOOL-2214\", \"https://extron.atlassian.net/browse/TOOL-2214\"",
+            "TestCaseLink":"\"Test Case: TOOL-T193\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T193\"",
+            "EnvironmentFile":"C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader":"Verify there should be error message in message pane for missing primary devices.alias for CLI - Empty String"
+        },
+        "Preconditions" : {
+            "ModifyTestData":{
+            "devices.0.name":"Primary Controller",
+            "devices.0.alias" : ""
+            }
+        },
+        "Steps":{
+            "CommandLineParams" : "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage":[
+                {"MessageText":"error: NBPProject - Project deployment failed.", "MessageType":"Error","Exist":true},
+                {"MessageText":"error: Primary Controller - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"", "MessageType":"Error","Exist":true}]
+            },
+            "Execute":"True"
+    },
+"TestCase4":{  
+    "TestCaseInfo" : {
+        "TestDescription":"Verify there should be an error message when primary_device_alias has peripheral device's alias in CLI",
+        "Owner":"Amit B",
+        "SuiteType":"Device Validation",
+        "UserStoryLink":"\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+        "UserStory":"TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+        "TaskLink":"\"Task Issue: TOOL-2214\", \"https://extron.atlassian.net/browse/TOOL-2214\"",
+        "TestCaseLink":"\"Test Case: TOOL-T194\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T194\"",
+        "EnvironmentFile":"C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+        "TestCaseHeader":"Verify there should be an error message when primary_device_alias has peripheral device's alias in CLI"
+    },
+    "Preconditions" : {
+        "ModifyTestData":{
+        "devices.0.name":"Primary Controller",
+        "devices.0.alias" : "dupalias",
+        "devices.1.alias" : "dupalias"
+        }
+    },
+    "Steps":{
+        "CommandLineParams" : "cliCommand",
+        "VerifyExitCode": "FailedDeploy",
+        "VerifyCLIMessage":[
+            {"MessageText":"error: NBPProject - Project deployment failed.", "MessageType":"Error","Exist":true},
+            {"MessageText":"error: Primary Controller - alias: Invalid - Value must be unique", "MessageType":"Error","Exist":true}]
+        },
+        "Execute":"True"
+},
+"TestCase5":{  
+    "TestCaseInfo" : {
+        "TestDescription":"Verify there should be error message in message pane for missing peripheral devices.alias for CLI - Empty",
+        "Owner":"Amit B",
+        "SuiteType":"Device Validation",
+        "UserStoryLink":"\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+        "UserStory":"TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+        "TaskLink":"\"Task Issue: TOOL-2214\", \"https://extron.atlassian.net/browse/TOOL-2214\"",
+        "TestCaseLink":"\"Test Case: TOOL-T195\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T195\"",
+        "EnvironmentFile":"C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+        "TestCaseHeader":"Verify there should be error message in message pane for missing peripheral devices.alias for CLI - Empty"
+    },
+    "Preconditions" : {
+        "ModifyTestData":{
+        "devices.1.name":"Peripheral Device"
+        },
+        "DeleteData":["devices.1.alias"]
+    },
+    "Steps":{
+        "CommandLineParams" : "cliCommand",
+        "VerifyCLIMessage":[
+            {"MessageText":"info: NBPProject - Project deployment completed.", "MessageType":"Error","Exist":true},
+            {"MessageText":"error: Peripheral Device - alias: Missing key - e.g. \"alias\": \"device_alias\"", "MessageType":"Error","Exist":true}]
+        },
+        "Execute":"True"
+}}
+

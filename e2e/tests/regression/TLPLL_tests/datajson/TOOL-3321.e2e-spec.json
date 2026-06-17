@@ -1,0 +1,123 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Invalid (peripheral) devices.alias - not a string",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3321\", https://extron.atlassian.net/browse/TOOL-3321",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T657\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T657",
+      "TestCaseHeader": "Verify there should be error message in message pane for Invalid (peripheral) devices.alias - not a string"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.alias": true
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLCA 1 - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid peripheral devices.alias- Empty",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3321\", https://extron.atlassian.net/browse/TOOL-3321",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T658\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T658",
+      "TestCaseHeader": "Verify there should be error message in message pane for invalid peripheral devices.alias- Empty"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.alias": ""
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLCA 1 - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid peripheral devices.alias -Duplicate",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3321\", https://extron.atlassian.net/browse/TOOL-3321",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T659\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T659",
+      "TestCaseHeader": "Verify there should be error message in message pane for invalid peripheral devices.alias -Duplicate"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.alias": "PanelAlias",
+        "devices.1.alias": "PanelAlias"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLCA 1 - alias: Invalid - Value must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

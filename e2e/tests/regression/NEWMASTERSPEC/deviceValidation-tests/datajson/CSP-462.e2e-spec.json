@@ -1,0 +1,171 @@
+{
+    "Execute":["TestCase1","TestCase2","TestCase3"],
+  
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "An Error is raised when a devices.part_number key is malformed for a primary device, type is boolean",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-81\", https://extron.atlassian.net/browse/CSP-81",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-462\", https://extron.atlassian.net/browse/CSP-462",
+            "TestCaseLink": "\"Test Case: CSP-T142\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T142",
+             "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.name": "My Primary",
+                "devices.0.part_number": true
+              }
+         
+        
+            },
+          
+    
+        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+          "Steps": {
+            "Credentials": [
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                  }
+              ],
+            "VerifyMessage": [
+              {
+                  "MessageText": "<<malformedPrimaryPartNumberMessage>>",
+                  "MessageType":"Error",
+                  "Exist": true
+              }
+          ]},
+        "Execute": "True"
+    }
+,
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "An Error is raised when a devices.part_number key is malformed for a primary device, type is number",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-81\", https://extron.atlassian.net/browse/CSP-81",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-462\", https://extron.atlassian.net/browse/CSP-462",
+            "TestCaseLink": "\"Test Case: CSP-T143\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T143",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        }
+    ,
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.name": "My Primary",
+                "devices.0.part_number": 88
+              }
+         
+        
+            }
+          
+    
+        ,
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+          "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+              {
+                  "MessageText": "<<malformedPrimaryPartNumberMessage>>",
+                  "MessageType":"Error",
+                  "Exist": true
+              }
+          ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "An Error is raised when a devices.part_number key is malformed for a primary device, type is object",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-81\", https://extron.atlassian.net/browse/CSP-81",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-462\", https://extron.atlassian.net/browse/CSP-462",
+            "TestCaseLink": "\"Test Case: CSP-T144\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T144",
+         "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        }
+    ,
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.name": "My Primary",
+                "devices.0.part_number": []
+              }
+         
+        
+            }
+          
+    
+        ,
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+          "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+              {
+                  "MessageText": "<<malformedPrimaryPartNumberMessage>>",
+                  "MessageType":"Error",
+                  "Exist": true
+              }
+          ]
+        },
+        "Execute": "True"
+    }
+}
+
+       

@@ -1,0 +1,196 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for invalid NAV peripheral devices.alias -Duplicate.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1682\", https://extron.atlassian.net/browse/TOOL-1682",
+            "UserStory": "TOOL-1683 (NAVigator Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-1352\", https://extron.atlassian.net/browse/TOOL-1352",
+            "TestCaseLink": "\"Test Case: CSP-T1172\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1172",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+              "devices.0.part_number": "60-1431-01",
+              "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+              "devices.1.part_number": "60-1534-01",
+              "devices.1.network.interfaces.0.address": "<<Navigator>>",
+              "devices.2.part_number": "60-1525-12",
+              "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+              "devices.3.part_number": "60-1525-14",
+              "devices.3.network.interfaces.0.address": "<<NAVSD_101>>",
+              "devices.1.alias": "duplicate",
+              "devices.2.alias": "duplicate"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<duplicatePeripheralDeviceAliasMessage1>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                  "MessageText": "<<deploySuccessMsg>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify that missing \"devices.network.host_network_type\" for NAV peripheral device gives appropriate error message.",
+          "Owner": "Kiran Shrestha",
+          "SuiteType": "Deployment Test",
+          "UserStoryLink": "\"User Story: TOOL-1682\", https://extron.atlassian.net/browse/TOOL-1682",
+          "UserStory": "TOOL-1683 (NAVigator Bad Scenarios)",
+          "TaskLink": "\"Task Issue: TOOL-1352\", https://extron.atlassian.net/browse/TOOL-1352",
+          "TestCaseLink": "\"Test Case: CSP-T1173\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1173",
+          "ProjectFile": "NavProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+          "ModifyTestData": {
+            "devices.0.part_number": "60-1431-01",
+            "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+            "devices.1.part_number": "60-1534-01",
+            "devices.1.network.interfaces.0.address": "<<Navigator>>",
+            "devices.2.part_number": "60-1525-12",
+            "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+            "devices.3.part_number": "60-1525-14",
+            "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+          },
+          "InsertTestData": {
+          },
+          "DeleteData": [
+            "devices.1.network.host_network_type"
+          ]
+      },        
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                  "MessageText": "<<missingPeriphHostNetworkTypeMessage>>",
+                  "MessageType": "Error",
+                  "Exist": true
+              },
+              {
+                "MessageText": "<<deploySuccessMsg>>",
+                "MessageType": "Info",
+                "Exist": true
+              }
+          ]
+      },
+      "Execute": "True"
+    },
+    "TestCase3": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify that missing \"devices.network.host_network_type\" for NAV peripheral device gives appropriate error message.",
+          "Owner": "Kiran Shrestha",
+          "SuiteType": "Deployment Test",
+          "UserStoryLink": "\"User Story: TOOL-1682\", https://extron.atlassian.net/browse/TOOL-1682",
+          "UserStory": "TOOL-1683 (NAVigator Bad Scenarios)",
+          "TaskLink": "\"Task Issue: TOOL-1352\", https://extron.atlassian.net/browse/TOOL-1352",
+          "TestCaseLink": "\"Test Case: CSP-T1174\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1174",
+          "ProjectFile": "NavProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+          "ModifyTestData": {
+            "devices.0.part_number": "60-1431-01",
+            "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+            "devices.1.part_number": "60-1534-01",
+            "devices.1.network.interfaces.0.address": "<<Navigator>>",
+            "devices.2.part_number": "60-1525-12",
+            "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+            "devices.3.part_number": "60-1525-14",
+            "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+          },
+          "InsertTestData": {
+          },
+          "DeleteData": [
+            "devices.1.network.interfaces"
+          ]
+      },        
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                  "MessageText": "<<missingNetworkInterface>>",
+                  "MessageType": "Error",
+                  "Exist": true
+              },
+              {
+                "MessageText": "<<deploySuccessMsg>>",
+                "MessageType": "Info",
+                "Exist": true
+              }
+          ]
+      },
+      "Execute": "True"
+    }
+}

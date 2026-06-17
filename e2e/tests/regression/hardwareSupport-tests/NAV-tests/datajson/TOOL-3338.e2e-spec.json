@@ -1,0 +1,139 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing key for  \"devices.username\" (NAV Peripheral Device) throws warning messages and Kevin window is NOT  displayed.",
+            "Owner": "Austin Lee",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3338\", https://extron.atlassian.net/browse/TOOL-3338",
+            "TestCaseLink": "\"Test Case: TOOL-T930\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T930",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator : Navigator",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.2.name": "NAV E 101 : NAVE_101",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.3.name": "NAV SD 101 : NAVSD_101",
+                "devices.3.network.interfaces.0.address": "NAVSD_101"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.1.username",
+                "devices.2.username",
+                "devices.3.username"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : Navigator - username: Missing key",
+                    "MessageType": "Error",
+                    "Exist": false
+                },
+                {
+                    "MessageText": "NAV E 101 : NAVE_101 - username: Missing key",
+                    "MessageType": "Error",
+                    "Exist": false
+                },
+                {
+                    "MessageText": "NAV SD 101 : NAVSD_101 - username: Missing key",
+                    "MessageType": "Error",
+                    "Exist": false
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network\" in destiny gives appropriate error message for NAV peripheral device.",
+            "Owner": "Austin Lee",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3338\", https://extron.atlassian.net/browse/TOOL-3338",
+            "TestCaseLink": "\"Test Case: TOOL-T933\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T933",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator : Navigator",
+                "devices.2.name": "NAV E 101 : NAVE_101",
+                "devices.3.name": "NAV SD 101 : NAV10E_101"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.1.network",
+                "devices.2.network",
+                "devices.3.network"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : Navigator - network: Missing key e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 : NAVE_101 - network: Missing key e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 : NAV10E_101 - network: Missing key e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

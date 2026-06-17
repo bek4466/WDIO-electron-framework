@@ -1,0 +1,193 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that deleting/removing Project from file/location generates appropriate error for Deploy Page action.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5343\", https://extron.atlassian.net/browse/TOOL-5343 ",
+      "UserStory": "TOOL-5343: Revisiting Browse - disabling the text input (read only)",
+      "TaskLink": "\"Task Issue: TOOL-5544\", https://extron.atlassian.net/browse/TOOL-5544 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4909\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4909 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\AlarmClock.json",
+          "to": "ProtectProjectTest\\TempAlarmClock.json"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\TempAlarmClock.json"
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage2": {
+        "DeployBtn": {
+          "isEnabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isEnabled": null
+        },
+        "CertifyProjectBtn": {
+          "isEnabled": true
+        },
+        "ProjectCredentialsBtn": {
+          "isEnabled": true
+        }
+      },
+      "CommonMethod2": {
+        "deleteFile": "ProtectProjectTest\\TempAlarmClock.json"
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "Timeout3": "fast",
+      "DeployPage3": {
+        "VerifyProjectFileErrorMessage": [
+          {
+            "MessageText": "<<noFileErrorMessage>>",
+            "Exist": true
+          }
+        ]
+      },
+      "Comment": "DEPLOY CODE ONLY",
+      "Timeout4": "fast",
+      "CommonMethod3": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\AlarmClock.json",
+          "to": "ProtectProjectTest\\TempAlarmClock.json"
+        }
+      },
+      "Timeout5": "fast",
+      "DeployPage4": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\TempAlarmClock.json"
+        }
+      },
+      "Timeout6": "fast",
+      "DeployPage5": {
+        "DeployBtn": {
+          "isEnabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isEnabled": null
+        },
+        "CertifyProjectBtn": {
+          "isEnabled": true
+        },
+        "ProjectCredentialsBtn": {
+          "isEnabled": true
+        }
+      },
+      "CommonMethod4": {
+        "deleteFile": "ProtectProjectTest\\TempAlarmClock.json"
+      },
+      "DeployAction2": [
+        "DeployCodeOnly"
+      ],
+      "Timeout7": "fast",
+      "DeployPage6": {
+        "VerifyProjectFileErrorMessage": [
+          {
+            "MessageText": "<<noFileErrorMessage>>",
+            "Exist": true
+          }
+        ]
+      },
+      "Comment1": "CERTIFY",
+      "Timeout8": "fast",
+      "CommonMethod5": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\AlarmClock.json",
+          "to": "ProtectProjectTest\\TempAlarmClock.json"
+        }
+      },
+      "Timeout9": "fast",
+      "DeployPage7": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\TempAlarmClock.json"
+        }
+      },
+      "Timeout10": "fast",
+      "DeployPage8": {
+        "DeployBtn": {
+          "isEnabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isEnabled": null
+        },
+        "CertifyProjectBtn": {
+          "isEnabled": true
+        },
+        "ProjectCredentialsBtn": {
+          "isEnabled": true
+        }
+      },
+      "CommonMethod6": {
+        "deleteFile": "ProtectProjectTest\\TempAlarmClock.json"
+      },
+      "DeployAction3": [
+        "Certify"
+      ],
+      "Timeout11": "fast",
+      "DeployPage9": {
+        "VerifyProjectFileErrorMessage": [
+          {
+            "MessageText": "<<noFileErrorMessage>>",
+            "Exist": true
+          }
+        ]
+      },
+      "Comment2": "CREDENTIALS",
+      "Timeout12": "fast",
+      "CommonMethod7": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\AlarmClock.json",
+          "to": "ProtectProjectTest\\TempAlarmClock.json"
+        }
+      },
+      "Timeout13": "fast",
+      "DeployPage10": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\TempAlarmClock.json"
+        }
+      },
+      "Timeout14": "fast",
+      "DeployPage11": {
+        "DeployBtn": {
+          "isEnabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isEnabled": null
+        },
+        "CertifyProjectBtn": {
+          "isEnabled": true
+        },
+        "ProjectCredentialsBtn": {
+          "isEnabled": true
+        }
+      },
+      "CommonMethod8": {
+        "deleteFile": "ProtectProjectTest\\TempAlarmClock.json",
+        "deleteFile2": "ProtectProjectTest\\TempAlarmClock-credential.dat"
+      },
+      "DeployPage12": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        }
+      },
+      "Timeout15": "fast",
+      "Banner": {
+        "BannerText": {
+          "verifyTextMatches": "<<credentialsBannerTitle>>"
+        }
+      }
+    }
+  }
+}

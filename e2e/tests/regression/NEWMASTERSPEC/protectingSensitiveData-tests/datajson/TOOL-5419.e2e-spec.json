@@ -1,0 +1,206 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify certified users are able to successfully extract a protected project",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5331\", https://extron.atlassian.net/browse/TOOL-5331 ",
+      "UserStory": "TOOL-5331: Extraction Process",
+      "TaskLink": "\"Task Issue: TOOL-5419\", https://extron.atlassian.net/browse/TOOL-5419 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4889\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4889 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "medium",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "exists": true,
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage3": {
+        "ExtractProjectPopUp": {
+          "extractDescription": {
+            "matches": "<<extractDescription>>"
+          },
+          "selectLocationDescription": {
+            "matches": "<<extractSelectLocationDescription>>"
+          },
+          "extractBtn": {
+            "exists": true
+          },
+          "passwordInputBox": {
+            "exists": true,
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "exists": true,
+            "setPath": "TmpDownloadProject"
+          }
+        }
+      },
+      "Timeout3": "medium",
+      "DeployPage4": {
+        "ExtractProjectPopUp": {
+          "extractBtn": {
+            "isEnabled": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout4": "fast",
+      "DeployPage5": {
+        "ExtractProjectPopUp": {
+          "successLink": {
+            "textMatches": "<<extractSuccessMessage>>"
+          }
+        }
+      },
+      "Timeout5": "medium",
+      "CommonMethod": {
+        "findFile": {
+          "path": "TmpDownloadProject\\AlarmClock.json"
+        },
+        "findFile2": {
+          "path": "TmpDownloadProject\\AlarmClock-credential.dat"
+        },
+        "findFile3": {
+          "path": "TmpDownloadProject\\AlarmClock-certification.dat"
+        },
+        "findFile4": {
+          "path": "TmpDownloadProject\\ir\\AlarmClock.json"
+        },
+        "findFile5": {
+          "path": "TmpDownloadProject\\layout\\AlarmClock.gdl"
+        },
+        "findFile6": {
+          "path": "TmpDownloadProject\\rfile\\AlarmClock.json"
+        },
+        "findFile7": {
+          "path": "TmpDownloadProject\\sound\\Alarm Clock.wav"
+        },
+        "findFile8": {
+          "path": "TmpDownloadProject\\src\\main1.py"
+        }
+      },
+      "Timeout6": "fast",
+      "DeployPage6": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify uncertified users are able to successfully extract a protected project",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5331\", https://extron.atlassian.net/browse/TOOL-5331 ",
+      "UserStory": "TOOL-5331: Extraction Process",
+      "TaskLink": "\"Task Issue: TOOL-5419\", https://extron.atlassian.net/browse/TOOL-5419 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4890\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4890 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "Timeout_preTC": "slow",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "medium",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "exists": true,
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage3": {
+        "ExtractProjectPopUp": {
+          "extractDescription": {
+            "matches": "<<extractDescription>>"
+          },
+          "selectLocationDescription": {
+            "matches": "<<extractSelectLocationDescription>>"
+          },
+          "extractBtn": {
+            "exists": true
+          },
+          "passwordInputBox": {
+            "exists": true,
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "exists": true,
+            "setPath": "TmpDownloadProject"
+          }
+        }
+      },
+      "Timeout3": "medium",
+      "DeployPage4": {
+        "ExtractProjectPopUp": {
+          "extractBtn": {
+            "isEnabled": true,
+            "click": null
+          },
+          "successLink": {
+            "textMatches": "<<extractSuccessMessage>>"
+          }
+        }
+      },
+      "Timeout4": "medium",
+      "CommonMethod": {
+        "findFile": {
+          "path": "TmpDownloadProject\\AlarmClock.json"
+        },
+        "findFile2": {
+          "path": "TmpDownloadProject\\AlarmClock-credential.dat"
+        },
+        "findFile3": {
+          "path": "TmpDownloadProject\\AlarmClock-certification.dat"
+        },
+        "findFile4": {
+          "path": "TmpDownloadProject\\ir\\AlarmClock.json"
+        },
+        "findFile5": {
+          "path": "TmpDownloadProject\\layout\\AlarmClock.gdl"
+        },
+        "findFile6": {
+          "path": "TmpDownloadProject\\rfile\\AlarmClock.json"
+        },
+        "findFile7": {
+          "path": "TmpDownloadProject\\sound\\Alarm Clock.wav"
+        },
+        "findFile8": {
+          "path": "TmpDownloadProject\\src\\main1.py"
+        }
+      },
+      "Timeout5": "fast",
+      "DeployPage5": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      }
+    }
+  }
+}

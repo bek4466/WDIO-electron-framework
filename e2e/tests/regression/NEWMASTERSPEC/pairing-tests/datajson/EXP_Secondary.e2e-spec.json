@@ -1,0 +1,35 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "ABC",
+            "Owner": "First Last",
+            "SuiteType": "Pairing Test",
+            "UserStoryLink": "\"User Story: TOOL-1732 \", https://extron.atlassian.net/browse/TOOL-1732",
+            "UserStory": "Message Pane - Clear All",
+            "TaskLink": "\"Task Issue: TOOL-1462\", https://extron.atlassian.net/browse/TOOL-1462",
+            "TestCaseLink": "\"Test Case: CSP-T1049\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1049",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Steps": {
+            "GmCommands": [
+                {
+                    "Primary_Controller": "<<IPLEXP_RIO8>>",
+                    "Peripheral_Devices": [
+                        "<<TLP525T_TLP>>"
+                    ]
+                }
+            ],
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

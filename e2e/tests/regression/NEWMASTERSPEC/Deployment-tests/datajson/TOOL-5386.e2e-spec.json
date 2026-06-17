@@ -1,0 +1,160 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2", "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as a peripheral pointing to network address of a different model of same device gives appropriate warning message (UUT is ShareLink Pro 2500)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5173\", https://extron.atlassian.net/browse/TOOL-5173",
+            "UserStory": "TOOL-5173 (ShareLink Pro 2500 - Deployment Validation)",
+            "TaskLink": "\"Task Issue: TOOL-5386\", https://extron.atlassian.net/browse/TOOL-5386",
+            "TestCaseLink": "\"Test Case: TOOL-T734\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888014",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "ShareLinkDeployment",
+                "devices.0.name": "IPCP360QXI",
+                "devices.0.part_number": "60-1916-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.1.name": "ShareLink 2500",
+                "devices.1.part_number": "<<partNumber_Sharelink2500>>",
+                "devices.1.network.interfaces.0.address": "<<NAVE_101>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<hardwareMismatch>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message (UUT is ShareLink Pro 2500)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5173\", https://extron.atlassian.net/browse/TOOL-5173",
+            "UserStory": "TOOL-5173 (ShareLink Pro 2500 - Deployment Validation)",
+            "TaskLink": "\"Task Issue: TOOL-5386\", https://extron.atlassian.net/browse/TOOL-5386",
+            "TestCaseLink": "\"Test Case: TOOL-T760\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928429",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "ShareLinkDeployment",
+                "devices.0.name": "TLP 300M wLL",
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.name": "ShareLink 2500",
+                "devices.1.part_number": "<<partNumber_Sharelink2500>>",
+                "devices.1.network.interfaces.0.address": "<<Sharelink2500>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "invalidPassword"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "ShareLink 2500<<incorrectDeviceCredentials>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Peripheral Device specified in destiny file, an incompatible device found at the address gives appropriate error warning (UUT is ShareLink Pro 2500)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5173\", https://extron.atlassian.net/browse/TOOL-5173",
+            "UserStory": "TOOL-5173 (ShareLink Pro 2500 - Deployment Validation)",
+            "TaskLink": "\"Task Issue: TOOL-5386\", https://extron.atlassian.net/browse/TOOL-5386",
+            "TestCaseLink": "\"Test Case: TOOL-T888\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16769218",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "ShareLinkDeployment",
+                "devices.0.name": "TLP 300M wLL",
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.name": "ShareLink 2500",
+                "devices.1.part_number": "<<partNumber_Sharelink2500>>",
+                "devices.1.network.interfaces.0.address": "<<TLP725T_TLP>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "ShareLink 2500<<incompatibleHardwareMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

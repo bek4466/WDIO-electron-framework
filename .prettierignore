@@ -4,3 +4,4 @@ reports
 allure-results
 allure-report
 package-lock.json
+e2e

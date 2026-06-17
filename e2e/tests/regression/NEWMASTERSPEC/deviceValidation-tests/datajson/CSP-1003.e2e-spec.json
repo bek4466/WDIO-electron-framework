@@ -1,0 +1,91 @@
+{
+    "Execute":[ "TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment should not go through if 2 systems are using same systemid.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1683\", https://extron.atlassian.net/browse/TOOL-1683 ",
+            "UserStory": "TOOL-1683 (NAVigator Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-1361\", https://extron.atlassian.net/browse/TOOL-1361 ",
+            "TestCaseLink": "\"Test Case: TOOL-4104\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4104 ",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "1234",
+                "devices.0.name": "My Primary",
+                "devices.1.name": "Nav Device",
+                "devices.1.network.interfaces.0.address": "<<Navigator_1>>"
+               
+            },
+            "InsertTestData": {
+              
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.name": "My Primary_2",
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+                },
+                "InsertTestData": {
+                    
+                },
+                "DeleteData": [
+                    
+                ]
+            },
+
+            "DeployAction2": [
+            "ClearMessagePane",
+            "Deploy"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Nav Device<<navDuplicateIdMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+   
+}

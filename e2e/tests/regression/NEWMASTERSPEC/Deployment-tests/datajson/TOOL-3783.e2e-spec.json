@@ -1,0 +1,61 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate Error is thrown when system.data_file_path is pointed outside the root folder path",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-3703\", https://extron.atlassian.net/browse/TOOL-3703",
+            "UserStory": "TOOL-3703 (Path pointing outward validation messages & Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3783\", https://extron.atlassian.net/browse/TOOL-3783",
+            "TestCaseLink": "\"Test Case: CSP-T4543\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4543",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "system.data_file_path": "..\\..\\DataFile.json"
+                }
+            },
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                },
+                "VerifyProjectFileErrorMessage": [
+                    {
+                        "MessageText": "<<invalidDatafilePath>>",
+                        "Exist": true
+                    }
+                ]
+            }
+        },
+        "Execute": "True"
+    }
+}

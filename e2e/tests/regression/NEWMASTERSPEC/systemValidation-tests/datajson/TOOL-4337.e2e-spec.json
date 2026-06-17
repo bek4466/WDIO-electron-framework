@@ -1,0 +1,79 @@
+{
+    "Execute":[],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify error handling for certifying a renamed Project Descriptor.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for certifying a renamed Project Descriptor\", https://extron.atlassian.net/browse/TOOL-4297 ",
+            "UserStory": "TOOL-4297: As a Control System Programmer or AV Technician, I want to be notified when CSDU can’t access project resources (or can’t find them), So that I won’t have to force close the app and re-select my project.  ",
+            "TaskLink": "\"Task Issue: TOOL-4337\", https://extron.atlassian.net/browse/TOOL-4337 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4657\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4657 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              }
+        ],
+        
+        "Steps": {
+
+            "CommonMethod": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\systeminfoTmp.json",
+                        "newPath": "DeployProject\\newfileName.json"
+                    }
+                ]
+            },
+            "DeployAction": [
+                "Certify"
+            ],
+            "DeployPage": {
+                "VerifyProjectFileErrorMessage": [
+                    {
+                        "MessageText": "<<noFileErrorMessage>>",
+                        "Exist": true
+                    }
+                ],
+                "DeployBtn": {
+                    "isDisabled": true
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": true
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                },
+                "ProjectCredentialsBtn": {
+                    "isDisabled": true
+                }
+            }
+        }
+    }
+}

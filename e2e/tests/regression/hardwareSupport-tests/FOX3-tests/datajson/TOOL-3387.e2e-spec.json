@@ -1,0 +1,127 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Dual NIC Primary Device that has incorrect specified AVLAN address gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3387\", https://extron.atlassian.net/browse/TOOL-3387",
+            "ProjectFile": "FoxProject\\project.json",
+            "TestCaseLink": "\"Test Case: TOOL-T837\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T837",
+            "TestCaseHeader": "Verify that UUT as Dual NIC Primary Device that has incorrect specified AVLAN address gives appropriate error message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.1.address": "10.114.89.246"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "Matrix Q xi - FOX3 : 10.117.18.1 - Incorrect Address : Specified: 10.114.89.246, Required: FOX3_Qxi_AVLAN. The specified device address must match the live address in order to build and upload to it.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Dual NIC Primary Device that has incorrect specified LAN address gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3387\", https://extron.atlassian.net/browse/TOOL-3387",
+            "ProjectFile": "FoxProject\\project.json",
+            "TestCaseLink": "\"Test Case: TOOL-T838\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T838",
+            "TestCaseHeader": "Verify that UUT as Dual NIC Primary Device that has incorrect specified LAN address gives appropriate error message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "10.114.89.246"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "Matrix Q xi - FOX3 : 10.117.18.1 - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Dual NIC Primary Device has specified LAN address of a single NIC device gives appropriate warning message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3387\", https://extron.atlassian.net/browse/TOOL-3387",
+            "ProjectFile": "FoxProject\\project.json",
+            "TestCaseLink": "\"Test Case: TOOL-T839\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T839",
+            "TestCaseHeader": "Verify that UUT as Dual NIC Primary Device has specified LAN address of a single NIC device gives appropriate warning message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "IPCP350_Xi_IPCP"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "Matrix Q xi - FOX3 : 10.117.18.1 - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

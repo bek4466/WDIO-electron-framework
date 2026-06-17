@@ -1,0 +1,288 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3", "TestCase4", "TestCase5"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral TLP NC Device) enables Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1594\", https://extron.atlassian.net/browse/TOOL-1594",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1256\", https://extron.atlassian.net/browse/TOOL-1256",
+      "TestCaseLink": "\"Test Case: CSP-T1359\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1359",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.part_number": "60-1560-12",
+        "devices.2.network.interfaces.0.address": "<<TLP525CNC>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral TLP NC Device) enables Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1594\", https://extron.atlassian.net/browse/TOOL-1594",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1256\", https://extron.atlassian.net/browse/TOOL-1256",
+      "TestCaseLink": "\"Test Case: CSP-T1360\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1360",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.part_number": "60-1560-12",
+        "devices.2.network.interfaces.0.address": "<<TLP525CNC>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": ["devices.2.name"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral TLP NC Device) enables Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1594\", https://extron.atlassian.net/browse/TOOL-1594",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1256\", https://extron.atlassian.net/browse/TOOL-1256",
+      "TestCaseLink": "\"Test Case: CSP-T1361\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1361",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.part_number": "60-1560-12",
+        "devices.2.network.interfaces.0.address": "<<TLP525CNC>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates matching of Peripheral (TLP NC) Device hardware at the time of Deploy ((Index Identifier scenario)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1594\", https://extron.atlassian.net/browse/TOOL-1594",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1256\", https://extron.atlassian.net/browse/TOOL-1256",
+      "TestCaseLink": "\"Test Case: CSP-T1362\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1362",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.part_number": "60-1560-12",
+        "devices.2.network.interfaces.0.address": "<<TLP525CNC>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": ["devices.2.name"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify network.interfaces.address info message shown when peripheral (TLP NC) given two of the required NIC's",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1594\", https://extron.atlassian.net/browse/TOOL-1594",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1256\", https://extron.atlassian.net/browse/TOOL-1256",
+      "TestCaseLink": "\"Test Case: CSP-T1363\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1363",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.part_number": "60-1560-12",
+        "devices.2.network.interfaces.0.address": "<<TLP525CNC>>",
+        "devices.2.network.interfaces.1": {},
+        "devices.2.network.interfaces.1.address": "10.117.30.103",
+        "devices.2.network.interfaces.1.type": "LAN"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<dualnicPairingMessagePart1>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

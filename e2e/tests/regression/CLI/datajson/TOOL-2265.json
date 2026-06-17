@@ -1,0 +1,150 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that system deploys if Minimum Firmware requirement is met for Matched Primary Controller(Cli Deploy)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2265\", https://extron.atlassian.net/browse/TOOL-2265",
+            "TestCaseLink": "\"Test Case: TOOL-T219\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T219",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that system deploys if Minimum Firmware requirement is met for Matched Primary Controller(Cli Deploy)"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "Pro350_IPCP_1",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing key for system folder (code_folder_path) gives appropriate error message(CI Deploy)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2265\", https://extron.atlassian.net/browse/TOOL-2265",
+            "TestCaseLink": "\"Test Case: TOOL-T220\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T220",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that missing key for system folder (code_folder_path) gives appropriate error message(CI Deploy)"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "Pro350_IPCP_1",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            },
+            "DeleteData":["system.code_folder_path"]
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: Project - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "error: system.code_folder_path: Missing key",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid datatype \"system.system_id\" in destiny gives appropriate error message( CI Deploy)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2265\", https://extron.atlassian.net/browse/TOOL-2265",
+            "TestCaseLink": "\"Test Case: TOOL-T221\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T221",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that invalid datatype \"system.system_id\" in destiny gives appropriate error message( CI Deploy)"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "system.system_id": 1234,
+                "devices.0.name": "My Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: Project - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "error: system.system_id: Invalid - Must be a string e.g. \"system_id\": \"1000\"",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid \"system.primary_device_alias\" in destiny gives appropriate error message(CLi Deploy)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2265\", https://extron.atlassian.net/browse/TOOL-2265",
+            "TestCaseLink": "\"Test Case: TOOL-T222\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T222",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that invalid \"system.primary_device_alias\" in destiny gives appropriate error message(CLi Deploy)"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "system.primary_device_alias": 88,
+                "devices.1.name": "Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: Project - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "error: system.primary_device_alias: Invalid - Must be a string e.g. \"primary_device_alias\": \"device_alias\"",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

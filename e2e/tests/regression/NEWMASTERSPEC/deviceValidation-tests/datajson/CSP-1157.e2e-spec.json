@@ -1,0 +1,272 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3",
+    "TestCase4",
+    "TestCase5"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that missing \"devices.extron_control_web_id\" in destiny gives appropriate info message, for non-primary device .",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1157\", https://extron.atlassian.net/browse/CSP-1157",
+      "TestCaseLink": "\"Test Case: CSP-T1313\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1313",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.2.extron_control_web_id"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device<<missingECW>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Missing devices.ui. key under peripheral devices with UI gives warning message",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1157\", https://extron.atlassian.net/browse/CSP-1157",
+      "TestCaseLink": "\"Test Case: CSP-T1313\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1313",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.2.ui"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device<<missingUi>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Invalid devices.ui. key under peripheral devices with UI gives warning message",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1157\", https://extron.atlassian.net/browse/CSP-1157",
+      "TestCaseLink": "\"Test Case: CSP-T1314\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1314",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui": true
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device<<invalidUi>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that missing key \"systeminfo.devices.ui.layout_file\" throws appropriate warning (For Non-Primary - TLP NC)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1157\", https://extron.atlassian.net/browse/CSP-1157",
+      "TestCaseLink": "\"Test Case: CSP-T1315\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1315",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.2.ui.layout_file"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingPeripheralLayoutFileMessage>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that layout file in \"system.devices.ui.layout_file\" exists but is not a gdl throws appropriate warning (For Non-Primary - TLP NC)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1157\", https://extron.atlassian.net/browse/CSP-1157",
+      "TestCaseLink": "\"Test Case: CSP-T1316\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1316",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui.layout_file": "notgdl.txt"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidLayoutFileTypeMessage>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

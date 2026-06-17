@@ -1,0 +1,125 @@
+{
+  "Execute": ["TestCase1"],
+
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that missing keys for system.code_entry_file  give appropriate Info messages",
+      "Owner": "Amit B",
+      "SuiteType": "System Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1671\", https://extron.atlassian.net/browse/TOOL-1671",
+      "UserStory": "system.code_entry_file  ",
+      "TaskLink": "\"Task Issue: TOOL-4162\", https://extron.atlassian.net/browse/TOOL-4162",
+      "TestCaseLink": "\"Test Case: TOOL-T3642\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3642",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "DeleteData": ["system.code_entry_file"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingCodeEntry>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deployFailedMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "InsertTestData": {
+          "system.code_entry_file ": "main.py"
+        }
+      },
+      "DeployAction_2": ["Deploy"],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid file path for system.code_entry_file  gives appropriate error messages(Deprecated)",
+      "Owner": "Amit B",
+      "SuiteType": "System Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1674\", https://extron.atlassian.net/browse/TOOL-1674",
+      "UserStory": "system.code_entry_file ",
+      "TaskLink": "\"Task Issue: TOOL-4162\", https://extron.atlassian.net/browse/TOOL-4162",
+      "TestCaseLink": "\"Test Case: TOOL-T3643\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3643",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.code_entry_file": "mains.py"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidCodeEntryPath>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deployFailedMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "ModifyTestData": {
+          "system.code_entry_file": "main.py"
+        }
+      },
+      "DeployAction_2": ["Deploy"],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

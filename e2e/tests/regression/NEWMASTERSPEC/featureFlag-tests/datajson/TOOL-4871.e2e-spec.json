@@ -1,0 +1,92 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify File Dumper Feature works properly",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Feature Flag Test",
+            "UserStoryLink": "\"User Story: TOOL-4805\", https://extron.atlassian.net/browse/TOOL-4805",
+            "UserStory": "File Dumper Builder - Feature Flag",
+            "TaskLink": "\"Task Issue: TOOl-4871\", https://extron.atlassian.net/browse/TOOL-4871",
+            "TestCaseLink": "\"Test Case: TOOL-T4796\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/90079901",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "AppAction": [
+                "Logout",
+                {
+                    "user": "Extrontest4@gmail.com",
+                    "pass": "LIWN3shuf4whoc@rhon"
+                }        
+            ],
+            "DeployAction": [
+                "Deploy"
+            ],
+            "CommonMethod": {
+                "findFile": {
+                    "rawPath": {
+                        "path": "C:\\Users\\Public\\Documents\\Extron\\csdu\\deploy\\A-Temp\\proj",
+                        "file": "manifest.json"
+                    }
+                }
+            },
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "system.name": "Test Real Project",
+                    "devices.1.name": "TLP Pro 525T NC",
+                    "devices.1.part_number": "60-1559-12",
+                    "devices.1.alias": "tlp525",
+                    "devices.1.network.interfaces.0.address": "<<TLP525TNC_1>>"
+                }
+            },
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                }
+            },
+            "DeployAction_2": [
+                "Deploy"
+            ],
+            "CommonMethod_2": {
+                "findFile": {
+                    "rawPath": {
+                        "path": "C:\\Users\\Public\\Documents\\Extron\\csdu\\deploy\\A-Temp\\proj",
+                        "file": "manifest.json"
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

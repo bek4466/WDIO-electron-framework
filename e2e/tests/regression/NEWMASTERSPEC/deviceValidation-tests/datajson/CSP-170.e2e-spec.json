@@ -1,0 +1,142 @@
+{
+    "Execute":["TestCase1","TestCase2", "TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network.host_network_type\" for peripheral device in destiny gives appropriate error message",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-37\", https://extron.atlassian.net/browse/CSP-37",
+            "UserStory": "CSP-170: Validate devices.network.host_network_type",
+            "TaskLink": "\"Task Issue: TOOl-1847\", https://extron.atlassian.net/browse/TOOL-1847",
+            "TestCaseLink": "\"Test Case: CSP-T239\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T239",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json"
+        },
+        "Preconditions": {
+        
+            "DeleteData": ["devices.1.network.host_network_type"]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "network.host_network_type: Missing key - Must specify network interface connection to primary controller e.g. \"host_network_type\": \"LAN\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that peripheral device having \"devices.network.host_network_type\" as \"LAN\" has good deploy",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-37\", https://extron.atlassian.net/browse/CSP-37",
+            "UserStory": "CSP-170: Validate devices.network.host_network_type",
+            "TaskLink": "\"Task Issue: TOOl-1847\", https://extron.atlassian.net/browse/TOOL-1847",
+            "TestCaseLink": "\"Test Case: CSP-T240\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T240",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json"
+        },
+        "Preconditions": {
+        
+    
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid value for \"devices.network.host_network_type\" peripheral device gives appropriate error message",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-37\", https://extron.atlassian.net/browse/CSP-37",
+            "UserStory": "CSP-170: Validate devices.network.host_network_type",
+            "TaskLink": "\"Task Issue: TOOl-1847\", https://extron.atlassian.net/browse/TOOL-1847",
+            "TestCaseLink": "\"Test Case: CSP-T241\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T241", 
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData":{
+               
+                "devices.1.network.host_network_type": "ABCDE",
+                "devices.1.name" : "My Peripheral Device"
+                }
+    
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType":"Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<invalidPeripheralHostNetworkMessage>>",
+                    "MessageType":"Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+    
+    }

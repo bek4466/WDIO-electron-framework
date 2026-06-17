@@ -1,0 +1,59 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate error message is thrown if minimum firmware is not met for UUT as Primary Device",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+            "UserStory": "TOOL-3222 (VCP - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3346\", https://extron.atlassian.net/browse/TOOL-3346",
+            "TestCaseLink": "\"Test Case: TOOL-T745\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T745",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+              "user": "admin",
+              "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "VCP_LAN"
+            },
+            "InsertTestData": {
+                "devices.2.name":"Qxi Device",
+                "devices.2.part_number": "60-1418-01",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.network.interfaces":[],
+                "devices.2.network.interfaces.0.address": "Pro550_IPCP_1",
+                "devices.2.network.interfaces.0.LAN": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "Qxi Device - Invalid : Primary controller doesn't support the peripheral device.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    }
+}

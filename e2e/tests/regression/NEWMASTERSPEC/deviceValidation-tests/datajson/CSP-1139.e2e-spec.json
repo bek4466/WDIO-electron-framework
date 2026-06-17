@@ -1,0 +1,176 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Invalid (peripheral) devices.alias - not a string.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1591\", https://extron.atlassian.net/browse/TOOL-1591",
+      "UserStory": "TTLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: TOOL-1245\", https://extron.atlassian.net/browse/TOOL-1245",
+      "TestCaseLink": "\"Test Case: CSP-T1295\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1295",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.alias": true
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidAliasTypeMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that for Primary Device (XI) specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1591\", https://extron.atlassian.net/browse/TOOL-1591",
+      "UserStory": "TTLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: TOOL-1245\", https://extron.atlassian.net/browse/TOOL-1245",
+      "TestCaseLink": "\"Test Case: CSP-T1372\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1372",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<TLP725T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<hardwareIncompatible>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "ModifyTestData": {
+          "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>"
+        }
+      },
+      "DeployAction_2": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that for Peripheral Device (Secondary XI) specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1591\", https://extron.atlassian.net/browse/TOOL-1591",
+      "UserStory": "TTLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: TOOL-1245\", https://extron.atlassian.net/browse/TOOL-1245",
+      "TestCaseLink": "\"Test Case: CSP-T1373\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1373",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.network.interfaces.0.address": "<<TLP725T_TLP>>",
+        "devices.2.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<peripheralHardwareIncompatible>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "ModifyTestData": {
+          "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>"
+        }
+      },
+      "DeployAction_2": ["Deploy"],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

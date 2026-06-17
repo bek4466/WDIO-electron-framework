@@ -1,0 +1,63 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "Owner": "Amit B",
+      "SuiteType": "Cli File Validation",
+      "UserStoryLink": "\"User Story: TOOL-4219\", \"https://extron.atlassian.net/browse/TOOL-4219\"",
+      "UserStory": "TOOL - 4219  M1 - CLI Refactoring - Error handling for unsupported characters in the Project Descriptor & Data File",
+      "TaskLink": "\"Task Issue: TOOL-4336\", \"https://extron.atlassian.net/browse/TOOL-4336\"",
+      "TestCaseLink": "\"Test Case: TOOL-T4658\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4658\"",
+      "ProjectFile": "NotGoodProject\\systeminfo.json",
+      "TestCaseHeader": "Verify CLI error handling for unsupported characters in the Project Descriptor"
+    },
+    "ProjectName": "h&gt@",
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "Primary Controller",
+        "devices.0.network.interfaces.0.address": "IPL-Pro-CR88-0B-E1-94.extron.com",
+        "devices.0.part_number": "60-1416-01"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "cliCommand",
+      "VerifyExitCode": "unsupportedCharacters",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": ".*includes unsupported characters. Please rename file and try again.",
+          "MessageType": "error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "Owner": "Amit B",
+      "SuiteType": "Cli File Validation",
+      "UserStoryLink": "\"User Story: TOOL-4219\", \"https://extron.atlassian.net/browse/TOOL-4219\"",
+      "UserStory": "TOOL - 4219  M1 - CLI Refactoring - Error handling for unsupported characters in the Project Descriptor & Data File",
+      "TaskLink": "\"Task Issue: TOOL-4336\", \"https://extron.atlassian.net/browse/TOOL-4336\"",
+      "TestCaseLink": "\"Test Case: TOOL-T4659\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4659\"",
+      "ProjectFile": "NotGoodProject\\systeminfo.json",
+      "TestCaseHeader": "Verify CLI error handling for unsupported characters in the DataFile"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.data_file_path": "dataFile_rename\\DataFile.json"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "deploy -f InvalidDataFilePath",
+      "VerifyExitCode": "unsupportedCharacters",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": ".*includes unsupported characters. Please rename file and try again.",
+          "MessageType": "error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

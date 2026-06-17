@@ -1,0 +1,300 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3", "TestCase4"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Deployment fails when credentials file has incorrect credentials, but systeminfo file has correct credentials",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3567\", https://extron.atlassian.net/browse/TOOL-3567",
+      "UserStory": "TOOL-3567 Project Credentials M2: Deprecate Username and Password Properties from the Project Descriptor",
+      "TaskLink": "\"Task Issue: TOOL-3642\", https://extron.atlassian.net/browse/TOOL-3642",
+      "TestCaseLink": "\"Test Case: TOOL-T4477\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4477",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "",
+        "pass": ""
+      },
+      {
+        "user": "",
+        "pass": ""
+      }
+    ],
+    "Steps": {
+      "MiscellaneousAction": [
+        "DeleteCredentialsFile"
+      ],
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "DeployPage": {
+        "ProjectCredentialsPopUp": {
+          "CancelBtn": {
+            "click": {}
+          }
+        }
+      },
+      "TroubleshootingAction": [
+        "StartTrace",
+        "NoTraceMessage"
+      ],
+      "DeployPage_2": {
+        "ProjectCredentialsPopUp": {
+          "CancelBtn": {
+            "click": {}
+          }
+        }
+      },
+      "TroubleshootingAction_2": [
+        "StopTrace",
+        "RefreshProgramLog"
+      ],
+      "Timeout": "fast",
+      "DeployPage_3": {
+        "ProjectCredentialsPopUp": {
+          "CancelBtn": {
+            "click": {}
+          }
+        }
+      },
+      "TroubleshootingAction_3": [
+        "NoProgramLog",
+        "StartProgramLog",
+        "NoProgramLog"
+      ]
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Deployment fails when credentials file has incorrect credentials, but systeminfo file has correct credentials",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3567\", https://extron.atlassian.net/browse/TOOL-3567",
+      "UserStory": "TOOL-3567 Project Credentials M2: Deprecate Username and Password Properties from the Project Descriptor",
+      "TaskLink": "\"Task Issue: TOOL-3642\", https://extron.atlassian.net/browse/TOOL-3642",
+      "TestCaseLink": "\"Test Case: TOOL-T4477\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4477",
+      "ProjectFile": "CredentialsProject\\systeminfoUsernamePassword.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "fail",
+        "pass": "fail"
+      },
+      {
+        "user": "fail",
+        "pass": "fail"
+      }
+    ],
+    "Steps": {
+      "MiscellaneousAction": [
+        "DeleteCredentialsFile"
+      ],
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "DeployPage": {
+        "ProjectCredentialsPopUp": {
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      },
+      "TroubleshootingAction": [
+        "StartTrace",
+        "NoTraceMessage"
+      ],
+      "DeployPage_2": {
+        "ProjectCredentialsPopUp": {
+          "CancelBtn": {
+            "click": {}
+          }
+        }
+      },
+      "TroubleshootingAction_2": [
+        "StopTrace",
+        "RefreshProgramLog"
+      ],
+      "Timeout": "fast",
+      "DeployPage_3": {
+        "ProjectCredentialsPopUp": {
+          "CancelBtn": {
+            "click": {}
+          }
+        }
+      },
+      "TroubleshootingAction_3": [
+        "NoProgramLog",
+        "StartProgramLog",
+        "NoProgramLog"
+      ]
+    }
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials are not retrieved from Systeminfo file",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3567\", https://extron.atlassian.net/browse/TOOL-3567",
+      "UserStory": "TOOL-3567 Project Credentials M2: Deprecate Username and Password Properties from the Project Descriptor",
+      "TaskLink": "\"Task Issue: TOOL-3642\", https://extron.atlassian.net/browse/TOOL-3642",
+      "TestCaseLink": "\"Test Case: TOOL-T4478\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4478",
+      "ProjectFile": "CredentialsProject\\systeminfoUsernamePassword.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "fail",
+        "pass": "fail"
+      },
+      {
+        "user": "fail",
+        "pass": "fail"
+      }
+    ],
+    "Steps": {
+      "MiscellaneousAction": [
+        "DeleteCredentialsFile"
+      ],
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": ""
+            },
+            "row_1": {
+              "matches": ""
+            }
+          },
+          "PasswordField": {
+            "row_0": {
+              "matches": ""
+            },
+            "row_1": {
+              "matches": ""
+            }
+          },
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      }
+    }
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Credentials are not retrieved from systeminfo file (credentials file present)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3567\", https://extron.atlassian.net/browse/TOOL-3567",
+      "UserStory": "TOOL-3567 Project Credentials M2: Deprecate Username and Password Properties from the Project Descriptor",
+      "TaskLink": "\"Task Issue: TOOL-3642\", https://extron.atlassian.net/browse/TOOL-3642",
+      "TestCaseLink": "\"Test Case: TOOL-T4479\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4479",
+      "ProjectFile": "CredentialsProject\\systeminfoUsernamePassword.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "John",
+        "pass": "extron"
+      },
+      {
+        "user": "John",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "John"
+            },
+            "row_1": {
+              "matches": "John"
+            }
+          },
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      }
+    }
+  }
+}

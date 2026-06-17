@@ -1,0 +1,7 @@
+{
+    "rootContainer": "//div[@class='alerts-wrapper']",
+    "toastTitle": "//div[@id='alert-title-0']",
+    "toastText": "//*[@id='alert-title-0']",
+    "toastLink": "//div[contains(@id, 'alert-msg-0')]/a[contains(@class, 'alert-callback-link-text')]",
+    "toastIcon": "//div[@class='alerts-wrapper']/div[@class='col-icon']"
+}

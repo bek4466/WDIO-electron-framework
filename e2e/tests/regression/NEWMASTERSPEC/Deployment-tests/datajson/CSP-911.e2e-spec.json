@@ -1,0 +1,72 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that in case of Single Nic Primary controller, where two or more LAN addresses part of systeminfo.json, only first listed Address is included in Connection Manager.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1660\", https://extron.atlassian.net/browse/TOOL-1660 ",
+            "UserStory": "TOOL-1660 (As  a user, I want to identify the device in the connection manager so that I can specify the credentials and perform project deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1206\", https://extron.atlassian.net/browse/TOOL-1206 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4090\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4090 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+              
+             
+            },
+            "InsertTestData": {
+              "devices.0.network.interfaces.1.address": "<<Pro550_IPCP_2>>",
+              "devices.0.network.interfaces.1.type": "LAN",
+              "devices.0.network.interfaces.2.address": "10.113.135.2",
+              "devices.0.network.interfaces.2.type": "LAN"
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+          "DeployPage": {
+            "ProjectCredentialsBtn":{"click":{}},
+            "Timeout" : 10000,
+            
+            "ProjectCredentialsPopUp": {
+              "Address":{
+                  "row_0": {
+                      "verifyIP": "<<Pro350__IPCP>>",
+                      "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                      "verifyNotExistIP2": "10.113.135.2"
+                  },
+                  "row_1": {
+                    "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                    "verifyNotExistIP2": "10.113.135.2"
+                },
+                "row_2": {
+                  "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                  "verifyNotExistIP2": "10.113.135.2"
+                }
+              }
+          }
+        }
+      },
+        "Execute": "True"
+    }
+}
+

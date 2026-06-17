@@ -1,0 +1,258 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a NAV Endpoint Device(Encoder) that has hardware mismatch with another NAV Endpoint Device(Decoder) gives appropriate warning message (Index identifier scenario)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3342\", https://extron.atlassian.net/browse/TOOL-3342",
+            "TestCaseLink": "\"Test Case: TOOL-T912\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T912",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.2.part_number": "60-1525-15",
+                "devices.3.part_number": "60-1572-15"
+            },
+            "InsertTestData": {},
+            "DeleteData": [
+                "devices.2.name",
+                "devices.3.name"
+                ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[2] - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Warning",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[3] - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for NAV endpoint devices specified in destiny file, a NAVigator device found at the address gives appropriate error warning (Index Identifier Scenario)(NAV E 101)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3342\", https://extron.atlassian.net/browse/TOOL-3342",
+            "TestCaseLink": "\"Test Case: TOOL-T913\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T913",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "NAVSD_101",
+                "devices.2.network.interfaces.0.address": "Navigator",
+                "devices.3.network.interfaces.0.address": "NAVE_101"
+            },
+            "InsertTestData": {},
+            "DeleteData": [
+                "devices.2.name",
+                "devices.3.name"
+                ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[2] - Hardware incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for NAV endpoint devices specified in destiny file, a NAVigator device found at the address gives appropriate error warning (Index Identifier Scenario)(NAV SD 101)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3342\", https://extron.atlassian.net/browse/TOOL-3342",
+            "TestCaseLink": "\"Test Case: TOOL-T913\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T913",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "NAVSD_101",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.3.network.interfaces.0.address": "Navigator"
+            },
+            "InsertTestData": {},
+            "DeleteData": [
+                "devices.2.name",
+                "devices.3.name"
+                ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[3] - Hardware incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify All the hardware Validation message for NAV device.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3342\", https://extron.atlassian.net/browse/TOOL-3342",
+            "TestCaseLink": "\"Test Case: TOOL-T918\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T918",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator",
+                "devices.2.name": "NAV E 101",
+                "devices.3.name": "NAV SD 101"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator - Hardware found : Connected to device at Navigator",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAVigator - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAVigator - Hardware Match : The specified device match with live device on the network",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - Hardware found : Connected to device at NAVE_101",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - Hardware Match : The specified device match with live device on the network",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - Hardware found : Connected to device at NAVSD_101",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - Hardware Match : The specified device match with live device on the network",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    }
+}

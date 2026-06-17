@@ -1,0 +1,101 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid \"system.system_id\" with 3 characters, in destiny gives appropriate error message",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1688\", https://extron.atlassian.net/browse/TOOL-1688",
+            "UserStory": "TOOL-1688: devices.part_number",
+            "TaskLink": "\"Task Issue: CSP-411\", https://extron.atlassian.net/browse/CSP-411",
+            "TestCaseLink": "\"Test Case: TOOL-T2626\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2626",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id" : "123"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidSystemId>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid \"system.system_id\" with 5 characters, in destiny gives appropriate error message",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1688\", https://extron.atlassian.net/browse/TOOL-1688",
+            "UserStory": "TOOL-1688: devices.part_number",
+            "TaskLink": "\"Task Issue: CSP-411\", https://extron.atlassian.net/browse/CSP-411",
+            "TestCaseLink": "\"Test Case: TOOL-T2627\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2627",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id" : "12345"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidSystemId>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

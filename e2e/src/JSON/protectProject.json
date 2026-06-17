@@ -1,0 +1,22 @@
+{
+    "protectProjectButton": "//p[@class='ng-star-inserted' and contains ( text(), 'Protect Project')]",
+    "protectProjectIcon": "[data-mat-icon-name='sync_lock_fill']",
+    "passwordField": "[id='protect-dialog-password-input']",
+    "passwordFieldConfirm": "[id='protect-dialog-password-reenter-input']",
+    "actualCheckbox": "//*[@id='protect-dialog-body']/div[2]/sync-checkbox/div/label/div[1]/mat-icon",
+    "checkAllowDeployTroubleshooting": "//*[@id='protect-dialog-body']/div[2]/sync-checkbox/div/label/div[1]/mat-icon",
+    "selectLocationBtn": "[id='protect-dialog-browse-button']",
+    "protectProjectPath": "//*[@id='protect-dialog-browse-input-container']/sync-input/div/div[1]/label/span[1]",
+    "protectCreateBtn": "/html/body/div/div[2]/div/sync-base-dialog/sync-component-footer/div/div/div[1]/div/button[1]",
+    "cancelBtn": "/html/body/div/div[2]/div/sync-base-dialog/sync-component-footer/div/div/div[1]/div/button[2]",
+    "protectProjectPopUpCloseToggle": "(//mat-icon[@data-mat-icon-name='sync_close'])[3]",
+    "errorMessage": "[class='errors']",
+    "successMessageWithLink": "[id='alert-title-0']",
+    "original_failedToProtectMessageBanner": "[ng-reflect-primary-text='Failed to protect systeminfo. ']",
+    "failedToProtectMessageBanner": "/html/body/progcomp-root/div/mat-sidenav-container/mat-sidenav-content/sync-banner-alerts-container[7]/div/sync-banner-alert/div/div[3]/div",
+    "failBannerCloseBtn": "/html/body/progcomp-root/div/mat-sidenav-container/mat-sidenav-content/sync-banner-alerts-container[7]/div/sync-banner-alert/div/div[4]/sync-icon-button/div/button",
+    "protectProjectBtnHoverTooltip": "[class='tool-display']",
+    "title": "/html/body/div/div[2]/div/sync-base-dialog/sync-component-header/div/div/div[1]/h2",
+    "createProtectProjectDescription": "//*[@id='protect-dialog-body']/span",
+    "selectLocationDescription": "//*[@id='protect-dialog-browse-container']/span"
+}

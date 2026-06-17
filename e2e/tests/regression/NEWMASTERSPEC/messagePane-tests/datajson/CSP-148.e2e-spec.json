@@ -1,0 +1,110 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Primary controller not online gives appropriate error message while retrieving program logs",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Message Pane",
+            "UserStoryLink": "\"CSP-109:As FG, I want to know why I am not able to connect to the primary controller to retrieve the program log so that I can fix the issue\", https://extron.atlassian.net/browse/CSP-109",
+            "UserStory": "CSP-109:As FG, I want to know why I am not able to connect to the primary controller to retrieve the program log so that I can fix the issue",
+            "TaskLink": "\"Task Issue: CSP-148\", https://extron.atlassian.net/browse/CSP-148",
+            "TestCaseLink": "\"Test Case: CSP-T200\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T200",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.0.network.interfaces.0.address": "<<OFFLINECONTROLLER>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "RefreshProgramLog"
+            ],
+            "VerifyTroubleShootingMessage": [
+                {
+                    "MessageText": "<<deviceUnreachable>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that incorrect credentials for Primary controller gives appropriate error message while retrieving program logs",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Message Pane",
+            "UserStoryLink": "\"CSP-109:As FG, I want to know why I am not able to connect to the primary controller to retrieve the program log so that I can fix the issue\", https://extron.atlassian.net/browse/CSP-109",
+            "UserStory": "CSP-109:As FG, I want to know why I am not able to connect to the primary controller to retrieve the program log so that I can fix the issue",
+            "TaskLink": "\"Task Issue: CSP-148\", https://extron.atlassian.net/browse/CSP-148",
+            "TestCaseLink": "\"Test Case: CSP-T201\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T201",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "notadmin",
+                "pass": "notextron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "RefreshProgramLog"
+            ],
+            "VerifyTroubleShootingMessage": [
+                {
+                    "MessageText": "<<controllerCredentialsIncorrectMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

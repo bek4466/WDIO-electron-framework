@@ -1,0 +1,123 @@
+{
+    "Execute":["TestCase1","TestCase2"],
+  
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of Peripheral Device at the time of Deploy",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-1728\", https://extron.atlassian.net/browse/TOOL-1728",
+            "UserStory": "Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOL-4126\", https://extron.atlassian.net/browse/TOOL-4126",
+            "TestCaseLink": "\"Test Case: TOOL-T3883\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3883",
+             "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "ModifyTestData":{
+                    "devices.1.name": "Peripheral"
+                  
+                
+                }
+            
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    
+                            "MessageText": "Peripheral - Hardware Match : Device matched with live device on the network.",
+                            "MessageType": "Info",
+                            "Exist": true
+                    
+                },
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of Peripheral Device at the time of Deploy",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-1728\", https://extron.atlassian.net/browse/TOOL-1728",
+            "UserStory": "Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOL-4126\", https://extron.atlassian.net/browse/TOOL-4126",
+            "TestCaseLink": "\"Test Case: TOOL-T3882\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3882",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+        
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "ModifyTestData":{
+                    "devices.0.name": "Primary"
+                  
+                
+                }
+            
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    
+                    "MessageText": "Primary - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+            
+        },
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+            
+        },
+        "Execute": "True"
+    }
+ 
+   
+   
+          }

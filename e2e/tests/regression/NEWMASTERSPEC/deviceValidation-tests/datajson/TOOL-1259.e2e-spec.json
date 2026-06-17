@@ -1,0 +1,80 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify deployment should go through, if system info has address as host name. (FQDN)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1596\", https://extron.atlassian.net/browse/TOOL-1596",
+      "UserStory": "FQDN Support",
+      "TaskLink": "\"Task Issue: TOOL-1258\", https://extron.atlassian.net/browse/TOOL-1258",
+      "TestCaseLink": "\"Test Case: TOOL-T1521\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/6978788",
+      "ProjectFile": "GoldenDualnicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP360_IPCP_dualnic>>",
+        "devices.0.network.interfaces.1.address": "192.168.254.1",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.3.network.interfaces.0.address": "<<TLP725T_TLP>>",
+        "devices.2.part_number": "60-1562-02",
+        "devices.2.network": {},
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0": {},
+        "devices.2.network.interfaces.0.address": "198.119.123.12",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction":[
+        "StartTrace"
+      ],
+      "Timeout": "medium",      
+      "TroubleshootingAction_2":[ 
+        "StopTrace"
+      ],
+      "VerifyTraceMessage": [
+        {  
+            "MessageText": "Please wait while the program is loading...",
+            "IpAddress": "10.113.81.144",
+            "Exist": true,
+            "Comment": "If CI is failing could be due to IpAddress not matching. May need to create some 'any' input that returns no matter what the ip column has in it."
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,282 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify User can manually Refresh/ Clear all/ Start/ Stop the program logs.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"TLP w/ LL - Program Log and Trace Message Validation\", https://extron.atlassian.net/browse/TOOL-4175",
+            "UserStory": "TOOL-4175: As a CSDU User, I want my program log and trace messages to display properly, So that I can troubleshoot my system.  ",
+            "TaskLink": "\"Task Issue: TOOL-4211\", https://extron.atlassian.net/browse/TOOL-4211 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4615\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4615 ",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name" : "TLP 725M",
+                "devices.0.part_number" : "60-1563-02C",
+                "devices.0.network.interfaces": [],
+                "devices.0.network.interfaces.0": {},
+                "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+                "devices.0.network.interfaces.0.type": "LAN",
+                "devices.1.name" : "TLP",
+                "devices.1.part_number" : "60-1559-02",
+                "devices.1.network.interfaces.0.address" : "<<TLP525T_TLP>>"
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              }
+        ],
+        
+        "Steps": {
+           
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+
+           
+
+            "TroubleshootingAction": [
+                "RefreshProgramLog"
+            ],
+            "Timeout" : 3000,
+            
+            "VerifyProgramMessageLogs1": [
+                {  
+                    "MessageText": " ",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction2": [
+                "ClearProgramLog",
+                "NoProgramLog"
+            ],
+            "Timeout3" : 3000,
+            
+            "TroubleshootingAction4": [
+                "StopProgramLog"
+            ],
+
+            "Timeout4" : 3000,
+            
+            "TroubleshootingAction5": [
+                "StartProgramLog"
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.network.interfaces.0.address": "<<OFFLINECONTROLLER>>"
+                  
+                },
+                "InsertTestData": {
+                    
+                },
+                "DeleteData": [
+                    
+                ]
+            },
+
+              "DeployAction2": [ 
+                "Deploy"
+                  ],
+                "Timeout2" : 1000,
+                 
+            "TroubleshootingAction6": [
+                "RefreshProgramLog",
+                "NoProgramLog"
+            ]
+            
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify trace messages and trace controls Start/Stop/Clear are functional.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"TLP w/ LL - Program Log and Trace Message Validation\", https://extron.atlassian.net/browse/TOOL-4175",
+            "UserStory": "TOOL-4175: As a CSDU User, I want my program log and trace messages to display properly, So that I can troubleshoot my system.  ",
+            "TaskLink": "\"Task Issue: TOOL-4211\", https://extron.atlassian.net/browse/TOOL-4211 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4616\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4616 ",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name" : "TLP 725M",
+                "devices.0.part_number" : "60-1563-02C",
+                "devices.0.network.interfaces": [],
+                "devices.0.network.interfaces.0": {},
+                "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+                "devices.0.network.interfaces.0.type": "LAN",
+                "devices.1.name" : "TLP",
+                "devices.1.part_number" : "60-1559-02",
+                "devices.1.network.interfaces.0.address" : "<<TLP525T_TLP>>"
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              }
+        ],
+        
+        "Steps": {
+           
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "Timeout" : 10000,
+            "VerifyTraceMessage": [
+                {  
+                    "MessageText": "<<traceMessage>>",
+                    "IpAddress": "<<TLP725M_LL>>",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction2": [
+                "StopTrace",
+                "ClearTrace"
+            ],
+            "Timeout2" : 5000,
+            "VerifyTraceMessage2": [
+                {  
+                    "MessageText": "<<traceMessage>>",
+                    "IpAddress": "<<TLP725M_LL>>",
+                    "Exist": false
+                }
+            ]
+            
+        }
+    },
+   
+    "TestCase3": {
+        "comment": "TRACE ALREADY USED keeps happening... potentially not reliably automatable",
+        "TestCaseInfo": {
+            "TestDescription": "Verify trace messages are functional for peripheral devices connected to TLP w/LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"TLP w/ LL - Program Log and Trace Message Validation\", https://extron.atlassian.net/browse/TOOL-4175",
+            "UserStory": "TOOL-4175: As a CSDU User, I want my program log and trace messages to display properly, So that I can troubleshoot my system.  ",
+            "TaskLink": "\"Task Issue: TOOL-4211\", https://extron.atlassian.net/browse/TOOL-4211 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4618\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/35197944 ",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name" : "TLP 300M w LL",
+                "devices.0.part_number" : "60-1667-02C",
+                "devices.0.network.interfaces": [],
+                "devices.0.network.interfaces.0": {},
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.0.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              }
+
+        ],
+        
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "Timeout" : 10000,
+            "VerifyTraceMessage": [
+                {  
+                    "MessageText": "<<traceMessage>>",
+                    "IpAddress": "<<TLP300M_LL>>",
+                    "Exist": true
+                }
+            ]
+            
+        }
+    }
+   
+}

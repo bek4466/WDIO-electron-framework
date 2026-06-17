@@ -1,0 +1,56 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that \"Clear Message\" functionality clears Messages from the Message Pane",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Message Pane",
+            "UserStoryLink": "\"CSP-556: message tests\", https://extron.atlassian.net/browse/CSP-556",
+            "UserStory": "CSP-556",
+            "TaskLink": "\"Task Issue: CSP-668\", https://extron.atlassian.net/browse/CSP-668",
+            "TestCaseLink": "\"Test Case: CSP-T889\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T889",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployAction2": [
+                "ClearMessagePane"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": false
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,95 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify the basic functionality of Progress Bar",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-603\", https://extron.atlassian.net/browse/CSP-603",
+            "UserStory": "CSP-603 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-645\", https://extron.atlassian.net/browse/CSP-645",
+            "TestCaseLink": "\"Test Case: CSP-T894\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T894",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "Timeout" : 1000,
+            "VerifyProgressBar": true,
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "VerifyProgressBar2": false
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify the functionality of Progress Bar during system deployment failure",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-603\", https://extron.atlassian.net/browse/CSP-603",
+            "UserStory": "CSP-603 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-645\", https://extron.atlassian.net/browse/CSP-645",
+            "TestCaseLink": "\"Test Case: CSP-T895\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T895",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "",
+                "pass": ""
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyProgressBar": true,
+            "Timeout" : "fast",
+            "DeployPage": {
+                "ProjectCredentialsPopUp": {
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout_2" : "fast",
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "VerifyProgressBar2": false
+        }
+    }
+}

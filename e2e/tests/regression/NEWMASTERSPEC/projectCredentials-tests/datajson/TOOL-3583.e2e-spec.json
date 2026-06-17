@@ -1,0 +1,251 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3", "TestCase4" 
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Missing Device Alias does not cause the Project Credentials UI to pop up (troubleshooting)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3547\", https://extron.atlassian.net/browse/TOOL-3547",
+      "UserStory": "TOOL-3547: Project Credentials: UI Business Rules Primary Device Credentials Missing - Deployment/Deploy Code Only/Trace/Program Log/Start Program",
+      "TaskLink": "\"Task Issue: TOOL-3583\", https://extron.atlassian.net/browse/TOOL-3583",
+      "TestCaseLink": "\"Test Case: TOOL-T3384\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3384",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.0.alias"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "TroubleshootingAction": [
+        "StartProgramLog"
+      ],
+      "Timeout": 1000,
+      "DeployPage": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      },
+      "TroubleshootingAction2": [
+        "StartTrace"
+      ],
+      "Timeout2": 1000,
+      "DeployPage2": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      },
+      "TroubleshootingAction3": [
+        "RefreshProgramLog"
+      ],
+      "Timeout3": 1000,
+      "DeployPage3": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Missing Part Number does not cause the Project Credentials UI to pop up (troubleshooting)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3547\", https://extron.atlassian.net/browse/TOOL-3547",
+      "UserStory": "TOOL-3547: Project Credentials: UI Business Rules Primary Device Credentials Missing - Deployment/Deploy Code Only/Trace/Program Log/Start Program",
+      "TaskLink": "\"Task Issue: TOOL-3583\", https://extron.atlassian.net/browse/TOOL-3583",
+      "TestCaseLink": "\"Test Case: TOOL-T3385\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3385",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.0.part_number"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "TroubleshootingAction": [
+        "StartProgramLog"
+      ],
+      "Timeout": 1000,
+      "DeployPage": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      },
+      "TroubleshootingAction2": [
+        "StartTrace"
+      ],
+      "Timeout2": 1000,
+      "DeployPage2": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      },
+      "TroubleshootingAction3": [
+        "RefreshProgramLog"
+      ],
+      "Timeout3": 1000,
+      "DeployPage3": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      }
+    }
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Missing primary_device_alias does not cause the Project Credentials UI to pop up (Troubleshooting)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3547\", https://extron.atlassian.net/browse/TOOL-3547",
+      "UserStory": "TOOL-3547: Project Credentials: UI Business Rules Primary Device Credentials Missing - Deployment/Deploy Code Only/Trace/Program Log/Start Program",
+      "TaskLink": "\"Task Issue: TOOL-3583\", https://extron.atlassian.net/browse/TOOL-3583",
+      "TestCaseLink": "\"Test Case: TOOL-T3386\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3386",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "system.primary_device_alias"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "TroubleshootingAction": [
+        "StartProgramLog"
+      ],
+      "Timeout": 1000,
+      "DeployPage": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      },
+      "TroubleshootingAction2": [
+        "StartTrace"
+      ],
+      "Timeout2": 1000,
+      "DeployPage2": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      },
+      "TroubleshootingAction3": [
+        "RefreshProgramLog"
+      ],
+      "Timeout3": 1000,
+      "DeployPage3": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": false
+        }
+      }
+    }
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Minimum Information for system info file does cause the Project Credentials UI to pop up (Troubleshooting)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3547\", https://extron.atlassian.net/browse/TOOL-3547",
+      "UserStory": "TOOL-3547: Project Credentials: UI Business Rules Primary Device Credentials Missing - Deployment/Deploy Code Only/Trace/Program Log/Start Program",
+      "TaskLink": "\"Task Issue: TOOL-3583\", https://extron.atlassian.net/browse/TOOL-3583",
+      "TestCaseLink": "\"Test Case: TOOL-T3387\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3387",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.0.name",
+        "devices.0.network.interfaces"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "",
+        "pass": ""
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "TroubleshootingAction": [
+        "StartProgramLog"
+      ],
+      "Timeout": 1000,
+      "DeployPage": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": true,
+          "CancelBtn": {
+            "click": ""
+          }
+        }
+      },
+      "TroubleshootingAction2": [
+        "StartTrace"
+      ],
+      "Timeout2": 1000,
+      "DeployPage2": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": true,
+          "CancelBtn": {
+            "click": ""
+          }
+        }
+      },
+      "TroubleshootingAction3": [
+        "RefreshProgramLog"
+      ],
+      "Timeout3": 1000,
+      "DeployPage3": {
+        "ProjectCredentialsPopUp": {
+          "isOpen": true,
+          "CancelBtn": {
+            "click": ""
+          }
+        }
+      }
+    }
+  }
+}

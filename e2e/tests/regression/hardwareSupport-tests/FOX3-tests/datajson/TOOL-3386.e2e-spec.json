@@ -1,0 +1,89 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+      "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+      "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware)",
+      "TaskLink": "\"Task Issue: TOOL-3386\", https://extron.atlassian.net/browse/TOOL-3386",
+      "ProjectFile": "FoxProject\\project.json",
+      "TestCaseLink": "\"Test Case: TOOL-T835\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T835",
+      "TestCaseHeader": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN",
+        "devices.0.network.interfaces.1.address": "FOX3_Qxi_AVLAN"
+      },
+      "InsertTestData": {}
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Matrix Q xi - FOX3 : 10.113.81.64 - Hardware found : Connected to device at FOX3_Qxi_LAN.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as Peripheral Device that has correct specified part number gives appropriate info message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+      "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+      "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware)",
+      "TaskLink": "\"Task Issue: TOOL-3386\", https://extron.atlassian.net/browse/TOOL-3386",
+      "ProjectFile": "XiControllerProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T836\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T836",
+      "TestCaseHeader": "Verify that UUT as Peripheral Device that has correct specified part number gives appropriate info mesage"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.network.interfaces.0.address": "FOX3_Qxi_LAN",
+        "devices.1.part_number": "60-1991-01",
+        "devices.1.name": "Matrix Q xi - FOX3 : 10.117.18.1"
+      },
+      "InsertTestData": {
+        "devices.1.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+        "devices.1.network.interfaces.1.type": "AVLAN"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Matrix Q xi - FOX3 : 10.117.18.1 - Hardware Match : Device matched with live device on the network.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "False"
+  }
+}

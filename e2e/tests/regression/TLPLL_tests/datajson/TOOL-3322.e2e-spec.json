@@ -1,0 +1,142 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be an error message when primary_device_alias has peripheral device's alias",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "System Validation",
+      "UserStoryLink": "\"User Story: TOOL-3132\", https://extron.atlassian.net/browse/TOOL-3132",
+      "UserStory": "TOOL-3132 (TLCA 1 - System Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3322\", https://extron.atlassian.net/browse/TOOL-3322",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T668\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T668",
+      "TestCaseHeader": "Verify there should be an error message when primary_device_alias has peripheral device's alias"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "system.primary_device_alias": "AdapterAlias"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "system.primary_device_alias: Invalid - The target device cannot be a primary controller",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "Project deployment failed.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify only one TLCA allowed per TLP LL device",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "System Validation",
+      "UserStoryLink": "\"User Story: TOOL-3132\", https://extron.atlassian.net/browse/TOOL-3132",
+      "UserStory": "TOOL-3132 (TLCA 1 - System Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3322\", https://extron.atlassian.net/browse/TOOL-3322",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T859\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T859",
+      "TestCaseHeader": "Verify only one TLCA allowed per TLP LL device"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL"
+      },
+      "InsertTestData": {
+        "devices.2": {
+          "name": "TLCA 2",
+          "part_number": "60-1748-10",
+          "alias": "AdapterAlias_2"
+        }
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 300M with LinkLicense - Application is using TLCA 1 for project deployment",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TestTLPLL - Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify only TLP LL controllers can have TLCA as peripheral",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "System Validation",
+      "UserStoryLink": "\"User Story: TOOL-3132\", https://extron.atlassian.net/browse/TOOL-3132",
+      "UserStory": "TOOL-3132 (TLCA 1 - System Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3322\", https://extron.atlassian.net/browse/TOOL-3322",
+      "ProjectFile": "HWTLPLLProject\\systeminfoBadTLCA.json",
+      "TestCaseLink": "\"Test Case: TOOL-T860\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T860",
+      "TestCaseHeader": "Verify only TLP LL controllers can have TLCA as peripheral"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLCA 1 - Invalid : Primary controller doesn't support the peripheral device",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TestTLPLL - Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

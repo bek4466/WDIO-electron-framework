@@ -1,0 +1,177 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy - (Index Identifier scenario)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2638\", https://extron.atlassian.net/browse/TOOL-2638",
+            "UserStory": "TOOL-2638 (TLP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3155\", https://extron.atlassian.net/browse/TOOL-3155",
+            "TestCaseLink": "\"Test Case: TOOL-T659\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320798",
+            "TestCaseHeader": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy - (Index Identifier scenario)."
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "DeleteData": [
+                "devices.1.name",
+                "devices.2.name",
+                "devices.3.name"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[1] - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[2] - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[3] - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates matching of Peripheral Device hardware at the time of Deploy (Index Identifier scenario)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2638\", https://extron.atlassian.net/browse/TOOL-2638",
+            "UserStory": "TOOL-2638 (TLP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3155\", https://extron.atlassian.net/browse/TOOL-3155",
+            "TestCaseLink": "\"Test Case: TOOL-T632 (1.0)\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320799",
+            "TestCaseHeader": "Verify that a info message validates matching of Peripheral Device hardware at the time of Deploy (Index Identifier scenario)"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "DeleteData": [
+                "devices.1.name",
+                "devices.2.name",
+                "devices.3.name"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[1] - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[2] - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[3] - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing key in \"systeminfo.devices.name\"( Peripheral Device) throws appropriate info message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2638\", https://extron.atlassian.net/browse/TOOL-2638",
+            "UserStory": "TOOL-2638 (TLP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3155\", https://extron.atlassian.net/browse/TOOL-3155",
+            "TestCaseLink": "\"Test Case: TOOL-T661\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T661",
+            "TestCaseHeader": "Verify that missing key in \"systeminfo.devices.name\"( Peripheral Device) throws appropriate info message"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "DeleteData": [
+                "devices.1.name",
+                "devices.2.name",
+                "devices.3.name"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[1] - name: Missing key - Default value used \"device[1]\"",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[2] - name: Missing key - Default value used \"device[2]\"",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[3] - name: Missing key - Default value used \"device[3]\"",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

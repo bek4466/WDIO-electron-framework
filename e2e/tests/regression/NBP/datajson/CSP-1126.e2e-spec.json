@@ -1,0 +1,178 @@
+{
+    "TestCase1": {
+        "TestDescription": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid FQDN.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1126\", \"https://extron.atlassian.net/browse/CSP-1126\"",
+        "TestCaseLink": "\"Test Case: TOOL-T666\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T666\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid FQDN.",
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP",
+            "devices.1.network.interfaces.0.address": "_my-host-name.extron.com"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestDescription": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key - duplicate values.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1126\", \"https://extron.atlassian.net/browse/CSP-1126\"",
+        "TestCaseLink": "\"Test Case: TOOL-T667\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T667\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key - duplicate values.",
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP",
+            "devices.0.name": "My Primary",
+            "devices.1.network.interfaces.0.address": "1.2.3.4",
+            "devices.0.network.interfaces.0.address": "1.2.3.4"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - network.interfaces.address: Invalid - Must be unique",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "My Primary - network.interfaces.address: Invalid - Must be unique",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestDescription": "Verify there should be multiple error message in message pane for Peripheral device - multiple errors.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1126\", \"https://extron.atlassian.net/browse/CSP-1126\"",
+        "TestCaseLink": "\"Test Case: TOOL-T669\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T669\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be multiple error message in message pane for Peripheral device - multiple errors.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP",
+            "devices.1.password": true,
+            "devices.1.username": true,
+            "devices.1.network.interfaces.0.address": "1.2.3,"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestDescription": "Verify there should be an error message for FW not sufficient for Peripheral",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1126\", \"https://extron.atlassian.net/browse/CSP-1126\"",
+        "TestCaseLink": "\"Test Case: TOOL-T670\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T670\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be an error message for FW not sufficient for Peripheral",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP",
+            "devices.1.network.interfaces.0.address": "Address For <FW controller goes here"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Invalid: Primary controller firmware not met to support the peripheral device - Please update the primary controller firmware to the latest version using Toolbelt and re-try",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "False"
+    }
+}

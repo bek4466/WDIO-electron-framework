@@ -1,0 +1,318 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a missing network.interfaces key gives the appropriate error message (Peripheral)",
+            "Owner": "Austin Lee",
+            "SuiteType": "IPL EXP Device Validation",
+            "UserStoryLink": [
+                "\"User Story: TOOL-3226\", https://extron.atlassian.net/browse/TOOL-3226",
+                "\"User Story: TOOL-3230\", https://extron.atlassian.net/browse/TOOL-3230",
+                "\"User Story: TOOL-3231\", https://extron.atlassian.net/browse/TOOL-3231",
+                "\"User Story: TOOL-3232\", https://extron.atlassian.net/browse/TOOL-3232",
+                "\"User Story: TOOL-3233\", https://extron.atlassian.net/browse/TOOL-3233"
+            ],
+            "UserStory": "TOOL-3226, 3230, 3231, 3232, 3233 (IPL EXP Device Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3326\", https://extron.atlassian.net/browse/TOOL-3326",
+            "TestCaseLink": "\"Test Case: TOOL-T811\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T811"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPL EXP RIO8 : IPLEXP_RIO8",
+                "devices.2.part_number": "60-1907-01",
+                "devices.2.alias": "IPLEXPRIO8Alias",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.3.name": "IPL EXP PDU4H : IPLEXP_PDU4H",
+                "devices.3.part_number": "60-1956-01",
+                "devices.3.alias": "IPLEXPPDU4HAlias",
+                "devices.3.username": "admin",
+                "devices.3.password": "extron",
+                "devices.3.network.host_network_type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPL EXP RIO8 : IPLEXP_RIO8 - network.interfaces: Missing key - e.g. \"interfaces\": []",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPL EXP PDU4H : IPLEXP_PDU4H - network.interfaces: Missing key - e.g. \"interfaces\": []",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a missing network.interfaces.address key gives the appropriate error message (Peripheral)",
+            "Owner": "Austin Lee",
+            "SuiteType": "IPL EXP Device Validation",
+            "UserStoryLink": [
+                "\"User Story: TOOL-3226\", https://extron.atlassian.net/browse/TOOL-3226",
+                "\"User Story: TOOL-3230\", https://extron.atlassian.net/browse/TOOL-3230",
+                "\"User Story: TOOL-3231\", https://extron.atlassian.net/browse/TOOL-3231",
+                "\"User Story: TOOL-3232\", https://extron.atlassian.net/browse/TOOL-3232",
+                "\"User Story: TOOL-3233\", https://extron.atlassian.net/browse/TOOL-3233"
+            ],
+            "UserStory": "TOOL-3226, 3230, 3231, 3232, 3233 (IPL EXP Device Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3326\", https://extron.atlassian.net/browse/TOOL-3326",
+            "TestCaseLink": "\"Test Case: TOOL-T819\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T819"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPL EXP RIO8 : IPLEXP_RIO8",
+                "devices.2.part_number": "60-1907-01",
+                "devices.2.alias": "IPLEXPRIO8Alias",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.name": "IPL EXP PDU4H : IPLEXP_PDU4H",
+                "devices.3.part_number": "60-1956-01",
+                "devices.3.alias": "IPLEXPPDU4HAlias",
+                "devices.3.username": "admin",
+                "devices.3.password": "extron",
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPL EXP RIO8 : IPLEXP_RIO8 - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPL EXP PDU4H : IPLEXP_PDU4H - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a network.interfaces.address value of an invalid IPv4 address gives the appropriate error message (Peripheral)",
+            "Owner": "Austin Lee",
+            "SuiteType": "IPL EXP Device Validation",
+            "UserStoryLink": [
+                "\"User Story: TOOL-3226\", https://extron.atlassian.net/browse/TOOL-3226",
+                "\"User Story: TOOL-3230\", https://extron.atlassian.net/browse/TOOL-3230",
+                "\"User Story: TOOL-3231\", https://extron.atlassian.net/browse/TOOL-3231",
+                "\"User Story: TOOL-3232\", https://extron.atlassian.net/browse/TOOL-3232",
+                "\"User Story: TOOL-3233\", https://extron.atlassian.net/browse/TOOL-3233"
+            ],
+            "UserStory": "TOOL-3226, 3230, 3231, 3232, 3233 (IPL EXP Device Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3326\", https://extron.atlassian.net/browse/TOOL-3326",
+            "TestCaseLink": "\"Test Case: TOOL-T821\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T821"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPL EXP RIO8 : IPLEXP_RIO8",
+                "devices.2.part_number": "60-1907-01",
+                "devices.2.alias": "IPLEXPRIO8Alias",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "192.168.254.999",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.name": "IPL EXP PDU4H : IPLEXP_PDU4H",
+                "devices.3.part_number": "60-1956-01",
+                "devices.3.alias": "IPLEXPPDU4HAlias",
+                "devices.3.username": "admin",
+                "devices.3.password": "extron",
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "10.113.999.999",
+                "devices.3.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPL EXP RIO8 : IPLEXP_RIO8 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPL EXP PDU4H : IPLEXP_PDU4H - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a duplicate network.interfaces.address value gives the appropriate error message (Peripheral)",
+            "Owner": "Austin Lee",
+            "SuiteType": "IPL EXP Device Validation",
+            "UserStoryLink": [
+                "\"User Story: TOOL-3226\", https://extron.atlassian.net/browse/TOOL-3226",
+                "\"User Story: TOOL-3230\", https://extron.atlassian.net/browse/TOOL-3230",
+                "\"User Story: TOOL-3231\", https://extron.atlassian.net/browse/TOOL-3231",
+                "\"User Story: TOOL-3232\", https://extron.atlassian.net/browse/TOOL-3232",
+                "\"User Story: TOOL-3233\", https://extron.atlassian.net/browse/TOOL-3233"
+            ],
+            "UserStory": "TOOL-3226, 3230, 3231, 3232, 3233 (IPL EXP Device Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3326\", https://extron.atlassian.net/browse/TOOL-3326",
+            "TestCaseLink": "\"Test Case: TOOL-T824\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T824"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPL EXP RIO8 : IPLEXP_RIO8",
+                "devices.2.part_number": "60-1907-01",
+                "devices.2.alias": "IPLEXPRIO8Alias",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "IPLEXP_RIO8",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.name": "IPL EXP PDU4H : IPLEXP_PDU4H",
+                "devices.3.part_number": "60-1956-01",
+                "devices.3.alias": "IPLEXPPDU4HAlias",
+                "devices.3.username": "admin",
+                "devices.3.password": "extron",
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "IPLEXP_RIO8",
+                "devices.3.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPL EXP RIO8 : IPLEXP_RIO8 - network.interfaces.address: Invalid - Must be unique",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPL EXP PDU4H : IPLEXP_PDU4H - network.interfaces.address: Invalid - Must be unique",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

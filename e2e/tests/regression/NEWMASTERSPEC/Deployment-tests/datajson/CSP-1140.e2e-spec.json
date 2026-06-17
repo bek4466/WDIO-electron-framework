@@ -1,0 +1,123 @@
+{
+    "Execute":[ "TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for Primary Device (XI) specified in destiny file, an incompatible device found at the address gives appropriate error warning (Index Identifier Scenario).",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1570\", https://extron.atlassian.net/browse/TOOL-1570 ",
+            "UserStory": "TOOL-1570 (As Francisco Garcia, I want to identify issues with XI devices while performing deployment, so that I can correct them and have a successful project deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1150\", https://extron.atlassian.net/browse/TOOL-1150 ",
+            "TestCaseLink": "\"Test Case: CSP-T1375\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1375 ",
+            "ProjectFile": "XiControllerProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "<<TLP1220G_TLP>>"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+                "devices.0.name"
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[0]<<incompatiblePriHardwareMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for peripheral Device (XI) specified in destiny file, an incompatible device found at the address gives appropriate error warning (Index Identifier Scenario)",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1570\", https://extron.atlassian.net/browse/TOOL-1570 ",
+            "UserStory": "TOOL-1570 (As Francisco Garcia, I want to identify issues with XI devices while performing deployment, so that I can correct them and have a successful project deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1150\", https://extron.atlassian.net/browse/TOOL-1150 ",
+            "TestCaseLink": "\"Test Case: CSP-T1374\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1374 ",
+            "ProjectFile": "XiControllerProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "<<TLP1220G_TLP>>"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+                "devices.1.name"
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[1]<<incompatibleHardwareMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+
+   
+}

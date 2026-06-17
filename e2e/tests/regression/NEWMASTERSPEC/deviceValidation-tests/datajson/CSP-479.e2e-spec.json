@@ -1,0 +1,383 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3", "TestCase4", "TestCase5"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that conflicting \"devices.ebus_id\" in destiny gives appropriate error message for eBUS devices",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1695\", https://extron.atlassian.net/browse/TOOL-1695",
+            "UserStory": "TOOL-1695 (devices.extron_control_web_id)",
+            "TaskLink": "\"Task Issue: TOOL-1293\", https://extron.atlassian.net/browse/TOOL-1293",
+            "TestCaseLink": "\"Test Case: CSP-T195\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T195",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "My Device",
+                "devices.2.ebus_id": 1,
+                "devices.2.part_number": "60-1672-30",
+                "devices.2.alias": "eBUSAlias",
+                "devices.2.extron_control_web_id": "@abcd"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<malformedECWID>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {  
+                    "devices.2.extron_control_web_id": "validValue"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.extron_control_web_id\" with with duplicate keys in destiny gives appropriate error message, for primary",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1695\", https://extron.atlassian.net/browse/TOOL-1695",
+            "UserStory": "TOOL-1695 (devices.extron_control_web_id)",
+            "TaskLink": "\"Task Issue: TOOL-1293\", https://extron.atlassian.net/browse/TOOL-1293",
+            "TestCaseLink": "\"Test Case: CSP-T196\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T196",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "My Device",
+                "devices.2.ebus_id": 1,
+                "devices.2.part_number": "60-1672-30",
+                "devices.2.alias": "eBUSAlias",
+                "devices.2.extron_control_web_id": "controlwebid",
+                "devices.3.name": "My Peripheral Device",
+                "devices.3.ebus_id": 2,
+                "devices.3.part_number": "60-1672-30",
+                "devices.3.alias": "eBUSAlias_2",
+                "devices.3.extron_control_web_id": "controlwebid"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<primaryDupeECWID>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<periphDupeECWID>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {  
+                    "devices.2.extron_control_web_id": "validValue"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.extron_control_web_id\" in destiny gives appropriate error message, for non-primary device",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1695\", https://extron.atlassian.net/browse/TOOL-1695",
+            "UserStory": "TOOL-1695 (devices.extron_control_web_id)",
+            "TaskLink": "\"Task Issue: TOOL-1293\", https://extron.atlassian.net/browse/TOOL-1293",
+            "TestCaseLink": "\"Test Case: CSP-T548\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T548",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "My Device",
+                "devices.2.ebus_id": 1,
+                "devices.2.part_number": "60-1672-30",
+                "devices.2.alias": "eBUSAlias",
+                "devices.2.extron_control_web_id": 1234
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<malformedECWID>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {  
+                    "devices.2.extron_control_web_id": "validValue"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.extron_control_web_id\" with non compatible url value in destiny gives appropriate error message, for non-primary device",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1695\", https://extron.atlassian.net/browse/TOOL-1695",
+            "UserStory": "TOOL-1695 (devices.extron_control_web_id)",
+            "TaskLink": "\"Task Issue: TOOL-1293\", https://extron.atlassian.net/browse/TOOL-1293",
+            "TestCaseLink": "\"Test Case: CSP-T550\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T550",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "My Device",
+                "devices.2.ebus_id": 1,
+                "devices.2.part_number": "60-1672-30",
+                "devices.2.alias": "eBUSAlias",
+                "devices.2.extron_control_web_id": "@abcd"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<malformedECWID>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {  
+                    "devices.2.extron_control_web_id": "validValue"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.extron_control_web_id\" with with duplicate keys in destiny gives appropriate error message, for non-primary",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1695\", https://extron.atlassian.net/browse/TOOL-1695",
+            "UserStory": "TOOL-1695 (devices.extron_control_web_id)",
+            "TaskLink": "\"Task Issue: TOOL-1293\", https://extron.atlassian.net/browse/TOOL-1293",
+            "TestCaseLink": "\"Test Case: CSP-T551\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T551",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "My Device",
+                "devices.2.ebus_id": 1,
+                "devices.2.part_number": "60-1672-30",
+                "devices.2.alias": "eBUSAlias",
+                "devices.2.extron_control_web_id": "isdksjdfiorfsdkfjhskdfsdfsfllkjlsf",
+                "devices.3.name": "My Peripheral Device",
+                "devices.3.ebus_id": 2,
+                "devices.3.part_number": "60-1672-30",
+                "devices.3.alias": "eBUSAlias_2",
+                "devices.3.extron_control_web_id": "isdksjdfiorfsdkfjhskdfsdfsfllkjlsf"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<periphDupeECWID>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<primaryDupeECWID>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {  
+                    "devices.2.extron_control_web_id": "validValue"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

@@ -1,0 +1,108 @@
+{
+  "Execute": ["TestCase1", "TestCase2"],
+
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a Primary Device that has hardware mismatch gives appropriate warning message (Index Identifier)",
+      "Owner": "Amit B",
+      "SuiteType": "Device Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1726\", https://extron.atlassian.net/browse/TOOL-1726",
+      "UserStory": "device.alias",
+      "TaskLink": "\"Task Issue: TOOL-4126\", https://extron.atlassian.net/browse/TOOL-4126",
+      "TestCaseLink": "\"Test Case: CSP-T3896\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T3896",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Project",
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>"
+      },
+      "DeleteData": ["devices.0.name"]
+    },
+
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device[0] - Hardware mismatch : The specified device does not match live device on the network.",
+          "MessageType": "Warning",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a Peripheral  Device that has hardware mismatch gives appropriate warning message Index Identifier",
+      "Owner": "Amit B",
+      "SuiteType": "Device Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1726\", https://extron.atlassian.net/browse/TOOL-1726",
+      "UserStory": "device.alias",
+      "TaskLink": "\"Task Issue: TOOL-4126\", https://extron.atlassian.net/browse/TOOL-4126",
+      "TestCaseLink": "\"Test Case: CSP-T3897\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T3897",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Project",
+        "devices.1.network.interfaces.0.address": "<<Pro550_IPCP>>"
+      },
+      "DeleteData": ["devices.1.name"]
+    },
+
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device[1] - Hardware mismatch : The specified device does not match live device on the network.",
+          "MessageType": "Warning",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

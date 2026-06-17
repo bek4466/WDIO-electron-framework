@@ -1,0 +1,72 @@
+{
+  "Execute": [
+     "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Functionality of OVERWRITE CREDENTIALS, junk data case",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3660\", https://extron.atlassian.net/browse/TOOL-3660",
+      "UserStory": "TOOL-3660 Project Credentials File: Alert Banner \"OVERWRITE CREDENTIALS\"",
+      "TaskLink": "\"Task Issue: TOOL-3749\", https://extron.atlassian.net/browse/TOOL-3749",
+      "TestCaseLink": "\"Test Case: TOOL-T4525\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4525",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      
+    },
+    
+    "Steps": {
+       
+        "CommonMethod": {
+            "appendToFile": {
+              "filePath": "CredentialsProject\\systeminfoTmp-credential.dat",
+              "text": "ThisIsInvalidText"
+              },
+            "saveFileModifiedDate": {
+              "filePath": "CredentialsProject\\systeminfoTmp-credential.dat"
+            }
+        },
+        "DeployPage": {
+            "ProjectFilePathInput": {
+              "setPath": "CredentialsProject\\systeminfoTmp.json"
+            },
+            "ProjectCredentialsBtn": {
+              "click": {}
+            },
+            "ProjectCredentialsPopUp": {
+            "isOpen": false
+            }
+        },
+        "Banner": {
+            "BannerText":{
+              "exists": true
+            },
+            "BannerOverwriteButton": {
+              "exists": true,
+              "click": {}
+            },
+            "BannerText2":{
+              "exists": false
+            }
+        },
+        "DeployPage2": {
+            "ProjectCredentialsPopUp": {
+              "isOpen": true,
+              "CancelBtn": {
+                "click": {}
+              },
+              "isOpen2": false
+            }
+        },
+        "CommonMethod2": {
+          "compareFileModifiedDateToSavedDate": {
+            "filePath": "CredentialsProject\\systeminfoTmp-credential.dat",
+            "expect": "DifferentFromSaved"
+          }
+        }
+      }
+  }
+  
+}

@@ -1,0 +1,1684 @@
+{
+  "Execute": [
+    "TestCase734",
+    "TestCase757",
+    "TestCase759",
+    "TestCase760",
+    "TestCase4604A",
+    "TestCase4604B",
+    "TestCase4604C",
+    "TestCase4606",
+    "TestCase4620",
+    "TestCase4709",
+    "TestCase4837",
+    "TestCase4839",
+    "TestCase5053",
+    "TestCase5054",
+    "TestCase5056",
+    "TestCase5057"
+  ],
+  "TestCase734": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as a peripheral pointing to network address of a different model of same device gives appropriate warning message",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6323\", https://extron.atlassian.net/browse/TOOL-6323 ",
+      "TestCaseLink": "\"Test Case: TOOL-T734\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T734 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP360_Qxi_LAN",
+        "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+        "devices.0.part_number": "<<IPCP360_Qxi_Partnumber>>",
+        "devices.1.name": "TLP 535M",
+        "devices.1.network.interfaces.0.address": "<<TLP1035M>>",
+        "devices.1.part_number": "<<TLP535M_Partnumber>>"
+      },
+      "InsertTestData": {
+        "devices.0.network.interfaces.1": {},
+        "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+        "devices.0.network.interfaces.1.type": "AVLAN"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<hardwareMismatch>>",
+          "MessageType": "Warning",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase757": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as primary device and is not found on the network gives the appropriate error message",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6323\", https://extron.atlassian.net/browse/TOOL-6323 ",
+      "TestCaseLink": "\"Test Case: TOOL-T757\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T757 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 535MwLL",
+        "devices.0.network.interfaces.0.address": "10.119.10.123",
+        "devices.0.part_number": "<<TLP535MwLL_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535MwLL<<deviceUnreachablePeripheralMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase759": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6323\", https://extron.atlassian.net/browse/TOOL-6323 ",
+      "TestCaseLink": "\"Test Case: TOOL-T759\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T759 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 535MwLL",
+        "devices.0.network.interfaces.0.address": "<<TLP535MwLL>>",
+        "devices.0.part_number": "<<TLP535MwLL_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "ad",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535MwLL<<primaryIncorrectCredentials>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase760": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6323\", https://extron.atlassian.net/browse/TOOL-6323 ",
+      "TestCaseLink": "\"Test Case: TOOL-T760\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T760 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP350_Xi_IPCP",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.0.part_number": "<<IPCP350_Xi_IPCP_Partnumber>>",
+        "devices.1.name": "TLP 535M",
+        "devices.1.network.interfaces.0.address": "<<TLP535M>>",
+        "devices.1.part_number": "<<TLP535M_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "ad",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<incorrectDeviceCredentials>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase4604A": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6324\", https://extron.atlassian.net/browse/TOOL-6324 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TLP535Deploy",
+        "devices.0.name": "TLP300MwLL",
+        "devices.0.part_number": "<<TLP300M_LL_Partnumber>>",
+        "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+        "devices.1.name": "TLP 535M",
+        "devices.1.network.interfaces.0.address": "<<TLP535M>>",
+        "devices.1.part_number": "<<TLP535M_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP535Deploy<<projectDeployment>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStoppedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<pairingPositiveMessageFirstPartAddress>><<TLP535M>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<dualnicPairingMessagePart1>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<HardwareFoundMessage>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP300MwLL<<fileTransferMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<deploySuccessMsg1>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStartedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "ModifyTestData": {
+          "system.name": "TLP535Deploy",
+          "system.system_id": "7251",
+          "devices.0.name": "TLP725MwLL",
+          "devices.0.part_number": "<<TLP725M_LL_Partnumber>>",
+          "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+          "devices.1.name": "TLP 535M",
+          "devices.1.network.interfaces.0.address": "<<TLP535M>>",
+          "devices.1.part_number": "<<TLP535M_Partnumber>>"
+        }
+      },
+      "DeployAction2": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage2": [
+        {
+          "MessageText": "TLP535Deploy<<projectDeployment>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStoppedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<pairingPositiveMessageFirstPartAddress>><<TLP535M>><<pairingPositiveMessageSecondPartSystemID>>7251)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<dualnicPairingMessagePart1>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<HardwareFoundMessage>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP725MwLL<<fileTransferMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<deploySuccessMsg1>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStartedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase4604B": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6324\", https://extron.atlassian.net/browse/TOOL-6324 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TLP535Deploy",
+        "system.system_id": "3501",
+        "devices.0.name": "IPCP350XI",
+        "devices.0.part_number": "<<IPCP350_Xi_IPCP_Partnumber>>",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.name": "TLP 535M",
+        "devices.1.network.interfaces.0.address": "<<TLP535M>>",
+        "devices.1.part_number": "<<TLP535M_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP535Deploy<<projectDeployment>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStoppedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<pairingPositiveMessageFirstPartAddress>><<TLP535M>><<pairingPositiveMessageSecondPartSystemID>>3501)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<dualnicPairingMessagePart1>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<HardwareFoundMessage>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "IPCP350XI<<fileTransferMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<deploySuccessMsg1>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStartedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile": {
+        "ModifyTestData": {
+          "system.name": "TLP535Deploy",
+          "system.system_id": "3601",
+          "devices.0.name": "IPCP360Qxi",
+          "devices.0.part_number": "<<IPCP360_Qxi_Partnumber>>",
+          "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+          "devices.0.network.interfaces.1": {},
+          "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+          "devices.0.network.interfaces.1.type": "AVLAN",
+          "devices.1.name": "TLP 535M",
+          "devices.1.network.interfaces.0.address": "<<TLP535M>>",
+          "devices.1.part_number": "<<TLP535M_Partnumber>>"
+        }
+      },
+      "DeployAction2": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage2": [
+        {
+          "MessageText": "TLP535Deploy<<projectDeployment>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStoppedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<pairingPositiveMessageFirstPartAddress>><<TLP535M>><<pairingPositiveMessageSecondPartSystemID>>3601)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<dualnicPairingMessagePart1>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<HardwareFoundMessage>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "IPCP360Qxi<<fileTransferMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<deploySuccessMsg1>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStartedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase4604C": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6324\", https://extron.atlassian.net/browse/TOOL-6324 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TLP535Deploy",
+        "system.system_id": "8921",
+        "devices.0.name": "VCP",
+        "devices.0.part_number": "<<VCP_LAN_Partnumber>>",
+        "devices.0.network.interfaces.0.address": "<<VCP_LAN>>",
+        "devices.1.name": "TLP 535M",
+        "devices.1.network.interfaces.0.address": "<<TLP535M>>",
+        "devices.1.part_number": "<<TLP535M_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP535Deploy<<projectDeployment>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStoppedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<pairingPositiveMessageFirstPartAddress>><<TLP535M>><<pairingPositiveMessageSecondPartSystemID>>8921)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<dualnicPairingMessagePart1>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<HardwareFoundMessage>><<TLP535M>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "VCP<<fileTransferMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<deploySuccessMsg1>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535Deploy<<programStartedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase4606": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate Error messages are displayed for unsuccessful deployment when UUT is used with a primary device",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6324\", https://extron.atlassian.net/browse/TOOL-6324 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4606\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4606 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TLP535Deploy",
+        "devices.0.name": "TLP300MwLL",
+        "devices.0.part_number": "<<TLP300M_LL_Partnumber>>",
+        "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+        "devices.1.name": "TLP 535M",
+        "devices.1.network.interfaces.0.address": "10.119.10.123",
+        "devices.1.part_number": "<<TLP535M_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deviceConnectionFailed>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<pairingNegativeMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535M<<hardwareNotFoundMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase4620": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as Peripheral Device has gives appropriate Error hardware message when unsupported on Primary",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6324\", https://extron.atlassian.net/browse/TOOL-6324 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4620\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4620 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TLP535Deploy",
+        "devices.0.name": "IPCP550",
+        "devices.0.part_number": "<<Pro550_IPCP_Partnumber>>",
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.name": "TLP 535M",
+        "devices.1.network.interfaces.0.address": "<<TLP535M>>",
+        "devices.1.part_number": "<<TLP535M_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP 535M<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase4709": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used as a primary",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6324\", https://extron.atlassian.net/browse/TOOL-6324 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4709\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4709 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.system_id": "9071",
+        "system.code_entry_file": "main_basicMsg.py",
+        "devices.0.name": "TLP535MwLL",
+        "devices.0.part_number": "<<TLP535MwLL_Partnumber>>",
+        "devices.0.network.interfaces.0.address": "<<TLP535MwLL>>",
+        "devices.1.part_number": "<<TLP1022_TLP_Partnumber>>",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "TLP525TNC",
+        "devices.2.part_number": "<<TLP525TNC_1_Partnumber>>",
+        "devices.2.alias": "Tlp525tncAlias",
+        "devices.2.network": {},
+        "devices.2.network.host_network_type": "LAN",
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0": {},
+        "devices.2.network.interfaces.0.address": "<<TLP525TNC_1>>",
+        "devices.2.network.interfaces.0.type": "LAN",
+        "devices.2.ui": {},
+        "devices.2.ui.layout_file": "Project1.gdl",
+        "devices.2.ui.enable_click_sound": true,
+        "devices.2.ui.press_feedback": "none",
+        "devices.2.ui.thumb_change_report_interval": 0.1,
+        "devices.2.ui.thumb_to_fill_sync_time": 0.5,
+        "devices.3.name": "Navigator",
+        "devices.3.part_number": "<<Navigator_Partnumber>>",
+        "devices.3.alias": "NavAlias",
+        "devices.3.network": {},
+        "devices.3.network.host_network_type": "LAN",
+        "devices.3.network.interfaces": [],
+        "devices.3.network.interfaces.0": {},
+        "devices.3.network.interfaces.0.address": "<<Navigator>>",
+        "devices.3.network.interfaces.0.type": "OOB",
+        "devices.4.name": "NBP100",
+        "devices.4.part_number": "<<NBP100_NBP_Partnumber>>",
+        "devices.4.alias": "NbpAlias",
+        "devices.4.network": {},
+        "devices.4.network.host_network_type": "LAN",
+        "devices.4.network.interfaces": [],
+        "devices.4.network.interfaces.0": {},
+        "devices.4.network.interfaces.0.address": "<<NBP100_NBP>>",
+        "devices.4.network.interfaces.0.type": "LAN",
+        "devices.4.ui": {},
+        "devices.4.ui.enable_click_sound": true,
+        "devices.4.ui.press_feedback": "none",
+        "devices.5.name": "ECW",
+        "devices.5.part_number": "60-sVTLP",
+        "devices.5.alias": "EcwAlias",
+        "devices.5.ui": {},
+        "devices.5.ui.layout_file": "Project1.gdl",
+        "devices.5.ui.enable_click_sound": true,
+        "devices.5.ui.press_feedback": "none",
+        "devices.5.ui.thumb_change_report_interval": 0.1,
+        "devices.5.ui.thumb_to_fill_sync_time": 0.5,
+        "devices.6.name": "ECIOS",
+        "devices.6.part_number": "79-559-01",
+        "devices.6.alias": "EciosAlias",
+        "devices.6.ui": {},
+        "devices.6.ui.layout_file": "Project1.gdl",
+        "devices.6.ui.enable_click_sound": true,
+        "devices.6.ui.press_feedback": "none",
+        "devices.6.ui.thumb_change_report_interval": 0.1,
+        "devices.6.ui.thumb_to_fill_sync_time": 0.5,
+        "devices.7.name": "ECANDROID",
+        "devices.7.part_number": "79-600-01",
+        "devices.7.alias": "EcandroidAlias",
+        "devices.7.ui": {},
+        "devices.7.ui.layout_file": "Project1.gdl",
+        "devices.7.ui.enable_click_sound": true,
+        "devices.7.ui.press_feedback": "none",
+        "devices.7.ui.thumb_change_report_interval": 0.1,
+        "devices.7.ui.thumb_to_fill_sync_time": 0.5
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<projectDeployment>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535MwLL<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535MwLL<<HardwareFoundMessage>><<TLP535MwLL>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535MwLL<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535MwLL<<fileTransferMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg1>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<programStartedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 1022T<<pairingPositiveMessageFirstPartAddress>><<TLP1022_TLP>><<pairingPositiveMessageSecondPartSystemID>>9071)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP525TNC<<pairingPositiveMessageFirstPartAddress>><<TLP525TNC_1>><<pairingPositiveMessageSecondPartSystemID>>9071)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "Navigator<<pairingPositiveMessageFirstPartAddress>><<Navigator>><<pairingPositiveMessageSecondPartSystemID>>9071)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "NBP100<<pairingPositiveMessageFirstPartAddress>><<NBP100_NBP>><<pairingPositiveMessageSecondPartSystemID>>9071)",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [
+        "StartTrace"
+      ],
+      "Timeout": "fast",
+      "TroubleshootingAction2": [
+        "StopTrace"
+      ],
+      "VerifyTraceMessage": [
+        {
+          "MessageText": "Trace Message:",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase4837": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate info messages are displayed for successful deploy code only when UUT is used as primary",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6325\", https://extron.atlassian.net/browse/TOOL-6325 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4837\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4837 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.system_id": "5428",
+        "system.code_entry_file": "main_basicMsg.py",
+        "devices.0.name": "TLP535MwLL",
+        "devices.0.part_number": "<<TLP535MwLL_Partnumber>>",
+        "devices.0.network.interfaces.0.address": "<<TLP535MwLL>>",
+        "devices.1.part_number": "<<TLP1022_TLP_Partnumber>>",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "TLP525TNC",
+        "devices.2.part_number": "<<TLP525TNC_1_Partnumber>>",
+        "devices.2.alias": "Tlp525tncAlias",
+        "devices.2.network": {},
+        "devices.2.network.host_network_type": "LAN",
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0": {},
+        "devices.2.network.interfaces.0.address": "<<TLP525TNC_1>>",
+        "devices.2.network.interfaces.0.type": "LAN",
+        "devices.2.ui": {},
+        "devices.2.ui.layout_file": "Project1.gdl",
+        "devices.2.ui.enable_click_sound": true,
+        "devices.2.ui.press_feedback": "none",
+        "devices.2.ui.thumb_change_report_interval": 0.1,
+        "devices.2.ui.thumb_to_fill_sync_time": 0.5,
+        "devices.3.name": "Navigator",
+        "devices.3.part_number": "<<Navigator_Partnumber>>",
+        "devices.3.alias": "NavAlias",
+        "devices.3.network": {},
+        "devices.3.network.host_network_type": "LAN",
+        "devices.3.network.interfaces": [],
+        "devices.3.network.interfaces.0": {},
+        "devices.3.network.interfaces.0.address": "<<Navigator>>",
+        "devices.3.network.interfaces.0.type": "OOB",
+        "devices.4.name": "NBP100",
+        "devices.4.part_number": "<<NBP100_NBP_Partnumber>>",
+        "devices.4.alias": "NbpAlias",
+        "devices.4.network": {},
+        "devices.4.network.host_network_type": "LAN",
+        "devices.4.network.interfaces": [],
+        "devices.4.network.interfaces.0": {},
+        "devices.4.network.interfaces.0.address": "<<NBP100_NBP>>",
+        "devices.4.network.interfaces.0.type": "LAN",
+        "devices.4.ui": {},
+        "devices.4.ui.enable_click_sound": true,
+        "devices.4.ui.press_feedback": "none",
+        "devices.5.name": "ECW",
+        "devices.5.part_number": "60-sVTLP",
+        "devices.5.alias": "EcwAlias",
+        "devices.5.ui": {},
+        "devices.5.ui.layout_file": "Project1.gdl",
+        "devices.5.ui.enable_click_sound": true,
+        "devices.5.ui.press_feedback": "none",
+        "devices.5.ui.thumb_change_report_interval": 0.1,
+        "devices.5.ui.thumb_to_fill_sync_time": 0.5,
+        "devices.6.name": "ECIOS",
+        "devices.6.part_number": "79-559-01",
+        "devices.6.alias": "EciosAlias",
+        "devices.6.ui": {},
+        "devices.6.ui.layout_file": "Project1.gdl",
+        "devices.6.ui.enable_click_sound": true,
+        "devices.6.ui.press_feedback": "none",
+        "devices.6.ui.thumb_change_report_interval": 0.1,
+        "devices.6.ui.thumb_to_fill_sync_time": 0.5,
+        "devices.7.name": "ECANDROID",
+        "devices.7.part_number": "79-600-01",
+        "devices.7.alias": "EcandroidAlias",
+        "devices.7.ui": {},
+        "devices.7.ui.layout_file": "Project1.gdl",
+        "devices.7.ui.enable_click_sound": true,
+        "devices.7.ui.press_feedback": "none",
+        "devices.7.ui.thumb_change_report_interval": 0.1,
+        "devices.7.ui.thumb_to_fill_sync_time": 0.5
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg1>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "CommonMethod": {
+        "replaceTextInFile": {
+          "filePath": "DeployProject\\src\\main_basicMsg.py",
+          "textToReplace": "Message",
+          "newText": "DCOMSG"
+        }
+      },
+      "Timeout": "fast",
+      "DeployAction_2": [
+        "DeployCodeOnly"
+      ],
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deployCodeOnlySuccess>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "CommonMethod_2": {
+        "replaceTextInFile": {
+          "filePath": "DeployProject\\src\\main_basicMsg.py",
+          "textToReplace": "DCOMSG",
+          "newText": "Message"
+        }
+      },
+      "TroubleshootingAction": [
+        "StartTrace"
+      ],
+      "Timeout_2": "medium",
+      "VerifyTraceMessage": [
+        {
+          "MessageText": "DCOMSG",
+          "Exist": true
+        }
+      ],
+      "Timeout_3": "fast"
+    }
+  },
+  "TestCase4839": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate Error messages are displayed for unsuccessful deployment and deploy code only when UUT is used as a primary",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6325\", https://extron.atlassian.net/browse/TOOL-6325 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4839\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4839 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.system_id": "9852",
+        "system.code_entry_file": "main_basicMsg.py",
+        "devices.0.name": "TLP535MwLL",
+        "devices.0.part_number": "<<TLP535MwLL_Partnumber>>",
+        "devices.0.network.interfaces.0.address": "10.119.1.123",
+        "devices.1.part_number": "<<TLP1022_TLP_Partnumber>>",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP535MwLL - <<deviceConnectionFailed>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535MwLL<<hardwareNotFoundMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "DeployAction_2": [
+        "ClearMessagePane",
+        "DeployCodeOnly"
+      ],
+      "Timeout": "fast",
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deployCodeOnlyFailed>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase5053": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify hardware incompatible error when having UUT W/LL as primary specified and a different device is live",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6325\", https://extron.atlassian.net/browse/TOOL-6325 ",
+      "TestCaseLink": "\"Test Case: TOOL-T5053\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T5053 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 535MwLL",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.0.part_number": "<<TLP535MwLL_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535MwLL<<incompatiblePriHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile2": {
+        "ModifyTestData": {
+          "devices.0.name": "TLP 535MwLL",
+          "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+          "devices.0.part_number": "<<TLP535MwLL_Partnumber>>"
+        }
+      },
+      "DeployAction2": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage2": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535MwLL<<incompatiblePriHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile3": {
+        "ModifyTestData": {
+          "devices.0.name": "TLP 535MwLL",
+          "devices.0.network.interfaces.0.address": "<<WC150_LL>>",
+          "devices.0.part_number": "<<TLP535MwLL_Partnumber>>"
+        }
+      },
+      "DeployAction3": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage3": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535MwLL<<incompatiblePriHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile4": {
+        "ModifyTestData": {
+          "devices.0.name": "TLP 535MwLL",
+          "devices.0.network.interfaces.0.address": "<<TLP535M>>",
+          "devices.0.part_number": "<<TLP535MwLL_Partnumber>>"
+        }
+      },
+      "DeployAction4": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage4": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535MwLL<<incompatiblePriHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile5": {
+        "ModifyTestData": {
+          "devices.0.name": "TLP 535MwLL",
+          "devices.0.network.interfaces.0.address": "<<MLCPlus84D_MLC>>",
+          "devices.0.part_number": "<<TLP535MwLL_Partnumber>>"
+        }
+      },
+      "DeployAction5": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage5": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP 535MwLL<<incompatiblePriHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase5054": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify hardware incompatible error when having UUT as peripheral specified and a different device is live ",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6325\", https://extron.atlassian.net/browse/TOOL-6325 ",
+      "TestCaseLink": "\"Test Case: TOOL-T5054\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T5054 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 535MwLL",
+        "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+        "devices.0.part_number": "<<IPCP360_Qxi_Partnumber>>",
+        "devices.1.name": "IPCP350_Xi_IPCP",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.part_number": "<<TLP535M_Partnumber>>"
+      },
+      "InsertTestData": {
+        "devices.0.network.interfaces.1": {},
+        "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+        "devices.0.network.interfaces.1.type": "AVLAN",
+
+        
+        "devices.2": {},
+        "devices.2.name": "TLP725T_TLP",
+        "devices.2.part_number": "<<TLP535M_Partnumber>>",
+        "devices.2.alias": "Peripheral_2",
+        "devices.2.network": {},
+        "devices.2.network.host_network_type": "LAN",
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0": {},
+        "devices.2.network.interfaces.0.address": "<<TLP725T_TLP>>",
+        "devices.2.network.interfaces.0.type": "LAN",
+
+        
+        "devices.3": {},
+        "devices.3.name": "TLP725M_LL",
+        "devices.3.part_number": "<<TLP535M_Partnumber>>",
+        "devices.3.alias": "Peripheral_3",
+        "devices.3.network": {},
+        "devices.3.network.host_network_type": "LAN",
+        "devices.3.network.interfaces": [],
+        "devices.3.network.interfaces.0": {},
+        "devices.3.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.3.network.interfaces.0.type": "LAN",
+        
+        "devices.4": {},
+        "devices.4.name": "WC150_LL",
+        "devices.4.part_number": "<<TLP535M_Partnumber>>",
+        "devices.4.alias": "Peripheral_4",
+        "devices.4.network": {},
+        "devices.4.network.host_network_type": "LAN",
+        "devices.4.network.interfaces": [],
+        "devices.4.network.interfaces.0": {},
+        "devices.4.network.interfaces.0.address": "<<WC150_LL>>",
+        "devices.4.network.interfaces.0.type": "LAN",
+
+        "devices.5": {},
+        "devices.5.name": "MLCPlus84D_MLC",
+        "devices.5.part_number": "<<TLP535M_Partnumber>>",
+        "devices.5.alias": "Peripheral_5",
+        "devices.5.network": {},
+        "devices.5.network.host_network_type": "LAN",
+        "devices.5.network.interfaces": [],
+        "devices.5.network.interfaces.0": {},
+        "devices.5.network.interfaces.0.address": "<<MLCPlus84D_MLC>>",
+        "devices.5.network.interfaces.0.type": "LAN",
+
+        
+        "devices.6": {},
+        "devices.6.name": "TLP535MwLL",
+        "devices.6.part_number": "<<TLP535M_Partnumber>>",
+        "devices.6.alias": "Peripheral_6",
+        "devices.6.network": {},
+        "devices.6.network.host_network_type": "LAN",
+        "devices.6.network.interfaces": [],
+        "devices.6.network.interfaces.0": {},
+        "devices.6.network.interfaces.0.address": "<<TLP535MwLL>>",
+        "devices.6.network.interfaces.0.type": "LAN"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "IPCP350_Xi_IPCP<<incompatibleHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP725T_TLP<<incompatibleHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP725M_LL<<incompatibleHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "WC150_LL<<incompatibleHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "MLCPlus84D_MLC<<incompatibleHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP535MwLL<<incompatibleHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase5056": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that x35 TLP W/LL as Peripheral Device has gives appropriate Error hardware message when unsupported on Primary",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6326\", https://extron.atlassian.net/browse/TOOL-6326 ",
+      "TestCaseLink": "\"Test Case: TOOL-T5056\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T5056 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP350_Xi_IPCP",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.0.part_number": "<<IPCP350_Xi_IPCP_Partnumber>>",
+        "devices.1.name": "TLP 535MwLL",
+        "devices.1.network.interfaces.0.address": "<<TLP535MwLL>>",
+        "devices.1.part_number": "<<TLP535MwLL_Partnumber>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP 535MwLL<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile2": {
+        "ModifyTestData": {
+          "devices.0.name": "IPCP550_IPCP_singlenic",
+          "devices.0.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+          "devices.0.part_number": "<<IPCP550_IPCP_singlenic_Partnumber>>",
+          "devices.1.name": "TLP 535MwLL",
+          "devices.1.network.interfaces.0.address": "<<TLP535MwLL>>",
+          "devices.1.part_number": "<<TLP535MwLL_Partnumber>>"
+        }
+      },
+      "DeployAction2": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage2": [
+        {
+          "MessageText": "TLP 535MwLL<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile3": {
+        "ModifyTestData": {
+          "devices.0.name": "TLP835MwLL",
+          "devices.0.network.interfaces.0.address": "<<TLP835MwLL>>",
+          "devices.0.part_number": "<<TLP835MwLL_Partnumber>>",
+          "devices.1.name": "TLP 535MwLL",
+          "devices.1.network.interfaces.0.address": "<<TLP535MwLL>>",
+          "devices.1.part_number": "<<TLP535MwLL_Partnumber>>"
+        }
+      },
+      "DeployAction3": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage3": [
+        {
+          "MessageText": "TLP 535MwLL<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "EditProjectFile4": {
+        "ModifyTestData": {
+          "devices.0.name": "TLP725M_LL",
+          "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+          "devices.0.part_number": "<<TLP725M_LL_Partnumber>>",
+          "devices.1.name": "TLP 535MwLL",
+          "devices.1.network.interfaces.0.address": "<<TLP535MwLL>>",
+          "devices.1.part_number": "<<TLP535MwLL_Partnumber>>"
+        }
+      },
+      "DeployAction4": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage4": [
+        {
+          "MessageText": "TLP 535MwLL<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase5057": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify adding a peripheral device to x35 TLP w/LL as primary displays appropriate error message",
+      "Owner": "Kiran",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-6234\", https://extron.atlassian.net/browse/TOOL-6234 ",
+      "UserStory": "TOOL-6234 (TLP 535M/T - Compatibility and validation)",
+      "TaskLink": "\"Task Issue: TOOL-6326\", https://extron.atlassian.net/browse/TOOL-6326 ",
+      "TestCaseLink": "\"Test Case: TOOL-T5057\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T5057 ",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 535MwLL",
+        "devices.0.network.interfaces.0.address": "<<TLP535MwLL>>",
+        "devices.0.part_number": "<<TLP535MwLL_Partnumber>>",
+        "devices.1.name": "IPCP350_Xi_IPCP",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.part_number": "<<IPCP350_Xi_IPCP_Partnumber>>"
+      },
+      "InsertTestData": {
+        "devices.2": {},
+        "devices.2.name": "IPCP550_IPCP_singlenic",
+        "devices.2.part_number": "<<IPCP550_IPCP_singlenic_Partnumber>>",
+        "devices.2.alias": "Peripheral_2",
+        "devices.2.network": {},
+        "devices.2.network.host_network_type": "LAN",
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0": {},
+        "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.type": "LAN",
+
+        
+        "devices.3": {},
+        "devices.3.name": "TLP835MwLL",
+        "devices.3.part_number": "<<TLP835MwLL_Partnumber>>",
+        "devices.3.alias": "Peripheral_3",
+        "devices.3.network": {},
+        "devices.3.network.host_network_type": "LAN",
+        "devices.3.network.interfaces": [],
+        "devices.3.network.interfaces.0": {},
+        "devices.3.network.interfaces.0.address": "<<TLP835MwLL>>",
+        "devices.3.network.interfaces.0.type": "LAN",
+        
+        "devices.4": {},
+        "devices.4.name": "TLP725M_LL",
+        "devices.4.part_number": "<<TLP725M_LL_Partnumber>>",
+        "devices.4.alias": "Peripheral_4",
+        "devices.4.network": {},
+        "devices.4.network.host_network_type": "LAN",
+        "devices.4.network.interfaces": [],
+        "devices.4.network.interfaces.0": {},
+        "devices.4.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.4.network.interfaces.0.type": "LAN",
+
+        "devices.5": {},
+        "devices.5.name": "WC150_LL",
+        "devices.5.part_number": "<<WC150_LL_Partnumber>>",
+        "devices.5.alias": "Peripheral_5",
+        "devices.5.network": {},
+        "devices.5.network.host_network_type": "LAN",
+        "devices.5.network.interfaces": [],
+        "devices.5.network.interfaces.0": {},
+        "devices.5.network.interfaces.0.address": "<<WC150_LL>>",
+        "devices.5.network.interfaces.0.type": "LAN",
+
+        
+        "devices.6": {},
+        "devices.6.name": "TLCA 1",
+        "devices.6.part_number": "60-1748-10",
+        "devices.6.alias": "AdapterAlias"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "ClearMessagePane",
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "IPCP350_Xi_IPCP<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "IPCP550_IPCP_singlenic<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP835MwLL<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP725M_LL<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "WC150_LL<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLCA 1<<primaryNoSupportPeripheral>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  }
+}

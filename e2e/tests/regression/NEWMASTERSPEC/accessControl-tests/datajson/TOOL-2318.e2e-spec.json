@@ -1,0 +1,176 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a Certified User can retrieve Program Logs",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2251\", https://extron.atlassian.net/browse/TOOL-2251",
+      "UserStory": "TOOL-2251 (As Extron, I want both Certified and UC users to be able to log into the CSDU app So that they may be able to access the application.)",
+      "TaskLink": "\"Task Issue: TOOL-2318\", https://extron.atlassian.net/browse/TOOL-2318",
+      "TestCaseLink": "\"Test Case: TOOL-T249\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T249",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TraceProject\\systeminfoTmp.json"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [],
+      "Timeout2": "fast",
+      "TroubleshootingAction2": [
+        "StopProgramLog"
+      ],
+      "Timeout3": "fast",
+      "TroubleshootingAction3": [
+        "StartProgramLog",
+        "RefreshProgramLog"
+      ],
+      "Timeout4": "slow",
+      "Timeout5": "medium",
+      "VerifyProgramMessageLogs": [
+        {
+          "MessageText": "<<programLogMessage1>>",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a Certified User can retrieve Program Logs",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2251\", https://extron.atlassian.net/browse/TOOL-2251",
+      "UserStory": "TOOL-2251 (As Extron, I want both Certified and UC users to be able to log into the CSDU app So that they may be able to access the application.)",
+      "TaskLink": "\"Task Issue: TOOL-2318\", https://extron.atlassian.net/browse/TOOL-2318",
+      "TestCaseLink": "\"Test Case: TOOL-T250\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T250",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TraceProject\\systeminfoTmp.json"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [],
+      "Timeout2": "fast",
+      "TroubleshootingAction2": [
+        "StopProgramLog"
+      ],
+      "Timeout3": "fast",
+      "TroubleshootingAction3": [
+        "StartProgramLog",
+        "RefreshProgramLog"
+      ],
+      "Timeout4": "slow",
+      "Timeout5": "medium",
+      "VerifyProgramMessageLogs": [
+        {
+          "MessageText": "<<programLogMessage1>>",
+          "Exist": true
+        }
+      ],
+      "AppAction2": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,72 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify appropriate error when adding C (Old LinkLicense Identifier) to part number",
+            "Owner": "Kiran",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"User Story: TOOL-5964\", https://extron.atlassian.net/browse/TOOL-5964 ",
+            "UserStory": "TOOL-5964 (Workspace Controller w/ LL part number change (160))",
+            "UserStoryLink_2": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_2": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-6171\", https://extron.atlassian.net/browse/TOOL-6171 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4984\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4984 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "WC 160 w/LL",
+                "devices.0.part_number": "60-1804-01C",
+                "devices.0.network.interfaces.0.address": "<<WC160_LL>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<partNumberUnsupportedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.name": "WC 150 w/LL",
+                    "devices.0.part_number": "60-1803-01C",
+                    "devices.0.network.interfaces.0.address": "<<WC150_LL>>"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<partNumberUnsupportedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

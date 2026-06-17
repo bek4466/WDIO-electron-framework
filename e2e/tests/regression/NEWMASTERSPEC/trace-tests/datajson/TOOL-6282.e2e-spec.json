@@ -1,0 +1,138 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify IPv6 trace is exported correctly",
+            "Owner": "Kiran",
+            "SuiteType": "Trace Validation Messages",
+            "UserStoryLink": "\"User Story: TOOL-5981\", https://extron.atlassian.net/browse/TOOL-5981 ",
+            "UserStory": "TOOL-5981 (IPV6 Trace IP Address Column)",
+            "TaskLink": "\"Task Issue: TOOL-6282\", https://extron.atlassian.net/browse/TOOL-6282 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4995\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4995 ",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.code_entry_file": "main60secMsg.py",
+                "devices.0.network.interfaces.0.address": "<<DUAL_IPV6_Device>>",
+                "devices.0.part_number": "<<DUAL_IPV6_Device_PartNumber>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<DUAL_IPV6_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": [
+                "devices.2",
+                "devices.1",
+                "system.data_file_path"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [],
+            "Timeout": "superFast",
+            "TroubleshootingAction2": [
+                "ClearTrace",
+                "StartTrace"
+            ],
+            "Timeout2": "fast",
+            "TroubleshootingAction3": [
+                "StopTrace"
+            ],
+            "Timeout3": "superFast",
+            "TroubleshootingAction4": [
+                "ExportTraceToTmpDownload"
+            ],
+            "Timeout4": "fast",
+            "CommonMethod": {
+                "checkMessageInFile": {
+                    "traceFileInTmpDownloadProject": "",
+                    "text": "<<DUAL_IPV6_Device>>"
+                }
+            }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that trace IP Address shows first configured address",
+            "Owner": "Kiran",
+            "SuiteType": "Trace Validation Messages",
+            "UserStoryLink": "\"User Story: TOOL-5981\", https://extron.atlassian.net/browse/TOOL-5981 ",
+            "UserStory": "TOOL-5981 (IPV6 Trace IP Address Column)",
+            "TaskLink": "\"Task Issue: TOOL-6282\", https://extron.atlassian.net/browse/TOOL-6282 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4997\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4997 ",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.code_entry_file": "main60secMsg.py",
+                "devices.0.network.interfaces.0.address": "<<DUAL_Hostname_Device>>",
+                "devices.0.part_number": "<<DUAL_IPV6_Device_PartNumber>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<DUAL_IPV6_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": [
+                "devices.2",
+                "devices.1",
+                "system.data_file_path"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [],
+            "Timeout": "superFast",
+            "TroubleshootingAction2": [
+                "ClearTrace",
+                "StartTrace"
+            ],
+            "Timeout2": "fast",
+            "TroubleshootingAction3": [
+                "StopTrace"
+            ],
+            "VerifyTraceMessage": [
+                {
+                    "MessageText": "Trace Message",
+                    "IpAddress": "<<DUAL_IPV4_Device>>",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

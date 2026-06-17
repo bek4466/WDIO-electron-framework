@@ -1,0 +1,129 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Deployment should go through with minimum firmware for Navigator and Primary controller.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1680\", https://extron.atlassian.net/browse/TOOL-1680 ",
+            "UserStory": "TOOL-1680 (As Francisco Garcia, I want to deploy a programmed system with a NAVigator, So that I can control my NAV system)",
+            "TaskLink": "\"Task Issue: TOOL-1358\", https://extron.atlassian.net/browse/TOOL-1358 ",
+            "TestCaseLink": "\"Test Case: CSP-T1126\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1126 ",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+               
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify All the hardware Validation message for NAV device.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1680\", https://extron.atlassian.net/browse/TOOL-1680 ",
+            "UserStory": "TOOL-1680 (As Francisco Garcia, I want to deploy a programmed system with a NAVigator, So that I can control my NAV system)",
+            "TaskLink": "\"Task Issue: TOOL-1358\", https://extron.atlassian.net/browse/TOOL-1358 ",
+            "TestCaseLink": "\"Test Case: CSP-T1130\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1130 ",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "NavDevice",
+                "devices.1.network.interfaces.0.address": "<<Navigator_1>>"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NavDevice<<HardwareFoundMessage>><<Navigator_1>>.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                  "MessageText": "NavDevice<<correctCredentialsMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                },
+                {
+                  "MessageText": "NavDevice<<hardwareMatchMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}
+

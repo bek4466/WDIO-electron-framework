@@ -1,0 +1,181 @@
+{
+    "Execute":[ "TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deploying a project with a changed file descriptor name will result in an error and will not freeze the application.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for Project Descriptor filename changes\", https://extron.atlassian.net/browse/TOOL-4283 ",
+            "UserStory": "TOOL-4283: As a Control System Programmer or AV Technician, I want to be notified when CSDU can’t access project resources (or can’t find them), So that I won’t have to force close the app and re-select my project.  ",
+            "TaskLink": "\"Task Issue: TOOL-4319\", https://extron.atlassian.net/browse/TOOL-4319 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4652\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4652 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              }
+        ],
+        
+        "Steps": {
+            "CommonMethod": {
+                "renameFiles": [
+                        {
+                            "currentPath": "DeployProject\\systeminfoTmp.json",
+                            "newPath": "DeployProject\\newfileName.json"
+                        }
+                    ]
+                },
+           
+            "DeployAction": [
+                "Deploy"
+            ],
+            
+            "DeployPage": {
+                "VerifyProjectFileErrorMessage": [
+                    {
+                        "MessageText": "<<noFileErrorMessage>>",
+                        "Exist": true
+                    }
+                ],
+                "DeployBtn": {
+                    "isDisabled": true
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": true
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                },
+                "ProjectCredentialsBtn": {
+                    "isDisabled": true
+                }
+            },
+            "VerifyMessage": [
+                {
+                    "MessageText": "isEmpty"
+                }
+            ],
+            "CommonMethod_2": {
+            "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\newfileName.json",
+                        "newPath": "DeployProject\\systeminfoTmp.json"
+                    }
+                ]
+            }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deploying code only a project with a changed file descriptor name will result in an error and will not freeze the application.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for Project Descriptor filename changes\", https://extron.atlassian.net/browse/TOOL-4283 ",
+            "UserStory": "TOOL-4283: As a Control System Programmer or AV Technician, I want to be notified when CSDU can’t access project resources (or can’t find them), So that I won’t have to force close the app and re-select my project.  ",
+            "TaskLink": "\"Task Issue: TOOL-4319\", https://extron.atlassian.net/browse/TOOL-4319 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4653\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4653 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              }
+        ],
+        
+        "Steps": {
+        "CommonMethod": {
+            "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\systeminfoTmp.json",
+                        "newPath": "DeployProject\\newfileName.json"
+                    }
+                ]
+            },
+            "DeployAction": [
+                "DeployCodeOnly"
+            ],
+            "DeployPage": {
+                "VerifyProjectFileErrorMessage": [
+                    {
+                        "MessageText": "<<noFileErrorMessage>>",
+                        "Exist": true
+                    }
+                ],
+                "DeployBtn": {
+                    "isDisabled": true
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": true
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                },
+                "ProjectCredentialsBtn": {
+                    "isDisabled": true
+                }
+            },
+            "VerifyMessage": [
+                {
+                    "MessageText": "isEmpty"
+                }
+            ],
+            "CommonMethod_2": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\newfileName.json",
+                        "newPath": "DeployProject\\systeminfoTmp.json"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,126 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "TLP LL Primary",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Pairing Test",
+            "UserStoryLink": "\"User Story: N/A \", https://extron.atlassian.net/browse/TOOL-1732",
+            "UserStory": "N/A",
+            "TaskLink": "\"Task Issue: TOOL-4652\", https://extron.atlassian.net/browse/TOOL-4652",
+            "TestCaseLink": "\"Test Case: CSP-T1049\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1049",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "8078",
+                "system.primary_device_alias": "Primary",
+                "devices.0.name": "TLP300M LL",
+                "devices.0.alias": "Primary",
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.host_network_type": "LAN",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.0.network.interfaces.0.type": "LAN",
+                "devices.1.name": "IPL EXP RIO8",
+                "devices.1.part_number": "60-1907-01",
+                "devices.1.alias": "SPDeviceAlias",
+                "devices.1.network.interfaces.0.address": "<<IPLEXP_RIO8>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "Navigator",
+                "devices.2.alias": "SPDeviceAlias_2",
+                "devices.2.part_number": "60-1534-01",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "<<Navigator>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.name": "NAV SD 101",
+                "devices.3.alias": "SPDeviceAlias_3",
+                "devices.3.part_number": "60-1525-14",
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101_1>>",
+                "devices.3.network.interfaces.0.type": "LAN",
+                "devices.4.name": "NAVE_101_1",
+                "devices.4.alias": "SPDeviceAlias_4",
+                "devices.4.part_number": "60-1525-12",
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0.address": "<<NAVE_101_1>>",
+                "devices.4.network.interfaces.0.type": "LAN",
+                "devices.5.name": "TLP Pro 1022T",
+                "devices.5.alias": "PanelAlias_2",
+                "devices.5.part_number": "60-1601-02",
+                "devices.5.network.host_network_type": "LAN",
+                "devices.5.network.interfaces": [],
+                "devices.5.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                "devices.5.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+                "devices.1.ui"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "GmCommands": [
+                {
+                    "Primary_Controller": "<<TLP300M_LL>>",
+                    "Peripheral_Devices": [
+                        "<<TLP1022_TLP>>"
+                    ],
+                    "NAV_Devices": [
+                        "<<IPLEXP_RIO8>>",
+                        "<<Navigator>>",
+                        "<<NAVSD_101_1>>",
+                        "<<NAVE_101_1>>"
+                    ]
+                }
+            ],
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

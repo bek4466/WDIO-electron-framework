@@ -1,0 +1,1 @@
+export { ProtectProjectComponent } from "./protectProjectComponent.po";

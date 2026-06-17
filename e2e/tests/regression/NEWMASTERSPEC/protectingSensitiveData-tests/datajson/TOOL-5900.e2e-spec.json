@@ -1,0 +1,66 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify inputting invalid characters in the protect password box prompts an error",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5900\", https://extron.atlassian.net/browse/TOOL-5900 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4946\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4946 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage2": {
+        "ProtectProjectBtn": {
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage3": {
+        "ProtectProjectPopUp": {
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "passwordInputBox": {
+            "setPassword": "12| "
+          },
+          "passwordErrorMessage": {
+            "verifyTextMatches": "<<protectPasswordInvalidCharacterError>>"
+          },
+          "createBtn": {
+            "isEnabled": false
+          },
+          "passwordInputBox_2": {
+            "setPassword": "12|"
+          },
+          "passwordErrorMessage_2": {
+            "verifyTextMatches": "<<protectPasswordInvalidCharacterError>>"
+          },
+          "createBtn_2": {
+            "isEnabled": false
+          },
+          "passwordInputBox_3": {
+            "setPassword": "12"
+          },
+          "passwordErrorMessage_3": {
+            "exists": false
+          },
+          "createBtn_3": {
+            "isEnabled": false
+          }
+        }
+      }
+    }
+  }
+}

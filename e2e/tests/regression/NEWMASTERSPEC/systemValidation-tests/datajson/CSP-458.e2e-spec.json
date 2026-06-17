@@ -1,0 +1,175 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed devices.network.interfaces.type (not a string) for primary controller gives appropriate error message",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1702\", https://extron.atlassian.net/browse/TOOL-1702 ",
+            "UserStory": "TOOL-1702 (devices.network.interfaces.type)",
+            "TaskLink": "\"Task Issue: TOOL-1408\", https://extron.atlassian.net/browse/TOOL-1408 ",
+            "TestCaseLink": "\"Test Case: TOOL-T3718\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3718 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+              "devices.0.name": "My Primary Device",
+              "devices.0.network.interfaces.0.type": true
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary Device<<missingNetworkInterfaceType>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary Device<<invalidNetworkInterfaceTypenotstring>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing key \"devices.network.interfaces.type\" for primary device gives appropriate error message",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1702\", https://extron.atlassian.net/browse/TOOL-1702 ",
+            "UserStory": "TOOL-1702 (devices.network.interfaces.type)",
+            "TaskLink": "\"Task Issue: TOOL-1408\", https://extron.atlassian.net/browse/TOOL-1408 ",
+            "TestCaseLink": "\"Test Case: TOOL-T3719\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3719 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+              "devices.0.name": "My Primary Device"
+              
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.0.network.interfaces.0.type"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary Device<<missingNetworkInterfaceType>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary Device<<missingNetworkInterfacekey>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+               
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid value for \"devices.network.interfaces.type\" primary controller gives appropriate error message",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1702\", https://extron.atlassian.net/browse/TOOL-1702 ",
+            "UserStory": "TOOL-1702 (devices.network.interfaces.type)",
+            "TaskLink": "\"Task Issue: TOOL-1408\", https://extron.atlassian.net/browse/TOOL-1408",
+            "TestCaseLink": "\"Test Case: TOOL-T3720\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3720 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+              "devices.0.name": "My Primary Device",
+              "devices.0.network.interfaces.0.type": "Hello"
+              
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary Device<<missingNetworkInterfaceType>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary Device<<invalidNetworkInterfaceType>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+               
+            ]
+        },
+        "Execute": "True"
+    }
+}

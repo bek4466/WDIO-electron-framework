@@ -1,0 +1,118 @@
+{
+    "Execute": [
+      "TestCase1",
+      "TestCase2"
+    ],
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that missing key in systeminfo.devices.name (NAV Peripheral Device) throws appropriate info message",
+        "Owner": "Miguel Cruz",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-914\", https://extron.atlassian.net/browse/CSP-914",
+        "UserStory": "NAVigator Bas Scenarios",
+        "TaskLink": "\"Task Issue: CSP-1009\", https://extron.atlassian.net/browse/CSP-1009",
+        "TestCaseLink": "\"Test Case: CSP-T1158\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1158",
+        "ProjectFile": "NavProject\\systeminfo.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+        },
+        "InsertTestData": {},
+        "DeleteData": [
+          "devices.1.name"
+        ]
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "device[1]<<missingDeviceNameKey>>\"device[1]\"",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that invalid devices.network.host_network_type(not a string) for NAV peripheral device gives appropriate error message.",
+        "Owner": "Miguel Cruz",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-914\", https://extron.atlassian.net/browse/CSP-914",
+        "UserStory": "NAVigator Bas Scenarios",
+        "TaskLink": "\"Task Issue: CSP-1008\", https://extron.atlassian.net/browse/CSP-1008",
+        "TestCaseLink": "\"Test Case: CSP-T1157\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1157",
+        "ProjectFile": "NavProject\\systeminfo.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.name": "My NAV Device",
+          "devices.1.network.host_network_type": true
+        },
+        "InsertTestData": {},
+        "DeleteData": []
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "My NAV Device - <<malformedHostNetworkTypeMessageGeneric>>",
+            "MessageType": "Error",
+            "Exist": true
+          },
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    }
+  }

@@ -1,0 +1,107 @@
+{
+    "Execute": [
+       "TestCase2",
+       "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Project Endorsement",
+            "UserStoryLink": "\"User Story: TOOL-3100\", https://extron.atlassian.net/browse/TOOL-3100",
+            "UserStory": "TOOL-3100 (Managing User Closing CSDU Application)",
+            "TaskLink": "\"Task Issue: TOOL-3144\", https://extron.atlassian.net/browse/TOOL-3144",
+            "TestCaseLink": "\"Test Case: TOOL-T677\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T677",
+            "TestDescription": "Verify that after User clicks on close button on popup box , application is closed.",
+            "ProjectFile": "ProjectEndorsementProject-268\\systeminfo.json"
+        },
+        "Preconditions": {
+            
+        },
+        
+        
+        "Steps": {
+
+            "DeployPage": {
+
+                "mainXBtn": {
+                    "click": {}
+                },
+
+                "mainXPopUpCloseBtn2": {
+                    "click": {}
+                }
+
+              
+            }
+            
+        },
+            
+        "Execute": "false"
+    },
+    
+    "TestCase2": {
+        "TestCaseInfo": {
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Project Endorsement",
+            "UserStoryLink": "\"User Story: TOOL-3100\", https://extron.atlassian.net/browse/TOOL-3100",
+            "UserStory": "TOOL-3100 (Managing User Closing CSDU Application)",
+            "TaskLink": "\"Task Issue: TOOL-3144\", https://extron.atlassian.net/browse/TOOL-3144",
+            "TestCaseLink": "\"Test Case: TOOL-T678\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T678",
+            "TestDescription": "Verify that when Popup box is opened via X button, other CSDU application controls are disabled.",
+            "ProjectFile": "ProjectEndorsementProject-268\\systeminfo.json"
+        },
+        "Preconditions": {
+            
+        },
+        
+        
+        "Steps": {
+
+            "DeployPage": {
+                "mainXBtn": {
+                    "click": {}
+                }
+            },
+
+            "TroubleshootingAction": [],
+            "DeployPage2": {
+                "BrowseBtn": {
+                    "isEnabled": true
+                }
+            }
+        },
+        "Execute": "True"
+    },
+      
+    "TestCase3": {
+            "TestCaseInfo": {
+                "Owner": "Alaa Abdin",
+                "SuiteType": "Project Endorsement",
+                "UserStoryLink": "\"User Story: TOOL-3100\", https://extron.atlassian.net/browse/TOOL-3100",
+                "UserStory": "TOOL-3100 (Managing User Closing CSDU Application)",
+                "TaskLink": "\"Task Issue: TOOL-3144\", https://extron.atlassian.net/browse/TOOL-3144",
+                "TestCaseLink": "\"Test Case: TOOL-T679\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T679",
+                "TestDescription": "Verify that after clicking Cancel button on popup box , popup box is closed.",
+                "ProjectFile": "ProjectEndorsementProject-268\\systeminfo.json"
+            },
+            "Preconditions": {
+                
+            },
+            "Steps": {
+
+                "DeployPage": {
+                    "mainXBtn": {
+                        "click": {}
+                    },
+                    "mainXPopUpCancelBtn": {
+                        "exists": true,
+                        "click": {}
+                    },
+                    "mainXPopUpCancelBtn2": {
+                        "exists": false
+                    }
+                },
+            "Execute": "True"
+        }
+    }
+}

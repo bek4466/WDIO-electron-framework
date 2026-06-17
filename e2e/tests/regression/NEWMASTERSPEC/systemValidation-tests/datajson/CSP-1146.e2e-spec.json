@@ -1,0 +1,54 @@
+{
+    "Execute":[],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deployment is successful with no error messages and Peripheral (TLP NC) device is correctly paired on good deploy(DUPLICATE)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-1592: TLP NC - System Validation\", https://extron.atlassian.net/browse/TOOL-1592",
+            "UserStory": "TOOL-1592: TLP NC - System Validation",
+            "TaskLink": "\"Task Issue: CSP-1146\", https://extron.atlassian.net/browse/CSP-1146",
+            "TestCaseLink": "\"Test Case: CSP-T1340\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1340",
+            "ProjectFile": "TLPNCProject\\systeminfo.json"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.2.name": "TLPNC",
+                "devices.2.network.interfaces.0.address": "<<TLP725CNC>>",
+                "devices.2.part_number": "60-1564-12"
+            },
+            "DeleteData": []
+        },
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLPNC<<pairingPositiveMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

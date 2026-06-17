@@ -1,0 +1,115 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2521\", https://extron.atlassian.net/browse/TOOL-2521",
+            "UserStory": "TOOL-2521 (Credentials - Unhappy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2676\", https://extron.atlassian.net/browse/TOOL-2676",
+            "TestCaseLink": "\"Test Case: TOOL-T423\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T423",
+            "TestDescription": "Verify that project download validation for invalid FQDN gives proper error",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "_IPCP-Pro-550-19-58-F4.extron.com"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "DownloadProjectInput_2": {
+                    "verifyIpError": true,
+                    "setIp": "_IPCP-Pro-550-19-58-F4.extron.com"
+                },
+                "DownloadProjectBtn_2": {
+                    "click": {}
+                }
+            }
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2521\", https://extron.atlassian.net/browse/TOOL-2521",
+            "UserStory": "TOOL-2521 (Credentials - Unhappy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2676\", https://extron.atlassian.net/browse/TOOL-2676",
+            "TestCaseLink": "\"Test Case: TOOL-T421 \", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T421",
+            "TestDescription": "Verify that project download validation for invalid IP address gives proper error",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "255.255"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "DownloadProjectInput_2": {
+                    "verifyIpError": true,
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn_2": {
+                    "click": {}
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

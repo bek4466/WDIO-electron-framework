@@ -1,0 +1,35 @@
+{
+    "destinyInputField": "#deploy-input-text",
+    "browseBtn": "#deploy-browse-btn",
+    "deployBtn": "#deploy-deploy-btn",
+    "endorseBtn": "#deploy-certify-btn",
+    "endorsedAlert": "#alert-title-0",
+    "lastEndorsedTime": "#deploy-certify-timestamp",
+    "errorMsg": "[class='errors']",
+    "selectDestinyTxt": "#deploy-form-label",
+    "projectDeploymentTitle": "#deploy-title",
+    "progressBar": "#deploy-progress-bar",
+    "messagesLogTitle": "#deploy-log-title",
+    "systemTxt": "#deploy-log-system",
+    "statusTxt": "#deploy-log-status",
+    "toolTip" : "//*[@id='deploy-component']/form/div/div/div/mat-icon",
+    "tooltipText" : "//*[@id='cdk-overlay-0']/sync-tooltip//div/div[@class='tooltip-content up-triangle']",
+    "sideNavigationElems": {
+        "deploymentPage": "#deploymentPage",
+        "troubleshootingPage": "#troubleshootingPage",
+        "loggingPage": "#loggingPage",
+        "genLogSwitch": "(//label[@class='mat-slide-toggle-label'])[1]",
+        "commLogSwitch": "(//label[@class='mat-slide-toggle-label'])[2]",
+        "helpNavigation": "//*[@id='helpContent']/div",
+        "helpFile": "//*[@id='helpFileMenuOption']",
+        "aboutPage": "//*[@id='aboutMenuOption']",
+        "csDocBtn": "//*[@id='csDocMenuOption']"
+    },
+    "titleBarElems": {
+        "minimizeBtn": "#minimizeBtn",
+        "maximizeBtn": "#maximizeBtn",
+        "closeBtnText": "#closeBtn",
+        "titleBarTitle": "[class='title-bar-name']"
+    },
+    "HoverTooltip": "[class='tool-display']"
+}

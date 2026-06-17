@@ -1,0 +1,500 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that user is able to successfully deploy using CLI with Data File credentials",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2326\", \"https://extron.atlassian.net/browse/TOOL-2326\"",
+            "UserStory": "TOOL-2326 (Data File - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2418\", \"https://extron.atlassian.net/browse/TOOL-2455\"",
+            "TestCaseLink": "\"Test Case: TOOL-T336\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T336\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that user is able to successfully deploy using CLI with Data File credentials"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "GmCommands": [
+                {
+                "Primary_Controller": "10.113.89.209",
+                "Peripheral_Devices":[
+
+                        "10.113.89.218","10.113.89.202"
+                ]
+                }
+            ],
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment messages using CLI that credentials are correct and addresses match live device",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2326\", \"https://extron.atlassian.net/browse/TOOL-2326\"",
+            "UserStory": "TOOL-2326 (Data File - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2418\", \"https://extron.atlassian.net/browse/TOOL-2455\"",
+            "TestCaseLink": "\"Test Case: TOOL-T337\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T337\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify deployment messages using CLI that credentials are correct and addresses match live device"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText":"IPCP Pro 255 : 10.113.89.209 - Hardware Match : Device matched with live device on the network.",
+                    "MessageType":"info",
+                    "Exist":true
+                },
+                {
+                    "MessageText":"IPCP Pro 255 : 10.113.89.209 - Correct Credentials : Device's credentials are valid.",
+                    "MessageType":"info",
+                    "Exist":true
+                },
+                {
+                    "MessageText":"IPCP Pro 255 : 10.113.89.209 - Hardware found : Connected to device at 10.113.89.209.",
+                    "MessageType":"info",
+                    "Exist":true
+                },
+                {
+                    "MessageText":"IPCP Pro 350 : 10.113.89.218 - Hardware found : Connected to device at 10.113.89.218.",
+                    "MessageType":"info",
+                    "Exist":true
+                },
+                {
+                    "MessageText":"IPCP Pro 350 : 10.113.89.218 - Correct Credentials : Device's credentials are valid.",
+                    "MessageType":"info",
+                    "Exist":true
+                },
+                {
+                    "MessageText":"IPCP Pro 350 : 10.113.89.218 - Hardware Match : Device matched with live device on the network.",
+                    "MessageType":"info",
+                    "Exist":true
+                }
+            ] 
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify user should be notified when Data file is not a json file -CLI",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", \"https://extron.atlassian.net/browse/TOOL-2327\"",
+            "UserStory": "TOOL-2327 (Data File - Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-2411\", \"https://extron.atlassian.net/browse/TOOL-2411\"",
+            "TestCaseLink": "\"Test Case: TOOL-T350\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T350\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify user should be notified when Data file is not a json file -CLI"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Steps": {
+            "CommandLineParams": "deploy -f NonJsonFileps",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "Invalid file type - please select Json file",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Json pointer is considered as a value when system.data_file_path is missing from project descriptor file -CLI",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", \"https://extron.atlassian.net/browse/TOOL-2327\"",
+            "UserStory": "TOOL-2327 (Data File - Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-2411\", \"https://extron.atlassian.net/browse/TOOL-2411\"",
+            "TestCaseLink": "\"Test Case: TOOL-T346\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T346\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Json pointer is considered as a value when system.data_file_path is missing from project descriptor file -CLI"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions" : {
+            "ModifyTestData":{
+                "devices.0.network.interfaces.0.address" : "10.113.89.209",
+                "devices.0.network.interfaces.1.address" : "192.168.254.1"
+                },
+            "DeleteData":["system.data_file_path"]
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "system.data_file_path: Missing key",
+                    "MessageType": "error",
+                    "Exist": false
+                },
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP Pro 255 : 10.113.89.209 - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct the device credentials and retry.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP Pro 350 : 10.113.89.218 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment and validations, when primary has pointers and peripheral credentials has right value in project json - Missing system.data_file_path - CLI.",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", \"https://extron.atlassian.net/browse/TOOL-2327\"",
+            "UserStory": "TOOL-2327 (Data File - Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-2415\", \"https://extron.atlassian.net/browse/TOOL-2411\"",
+            "TestCaseLink": "\"Test Case: TOOL-T360\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T360\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify deployment and validations, when primary has pointers and peripheral credentials has right value in project json - Missing system.data_file_path - CLI."
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions" : {
+            "ModifyTestData":{
+                "devices.1.network.interfaces.0.address" : "10.113.89.218"
+                },
+            "DeleteData":["system.data_file_path"]
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "system.data_file_path: Missing key",
+                    "MessageType": "error",
+                    "Exist": false
+                },
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP Pro 255 : 10.113.89.209 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase6": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - Missing system.data_file_path - CLI.",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", \"https://extron.atlassian.net/browse/TOOL-2327\"",
+            "UserStory": "TOOL-2327 (Data File - Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-2415\", \"https://extron.atlassian.net/browse/TOOL-2411\"",
+            "TestCaseLink": "\"Test Case: TOOL-T358\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T358\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - Missing system.data_file_path - CLI."
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions" : {
+            "ModifyTestData":{
+                "devices.0.network.interfaces.0.address" : "10.113.89.209",
+                "devices.0.network.interfaces.1.address" : "192.168.254.1"
+                },
+            "DeleteData":["system.data_file_path"]
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "system.data_file_path: Missing key",
+                    "MessageType": "error",
+                    "Exist": false
+                },
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText":"IPCP Pro 255 : 10.113.89.209 - Hardware Match : Device matched with live device on the network.",
+                    "MessageType":"info",
+                    "Exist":true
+                },
+                {
+                    "MessageText":"IPCP Pro 255 : 10.113.89.209 - Correct Credentials : Device's credentials are valid.",
+                    "MessageType":"info",
+                    "Exist":true
+                },
+                {
+                    "MessageText":"IPCP Pro 255 : 10.113.89.209 - Hardware found : Connected to device at 10.113.89.209.",
+                    "MessageType":"info",
+                    "Exist":true
+                },
+                {
+                    "MessageText": "IPCP Pro 350 : 10.113.89.218 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase7": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - Invalid system.data_file_path - CLI.",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", \"https://extron.atlassian.net/browse/TOOL-2327\"",
+            "UserStory": "TOOL-2327 (Data File - Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-2415\", \"https://extron.atlassian.net/browse/TOOL-2411\"",
+            "TestCaseLink": "\"Test Case: TOOL-T358\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T358\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - Invalid system.data_file_path - CLI."
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions" : {
+            "ModifyTestData":{
+                "devices.0.network.interfaces.0.address" : "10.113.89.209",
+                "devices.0.network.interfaces.1.address" : "192.168.254.1",
+                "system.data_file_path": "dataFiles\\DataFile.json"
+                }
+            
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "system.data_file_path: Invalid - Invalid path: ",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase8": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - file not found - CLI.",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", \"https://extron.atlassian.net/browse/TOOL-2327\"",
+            "UserStory": "TOOL-2327 (Data File - Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-2415\", \"https://extron.atlassian.net/browse/TOOL-2411\"",
+            "TestCaseLink": "\"Test Case: TOOL-T366\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T366\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - file not found - CLI."
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions" : {
+            "ModifyTestData":{
+                "devices.0.network.interfaces.0.address" : "10.113.89.209",
+                "devices.0.network.interfaces.1.address" : "192.168.254.1",
+                "system.data_file_path": "dataFilePath\\DataFile.json"
+                }
+            
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "system.data_file_path: Invalid - Data file not found at the specified location",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase9": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify all Json pointers are considered as a value except Address, user name and password -CLI.",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", \"https://extron.atlassian.net/browse/TOOL-2327\"",
+            "UserStory": "TOOL-2327 (Data File - Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-2415\", \"https://extron.atlassian.net/browse/TOOL-2411\"",
+            "TestCaseLink": "\"Test Case: TOOL-T354\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T354\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify all Json pointers are considered as a value except Address, user name and password -CLI."
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions" : {
+            "ModifyTestData":{
+                "devices.0.network.interfaces.0.address" : "10.113.89.209",
+                "devices.0.network.interfaces.1.address" : "192.168.254.1",
+                "devices.0.name" : "/ENG/B3/Devices/0/primaryCredentials/PN"
+                }
+            
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText":"/ENG/B3/Devices/0/primaryCredentials/PN - Hardware Match : Device matched with live device on the network.",
+                    "MessageType":"info",
+                    "Exist":true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase10": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Json pointer is considered as a value when Json pointer are incorrect -CLI",
+            "Owner": "Neelam Sharma",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", \"https://extron.atlassian.net/browse/TOOL-2327\"",
+            "UserStory": "TOOL-2327 (Data File - Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-2415\", \"https://extron.atlassian.net/browse/TOOL-2411\"",
+            "TestCaseLink": "\"Test Case: TOOL-T352\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T352\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Json pointer is considered as a value when Json pointer are incorrect -CLI"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions" : {
+            "ModifyTestData":{
+                "devices.0.network.interfaces.0.address" : "10.113.89.209",
+                "devices.0.network.interfaces.1.address" : "192.168.254.1",
+                }
+            
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "ProtectingSecretTestProject - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText":"IPCP Pro 255 : 10.113.89.209 - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect.  Please correct the device credentials and retry.",
+                    "MessageType":"error",
+                    "Exist":true
+                },
+                {
+                    "MessageText":"IPCP Pro 350 : 10.113.89.218 - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct and retry or manually pair the device in Toolbelt.",
+                    "MessageType":"error",
+                    "Exist":true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

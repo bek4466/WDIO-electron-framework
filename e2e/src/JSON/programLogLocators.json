@@ -1,0 +1,18 @@
+{
+    "startStopProgramBtn": "[id='program-state-button']",
+    "StopProgramBtn": "[id='program-state-button']",
+    "StartProgramBtn": "[id='program-state-button']",
+    "actualLogText": "#program-log-text",
+    "noLogsText": "#program-log-no-log",
+    "updatedTimeStampText": "#program-log-updated-time",
+    "programLogTitleText": "#program-log-title",
+    "refreshBtnWIP": "//p[@class='ng-star-inserted' and contains ( text(), 'Refresh')]",
+    "refreshBtn": "//button[starts-with(@id, 'icon-button_') and ancestor::sync-icon-button[contains(@text, 'Refresh')]]",
+    "clearBtn": "//*[@text='Clear All']//div//button",
+    "timeStamptextArea": "#program-log-updated-time",
+    "errorAlertTxt": "#alert-title-0",
+    "errorMsg": "alert-msg-0",
+    "programLogComponent": "#program-log-component",
+    "programLogText": "#program-log-title",
+    "exportProgramLogButton": "//div[@class='program-log-header-button']/sync-icon-button[@text='Export']"
+}

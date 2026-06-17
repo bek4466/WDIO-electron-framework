@@ -1,0 +1,58 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify inputting wrong password prompts an error",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5550\", https://extron.atlassian.net/browse/TOOL-5550 ",
+      "UserStory": "TOOL-5550: Extract Dialog Box",
+      "TaskLink": "\"Task Issue: TOOL-5552\", https://extron.atlassian.net/browse/TOOL-5552 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4891\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4891 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage_2": {
+        "ExtractProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout_2": "fast",
+      "DeployPage_3": {
+        "ExtractProjectPopUp": {
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "passwordInputBox": {
+            "setPassword": "badpassword"
+          },
+          "extractBtn": {
+            "click": null
+          },
+          "passwordFailMsg": {
+            "verifyTextMatches": "<<extractPasswordError>>"
+          },
+          "passwordInputBox_2": {
+            "setPassword": "valid"
+          },
+          "extractBtn_2": {
+            "isEnabled": true
+          }
+        }
+      },
+      "CommonMethod": {
+        "cannotFindFile": {
+          "path": "TmpDownloadProject\\systeminfoTmp-certification.dat"
+        }
+      }
+    }
+  }
+}

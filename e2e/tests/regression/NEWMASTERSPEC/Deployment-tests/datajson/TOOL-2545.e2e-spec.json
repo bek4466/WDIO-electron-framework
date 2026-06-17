@@ -1,0 +1,177 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that \"Deploy Code Only\" button is disabled by default",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-2494: Deploy Code only UI\", https://extron.atlassian.net/browse/TOOL-2494",
+            "UserStory": "TOOL-2494: Deploy Code only UI",
+            "TaskLink": "\"Task Issue: TOOL-2545\", https://extron.atlassian.net/browse/TOOL-2545",
+            "TestCaseLink": "\"Test Case: TOOL-T393\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T393",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.1.name": "Secondary Device"
+            }
+        },
+        "Steps": {
+            "DeployPage": {
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": null
+                }
+            }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that \"Deploy Code Only\" button is enabled after selection of destiny file",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-2494: Deploy Code only UI\", https://extron.atlassian.net/browse/TOOL-2494",
+            "UserStory": "TOOL-2494: Deploy Code only UI",
+            "TaskLink": "\"Task Issue: TOOL-2545\", https://extron.atlassian.net/browse/TOOL-2545",
+            "TestCaseLink": "\"Test Case: TOOL-T394\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T394",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json",
+            "ProjectCode": "ProtectingSecretsProject\\src\\main.py"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.1.name": "Secondary Device",
+                "system.code_entry_file": "mainTmp.py"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage2": {
+                "DeployCodeOnlyBtn": {
+                    "isEnabled": true
+                }
+            },
+            "CommonMethod": {
+                "replaceTextInFile": {
+                    "filePath": "ProtectingSecretsProject\\src\\mainTmp.py",
+                    "textToReplace": "this is just to change",
+                    "newText": "changed"
+                }
+            },
+            "Timeout" : 1000,
+            "DeployAction": [
+                "DeployCodeOnly"
+            ],
+            "CommonMethod_2": {
+                "replaceTextInFile": {
+                    "filePath": "ProtectingSecretsProject\\src\\mainTmp.py",
+                    "textToReplace": "changed",
+                    "newText": "this is just to change"
+                }
+            },
+            "Timeout_2" : 1000,
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that \"Deploy Code Only\" button is disabled after selection of invalid project descriptior file",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-2494: Deploy Code only UI\", https://extron.atlassian.net/browse/TOOL-2494",
+            "UserStory": "TOOL-2494: Deploy Code only UI",
+            "TaskLink": "\"Task Issue: TOOL-2545\", https://extron.atlassian.net/browse/TOOL-2545",
+            "TestCaseLink": "\"Test Case: TOOL-T395\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T395",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json",
+            "ProjectCode": "ProtectingSecretsProject\\src\\main.py"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.1.name": "Secondary Device",
+                "system.code_entry_file": "mainTmp.py"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\wagabagabobo"
+                }
+            },
+            "Timeout" : 1000,
+            "DeployPage2": {
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": true
+                },
+                "ProjectFilePathInput": {
+                    "setPath": "ProtectingSecretsProject\\systeminfo.json"
+                }
+            },
+            "Timeout2" : 1000,
+            "DeployPage3": {
+                "DeployCodeOnlyBtn": {
+                    "isEnabled": true
+                }
+            },
+            "CommonMethod": {
+                "replaceTextInFile": {
+                    "filePath": "ProtectingSecretsProject\\src\\mainTmp.py",
+                    "textToReplace": "this is just to change",
+                    "newText": "changed"
+                }
+            },
+            "Timeout3" : 1000,
+            "DeployAction": [
+                "DeployCodeOnly"
+            ],
+            "CommonMethod_2": {
+                "replaceTextInFile": {
+                    "filePath": "ProtectingSecretsProject\\src\\mainTmp.py",
+                    "textToReplace": "changed",
+                    "newText": "this is just to change"
+                }
+            },
+            "Timeout_2": 1000,
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

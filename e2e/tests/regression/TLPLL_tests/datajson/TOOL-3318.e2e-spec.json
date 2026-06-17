@@ -1,0 +1,46 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message",
+            "Owner": "Austin Lee",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3130\", https://extron.atlassian.net/browse/TOOL-3130",
+            "UserStory": "TOOL-3130 (TLP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3318\", https://extron.atlassian.net/browse/TOOL-3318",
+            "ProjectFile": "HWTLPLLProject\\systeminfox25.json",
+            "TestCaseLink": "\"Test Case: TOOL-T835\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173495",
+            "TestCaseHeader": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestTLPLL"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 725M with LinkLicense - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestTLPLL - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

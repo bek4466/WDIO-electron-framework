@@ -1,0 +1,495 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used as a primary",
+            "Owner": "Kiran",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5705\", https://extron.atlassian.net/browse/TOOL-5705",
+            "UserStory": "TOOL-5705 (WC Pro 150 OCS w/ LL - Deployment)",
+            "UserStoryLink_2": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_2": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5733\", https://extron.atlassian.net/browse/TOOL-5733 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6169\", https://extron.atlassian.net/browse/TOOL-6169 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4709\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4709 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "9821",
+                "system.code_entry_file": "main_basicMsg.py",
+                "devices.0.name": "WC 150 w/LL",
+                "devices.0.part_number": "60-1803-01",
+                "devices.0.network.interfaces.0.address": "<<WC150_LL>>",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "TLP525TNC",
+                "devices.2.part_number": "60-1559-12",
+                "devices.2.alias": "Tlp525tncAlias",
+                "devices.2.network": {},
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0": {},
+                "devices.2.network.interfaces.0.address": "<<TLP525TNC_1>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.2.ui": {},
+                "devices.2.ui.layout_file": "Project1.gdl",
+                "devices.2.ui.enable_click_sound": true,
+                "devices.2.ui.press_feedback": "none",
+                "devices.2.ui.thumb_change_report_interval": 0.1,
+                "devices.2.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.3.name": "Navigator",
+                "devices.3.part_number": "60-1534-01",
+                "devices.3.alias": "NavAlias",
+                "devices.3.network": {},
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0": {},
+                "devices.3.network.interfaces.0.address": "<<Navigator>>",
+                "devices.3.network.interfaces.0.type": "OOB",
+                "devices.4.name": "NBP100",
+                "devices.4.part_number": "60-1794-01",
+                "devices.4.alias": "NbpAlias",
+                "devices.4.network": {},
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0": {},
+                "devices.4.network.interfaces.0.address": "<<NBP100_NBP>>",
+                "devices.4.network.interfaces.0.type": "LAN",
+                "devices.4.ui": {},
+                "devices.4.ui.enable_click_sound": true,
+                "devices.4.ui.press_feedback": "none",
+                "devices.5.name": "ECW",
+                "devices.5.part_number": "60-sVTLP",
+                "devices.5.alias": "EcwAlias",
+                "devices.5.ui": {},
+                "devices.5.ui.layout_file": "Project1.gdl",
+                "devices.5.ui.enable_click_sound": true,
+                "devices.5.ui.press_feedback": "none",
+                "devices.5.ui.thumb_change_report_interval": 0.1,
+                "devices.5.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.6.name": "ECIOS",
+                "devices.6.part_number": "79-559-01",
+                "devices.6.alias": "EciosAlias",
+                "devices.6.ui": {},
+                "devices.6.ui.layout_file": "Project1.gdl",
+                "devices.6.ui.enable_click_sound": true,
+                "devices.6.ui.press_feedback": "none",
+                "devices.6.ui.thumb_change_report_interval": 0.1,
+                "devices.6.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.7.name": "ECANDROID",
+                "devices.7.part_number": "79-600-01",
+                "devices.7.alias": "EcandroidAlias",
+                "devices.7.ui": {},
+                "devices.7.ui.layout_file": "Project1.gdl",
+                "devices.7.ui.enable_click_sound": true,
+                "devices.7.ui.press_feedback": "none",
+                "devices.7.ui.thumb_change_report_interval": 0.1,
+                "devices.7.ui.thumb_to_fill_sync_time": 0.5
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "WC 150 w/LL<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "WC 150 w/LL<<HardwareFoundMessage>><<WC150_LL>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "WC 150 w/LL<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "WC 150 w/LL<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP Pro 1022T<<pairingPositiveMessageFirstPartAddress>><<TLP1022_TLP>><<pairingPositiveMessageSecondPartSystemID>>9821)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP525TNC<<pairingPositiveMessageFirstPartAddress>><<TLP525TNC_1>><<pairingPositiveMessageSecondPartSystemID>>9821)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Navigator<<pairingPositiveMessageFirstPartAddress>><<Navigator>><<pairingPositiveMessageSecondPartSystemID>>9821)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NBP100<<pairingPositiveMessageFirstPartAddress>><<NBP100_NBP>><<pairingPositiveMessageSecondPartSystemID>>9821)",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "Timeout": "medium",
+            "VerifyTraceMessage": [
+                {
+                    "MessageText": "Trace Message:",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deploy code only when UUT is used as primary",
+            "Owner": "Kiran",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5705\", https://extron.atlassian.net/browse/TOOL-5705",
+            "UserStory": "TOOL-5705 (WC Pro 150 OCS w/ LL - Deployment)",
+            "UserStoryLink_2": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_2": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5733\", https://extron.atlassian.net/browse/TOOL-5733 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6169\", https://extron.atlassian.net/browse/TOOL-6169 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4837\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4837 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "8954",
+                "system.code_entry_file": "main_basicMsg.py",
+                "devices.0.name": "WC 150 w/LL",
+                "devices.0.part_number": "60-1803-01",
+                "devices.0.network.interfaces.0.address": "<<WC150_LL>>",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "TLP525TNC",
+                "devices.2.part_number": "60-1559-12",
+                "devices.2.alias": "Tlp525tncAlias",
+                "devices.2.network": {},
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0": {},
+                "devices.2.network.interfaces.0.address": "<<TLP525TNC_1>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.2.ui": {},
+                "devices.2.ui.layout_file": "Project1.gdl",
+                "devices.2.ui.enable_click_sound": true,
+                "devices.2.ui.press_feedback": "none",
+                "devices.2.ui.thumb_change_report_interval": 0.1,
+                "devices.2.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.3.name": "Navigator",
+                "devices.3.part_number": "60-1534-01",
+                "devices.3.alias": "NavAlias",
+                "devices.3.network": {},
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0": {},
+                "devices.3.network.interfaces.0.address": "<<Navigator>>",
+                "devices.3.network.interfaces.0.type": "OOB",
+                "devices.4.name": "NBP100",
+                "devices.4.part_number": "60-1794-01",
+                "devices.4.alias": "NbpAlias",
+                "devices.4.network": {},
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0": {},
+                "devices.4.network.interfaces.0.address": "<<NBP100_NBP>>",
+                "devices.4.network.interfaces.0.type": "LAN",
+                "devices.4.ui": {},
+                "devices.4.ui.enable_click_sound": true,
+                "devices.4.ui.press_feedback": "none",
+                "devices.5.name": "ECW",
+                "devices.5.part_number": "60-sVTLP",
+                "devices.5.alias": "EcwAlias",
+                "devices.5.ui": {},
+                "devices.5.ui.layout_file": "Project1.gdl",
+                "devices.5.ui.enable_click_sound": true,
+                "devices.5.ui.press_feedback": "none",
+                "devices.5.ui.thumb_change_report_interval": 0.1,
+                "devices.5.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.6.name": "ECIOS",
+                "devices.6.part_number": "79-559-01",
+                "devices.6.alias": "EciosAlias",
+                "devices.6.ui": {},
+                "devices.6.ui.layout_file": "Project1.gdl",
+                "devices.6.ui.enable_click_sound": true,
+                "devices.6.ui.press_feedback": "none",
+                "devices.6.ui.thumb_change_report_interval": 0.1,
+                "devices.6.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.7.name": "ECANDROID",
+                "devices.7.part_number": "79-600-01",
+                "devices.7.alias": "EcandroidAlias",
+                "devices.7.ui": {},
+                "devices.7.ui.layout_file": "Project1.gdl",
+                "devices.7.ui.enable_click_sound": true,
+                "devices.7.ui.press_feedback": "none",
+                "devices.7.ui.thumb_change_report_interval": 0.1,
+                "devices.7.ui.thumb_to_fill_sync_time": 0.5
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "CommonMethod": {
+                "replaceTextInFile": {
+                    "filePath": "DeployProject\\src\\main_basicMsg.py",
+                    "textToReplace": "Message",
+                    "newText": "DCOMSG"
+                }
+            },
+            "Timeout": "fast",
+            "DeployAction_2": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "CommonMethod_2": {
+                "replaceTextInFile": {
+                    "filePath": "DeployProject\\src\\main_basicMsg.py",
+                    "textToReplace": "DCOMSG",
+                    "newText": "Message"
+                }
+            },
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "Timeout_2": "medium",
+            "VerifyTraceMessage": [
+                {
+                    "MessageText": "DCOMSG",
+                    "Exist": true
+                }
+            ],
+            "Timeout_3": "fast"
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate Error messages are displayed for unsuccessful deployment and deploy code only when UUT is used as a primary",
+            "Owner": "Kiran",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5705\", https://extron.atlassian.net/browse/TOOL-5705 ",
+            "UserStory": "TOOL-5705 (WC Pro 150 OCS w/ LL - Deployment)",
+            "UserStoryLink_2": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_2": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5733\", https://extron.atlassian.net/browse/TOOL-5733 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6169\", https://extron.atlassian.net/browse/TOOL-6169 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4839\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4839 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "6321",
+                "system.code_entry_file": "main_basicMsg.py",
+                "devices.0.name": "WC 150 w/LL",
+                "devices.0.part_number": "60-1803-01",
+                "devices.0.network.interfaces.0.address": "10.119.1.123",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "TLP525TNC",
+                "devices.2.part_number": "60-1559-12",
+                "devices.2.alias": "Tlp525tncAlias",
+                "devices.2.network": {},
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0": {},
+                "devices.2.network.interfaces.0.address": "<<TLP525TNC_1>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.2.ui": {},
+                "devices.2.ui.layout_file": "Project1.gdl",
+                "devices.2.ui.enable_click_sound": true,
+                "devices.2.ui.press_feedback": "none",
+                "devices.2.ui.thumb_change_report_interval": 0.1,
+                "devices.2.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.3.name": "Navigator",
+                "devices.3.part_number": "60-1534-01",
+                "devices.3.alias": "NavAlias",
+                "devices.3.network": {},
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0": {},
+                "devices.3.network.interfaces.0.address": "<<Navigator>>",
+                "devices.3.network.interfaces.0.type": "OOB",
+                "devices.4.name": "NBP100",
+                "devices.4.part_number": "60-1794-01",
+                "devices.4.alias": "NbpAlias",
+                "devices.4.network": {},
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0": {},
+                "devices.4.network.interfaces.0.address": "<<NBP100_NBP>>",
+                "devices.4.network.interfaces.0.type": "LAN",
+                "devices.4.ui": {},
+                "devices.4.ui.enable_click_sound": true,
+                "devices.4.ui.press_feedback": "none",
+                "devices.5.name": "ECW",
+                "devices.5.part_number": "60-sVTLP",
+                "devices.5.alias": "EcwAlias",
+                "devices.5.ui": {},
+                "devices.5.ui.layout_file": "Project1.gdl",
+                "devices.5.ui.enable_click_sound": true,
+                "devices.5.ui.press_feedback": "none",
+                "devices.5.ui.thumb_change_report_interval": 0.1,
+                "devices.5.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.6.name": "ECIOS",
+                "devices.6.part_number": "79-559-01",
+                "devices.6.alias": "EciosAlias",
+                "devices.6.ui": {},
+                "devices.6.ui.layout_file": "Project1.gdl",
+                "devices.6.ui.enable_click_sound": true,
+                "devices.6.ui.press_feedback": "none",
+                "devices.6.ui.thumb_change_report_interval": 0.1,
+                "devices.6.ui.thumb_to_fill_sync_time": 0.5,
+                "devices.7.name": "ECANDROID",
+                "devices.7.part_number": "79-600-01",
+                "devices.7.alias": "EcandroidAlias",
+                "devices.7.ui": {},
+                "devices.7.ui.layout_file": "Project1.gdl",
+                "devices.7.ui.enable_click_sound": true,
+                "devices.7.ui.press_feedback": "none",
+                "devices.7.ui.thumb_change_report_interval": 0.1,
+                "devices.7.ui.thumb_to_fill_sync_time": 0.5
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "WC 150 w/LL - <<deviceConnectionFailed>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "WC 150 w/LL<<hardwareNotFoundMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "DeployAction_2": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deployCodeOnlyFailed>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

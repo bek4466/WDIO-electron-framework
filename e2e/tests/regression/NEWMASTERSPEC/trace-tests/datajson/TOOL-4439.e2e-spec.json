@@ -1,0 +1,123 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Troubleshooting page Displays 5000 trace messages at once",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Trace Test",
+      "UserStoryLink": "\"User Story: TOOL-4375\", https://extron.atlassian.net/browse/TOOL-4375",
+      "UserStory": "TOOL-4439 Improving Trace UI Performance",
+      "TaskLink": "\"Task Issue: TOOL-4439\", https://extron.atlassian.net/browse/TOOL-4439",
+      "TestCaseLink": "\"Test Case: TOOL-T4687\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4687",
+      "ProjectFile": "TraceProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.code_entry_file" : "mainFast.py",
+        "devices.2.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [
+        "StartTrace"
+      ],
+      "Timeout": 10000,
+      "CheckSpecificTraceMessages": [
+        {
+          "MessageText": "Trace Message: 1",
+          "Exist": true
+        }
+      ],
+      "Timeout2": 100000,
+      "CheckSpecificTraceMessages2": [
+        {
+          "MessageText": "Trace Message: 5000",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Troubleshooting page deletes 250 messages after exceeding 5000",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Trace Test",
+      "UserStoryLink": "\"User Story: TOOL-4375\", https://extron.atlassian.net/browse/TOOL-4375",
+      "UserStory": "TOOL-4439 Improving Trace UI Performance",
+      "TaskLink": "\"Task Issue: TOOL-4439\", https://extron.atlassian.net/browse/TOOL-4439",
+      "TestCaseLink": "\"Test Case: TOOL-T4688\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4688",
+      "ProjectFile": "TraceProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.code_entry_file" : "mainFastPlus250.py",
+        "devices.2.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [
+        "StartTrace"
+      ],
+      "Timeout2": 100000,
+      "CheckSpecificTraceMessages": [
+        {
+          "MessageText": "Trace Message: 5250",
+          "Exist": true
+        },
+        {
+          "MessageText": "Trace Message: 250",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,393 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device (UUT is ShareLink Pro 2500)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5173\", https://extron.atlassian.net/browse/TOOL-5173",
+            "UserStory": "TOOL-5173 (ShareLink Pro 2500 - Deployment Validation)",
+            "TaskLink": "\"Task Issue: TOOL-5384\", https://extron.atlassian.net/browse/TOOL-5384",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/33488280",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "ShareLinkDeployment",
+                "devices.0.name": "TLP 300M wLL",
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.name": "ShareLink 2500",
+                "devices.1.part_number": "<<partNumber_Sharelink2500>>",
+                "devices.1.network.interfaces.0.address": "<<Sharelink2500>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "ShareLinkDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<pairingPositiveMessageFirstPartAddress>><<Sharelink2500>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<dualnicPairingMessagePart1>><<Sharelink2500>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<HardwareFoundMessage>><<Sharelink2500>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP 300M wLL<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.name": "TLP 725M wLL",
+                    "devices.0.part_number": "60-1563-02C",
+                    "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "ShareLinkDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<pairingPositiveMessageFirstPartAddress>><<Sharelink2500>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<dualnicPairingMessagePart1>><<Sharelink2500>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<HardwareFoundMessage>><<Sharelink2500>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP 725M wLL<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_2": {
+                "ModifyTestData": {
+                    "devices.0.name": "IPCP350XI",
+                    "devices.0.part_number": "60-1912-01",
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>"
+                }
+            },
+            "DeployAction_3": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_3": [
+                {
+                    "MessageText": "ShareLinkDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<pairingPositiveMessageFirstPartAddress>><<Sharelink2500>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<dualnicPairingMessagePart1>><<Sharelink2500>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<HardwareFoundMessage>><<Sharelink2500>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP350XI<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_3": {
+                "ModifyTestData": {
+                    "devices.0.name": "IPCP360QXI",
+                    "devices.0.part_number": "60-1916-01",
+                    "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>"
+                },
+                "InsertTestData": {
+                    "devices.0.network.interfaces.1": {},
+                    "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                    "devices.0.network.interfaces.1.type": "AVLAN"
+                }
+            },
+            "DeployAction_4": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_4": [
+                {
+                    "MessageText": "ShareLinkDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<pairingPositiveMessageFirstPartAddress>><<Sharelink2500>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<dualnicPairingMessagePart1>><<Sharelink2500>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<HardwareFoundMessage>><<Sharelink2500>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLink 2500<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP360QXI<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ShareLinkDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is displayed for successful deploy code only when UUT is used with a primary device",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5173\", https://extron.atlassian.net/browse/TOOL-5173",
+            "UserStory": "TOOL-5173 (ShareLink Pro 2500 - Deployment Validation)",
+            "TaskLink": "\"Task Issue: TOOL-5384\", https://extron.atlassian.net/browse/TOOL-5384",
+            "TestCaseLink": "\"Test Case: TOOL-T4605\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/33488338",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "ShareLinkDeployment",
+                "devices.0.name": "TLP 300M wLL",
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.name": "ShareLink 2500",
+                "devices.1.part_number": "<<partNumber_Sharelink2500>>",
+                "devices.1.network.interfaces.0.address": "<<Sharelink2500>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.name": "TLP 725M wLL",
+                    "devices.0.part_number": "60-1563-02C",
+                    "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_2": {
+                "ModifyTestData": {
+                    "devices.0.name": "IPCP350XI",
+                    "devices.0.part_number": "60-1912-01",
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>"
+                }
+            },
+            "DeployAction_3": [
+                "ClearMessagePane",
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage_3": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_3": {
+                "ModifyTestData": {
+                    "devices.0.name": "IPCP360QXI",
+                    "devices.0.part_number": "60-1916-01",
+                    "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>"
+                },
+                "InsertTestData": {
+                    "devices.0.network.interfaces.1": {},
+                    "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                    "devices.0.network.interfaces.1.type": "AVLAN"
+                }
+            },
+            "DeployAction_4": [
+                "ClearMessagePane",
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage_4": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

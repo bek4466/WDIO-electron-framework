@@ -1,0 +1,126 @@
+{
+    "Execute":["TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify no error under browse box after clearing an invalid project path.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"File not found error displays when the Filepath Input Box is clear or being typed in\", https://extron.atlassian.net/browse/TOOL-4361 ",
+            "UserStory": "TOOL-4361: As a CSDU User, I want filepath errors to clear when I clear the field and begin typing, So that I am not seeing an old error notification.  ",
+            "TaskLink": "\"Task Issue: TOOL-4404\", https://extron.atlassian.net/browse/TOOL-4404 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4669\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4669 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+
+            },
+            "DeleteData": [
+            ]
+        },
+        "Steps": {
+                "DeployPage": {
+                    "ProjectFilePathInput": {
+                        "setPath": "DeployProject\\doesnotexist.json"
+                    },
+                    "VerifyProjectFileErrorMessage": [
+                        {
+                            "MessageText": "<<noFileErrorMessage>>",
+                            "Exist": true
+                        }
+                    ],
+                    "ProjectFilePathInput2": {
+                      "clearPath": {}
+                    },
+                    "VerifyProjectFileErrorMessage2": [
+                        {
+                            "MessageText": "",
+                            "Exist": false
+                        }
+                    ]
+                },
+                "TroubleshootingAction": [],
+                "DeployAction": [],
+                "DeployPage2": {
+                    "VerifyProjectFileErrorMessage3": [
+                        {
+                            "MessageText": "",
+                            "Exist": false
+                        }
+                    ]
+                }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify no error under browse box after clearing an project path with invalid or missing datafile.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"File not found error displays when the Filepath Input Box is clear or being typed in\", https://extron.atlassian.net/browse/TOOL-4361 ",
+            "UserStory": "TOOL-4361: As a CSDU User, I want filepath errors to clear when I clear the field and begin typing, So that I am not seeing an old error notification.  ",
+            "TaskLink": "\"Task Issue: TOOL-4404\", https://extron.atlassian.net/browse/TOOL-4404 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4670\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4670 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.data_file_path" : "dataFile_rename\\DataFile.json"
+            },
+            "DeleteData": [
+            ]
+        },
+        
+        "Steps": {
+                "CommonMethod": {
+                    "renameFiles": [
+                        {
+                            "currentPath": "DeployProject\\dataFile_rename\\DataFile.json",
+                            "newPath": "DeployProject\\dataFile_rename\\newfileName.json"
+                        }
+                    ]
+                },
+                "DeployPage": {
+                    "ProjectFilePathInput": {
+                        
+                        "setPath": "DeployProject\\systeminfoTmp.json"
+                    },
+                    "VerifyProjectFileErrorMessage": [
+                        {
+                            "MessageText": "<<notFoundDataFilePath>>",
+                            "Exist": true
+                        }
+                    ],
+             
+                    "ProjectFilePathInput2": {
+                        
+                      "clearPath": {}
+                    },
+                    
+                    "VerifyProjectFileErrorMessage2": [
+                        {
+                            "MessageText": "",
+                            "Exist": false
+                        }
+                    ]
+                },
+                "TroubleshootingAction": [],
+                "DeployAction": [],
+                "DeployPage2": {
+                    "VerifyProjectFileErrorMessage3": [
+                        {
+                            "MessageText": "",
+                            "Exist": false
+                        }
+                    ]
+                },
+                "CommonMethod_2": {
+                    "renameFiles": [
+                        {
+                            "currentPath": "DeployProject\\dataFile_rename\\newfileName.json",
+                            "newPath": "DeployProject\\dataFile_rename\\DataFile.json"
+                        }
+                    ]
+                }
+        }
+    }
+}

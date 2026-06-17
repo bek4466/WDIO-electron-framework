@@ -1,0 +1,168 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+      "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+      "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3384\", https://extron.atlassian.net/browse/TOOL-3384",
+      "ProjectFile": "FoxProject\\project.json",
+      "TestCaseLink": "\"Test Case: TOOL-T741\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T741",
+      "TestCaseHeader": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN"
+      },
+      "InsertTestData": {}
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Matrix Q xi - FOX3 : 10.113.81.64 - Hardware found : Connected to device at 10.113.81.64",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+      "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+      "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3384\", https://extron.atlassian.net/browse/TOOL-3384",
+      "ProjectFile": "FoxProject\\project.json",
+      "TestCaseLink": "\"Test Case: TOOL-T741\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T741",
+      "TestCaseHeader": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN"
+      },
+      "InsertTestData": {},
+      "DeleteData": ["devices.0.name"]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "device[0] - Hardware found : Connected to device at 10.113.81.64",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "False"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as primary device and is not found on the network gives the appropriate error message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+      "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+      "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3384\", https://extron.atlassian.net/browse/TOOL-3384",
+      "ProjectFile": "FoxProject\\project.json",
+      "TestCaseLink": "\"Test Case: TOOL-T757\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T757",
+      "TestCaseHeader": "Verify that UUT as primary device and is not found on the network gives the appropriate error message"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "10.114.89.246"
+      }
+    },
+    "InsertTestData": {},
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Matrix Q xi - FOX3 : 10.113.81.64 - Hardware not found : Failed to connect. Please check device connection and try again.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Matrix Q xi - FOX3 - Hardware Validation",
+      "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+      "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3384\", https://extron.atlassian.net/browse/TOOL-3384",
+      "ProjectFile": "FoxProject\\project.json",
+      "TestCaseLink": "\"Test Case: TOOL-T759\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T759",
+      "TestCaseHeader": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.password": "ext",
+        "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN"
+      }
+    },
+    "InsertTestData": {},
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Matrix Q xi - FOX3 : 10.113.81.64 - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct the device credentials and retry.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

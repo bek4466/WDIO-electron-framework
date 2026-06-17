@@ -1,0 +1,336 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that empty \"devices.extron_control_web_id\" in destiny gives appropriate info message, for non-primary device",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3145\", https://extron.atlassian.net/browse/TOOL-3145",
+      "TestCaseLink": "\"Test Case: TOOL-T626\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T626",
+      "TestCaseHeader": "Verify that empty \"devices.extron_control_web_id\" in destiny gives appropriate info message, for non-primary device"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "DeleteData": [
+        "devices.1.extron_control_web_id",
+        "devices.2.extron_control_web_id",
+        "devices.3.extron_control_web_id"
+      ]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLI Pro 201 - extron_control_web_id: Default value used",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - extron_control_web_id: Default value used",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 1230WTG - extron_control_web_id: Default value used",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate pairing status messages are displayed for peripheral devices during deployment",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3145\", https://extron.atlassian.net/browse/TOOL-3145",
+      "TestCaseLink": "\"Test Case: TOOL-T633\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T633",
+      "TestCaseHeader": "Verify that appropriate pairing status messages are displayed for peripheral devices during deployment"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLI Pro 201 - Device paired successfully with primary device",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - Device paired successfully with primary device",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 1230WTG - Device paired successfully with primary device",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify network.interfaces.address info message shown when peripheral given two of the required NIC's",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3145\", https://extron.atlassian.net/browse/TOOL-3145",
+      "TestCaseLink": "\"Test Case: TOOL-T634\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T634",
+      "TestCaseHeader": "Verify network.interfaces.address info message shown when peripheral given two of the required NIC's"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "InsertTestData": {
+        "devices.1.network.interfaces.1": {
+          "address": "10.112.10.101",
+          "type": "LAN"
+        },
+        "devices.2.network.interfaces.1": {
+          "address": "10.112.10.102",
+          "type": "LAN"
+        },
+        "devices.3.network.interfaces.1": {
+          "address": "10.112.10.103",
+          "type": "LAN"
+        }
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces.address: Application is using TLP1230WTG to pair the device with primary controller.",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces.address: Application is using TLP300M to pair the device with primary controller.",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces.address: Application is using TLI201 to pair the device with primary controller.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Peripheral url opens with the after Build and Upload when User Interface type is of that Peripheral(TLP Pro 1230WTG)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3145\", https://extron.atlassian.net/browse/TOOL-3145",
+      "TestCaseLink": "\"Test Case: TOOL-T636\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T636",
+      "TestCaseHeader": "Verify that Peripheral url opens with the after Build and Upload when User Interface type is of that Peripheral(TLP Pro 1230WTG)"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces.address: Application is using TLP1230WTG to pair the device with primary controller.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "VerifyVTLP": [
+        1
+      ]
+    },
+    "Execute": "False"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Peripheral url opens with the after Build and Upload when User Interface type is of that Peripheral(TLP Pro 300M)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3145\", https://extron.atlassian.net/browse/TOOL-3145",
+      "TestCaseLink": "\"Test Case: TOOL-T636\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T636",
+      "TestCaseHeader": "Verify that Peripheral url opens with the after Build and Upload when User Interface type is of that Peripheral(TLP Pro 300M)"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces.address: Application is using TLP300M to pair the device with primary controller.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "VerifyVTLP": [
+        2
+      ]
+    },
+    "Execute": "False"
+  },
+  "TestCase6": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Peripheral url opens with the after Build and Upload when User Interface type is of that Peripheral(TLI Pro 201)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3145\", https://extron.atlassian.net/browse/TOOL-3145",
+      "TestCaseLink": "\"Test Case: TOOL-T636\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T636",
+      "TestCaseHeader": "Verify that Peripheral url opens with the after Build and Upload when User Interface type is of that Peripheral(TLI Pro 201)"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces.address: Application is using TLI201 to pair the device with primary controller.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "VerifyVTLP": [
+        3
+      ]
+    },
+    "Execute": "False"
+  }
+}

@@ -1,0 +1,97 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Dual NIC Controller system deploys with software on LAN and Dual NIC device on AVLAN, all devices have DHCP enabled and Network.interface.address is in FQDN format.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1740\", https://extron.atlassian.net/browse/TOOL-1740 ",
+            "UserStory": "TOOL-1740 (Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1200\", https://extron.atlassian.net/browse/TOOL-1200 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4077\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4077 ",
+            "ProjectFile": "GoldenDualnicProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "1444",
+                "devices.0.name": "Primary Controller",
+                "devices.0.part_number": "60-1431-01",
+                "devices.0.network.interfaces.0.address": "<<Table_Pro_555_W_AVLAN>>.extron.com",
+                "devices.0.network.interfaces.1.address": "<<Table_Pro_555_W_AVLAN>>.local",
+                "devices.1.name": "SingleNic Peripheral",
+                "devices.1.part_number": "60-1418-01",
+                "devices.1.network.interfaces.0.address": "<<Local_SecondaryControllerDHCP_FQDN>>",
+                "devices.2" : {},
+                "devices.3.name": "TLP 1225MG",
+                "devices.3.part_number": "60-1787-02",
+                "devices.3.network.interfaces.0.address":"<<TLP1225MG_DHCP>>.extron.com"
+
+                
+            },
+            
+            "InsertTestData": {
+                "devices.2.name": "Second Dual NIC",
+                "devices.2.part_number": "60-1434-01",
+                "devices.2.alias": "dualnicperipheral",
+                
+                "devices.2.network":{},
+                "devices.2.network.host_network_type": "AVLAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0": {},
+                "devices.2.network.interfaces.0.address": "<<Table_Pro_555_AVLAN_to_PRO555>>.local",
+                "devices.2.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },{
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SingleNic Peripheral<<pairingPositiveMessage>> using address (<<Local_SecondaryControllerDHCP_FQDN>>) with systemId (1444)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Second Dual NIC<<pairingPositiveMessage>> using address (<<Table_Pro_555_AVLAN_to_PRO555>>.local) with systemId (1444)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP 1225MG<<pairingPositiveMessage>> using address (<<TLP1225MG_DHCP>>.extron.com) with systemId (1444)",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+
+            ]
+        }
+    }
+}

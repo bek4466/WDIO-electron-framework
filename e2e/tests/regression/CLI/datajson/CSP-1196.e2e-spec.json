@@ -1,0 +1,112 @@
+{"TestCase1":{
+    "TestDescription":"Verify Info message displayed when Control Module device is reachable",
+    "Precondition" : "Set the Physical Ebus ID to 18 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Control Module Validation",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 994 (Control Module Support Hardware Validation)",
+    "TaskLink":"\"Task Issue: CSP-1196\", \"https://extron.atlassian.net/browse/CSP-1196\"",
+    "TestCaseLink":"\"Test Case: CSP-T1257  \", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1257\"",
+    "TestCaseHeader":"Verify Info message displayed when Control Module device is reachable",
+    "ModifyTestData":{
+        "devices.1.name": "My ControlModule",
+        "devices.1.part_number" : "60-1662-00",
+        "devices.1.ebus_id" : 18
+        },
+    "VerifyMessage":[
+        {"MessageText":"ControlModule - Hardware found : Device is reachable at the 18.", "MessageType":"Info","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+},
+"TestCase2":{
+    "TestDescription":"Verify Info message displayed when live Control Module device matches described device in destiny file",
+    "Precondition" : "Set the Physical Ebus ID to 14 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Control Module Validation",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 994 (Control Module Support Hardware Validation)",
+    "TaskLink":"\"Task Issue: CSP-1196\", \"https://extron.atlassian.net/browse/CSP-1196\"",
+    "TestCaseLink":"\"Test Case: CSP-T1258\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1258\"",
+    "TestCaseHeader":"Verify Info message displayed when live Control Module device matches described device in destiny file",
+    "ModifyTestData":{
+        "devices.1.name": "Peripheral EBP",
+        "devices.1.part_number" : "60-1662-00",
+        "devices.1.ebus_id" : 18
+        },
+    "VerifyMessage":[
+        {"MessageText":"Peripheral EBP - Hardware Match : The specified device match with the live device at the 18.", "MessageType":"Info","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute": "True"
+},
+"TestCase3":{
+    "TestDescription":"Verify Error message displayed when Control Module device is not compatible",
+    "Precondition" : "Set the Physical Ebus ID to 14 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Control Module Validation",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 994 (Control Module Support Hardware Validation)",
+    "TaskLink":"\"Task Issue: CSP-1196\", \"https://extron.atlassian.net/browse/CSP-1196\"",
+    "TestCaseLink":"\"Test Case: CSP-T1265\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1265\"",
+    "TestCaseHeader":"Verify Error message displayed when Control Module device is not compatible",
+    "ModifyTestData":{
+        "devices.1.name": "My ControlModule",
+        "devices.1.part_number" : "60-1662-00",
+        "devices.1.ebus_id" : 6
+        },
+    "VerifyMessage":[
+        {"MessageText":"My ControlModule - Hardware Incompatible : The specified device is not compatible with the live device at the 6.", "MessageType":"Error","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+},
+
+"TestCase4":{
+    "TestDescription":"Verify Error message displayed when Control Module device is not reachable",
+    "Precondition" : "Set the Physical Ebus ID to 14 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Control Module Validation",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 994 (Control Module Support Hardware Validation)",
+    "TaskLink":"\"Task Issue: CSP-1196\", \"https://extron.atlassian.net/browse/CSP-1196\"",
+    "TestCaseLink":"\"Test Case: CSP-T1262\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1262\"",
+    "TestCaseHeader":"Verify Error message displayed when Control Module device is not reachable",
+    "ModifyTestData":{
+        "devices.1.name": "My ControlModule",
+        "devices.1.part_number" : "60-1662-00",
+        "devices.1.ebus_id" : 1
+        },
+    "VerifyMessage":[
+        {"MessageText":"My ControlModule - Hardware not found : The device at the 1 is not found. Please check the device connection and retry.", "MessageType":"Error","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+},
+"TestCase5":{
+    "TestDescription":"Verify Warning message displayed when Control Module device is not matching",
+    "Precondition" : "Set the Physical Ebus ID to 14 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Control Module Validation",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 994 (Control Module Support Hardware Validation)",
+    "TaskLink":"\"Task Issue: CSP-1196\", \"https://extron.atlassian.net/browse/CSP-1196\"",
+    "TestCaseLink":"\"Test Case: CSP-T1268\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1268\"",
+    "TestCaseHeader":"Verify Error message displayed when Control Module device is not reachable",
+    "ModifyTestData":{
+        "devices.1.name": "Peripheral EBP",
+        "devices.1.part_number" : "60-1702-00",
+        "devices.1.ebus_id" : 18
+        },
+    "VerifyMessage":[
+        {"MessageText":"Peripheral EBP - Hardware mismatch : The specified device does not match live device at the 18.", "MessageType":"Warning","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+}
+}

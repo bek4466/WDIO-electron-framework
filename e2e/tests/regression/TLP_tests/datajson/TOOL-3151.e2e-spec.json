@@ -1,0 +1,224 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid peripheral devices.alias -Duplicate.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3151\", https://extron.atlassian.net/browse/TOOL-3151",
+      "TestCaseLink": "\"Test Case: TOOL-T659\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T659",
+      "TestCaseHeader": "Verify there should be error message in message pane for invalid peripheral devices.alias -Duplicate."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.alias": "abcde",
+        "devices.2.alias": "abcde",
+        "devices.3.alias": "abcde"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - alias: Invalid - Value must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - alias: Invalid - Value must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - alias: Invalid - Value must be unique",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Missing (Peripheral) devices.network.interfaces.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3151\", https://extron.atlassian.net/browse/TOOL-3151",
+      "TestCaseLink": "\"Test Case: TOOL-T660\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T660",
+      "TestCaseHeader": "Verify there should be error message in message pane for Missing (Peripheral) devices.network.interfaces."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "DeleteData": [
+        "devices.1.network.interfaces",
+        "devices.2.network.interfaces",
+        "devices.3.network.interfaces"
+      ]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces: Missing key - e.g. \"interfaces\": []",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces: Missing key - e.g. \"interfaces\": []",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces: Missing key - e.g. \"interfaces\": []",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Invalid(peripheral) devices.network.interfaces - not an array",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3151\", https://extron.atlassian.net/browse/TOOL-3151",
+      "TestCaseLink": "\"Test Case: TOOL-T661\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T661",
+      "TestCaseHeader": "Verify there should be error message in message pane for Invalid(peripheral) devices.network.interfaces - not an array"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.network.interfaces": true,
+        "devices.2.network.interfaces": true,
+        "devices.3.network.interfaces": true
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces: Invalid - Must be an array e.g. \"interfaces\": []",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces: Invalid - Must be an array e.g. \"interfaces\": []",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces: Invalid - Must be an array e.g. \"interfaces\": []",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Invalid (Peripheral) devices.network.interfaces.address key - not a string.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3151\", https://extron.atlassian.net/browse/TOOL-3151",
+      "TestCaseLink": "\"Test Case: TOOL-T662\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T662",
+      "TestCaseHeader": "Verify there should be error message in message pane for Invalid (Peripheral) devices.network.interfaces.address key - not a string."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.network.interfaces.0.address": 1234,
+        "devices.2.network.interfaces.0.address": 2345,
+        "devices.3.network.interfaces.0.address": 3456
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

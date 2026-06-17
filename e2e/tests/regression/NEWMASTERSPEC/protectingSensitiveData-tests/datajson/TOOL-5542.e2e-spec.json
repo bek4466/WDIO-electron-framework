@@ -1,0 +1,25 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify error under box for files that do not have json or cspp extension",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5332\", https://extron.atlassian.net/browse/TOOL-5332 ",
+      "UserStory": "TOOL-5332: Protected Project Selection",
+      "TaskLink": "\"Task Issue: TOOL-5542\", https://extron.atlassian.net/browse/TOOL-5542 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4906\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4906 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock-credential.dat",
+          "errorMessageToValidate": "<<ValidationMessage>>"
+        }
+      }
+    }
+  }
+}

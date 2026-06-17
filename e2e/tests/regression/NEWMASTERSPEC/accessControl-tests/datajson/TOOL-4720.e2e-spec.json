@@ -1,0 +1,74 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that with different types of users , the Nav bar has a clickable Sign Out and is functional",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-4663\", https://extron.atlassian.net/browse/TOOL-4663",
+      "UserStory": "TOOL-4663 (Updating the Nav-bar to sign-out)",
+      "TaskLink": "\"Task Issue: TOOL-4720\", https://extron.atlassian.net/browse/TOOL-4720",
+      "TestCaseLink": "\"Test Case: TOOL-T4746\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/84126060",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "DeployBtn": {
+          "isDisabled": null
+        }
+      },
+      "SignOutAction": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp": {
+        "Title": {
+          "matchesText": "<<popUpSignOutTitle>>"
+        },
+        "signOutBtn": {
+          "click": null
+        }
+      },
+      "Timeout": "slow",
+      "Timeout_2": "slow",
+      "LoginPage": {
+        "SignInBtn": {
+          "isVisible": true
+        }
+      },
+      "AppAction": [
+        "Close",
+        "Open",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "DeployPage_2": {
+        "DeployBtn": {
+          "isDisabled": true
+        }
+      },
+      "SignOutAction_2": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp_2": {
+        "Title": {
+          "matchesText": "<<popUpSignOutTitle>>"
+        },
+        "signOutBtn": {
+          "click": null
+        }
+      },
+      "Timeout_3": "slow",
+      "Timeout_4": "slow",
+      "LoginPage_2": {
+        "SignInBtn": {
+          "isVisible": true
+        }
+      }
+    },
+    "Execute": "True"
+  }
+}

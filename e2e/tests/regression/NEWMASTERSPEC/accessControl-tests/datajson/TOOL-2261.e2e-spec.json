@@ -1,0 +1,20 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that correct and right format software application version is displayed, on the login page.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Access Control Test",
+            "UserStoryLink": "\"User Story: TOOL-2215\", https://extron.atlassian.net/browse/TOOL-2215",
+            "UserStory": "TOOL-2215 Display CSDU application version information - Login",
+            "TaskLink": "\"Task Issue: TOOL-2216\", https://extron.atlassian.net/browse/TOOL-2216",
+            "TestCaseLink": "\"Test Case: TOOL-T231\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T231",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Steps": {
+            "AccessPageAction": [
+              "VerifySoftwareVersion"
+            ]
+        }
+    }
+}

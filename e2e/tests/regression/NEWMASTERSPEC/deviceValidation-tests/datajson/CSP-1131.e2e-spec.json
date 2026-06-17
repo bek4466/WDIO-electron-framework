@@ -1,0 +1,103 @@
+{
+  "Execute": [
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Missing (NAV Peripheral) devices.network.interfaces.address key.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1710\", https://extron.atlassian.net/browse/TOOL-1710",
+      "UserStory": "TOOL-1710 (Button Panels Support - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-1422\", https://extron.atlassian.net/browse/TOOL-1422",
+      "TestCaseLink": "\"Test Case: CSP-T1240\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1240",
+      "ProjectFile": "EbusProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<Pro350_IPCP_1>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "CheckECW": [
+        {
+          "ip": "<<Pro350_IPCP_1>>",
+          "username": "admin",
+          "password": "extron",
+          "ecwGui": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c",
+          "ecwLabel": "ON"
+        }
+      ]
+    },
+    "Execute": "False"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Button Panels deploy properly despite warning message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1710\", https://extron.atlassian.net/browse/TOOL-1710",
+      "UserStory": "TOOL-1710 (Button Panels Support - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-1422\", https://extron.atlassian.net/browse/TOOL-1422",
+      "TestCaseLink": "\"Test Case: CSP-T1274\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1274",
+      "ProjectFile": "EbusProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<Pro350_IPCP_1>>",
+        "devices.1.part_number": "60-1388-00"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "CheckECW": [
+        {
+          "ip": "<<Pro350_IPCP_1>>",
+          "username": "admin",
+          "password": "extron",
+          "ecwGui": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c",
+          "ecwLabel": "ON"
+        }
+      ]
+    },
+    "Execute": "False"
+  }
+}

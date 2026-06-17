@@ -1,0 +1,99 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of Hardware(Primary Controller XI) at the time of Deploy -(Index Identifier scenario)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1570\", https://extron.atlassian.net/browse/TOOL-1570",
+      "UserStory": "Xi Controller - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1151\", https://extron.atlassian.net/browse/TOOL-1151",
+      "TestCaseLink": "\"Test Case: CSP-T1378\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1378",
+      "ProjectFile": "XiControllerProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": [ "devices.0.name" ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[0]<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of Hardware(Secondary XI) at the time of Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1570\", https://extron.atlassian.net/browse/TOOL-1570",
+      "UserStory": "Xi Controller - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1151\", https://extron.atlassian.net/browse/TOOL-1151",
+      "TestCaseLink": "\"Test Case: CSP-T1382\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1382",
+      "ProjectFile": "XiControllerProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": [ ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

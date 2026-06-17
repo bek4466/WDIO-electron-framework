@@ -1,0 +1,418 @@
+    {
+    "Execute":["TestCase1", "TestCase2", "TestCase3", "TestCase4", "TestCase5", "TestCase6"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network\" in destiny gives appropriate error message for primary device (with network port)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1690\", https://extron.atlassian.net/browse/TOOL-1690",
+            "UserStory": "TOOL-1690 (devices.network)",
+            "TaskLink": "\"Task Issue: TOOL-1413\", https://extron.atlassian.net/browse/TOOL-1413",
+            "TestCaseLink": "\"Test Case: CSP-T246\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/3121526",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.0.network"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingNetworkKey>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "InsertTestData":{
+                    "devices.2.network": {},
+                    "devices.2.network.interfaces" : [],
+                    "devices.2.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                    "devices.2.network.interfaces.0.type": "LAN"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network\" in destiny gives appropriate error message for primary device (with network port)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1690\", https://extron.atlassian.net/browse/TOOL-1690",
+            "UserStory": "TOOL-1690 (devices.network)",
+            "TaskLink": "\"Task Issue: TOOL-1413\", https://extron.atlassian.net/browse/TOOL-1413",
+            "TestCaseLink": "\"Test Case: CSP-T247\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/3121528",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.1.network"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingNetworkKey>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "InsertTestData":{
+                    "devices.1.network": {},
+                    "devices.1.network.interfaces" : [],
+                    "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                    "devices.1.network.interfaces.0.type": "LAN"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }, 
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network\" in destiny gives appropriate error message for primary device (with network port)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1690\", https://extron.atlassian.net/browse/TOOL-1690",
+            "UserStory": "TOOL-1690 (devices.network)",
+            "TaskLink": "\"Task Issue: TOOL-1413\", https://extron.atlassian.net/browse/TOOL-1413",
+            "TestCaseLink": "\"Test Case: CSP-T248\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/3121533",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network": "",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingNetworkKey>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.0.network": {}
+                },
+                "InsertTestData":{
+                    "devices.0.network.interfaces" : [],
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                    "devices.0.network.interfaces.0.type": "LAN"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }, 
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network\" in destiny gives appropriate error message for primary device (with network port)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1690\", https://extron.atlassian.net/browse/TOOL-1690",
+            "UserStory": "TOOL-1690 (devices.network)",
+            "TaskLink": "\"Task Issue: TOOL-1413\", https://extron.atlassian.net/browse/TOOL-1413",
+            "TestCaseLink": "\"Test Case: CSP-T249\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/3121539",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.network": "",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingNetworkKey>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.0.network": {}
+                },
+                "InsertTestData":{
+                    "devices.1.network.interfaces" : [],
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                    "devices.1.network.interfaces.0.type": "LAN"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }, 
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network\" in destiny gives appropriate error message for primary device (with network port)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1690\", https://extron.atlassian.net/browse/TOOL-1690",
+            "UserStory": "TOOL-1690 (devices.network)",
+            "TaskLink": "\"Task Issue: TOOL-1413\", https://extron.atlassian.net/browse/TOOL-1413",
+            "TestCaseLink": "\"Test Case: CSP-T449\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/3730317",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.ebus_id": 1,
+                "devices.2.name": "EBP 104 EU/MK : 1",
+                "devices.2.part_number": "60-1672-30",
+                "devices.2.alias": "eBUSAlias",
+                "devices.2.extron_control_web_id": "eddd271c-f3fd-40d7-b15c-933a13003be2"
+                
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingNetworkKey>>",
+                    "MessageType": "Error",
+                    "Exist": false
+                },
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }, 
+    "TestCase6": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network\" in destiny gives appropriate error message for primary device (with network port)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1690\", https://extron.atlassian.net/browse/TOOL-1690",
+            "UserStory": "TOOL-1690 (devices.network)",
+            "TaskLink": "\"Task Issue: TOOL-1413\", https://extron.atlassian.net/browse/TOOL-1413",
+            "TestCaseLink": "\"Test Case: CSP-T672\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/4212363",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.1.network": "",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.0.name",
+                "devices.0.network"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[0]<<missingNetworkKey>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

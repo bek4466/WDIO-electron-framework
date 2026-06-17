@@ -1,0 +1,202 @@
+{
+    "en_US": {
+        "Days": [
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thur",
+            "Fri",
+            "Sat"
+        ],
+        "Months": [
+            "January",
+            "Febuary",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ]
+    },
+    "en_AU": {
+        "Days": [
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thur",
+            "Fri",
+            "Sat"
+        ],
+        "Months": [
+            "January",
+            "Febuary",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ]
+    },
+    "en_GB": {
+        "Days": [
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thur",
+            "Fri",
+            "Sat"
+        ],
+        "Months": [
+            "January",
+            "Febuary",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ]
+    },
+    "nl_NL": {
+        "Days": [
+            "zo",
+            "ma",
+            "di",
+            "wo",
+            "do",
+            "vr",
+            "za"
+        ],
+        "Months": [
+            "januari",
+            "februari",
+            "maart",
+            "april",
+            "mei",
+            "juni",
+            "juli",
+            "augustus",
+            "september ",
+            "oktober",
+            "november",
+            "december"
+        ]
+    },
+    "de_DE": {
+        "Days": [
+            "So",
+            "Mo",
+            "Di",
+            "Mi",
+            "Do",
+            "Fr",
+            "Sa"
+        ],
+        "Months": [
+            "Januar",
+            "Februar",
+            "März",
+            "April",
+            "Mai",
+            "Juni",
+            "Juli",
+            "August",
+            "September",
+            "Oktober",
+            "November",
+            "Dezember"
+        ]
+    },
+    "fr_FR": {
+        "Days": [
+            "dim",
+            "lun",
+            "mar",
+            "mer",
+            "jeu",
+            "ven",
+            "sam"
+        ],
+        "Months": [
+            "janvier",
+            "février",
+            "mars",
+            "avril",
+            "mai",
+            "juin",
+            "juilliet",
+            "août",
+            "septembre",
+            "octobre",
+            "novembre",
+            "décembre"
+        ]
+    },
+    "he_IL": {
+        "Days": [
+            "יום א׳",
+            "יום ב׳",
+            "יום ג׳",
+            "יום ד׳",
+            "יום ה׳",
+            "יום ו׳",
+            "שבת"
+        ],
+        "Months": [
+            "בינואר",
+            "בפברואר",
+            "במרץ ",
+            "באפריל",
+            "במאי",
+            "ביוני",
+            "ביולי",
+            "באוגוסט",
+            "בספטמבר",
+            "באוקטובר",
+            "בנובמבר",
+            "בדצמבר"
+        ]
+    },
+    "zh_CN": {
+        "Days": [
+            "周日",
+            "周一",
+            "周二",
+            "周三",
+            "周四",
+            "周五",
+            "周六"
+        ],
+        "Months": [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月"
+        ]
+    }
+}

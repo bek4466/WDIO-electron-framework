@@ -1,0 +1,140 @@
+{
+    "Execute":["TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing device key in Destiny throws appropriate error",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1685\", https://extron.atlassian.net/browse/TOOL-1685",
+            "UserStory": "TOOL-1685 (devices)",
+            "TaskLink": "\"Task Issue: TOOL-1383\", https://extron.atlassian.net/browse/TOOL-1383",
+            "TestCaseLink": "\"Test Case: TOOL-T2279\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2279",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingDeviceKey>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "InsertTestData": {
+                    "devices.0.name": "IPCP Pro 350",
+                    "devices.0.alias": "Test_Rack_Pro350",
+                    "devices.0.part_number": "60-1417-01",
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                    "devices.1.name": "TLP Pro 1022T",
+                    "devices.1.part_number": "60-1601-02",
+                    "devices.1.alias": "tlp1220",
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing device key in Destiny throws appropriate error",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1685\", https://extron.atlassian.net/browse/TOOL-1685",
+            "UserStory": "TOOL-1685 (devices)",
+            "TaskLink": "\"Task Issue: TOOL-1383\", https://extron.atlassian.net/browse/TOOL-1383",
+            "TestCaseLink": "\"Test Case: TOOL-T2280\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2280",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices": {}
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidDeviceArray>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices": []
+                },
+                "InsertTestData": {
+                    "devices.0.name": "IPCP Pro 350",
+                    "devices.0.alias": "Test_Rack_Pro350",
+                    "devices.0.part_number": "60-1417-01",
+                    "devices.0.network.interfaces": [],
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                    "devices.0.network.interfaces.0.type": "LAN",
+                    "devices.1.name": "TLP Pro 1022T",
+                    "devices.1.part_number": "60-1601-02",
+                    "devices.1.alias": "tlp1220",
+                    "devices.1.network.interfaces": [],
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                    "devices.1.network.interfaces.0.type": "LAN"
+                }
+            },
+            "ChangeCredentials": [
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

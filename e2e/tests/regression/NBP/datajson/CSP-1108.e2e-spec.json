@@ -1,0 +1,200 @@
+{
+    "TestCase1": {
+        "TestDescription": "Verify that a NBP that has hardware mismatch with another NBP gives appropriate warning message",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1108\", \"https://extron.atlassian.net/browse/CSP-1108\"",
+        "TestCaseLink": "\"Test Case: TOOL-T3044\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3044\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify that a NBP that has hardware mismatch with another NBP gives appropriate warning message",
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "ModifyTestData": {
+            "devices.1.part_number": "60-1795-01",
+            "devices.1.name": "My NBP",
+            "system.sys_id": "2345"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Hardware mismatch : The specified device does not match live device on the network.",
+                "MessageType": "Warning",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestDescription": "Verify that for NBP specified in destiny file, a NON-NBP device found at the address gives appropriate error warning.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1108\", \"https://extron.atlassian.net/browse/CSP-1108\"",
+        "TestCaseLink": "\"Test Case: TOOL-T3045\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3045\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify that for NBP specified in destiny file, a NON-NBP device found at the address gives appropriate error warning.",
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "ModifyTestData": {
+            "devices.1.part_number": "60-1794-01",
+            "devices.1.name": "My NBP",
+            "devices.1.network.interfaces.0.address": "10.113.89.202"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Hardware incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt.",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestDescription": "Verify that a NBP that has hardware mismatch with another NBP gives appropriate warning message (Index identifier scenario)",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1108\", \"https://extron.atlassian.net/browse/CSP-1108\"",
+        "TestCaseLink": "\"Test Case: TOOL-T3046\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3046\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify that a NBP that has hardware mismatch with another NBP gives appropriate warning message (Index identifier scenario)",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.part_number": "60-1795-01"
+        },
+        "DeleteData": [
+            "devices.1.name"
+        ],
+        "VerifyMessage": [
+            {
+                "MessageText": "device[1] - Hardware mismatch : The specified device does not match live device on the network.",
+                "MessageType": "Warning",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestDescription": "Verify that for NBP specified in destiny file, a NON-NBP device found at the address gives appropriate error warning. (Index Identifier Scenario)",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1108\", \"https://extron.atlassian.net/browse/CSP-1108\"",
+        "TestCaseLink": "\"Test Case: TOOL-T3047\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3047\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify that for NBP specified in destiny file, a NON-NBP device found at the address gives appropriate error warning. (Index Identifier Scenario)",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.part_number": "60-1794-01",
+            "devices.1.network.interfaces.0.address": "10.113.89.202"
+        },
+        "DeleteData": [
+            "devices.1.name"
+        ],
+        "VerifyMessage": [
+            {
+                "MessageText": "device[1] - Hardware incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt.",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestDescription": "Verify there should be a message for incompatible hardware.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1108\", \"https://extron.atlassian.net/browse/CSP-1108\"",
+        "TestCaseLink": "\"Test Case: TOOL-T638\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T638\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be a message for incompatible hardware.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.part_number": "60-1794-01",
+            "devices.1.name": "My NBP",
+            "devices.1.network.interfaces.0.address": "10.113.89.205"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Hardware incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt.",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    }
+}

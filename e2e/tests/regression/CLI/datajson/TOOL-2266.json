@@ -1,0 +1,35 @@
+{"TestCase1":
+    { 
+    "TestCaseInfo" : {
+        "TestDescription":"Verify that user is able to successfully deploy using CLI",
+        "Owner":"Amit B",
+        "SuiteType":"Deploy Build and Upload Messages Format",
+        "UserStoryLink":"\"User Story: TOOL-2068\", \"https://extron.atlassian.net/browse/CSP-2068\"",
+        "UserStory":"TOOL - 2068  Cli Deploy - Projector Descriptor Validation",
+        "TaskLink":"\"Task Issue: TOOL-2266\", \"https://extron.atlassian.net/browse/TOOL-2266\"",
+        "TestCaseLink":"\"Test Case: TOOL-T191\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T191\"",
+        "EnvironmentFile":"C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+        "TestCaseHeader":"Verify that user is able to successfully deploy using CLI"
+    },
+    "Preconditions" : {
+        "ModifyTestData":{
+            "devices.0.name":"Primary Controller",
+            "devices.0.network.interfaces.0.address" : "CI_PrimaryControllerDHCP_FQDN",
+            "devices.0.part_number":"60-1416-01"
+
+
+        }
+    },
+    "Steps":{
+        "CommandLineParams" : "cliCommand",
+        "VerifyCLIMessage":[
+            {"MessageText":"info: NBPProject - Project deployment completed.", "MessageType":"info","Exist":true},
+            {"MessageText":"info: Peripheral NBP 100 - Device paired successfully with primary device", "MessageType":"info","Exist":true}
+        ]
+        
+    },
+
+    "Execute":"True"
+}
+}
+

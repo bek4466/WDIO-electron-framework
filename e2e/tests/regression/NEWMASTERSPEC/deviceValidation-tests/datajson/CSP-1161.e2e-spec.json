@@ -1,0 +1,318 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3",
+    "TestCase4",
+    "TestCase5",
+    "TestCase6"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify the missing devices.ui.thumb_change_report-interval provides a info message for a TLP NC peripheral device.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1161\", https://extron.atlassian.net/browse/CSP-1161",
+      "TestCaseLink": "\"Test Case: CSP-T1333\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1333",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.2.ui.thumb_change_report_interval"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingReportIntervalMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify the invalid devices.ui.thumb_change_report_interval provides a warning for peripheral TLP NC device-invalid type",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1161\", https://extron.atlassian.net/browse/CSP-1161",
+      "TestCaseLink": "\"Test Case: CSP-T1334\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1334",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui.thumb_change_report_interval": true
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidReportIntervalMessage>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify missing ui.thumb_to_fill_sync_time key throws info message, for Non-Primary TLP NC Device that supports layouts.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1161\", https://extron.atlassian.net/browse/CSP-1161",
+      "TestCaseLink": "\"Test Case: CSP-T1335\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1335",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.2.ui.thumb_to_fill_sync_time"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingThumbToFillSyncMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that that an invalid datatype (String) for ui.thumb_to_fill_sync_time throws warning message, for Non-Primary TLP NC Device.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1161\", https://extron.atlassian.net/browse/CSP-1161",
+      "TestCaseLink": "\"Test Case: CSP-T1336\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1336",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui.thumb_to_fill_sync_time": "abcde"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidThumbToFillSyncMsg>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a negative value for ui.thumb_to_fill_sync_time throws a warning message, for Non-Primary TLP NC Device- out of range.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1161\", https://extron.atlassian.net/browse/CSP-1161",
+      "TestCaseLink": "\"Test Case: CSP-T1337\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1337",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui.thumb_to_fill_sync_time": "-0.5"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidThumbToFillSyncMsg>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase6": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be no warning/errors, if all device validation's keys and values are valid/correct/not missing.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1161\", https://extron.atlassian.net/browse/CSP-1161",
+      "TestCaseLink": "\"Test Case: CSP-T1338\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1338",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

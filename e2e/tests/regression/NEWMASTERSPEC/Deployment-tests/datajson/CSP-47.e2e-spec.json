@@ -1,0 +1,200 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that user must have selected destiny file before accessing \"Kevin Settings\"",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: CSP-20\", https://extron.atlassian.net/browse/CSP-20",
+            "UserStory": "CSP-20 (As Francisco, I want to enter my credentials for the Destiny file so that I can deploy my system)",
+            "TaskLink": "\"Task Issue: TOOl-1847\", https://extron.atlassian.net/browse/TOOL-1847",
+            "TestCaseLink": "\"Test Case: CSP-T50\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/2902733",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that \"Kevin Settings\" is available for users after selecting systeminfo.json",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: CSP-20\", https://extron.atlassian.net/browse/CSP-20",
+            "UserStory": "CSP-20 (As Francisco, I want to enter my credentials for the Destiny file so that I can deploy my system)",
+            "TaskLink": "\"Task Issue: TOOl-1847\", https://extron.atlassian.net/browse/TOOL-1847",
+            "TestCaseLink": "\"Test Case: CSP-T50\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/2902733",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "DeployPage": {
+                "ProjectCredentialsBtn":{
+                    "isDisabled": true
+                },
+                "ProjectFilePathInput_2": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                },
+                "ProjectCredentialsBtn_2": {
+                    "isEnabled": true,
+                    "click": {}
+                },
+                "ProjectCredentialsPopUp": {
+                    "isOpen": true,
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "ChangeCredentials": [
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Device Name, Address, Username, Password is included in \"Project Credentials\"",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: CSP-20\", https://extron.atlassian.net/browse/CSP-20",
+            "UserStory": "CSP-20 (As Francisco, I want to enter my credentials for the Destiny file so that I can deploy my system)",
+            "TaskLink": "\"Task Issue: TOOl-1796\", https://extron.atlassian.net/browse/TOOL-1796",
+            "TestCaseLink": "\"Test Case: CSP-T51\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/2906115",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProjectCredentialsBtn": {
+                    "click": null
+                },
+                "ProjectCredentialsPopUp": {
+                    "DeviceName": {
+                        "columnTitleExists": true
+                    },
+                    "Address": {
+                        "columnTitleExists": true
+                    },
+                    "UsernameField": {
+                        "columnTitleExists": true
+                    },
+                    "PasswordField": {
+                        "columnTitleExists": true                       
+                    },
+                    "SaveBtn": {},
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

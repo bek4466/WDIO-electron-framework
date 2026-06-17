@@ -1,0 +1,135 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Message persistance in deploy view when \"Message\" pane is opened.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Mesagepane-Tests",
+      "UserStoryLink": "\"User Story: TOOL-1527 \", https://extron.atlassian.net/browse/TOOL-1527",
+      "UserStory": "As a User, I want to be able to know the status of the Build and Upload Process and be notified if there are any issues so I can be successful.",
+      "TaskLink": "\"Task Issue: TOOL-1305\", https://extron.atlassian.net/browse/TOOL-1305",
+      "TestCaseLink": "\"Test Case: TOOL-T296\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T296",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [
+        "ShowMessagePane"
+      ],
+      "VerifyTroubleShootingMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "DeployAction_2": [
+        "Deploy"
+      ],
+      "VerifyTroubleShootingMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Message persistance when keep switching between open and close state of \"message\" pane in deploy & Troubleshooting views",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Mesagepane-Tests",
+      "UserStoryLink": "\"User Story: TOOL-1527 \", https://extron.atlassian.net/browse/TOOL-1527",
+      "UserStory": "As a User, I want to be able to know the status of the Build and Upload Process and be notified if there are any issues so I can be successful.",
+      "TaskLink": "\"Task Issue: TOOL-1305\", https://extron.atlassian.net/browse/TOOL-1305",
+      "TestCaseLink": "\"Test Case: TOOL-T293\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T293",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [
+        "ShowMessagePane",
+        "HideMessagePane",
+        "ShowMessagePane"
+      ],
+      "VerifyTroubleShootingMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

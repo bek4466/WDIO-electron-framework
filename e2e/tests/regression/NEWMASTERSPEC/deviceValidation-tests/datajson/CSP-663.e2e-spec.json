@@ -1,0 +1,212 @@
+{
+    "Execute":[ "TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"network.interfaces\" (not an array) for primary controller gives appropriate error message.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1701\", https://extron.atlassian.net/browse/TOOL-1701 ",
+            "UserStory": "TOOL-1701 (devices.network.interfaces)",
+            "TaskLink": "\"Task Issue: TOOL-1420\", https://extron.atlassian.net/browse/TOOL-1420 ",
+            "TestCaseLink": "\"Test Case: TOOL-T3726\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3726 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.network.interfaces": true
+            },
+            "InsertTestData": {
+              
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<interfaceNotArray>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        ,
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.network.interfaces": {"nope" : "nada"}
+                },
+                "InsertTestData": {
+                    
+                },
+                "DeleteData": [
+                    
+                ]
+            },
+
+            "DeployAction2": [
+            "ClearMessagePane",
+            "Deploy"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<interfaceNotArray>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile2": {
+                "ModifyTestData": {
+                    "devices.0.network.interfaces": 1234
+                },
+                "InsertTestData": {
+                    
+                },
+                "DeleteData": [
+                    
+                ]
+            },
+            "DeployAction3": [
+                "ClearMessagePane",
+                "Deploy"
+                ],
+                "VerifyMessage3": [
+                    {
+                        "MessageText": "<<deployFailureMsg>>",
+                        "MessageType": "Error",
+                        "Exist": true
+                    },
+                    {
+                        "MessageText": "My Primary<<interfaceNotArray>>",
+                        "MessageType": "Error",
+                        "Exist": true
+                    }
+                ],
+                "EditProjectFile3": {
+                    "ModifyTestData": {
+                        "devices.0.network.interfaces": "random string"
+                    },
+                    "InsertTestData": {
+                        
+                    },
+                    "DeleteData": [
+                        
+                    ]
+                },
+                "DeployAction4": [
+                    "ClearMessagePane",
+                    "Deploy"
+                    ],
+                    "VerifyMessage4": [
+                        {
+                            "MessageText": "<<deployFailureMsg>>",
+                            "MessageType": "Error",
+                            "Exist": true
+                        },
+                        {
+                            "MessageText": "My Primary<<interfaceNotArray>>",
+                            "MessageType": "Error",
+                            "Exist": true
+                        }
+                    ]
+        },
+        
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+            "TestCaseInfo": {
+                "TestDescription": "Verify that missing key \"network.interfaces\" for primary device gives appropriate error message.",
+                "Owner": "Alaa Abdin",
+                "SuiteType": "Device Validation Tests",
+                "UserStoryLink": "\"User Story: TOOL-1701\", https://extron.atlassian.net/browse/TOOL-1701 ",
+                "UserStory": "TOOL-1701 (devices.network.interfaces)",
+                "TaskLink": "\"Task Issue: TOOL-1420\", https://extron.atlassian.net/browse/TOOL-1420 ",
+                "TestCaseLink": "\"Test Case: TOOL-T3728\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3728 ",
+                "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+                "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+            },
+            
+            "Preconditions": {
+                "ModifyTestData": {
+                    "devices.0.name": "My Primary"
+                   
+                },
+                "InsertTestData": {
+                  
+                },
+                "DeleteData": [
+                    "devices.0.network.interfaces"
+                ]
+            },
+            "Credentials": [
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                }
+              ],
+            "Steps": {
+                "DeployAction": ["Deploy"],
+                "VerifyMessage": [
+                    {
+                        "MessageText": "<<deployFailureMsg>>",
+                        "MessageType": "Error",
+                        "Exist": true
+                    },
+                    {
+                        "MessageText": "My Primary<<missingNetworkInterface>>",
+                        "MessageType": "Error",
+                        "Exist": true
+                    }
+                ]
+                      
+            },
+            
+            "Execute": "True"
+        }
+       
+    }
+   

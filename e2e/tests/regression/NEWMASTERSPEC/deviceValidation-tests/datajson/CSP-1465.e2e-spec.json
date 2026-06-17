@@ -1,0 +1,215 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3",
+    "TestCase4"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that entering invalid \"devices.password\" (Peripheral TLP MG/TG) throws appropriate error during deployment (Index Identifier Scenario)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1072\", https://extron.atlassian.net/browse/CSP-1072",
+      "UserStory": "TLP MG/TG - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1465\", https://extron.atlassian.net/browse/CSP-1465",
+      "TestCaseLink": "\"Test Case: CSP-T1420\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1420",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.part_number": "60-1559-12"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<hardwareMismatch>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a Peripheral Device(TLP MG/TG) that has hardware mismatch gives appropriate warning message (Index Identifier scenario)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1072\", https://extron.atlassian.net/browse/CSP-1072",
+      "UserStory": "TLP MG/TG - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1465\", https://extron.atlassian.net/browse/CSP-1465",
+      "TestCaseLink": "\"Test Case: CSP-T1421\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1421",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.part_number": "60-1559-12"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.2.name"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<hardwareMismatch>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral TLP MG/TG Device) at the time of Deploy",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1072\", https://extron.atlassian.net/browse/CSP-1072",
+      "UserStory": "TLP MG/TG - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1465\", https://extron.atlassian.net/browse/CSP-1465",
+      "TestCaseLink": "\"Test Case: CSP-T1421\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1421",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral TLP MG/TG Device) at the time of Deploy- ( index Identifier scenario)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1072\", https://extron.atlassian.net/browse/CSP-1072",
+      "UserStory": "TLP MG/TG - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1465\", https://extron.atlassian.net/browse/CSP-1465",
+      "TestCaseLink": "\"Test Case: CSP-T1423\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1423",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {},
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.2.name"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

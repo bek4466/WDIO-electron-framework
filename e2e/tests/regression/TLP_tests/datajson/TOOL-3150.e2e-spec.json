@@ -1,0 +1,224 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Peripheral device's invalid part number key -PN not known or Invalid Format.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3150\", https://extron.atlassian.net/browse/TOOL-3150",
+      "TestCaseLink": "\"Test Case: TOOL-T655\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T655",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number key -PN not known or Invalid Format."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.part_number": "abcde",
+        "devices.2.part_number": "abcde",
+        "devices.3.part_number": "abcde"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - part_number: Invalid - Hardware is not supported",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - part_number: Invalid - Hardware is not supported",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - part_number: Invalid - Hardware is not supported",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Missing (peripheral) devices.alias.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3150\", https://extron.atlassian.net/browse/TOOL-3150",
+      "TestCaseLink": "\"Test Case: TOOL-T656\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T656",
+      "TestCaseHeader": "Verify there should be error message in message pane for Missing (peripheral) devices.alias."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "DeleteData": [
+        "devices.1.alias",
+        "devices.2.alias",
+        "devices.3.alias"
+      ]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - alias: Missing key - e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - alias: Missing key - e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - alias: Missing key - e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Invalid (peripheral) devices.alias - not a string.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3150\", https://extron.atlassian.net/browse/TOOL-3150",
+      "TestCaseLink": "\"Test Case: TOOL-T657\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T657",
+      "TestCaseHeader": "Verify there should be error message in message pane for Invalid (peripheral) devices.alias - not a string."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.alias": true,
+        "devices.2.alias": true,
+        "devices.3.alias": true
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid peripheral devices.alias- Empty.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3150\", https://extron.atlassian.net/browse/TOOL-3150",
+      "TestCaseLink": "\"Test Case: TOOL-T658\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T658",
+      "TestCaseHeader": "Verify there should be error message in message pane for invalid peripheral devices.alias- Empty."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.alias": "",
+        "devices.2.alias": "",
+        "devices.3.alias": ""
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

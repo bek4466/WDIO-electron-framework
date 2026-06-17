@@ -1,0 +1,89 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "WC 150 Validation Messages for Part Numbers",
+            "Owner": "Kiran",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-6172\", https://extron.atlassian.net/browse/TOOL-6172 ",
+            "TestCaseLink": "\"Test Case: TOOL-T5034\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T5034 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "WC 150 w/LL",
+                "devices.0.part_number": 1234,
+                "devices.0.network.interfaces.0.address": "<<WC150_LL>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<partNumberInvalidMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.part_number": "33-33-9999"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<partNumberUnsupportedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_2": {
+                "DeleteData": [
+                    "devices.0.part_number"
+                ]
+            },
+            "DeployAction_3": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_3": [
+                {
+                    "MessageText": "<<missingPartNumber>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,216 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase3",
+    "TestCase4",
+    "TestCase5"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that \"system.devices.ui.enable_click_sound\" is invalid and throws appropriate warning message (For Non-Primary - TLP NC)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1159\", https://extron.atlassian.net/browse/CSP-1159",
+      "TestCaseLink": "\"Test Case: CSP-T1322\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1322",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui.enable_click_sound": 1234
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidClickSound>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Invalid path for devices.ui.click_sound_file (TLP NCPeripheral) in destiny gives appropriate warning message.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1159\", https://extron.atlassian.net/browse/CSP-1159",
+      "TestCaseLink": "\"Test Case: CSP-T1324\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1324",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui.click_sound_file": "not\\a\\path"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidClickSoundFile>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that wrong file type against devices.ui.click_sound_file key (TLP NC Peripheral) in destiny gives appropriate warning message.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1159\", https://extron.atlassian.net/browse/CSP-1159",
+      "TestCaseLink": "\"Test Case: CSP-T1325\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1325",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui.click_sound_file": "sound.txt"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<invalidClickSoundFileType>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that file path provided, not just filename for ui.click_sound_file (Peripheral TLP NC) gives appropriate warning message.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1159\", https://extron.atlassian.net/browse/CSP-1159",
+      "TestCaseLink": "\"Test Case: CSP-T1326\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1326",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.ui.click_sound_file": "path\\to\\touch.wav"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<unsupportedClickSoundPath>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

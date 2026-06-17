@@ -1,0 +1,116 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message",
+            "Owner": "Kiran",
+            "SuiteType": "UCS-tests",
+            "UserStoryLink": "\"User Story: TOOL-6020\", https://extron.atlassian.net/browse/TOOL-6020 ",
+            "UserStory": "TOOL-6020 (CSDU: UCS SR 501)",
+            "TaskLink": "\"Task Issue: TOOL-6044\", https://extron.atlassian.net/browse/TOOL-6044 ",
+            "TestCaseLink": "\"Test Case: TOOL-T760\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T760 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP360QXI",
+                "devices.0.part_number": "60-1916-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.1.name": "UCS SR 501",
+                "devices.1.alias": "SPDeviceAlias",
+                "devices.1.part_number": "60-1798-13",
+                "devices.1.network.interfaces.0.address": "<<UCSSR501>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "invalidPassword"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "UCS SR 501<<incorrectDeviceCredentials>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Peripheral Device specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+            "Owner": "Kiran",
+            "SuiteType": "UCS-tests",
+            "UserStoryLink": "\"User Story: TOOL-6020\", https://extron.atlassian.net/browse/TOOL-6020 ",
+            "UserStory": "TOOL-6020 (CSDU: UCS SR 501)",
+            "TaskLink": "\"Task Issue: TOOL-6044\", https://extron.atlassian.net/browse/TOOL-6044 ",
+            "TestCaseLink": "\"Test Case: TOOL-T888\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T888 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP360QXI",
+                "devices.0.part_number": "60-1916-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.1.name": "UCS SR 501",
+                "devices.1.alias": "SPDeviceAlias",
+                "devices.1.part_number": "60-1798-13",
+                "devices.1.network.interfaces.0.address": "<<Navigator>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "UCS SR 501<<incompatibleHardwareMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+	"slow": 7000,
+	"medium": 5000,
+    "fast": 3000,
+    "superFast": 1000,
+    "halfSec": 500
+}

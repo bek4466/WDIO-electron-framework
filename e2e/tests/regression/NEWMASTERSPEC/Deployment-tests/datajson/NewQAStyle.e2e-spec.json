@@ -1,0 +1,588 @@
+{
+    "configuration": {
+        "ProjectFile": "XiControllerProject\\systeminfo.json"
+    },
+    "readme": {
+        "date_create": "mm/dd/yyyy hh:mm:ss am/pm",
+        "author": "Austin Lee",
+        "last_update": "mm/dd/yyyy",
+        "version": "x.x.x",
+        "description": "write any comment/clarification/etc. you want"
+    },
+    "testcaseexecution": {
+        "TestCase1": {
+            "Test_Info": {
+                "Description": "",
+                "TestID": "TOOL-T668",
+                "Duration": "00:03",
+                "TestSuite": "Matrix Q xi System Validation",
+                "TestName": "Verify there should be an error message when primary_device_alias has peripheral device's alias.",
+                "PassCriteria": "There should be error message system.primary_device_alias: Invalid - The target device cannot be a primary controller in message pane. -System and devices should not be deployed.",
+                "FailureOrSkipReason": "",
+                "LastSuccessfulVersion": "28/Dec/21 11:17 am",
+                "TestLink": "https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T668",
+                "OURAddtions?": "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",
+                "UserStoryID": "TOOL-3302",
+                "UserStoryLink": "https://extron.atlassian.net/browse/TOOL-3302",
+                "UserStory": " Matrix Q xi - FOX3 - System Validation",
+                "TaskID": "TOOL-3381",
+                "TaskLink": "https://extron.atlassian.net/browse/TOOL-3381"
+            },
+            "To change project name before browsing": "Optinal, if not used the name will be systeminfotmp.json. If used then the file will be created and deleted at the end",
+            "ProjectName": "Name",
+            "Preconditions": {},
+            "Steps": {
+                "FiniteElements": "Specific actions that can be taken by specifying an element. Ex: click specific button on specific page/tab/etc",
+                "Banner": {
+                    "BannerText": {
+                        "exists": true
+                    },
+                    "OpenHelpButton": {
+                        "exists": true
+                    },
+                    "BannerOverwriteButton": {
+                        "notes":"Exists also checks if the text is right from datatool (credentialsBannerTitle  & credentialsBannerMessage)",
+                        "exists": true,
+                        "click": {}
+                    },
+                    "BannerExitButton": {
+                        "exists": true
+                    }
+                },
+                "CommonMethod": {
+                    "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat",
+                    "appendToFile": {
+                        "filePath": "CredentialsProject\\systeminfoTmp-credential.dat",
+                        "text": "ThisIsInvalidText"
+                    },
+                    "saveFileModifiedDate": {
+                        "filePath": "CredentialsProject\\systeminfoTmp-credential.dat"
+                    },  
+                    "compareFileModifiedDateToSavedDate": {
+                        "filePath": "CredentialsProject\\systeminfoTmp-credential.dat",
+                        "expect": "SameAsSaved"
+                    ,
+                    "replaceTextInFile.comment": "!! Remember to revert any change at the end of your test. !!",
+                    "replaceTextInFile": {
+                        "filePath": "CredentialsProject\\abc.xyz",
+                        "textToReplace": "text to replace within file",
+                        "newText": "new text"
+                    },
+                    "copyFile.Comment": [
+                        "For 'to' OR 'from' field. ('tempFile') can be used to write to or read from a temporary file during runtime.",
+                        "Example -- The below 'copyFile' would save the contents of 'CredentialsProject\\systeminfoTmp-credential.dat'  into a temporary location.",
+                        "           To paste or write the content that is currently in the 'tempFile' simply set the 'from' : 'tempFile' and the 'to': 'somepath'",
+                        "           See second 'copyFile' for example"
+                    ],
+                    "copyFile": {
+                        "from": "CredentialsProject\\systeminfoTmp-credential.dat",
+                        "to": "tempFile"
+                    },
+                    "copyFile": {
+                        "from": "tempFile",
+                        "to": "CredentialsProject\\systeminfoTmp-credential.dat"
+                    },
+                    "renameFiles": [
+                        {
+                            "currentPath": "CredentialsProject\\src\\main.py",
+                            "newPath": "CredentialsProject\\src\\main=.py"
+                        },
+                        {
+                            "currentPath": "rFile\\temp.txt",
+                            "newPath": "rFile\\temp=.txt"
+                        },
+                        {
+                            "currentPath": "layout\\vtlpgui.gdl",
+                            "newPath": "layout\\vtlpgui=.gdl"
+                        },
+                        {
+                            "currentPath": "sound\\touch.wav",
+                            "newPath": "sound\\touch=.wav"
+                        },
+                        {
+                            "currentPath": "irDriver\\mits_10_666_1.eir",
+                            "newPath": "irDriver\\mits_10_666_1=.eir"
+                        },
+                        {
+                            "currentPath": "data\\test.txt",
+                            "newPath": "data\\test=.txt"
+                        }
+                    ],
+                    "findFile": {
+                        "path": "CredentialsProject\\systeminfoTmp-certification.dat"
+                    }
+                },
+                "Sidebar": {
+                    "DeployBtn": {
+                        "click": {
+                            "expect": true
+                        },
+                        "isEnabled": {
+                            "result": true
+                        },
+                        "click_2": {
+                            "expect": false
+                        },
+                        "additionalActions": {}
+                    },
+                    "TroubleshootBtn": {},
+                    "HelpBtn": {},
+                    "ProfileBtn": {},
+                    "LogOutBtn": {}
+                },
+                "DeployPage": {
+                    "ProjectFilePathInput": {
+                        "setPath": "DeployProject\\systeminfo.json",
+                        "clearPath": {},
+                        "verifyPath": {},
+                        "errorMessageToValidate": "<<ValidationMessage>>"
+                    },
+                    "VerifyProjectFileErrorMessage": [{
+                        "MessageText": "<<invalidDatafilePath>>",
+                        "Exist": true
+                    }],
+                    "ValidTooltipMsg": [{
+                        "MessageText": "<<<<validProjectResources>>>>",
+                        "Exist": true
+                    }],
+                    "BrowseBtn": {},
+                    "DeployBtn": {
+                        "isDisabled": true,
+                        "isEnabled": true
+                    },
+                    "DeployCodeOnlyBtn": {},
+                    "CertifyProjectBtn": {
+                        "click": {},
+                        "isEnabled": true,
+                        "isDisabled": true,
+                        "isVisible": false
+                    },
+                    "ProjectCredentialsBtn": {
+                        "click": {},
+                        "isEnabled": true,
+                        "isDisabled": true
+                    },
+                    "ProjectCredentialsPopUp": {
+                        "isOpen": true,
+                        "WarningIcon": {
+                            "row_#(replace # with number 0-3)": {
+                                "exists": true
+                            }
+                        },
+                        "DeviceName": {
+                            "columnTitleExists": true,
+                            "row_#(replace # with number 0-3 etc)": {
+                                "exists": true,
+                                "isEmpty": true
+                            }
+                        },
+                        "Address": {
+                            "columnTitleExists": true,
+                            "row_#(replace # with number 0-3)": {
+                                "exists": true,
+                                "isEmpty": true,
+                                "verifyIP": "<<IPCP360_IPCP_dualnic>>",
+                                "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                                "verifyNotExistIP2": "10.113.135.2"
+                            }
+                        },
+                        "UsernameField": {
+                            "columnTitleExists": true,
+                            "row_#(replace # with number 0-3)": {
+                                "exists": true,
+                                "matches": "usernameToCheckFor",
+                                "setUsername": "username"
+                            }
+                        },
+                        "PasswordField": {
+                            "columnTitleExists": true,
+                            "row_#(replace # with number 0-3)": {
+                                "exists": true,
+                                "setPassword": "password"
+                            }
+                        },
+                        "InfoIcon": {
+                            "exists": {}
+                        },
+                        "NoDeviceAddedMessage": {
+                            "exists": true,
+                            "hasNoDeviceText": true
+                        },
+                        "UnableToRetrieveDeviceMessage": {
+                            "exists": true,
+                            "hasNoRetrieveText": true,
+                            "hasReferMsgPaneText": true
+                        },
+                        "SaveBtn": {},
+                        "CancelBtn": {
+                            "click": {}
+                        },
+                        "CloseBtn": {
+                            "click": {}
+                        }
+                    },
+                    "DownloadProjectInput": {
+                        "setIp": "0, 1, 2, 3 OR customIP ex: 198.123.211.123",
+                        "comment.setIp": "put index value 0,1,2 to use primary, secondary, etc. device from systemInfo  or put in a custom ip/FQDN/",
+                        "verifyIpError": true,
+                        "isEmpty": true
+                    },
+                    "DownloadProjectBtn": {
+                        "click": null
+                    },
+                    "ProjectDownloadSidePanel": {
+                        "ipAddressInput": {
+                            "isEqualTo": "10.114.11.111"
+                        },
+                        "usernameInput": {
+                            "set": "xyz",
+                            "isEmpty": true,
+                            "isDisabled": true
+                        },
+                        "passwordInput": {
+                            "set": "abc",
+                            "isEmpty": true
+                        },
+                        "noDeviceCredentialsBtn": {
+                            "click": null,
+                            "isDisabled": true
+                        },
+                        "noDeviceCredentialsPopUp": {
+                            "verifyNoCredentialsText": null
+                        },
+                        "DownloadBtn": {
+                            "click": null,
+                            "clickAndCheckDownloadCompleteToast": null,
+                            "exists": true
+                        },
+                        "CloseSidePanelBtn": {
+                            "click": null
+                        },
+                        "CancelBtn": {
+                            "click": null
+                        },
+                        "OfflineErrorMessage": {
+                            "exists": true
+                        },
+                        "ProjectNoFileErrorMessage": {
+                            "exists": true
+                        },
+                        "UserPassError": {
+                            "exists": true
+                        }
+                    },
+                    "MessagePane": {
+                        "filterMessageSeverityType": "Info | Error | Warning",
+                        "checkMessagePaneLogsSeverityNotIncluded": "Info | Error | Warning",
+                        "checkMessagePaneLogsSeverity": "Info | Error | Warning",
+                        "clearAllSeverityFilters": null
+                    }
+                },
+                "LoginPage": {
+                    "SignInBtn.Comment": "using click causes the 'LoginPopUp' (is an element of this LoginPage object   ) to appear, which has its own elementsand actions",
+                    "SignInBtn": {
+                        "click": null,
+                        "isVisible": true
+                    },
+                    "OfflineSignInBtn": {
+                        "click": null,
+                        "exists": true
+                    },
+                    "OfflineResponseKeyInput": {
+                        "SendKeys": "keys to send to input"
+                    },
+                    "VerifyKeyBtn": {
+                        "click": null
+                    },
+                    "InvalidActivationPopUp": {
+                        "isVisible": true
+                    },
+                    "LoginPopUp": {
+                        "SignInBtn": {
+                            "click": true,
+                            "noSwitchWindowClick": true,
+                            "isVisible": true
+                        },
+                        "closePopUp": true,
+                        "enterCredentials": {
+                            "user": "certified || uncertified || customUsername",
+                            "pass": "certified || uncertified || customUsername"
+                        },
+                        "invalidUserAndPassText": {
+                            "exists": true
+                        },
+                        "keepMeLoggedInCheckBox": {
+                            "isChecked": true,
+                            "setChecked": true
+                        },
+                        "forgotPasswordEmailInput": {
+                            "emailToType": "email@here.com",
+                            "exists": true
+                        },
+                        "retrievePasswordBtn": {
+                            "click": null,
+                            "exists": true
+                        },
+                        "spamFilterText": {
+                            "exists": true
+                        }
+                    }
+                },
+                "ProfilePage": {
+                    "LicenseCard": {
+                        "isVisible": true
+                    },
+                    "ExpirationText": {
+                        "is30DaysFromCurrentDate": true
+                    },
+                    "LastRenewedDateText": {
+                        "matchesCurrentDate": true
+                    }
+                },
+                "SignOutPopUp": {
+                    "signOutBtn": {
+                        "click": null,
+                        "exists": true
+                    },
+                    "cancelBtn": {
+                        "click": null,
+                        "exists": true
+                    },
+                    "XBtn": {
+                        "click": null,
+                        "exists": true
+                    },
+                    "XBtnPopUp": {
+                        "click": {},
+                        "exists": true
+                    },
+                    "Title": {
+                        "matchesText": "<<text>>"
+                    },
+                    "Text1": {
+                        "matchesText": "<<text>>"
+                    },
+                    "Text2": {
+                        "matchesText": "<<text>>"
+                    }
+                },
+                "OURACTIONS": "Single line commands that preform generic steps ex: Deploy project---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",
+                "AboutAction": [],
+                "AppActionComment": "Takes an array with string. Open = opens app. Close = close app, does not log user out. Logout = logs user out. Object with user and pass key/val = start the app then logs in with the given user an pass. Put certified in user and pass logs in using the licenseduser1 stored in dataTool.json. uncertified uses unlicensed1. customuser/pass is just a place holder that means you can put text you want to",
+                "AppActionComment2": "If you need to logout and log in multiple times one after another. Seprate each logout login into their own appAction array. Also add a timeout of 5 seconds('Timeout': 5000) between the appAction arrays",
+                "AppAction": [
+                    "Open",
+                    "Close",
+                    "Logout",
+                    {
+                        "user": "certified || uncertified || customUsername",
+                        "pass": "certified || uncertified || customPassword"
+                    }
+                ],
+                "ChangeCredentials": [
+                    {
+                        "user": "a",
+                        "pass": "extron"
+                    },
+                    {
+                        "user": "admin",
+                        "pass": "extron"
+                    }
+                ],
+                "CheckECW": [
+                    {
+                        "ip": "<<1.23.4.5>>",
+                        "username": "admin",
+                        "password": "extron",
+                        "ecwGUI": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c",
+                        "ecwLabel": "ON"
+                    }
+                ],
+                "CheckNavCommands": [
+                    {
+                        "ip": "1.1.1.1",
+                        "username": "admin",
+                        "password": "extron"
+                    }
+                ],
+                "VerifyVTLP": [
+                    1
+                ],
+                "CommandLineParams": "cliCommand",
+                "Credential": [
+                    {
+                        "user": "admin",
+                        "pass": "extron"
+                    },
+                    {
+                        "user": "admin",
+                        "pass": "extron"
+                    }
+                ],
+                "DeployAction": [
+                    "Deploy",
+                    "DeployCodeOnly",
+                    "Certify",
+                    "ClearMessagePane",
+                    "ProjectDownload",
+                    "CertificationFileExists",
+                    "SaveMessageCount",
+                    "isCurrentMessageCountMoreThanSaved",
+                    "isCertifyDateAccurate",
+                    "VerifyBrowseLabelIsNotTypeable"
+                ],
+                "EditProjectFile": {
+                    "ModifyTestData": {
+                        "system.name": "Test Real Project",
+                        "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN",
+                        "devices.0.part_number": "60-1991-01",
+                        "devices.0.name": "My Device",
+                        "system.primary_device_alias": "PanelAlias_2"
+                    },
+                    "InsertTestData": {
+                        "devices.0.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                        "devices.0.network.interfaces.1.type": "AVLAN"
+                    },
+                    "DeleteData": [
+                        "devices.0.username"
+                    ]
+                },
+                "GmCommands": [
+                    {
+                        "Pairing_Primary": "IPCP350Xi",
+                        "Peripheral_Devices": [
+                            "10.113.89.218",
+                            "10.113.89.202"
+                        ],
+                        "NAV_Devices": [
+                            "Navigator",
+                            "NAVE_101",
+                            "NAV10SD_101"
+                        ]
+                    }
+                ],
+                "ProfileAction": [
+                    "UsernameInWindowTitle",
+                    "RenewAndCheckAlert",
+                    "SaveCurrentDate",
+                    "SaveExpirationDate",
+                    "SaveRenewedDate"
+                ],
+                "AccessPageAction": [
+                    "ClickSignOut",
+                    "VerifySoftwareVersion"
+                ],
+                "MiscellaneousAction": [
+                    "ExtronLogFileDoesNotExist",
+                    "DeleteCredentialsFile",
+                    "Modify1000dat"
+                ],
+                "SignInCertifed": "certified || uncertified",
+                "SignOutAction": [
+                    "SignOut",
+                    "Close"
+                ],
+                "Timeout": "slow || medium || fast || superFast || halfSec || customTimeInMiliSeconds",
+                "TroubleshootingAction": [
+                    "StartTrace",
+                    "StopTrace",
+                    "ClearTrace",
+                    "CloseError",
+                    "GoToDeploy",
+                    "NoTraceMessage",
+                    "StopProgramLog",
+                    "StartProgramLog",
+                    "ClickStopProgram",
+                    "RefreshProgramLog",
+                    "ClearProgramLog",
+                    "ShowMessagePane",
+                    "HideMessagePane",
+                    "NoProgramLog",
+                    "VerifyRefreshProgramLogNotClickable",
+                    "VerifyStartProgramNotClickable",
+                    "VerifyStopProgramClickable",
+                    "MessagePaneIsHidden",
+                    "VerifyTraceCountNotPresent",
+                    "VerifyTraceCounter"
+                ],
+                "Toast": {
+                    "VerifyMessage": "message to check for"
+                },
+                "VerifyToastExists": {
+                    "Exist": true
+                },
+                "VerifyMessage.Comment": "In the MessageText you can put 'isEmpty' to check if the VerifyMesasge is empty.",
+                "VerifyMessage": [
+                    {
+                        "MessageText": "system.primary_device_alias: Invalid - The target device cannot be a primary controller",
+                        "MessageType": "Error",
+                        "Exist": true
+                    },
+                    {
+                        "MessageText": "Project deployment failed.",
+                        "MessageType": "Error",
+                        "Exist": true
+                    }
+                ],
+                "VerifyTroubleShootingMessage": [
+                    {
+                        "MessageText": "system.primary_device_alias: Invalid - The target device cannot be a primary controller",
+                        "MessageType": "Error",
+                        "Exist": true
+                    },
+                    {
+                        "MessageText": "Project deployment failed.",
+                        "MessageType": "Error",
+                        "Exist": true
+                    }
+                ],
+                "VerifyErrorUnderDeployFilePath": [
+                    {
+                        "MessageText": "<<underBrowseFailedCertify>>",
+                        "Exist": true
+                    }
+                ],
+                "VerifyTraceMessage": [
+                    {
+                        "MessageText": "Please wait while the program is loading...",
+                        "IpAddress": "192.168.1.123",
+                        "Exist": true
+                    },
+                    {
+                        "MessageText": "Project deployment failed.",
+                        "Exist": true
+                    }
+                ],
+                "VerifyProgramMessageLogs": [
+                    {
+                        "MessageText": "system.primary_device_alias: Invalid - The target device cannot be a primary controller",
+                        "VerifyTraceMessage": [
+                            {
+                                "MessageText": "Please wait while the program is loading...",
+                                "IpAddress": "192.168.1.123",
+                                "Exist": true
+                            },
+                            {
+                                "MessageText": "Project deployment failed.",
+                                "Exist": true
+                            }
+                        ],
+                        "VerifyCLIMessage": [
+                            {
+                                "MessageText": "isEmpty",
+                                "MessageType": "Error",
+                                "Exist": true
+                            },
+                            {
+                                "MessageText": "Project deployment failed.",
+                                "MessageType": "Error",
+                                "Exist": true
+                            }
+                        ]
+                    }
+                ],
+                "Execute": "True"
+            }
+        }
+    }
+}

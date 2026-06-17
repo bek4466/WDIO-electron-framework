@@ -1,0 +1,61 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Deployment is successful when Descriptor Primary Dual Nic Controller LAN matches with live address of Single Nic LAN",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1739\", https://extron.atlassian.net/browse/TOOL-1739",
+            "UserStory": "TOOL-1739 (Bad Scenarios - Dual NIC device support in GSDU)",
+            "TaskLink": "\"Task Issue: TOOL-1216\", https://extron.atlassian.net/browse/TOOL-1216",
+            "TestCaseLink": "\"Test Case: CSP-T1142\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1142",
+            "ProjectFile": "GoldenDualnicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Controller",
+                "devices.0.part_number": "60-1432-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_IPCP_dualnic_AV>>",
+                "devices.0.network.interfaces.1.address": "<<IPCP360_IPCP_dualnic>>",
+                "devices.1.name": "Non-Primary Controller",
+                "devices.1.part_number": "60-1417-01",
+                "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.3.name": "Peripheral Device",
+                "devices.3.part_number": "60-1562-02",
+                "devices.3.network.interfaces.0.address": "<<TLP725T_TLP>>"
+            },
+            "InsertTestData": {
+                "system.myComment": "Primary Controller<<incorrectAVLANAddress1>><<IPCP360_IPCP_dualnic_AV>><<incorrectAVLANAddress2>>10.113.81.144<<incorrectAVLANAddress3>>"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "Primary Controller<<incorrectAVLANAddress1>><<IPCP360_IPCP_dualnic_AV>><<incorrectAVLANAddress2>>10.113.81.144<<incorrectAVLANAddress3>>",
+                    "MessageType": "Error",
+                    "Exist": true
+
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

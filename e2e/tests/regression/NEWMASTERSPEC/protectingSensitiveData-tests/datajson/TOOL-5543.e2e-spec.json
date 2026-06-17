@@ -1,0 +1,175 @@
+{
+  "Execute": [
+    "TestCase1_TroubleshootPageFlakey",
+    "TestCase3"
+  ],
+  "TestCase1_TroubleshootPageFlakey": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify tooltip is displayed on all disabled options",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5332\", https://extron.atlassian.net/browse/TOOL-5332 ",
+      "UserStory": "TOOL-5332: Protected Project Selection",
+      "TaskLink": "\"Task Issue: TOOL-5543\", https://extron.atlassian.net/browse/TOOL-5543 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4910\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4910 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\uncorruptNotAllowed.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "DeployBtn": {
+          "isDisabled": null,
+          "verifyHoverMessage": "<<protectProjectHover>>"
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null,
+          "verifyHoverMessage": "<<protectProjectHover>>"
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true,
+          "verifyHoverMessage": "<<protectProjectHover>>"
+        }
+      },
+      "TroubleshootingAction": [],
+      "Timeout2": "slow",
+      "TroubleshootingPage": {
+        "StartProgramBtn": {
+          "isDisabled": null,
+          "verifyHoverMessage": "<<protectProjectHover>>"
+        },
+        "RefreshLogBtn": {
+          "isDisabled": null,
+          "verifyHoverMessage": "<<protectProjectHover>>"
+        },
+        "StartTraceBtn": {
+          "isDisabled": null,
+          "verifyHoverMessage": "<<protectProjectHover>>"
+        }
+      },
+      "DeployAction": [],
+      "DeployPage3": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\uncorruptAllowed.cspp"
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage4": {
+        "DeployBtn": {
+          "isEnabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null,
+          "verifyHoverMessage": "<<protectProjectHover>>"
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true,
+          "verifyHoverMessage": "<<protectProjectHover>>"
+        }
+      },
+      "TroubleshootingAction2": [],
+      "Timeout4": "slow",
+      "TroubleshootingPage2": {
+        "StartProgramBtn": {
+          "isEnabled": null
+        },
+        "RefreshLogBtn": {
+          "isEnabled": null
+        },
+        "StartTraceBtn": {
+          "isEnabled": null
+        }
+      }
+    }
+  },
+  "TestCase2_AppCrashesOnDeploy": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify error under box for deployable protected project not found",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5332\", https://extron.atlassian.net/browse/TOOL-5332 ",
+      "UserStory": "TOOL-5332: Protected Project Selection",
+      "TaskLink": "\"Task Issue: TOOL-5543\", https://extron.atlassian.net/browse/TOOL-5543 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4919\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4919 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\tempProtectedProj.cspp"
+        }
+      },
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\tempProtectedProj.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "CommonMethod2": {
+        "deleteFile": "TmpDownloadProject\\tempProtectedProj.cspp"
+      },
+      "Timeout2": "fast",
+      "DeployAction": [
+        "Deploy"
+      ],
+      "Timeout3": "medium",
+      "DeployPage2": {
+        "VerifyProjectFileErrorMessage": [
+          {
+            "MessageText": "<<noFileErrorMessage>>",
+            "Exist": true
+          }
+        ],
+        "ExtractProjectBtn": {
+          "exists": false
+        },
+        "ProtectProjectBtn": {
+          "verifyHoverMessage": "<<validProtectTooltip>>"
+        }
+      }
+    }
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify error under box for unsupported characters in a protected project",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5332\", https://extron.atlassian.net/browse/TOOL-5332 ",
+      "UserStory": "TOOL-5332: Protected Project Selection",
+      "TaskLink": "\"Task Issue: TOOL-5543\", https://extron.atlassian.net/browse/TOOL-5543 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4920\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4920 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\@tempProtectedProj.cspp"
+        }
+      },
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\@tempProtectedProj.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "VerifyProjectFileErrorMessage": [
+          {
+            "MessageText": "<<unsupportedCharacterTryAgain>>",
+            "Exist": true
+          }
+        ],
+        "ExtractProjectBtn": {
+          "isDisabled": true,
+          "verifyHoverMessage": "<<validCsppHover>>"
+        }
+      }
+    }
+  }
+}

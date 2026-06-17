@@ -1,0 +1,13 @@
+{
+    "default": 0,
+    "invalidCommand": -18,
+    "invalidOption": -17,
+    "invalidSyntax":-184,
+    "invalidFileOption" : -180,
+    "missingFileOption" : -181,
+    "invalidFileType" : -182,
+    "fileNotExistOption" : -183,
+    "FailedDeploy" : -185,
+    "unsupportedCharacters" : -186
+
+}

@@ -1,0 +1,68 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deploy command -h flag",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2346\", https://extron.atlassian.net/browse/TOOL-2346",
+            "UserStory": "TOOL-2346 (CLI Deploy - Deploy Command Help)",
+            "TaskLink": "\"Task Issue: TOOL-2404\", https://extron.atlassian.net/browse/TOOL-2404",
+            "TestCaseLink": "\"Test Case: TOOL-T311\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T311\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Deploy command -h flag"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "deploy -h",
+            "VerifyExitCode": "default",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "Usage: csdu.cmd deploy [options]deploy control systemOptions:  -f, --file <filepath>  project descriptor file path  -h, --help             display help for commandExample:csdu.cmd deploy -f \"C:/Users/Public/Documents/EngConfRoom3/projDesc.json\"",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deploy command --help flag",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2346\", https://extron.atlassian.net/browse/TOOL-2346",
+            "UserStory": "TOOL-2346 (CLI Deploy - Deploy Command Help)",
+            "TaskLink": "\"Task Issue: TOOL-2404\", https://extron.atlassian.net/browse/TOOL-2404",
+            "TestCaseLink": "\"Test Case: TOOL-T312\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T312\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Deploy command --help flag"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "deploy --help",
+            "VerifyExitCode": "default",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "Usage: csdu.cmd deploy [options]deploy control systemOptions:  -f, --file <filepath>  project descriptor file path  -h, --help             display help for commandExample:csdu.cmd deploy -f \"C:/Users/Public/Documents/EngConfRoom3/projDesc.json\"",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

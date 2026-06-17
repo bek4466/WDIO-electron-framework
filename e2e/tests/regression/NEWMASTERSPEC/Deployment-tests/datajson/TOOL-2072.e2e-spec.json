@@ -1,0 +1,62 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deploy button is enabled, if destiny file is selected.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1461\", https://extron.atlassian.net/browse/TOOL-1641",
+            "UserStory": "TOOL-1461 (As MG or FG, I want to clearly understand when I can start deployment within the app so that I am not confused by what I can do)",
+            "TaskLink": "\"Task Issue: TOOL-2072\", https://extron.atlassian.net/browse/TOOL-2072",
+            "TestCaseLink": "\"Test Case: CSP-T1068\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1068",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPCP550_IPCP_singlenic",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.part_number": "60-1418-01",
+                "devices.2.network": {},
+                "devices.2.network.interfaces" : [],
+                "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+                "devices.2.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployPage": {
+                "DeployBtn": {
+                    "isEnabled": true
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

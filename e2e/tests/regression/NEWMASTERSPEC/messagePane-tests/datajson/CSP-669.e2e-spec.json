@@ -1,0 +1,50 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify “Messages” pane state should persist within the troubleshooting view.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Message Pane",
+            "UserStoryLink": "\"CSP-550: messages consistency\", https://extron.atlassian.net/browse/CSP-550",
+            "UserStory": "CSP-550",
+            "TaskLink": "\"Task Issue: CSP-584\", https://extron.atlassian.net/browse/CSP-584",
+            "TestCaseLink": "\"Test Case: CSP-T852\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T852",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "TroubleshootingAction": [
+                "ShowMessagePane",
+                "MessagePaneIsShown",
+                "HideMessagePane"
+            ],
+            "DeployAction": [],
+            "TroubleshootingAction2": [
+                "MessagePaneIsHidden",
+                "ShowMessagePane"
+            ],
+            "DeployAction2": [],
+            "TroubleshootingAction3": [
+                "MessagePaneIsShown"
+            ]
+        }
+    }
+}

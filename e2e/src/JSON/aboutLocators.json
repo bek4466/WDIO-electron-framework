@@ -1,0 +1,11 @@
+{
+    "aboutPage": "//*[@id='aboutMenuOption']",
+    "aboutTitle": "//*[@class='about-csdu']",
+    "versionNumber": "//*[@class='version-number']",
+    "copyright": "//*[@class='copyright-message']",
+    "disclaimer": "//*[@class='legal-disclaimer']",
+    "eulaLink" : "//*[@id='progcomp-eula-href']",
+    "partNumber" : "//*[@class='part-number']",
+    "eula" : "//*[@id='sync-dialog-0']/div[1]/div/h2",
+    "eulaClose" : "//*[@id='sync-dialog-0']/div[1]/mat-icon"
+}

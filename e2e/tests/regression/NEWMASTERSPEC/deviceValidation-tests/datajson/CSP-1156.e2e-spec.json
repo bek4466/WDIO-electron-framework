@@ -1,0 +1,218 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3",
+    "TestCase4"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid IPV4.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1156\", https://extron.atlassian.net/browse/CSP-1156",
+      "TestCaseLink": "\"Test Case: CSP-T1302\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1302",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.network.interfaces.0.address": "1.2.3."
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device<<invalidDeviceAddress>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Missing (Peripheral) devices.network.interfaces.address key.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1156\", https://extron.atlassian.net/browse/CSP-1156",
+      "TestCaseLink": "\"Test Case: CSP-T1303\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1303",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.2.network.interfaces.0.address"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device<<missingPeripheralDeviceAddress>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key - duplicate values.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1156\", https://extron.atlassian.net/browse/CSP-1156",
+      "TestCaseLink": "\"Test Case: CSP-T1304\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1304",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device<<duplicateDeviceAddress>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be an error message when primary_device_alias has peripheral device's alias.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: CSP-1028\", https://extron.atlassian.net/browse/CSP-1028",
+      "UserStory": "TLP NC Support - Device Validation",
+      "TaskLink": "\"Task Issue: CSP-1156\", https://extron.atlassian.net/browse/CSP-1156",
+      "TestCaseLink": "\"Test Case: CSP-T1305\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1305",
+      "ProjectFile": "TLPNCProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.2.name": "My Peripheral Device",
+        "system.primary_device_alias": "PanelAlias_2"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<primaryTlpAliasMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

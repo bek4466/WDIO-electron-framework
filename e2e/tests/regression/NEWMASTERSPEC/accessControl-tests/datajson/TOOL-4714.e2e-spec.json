@@ -1,0 +1,40 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that pressing the Sign Out button on application takes the user back to the Login page",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-4627\", https://extron.atlassian.net/browse/TOOL-4627",
+      "UserStory": "TOOL-4627 (Signing out of CSDU returns the user to the Sign-In Page)",
+      "TaskLink": "\"Task Issue: TOOL-4714\", https://extron.atlassian.net/browse/TOOL-4714",
+      "TestCaseLink": "\"Test Case: TOOL-T3868\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/19146238",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Steps": {
+      "DeployPage":{
+        "DeployBtn": {
+          "isDisabled": null
+        }
+      },
+      "SignOutAction": [
+        "ClickSignOut"
+      ],
+      "SignOutPopUp": {
+        "signOutBtn": {
+          "click": null
+        }
+      },
+      "Timeout": "slow",
+      "Timeout_2": "slow",
+      "LoginPage": {
+        "SignInBtn": {
+            "isVisible": true
+        }
+      }
+    },
+    "Execute": "True"
+  }
+}

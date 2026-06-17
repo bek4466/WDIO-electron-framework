@@ -1,0 +1,148 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2", "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - Missing system.data_file_path - UI.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2326\", https://extron.atlassian.net/browse/TOOL-2326",
+            "UserStory": "TOOL-2326: Data File - Happy Path",
+            "TaskLink": "\"Task Issue: TOOL-2419\", https://extron.atlassian.net/browse/TOOL-2419",
+            "TestCaseLink": "\"Test Case: TOOL-T339\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T339",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that user is able to use Trace successfully in UI with Data File credentials",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2326\", https://extron.atlassian.net/browse/TOOL-2326",
+            "UserStory": "TOOL-2326: Data File - Happy Path",
+            "TaskLink": "\"Task Issue: TOOL-2414\", https://extron.atlassian.net/browse/TOOL-2414",
+            "TestCaseLink": "\"Test Case: TOOL-T340\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T340",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "VerifyTraceMessage": [
+                {
+                    "MessageText": "Please wait while the program is loading...",
+                    "IpAddress": "<<IPCP255_IPCP_dualnic>>",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that user is able to retrieve Program Logs successfully in UI using Data File credentials",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2326\", https://extron.atlassian.net/browse/TOOL-2326",
+            "UserStory": "TOOL-2326: Data File - Happy Path",
+            "TaskLink": "\"Task Issue: TOOL-2414\", https://extron.atlassian.net/browse/TOOL-2414",
+            "TestCaseLink": "\"Test Case: TOOL-T361\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T361",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "system.data_file_path": "test/path"
+                }
+            },
+            "DeployPage": {
+                "ProjectFilePathInput" : {
+                    "setPath": "ProtectingSecretsProject\\systeminfoTmp.json"
+                },
+                "DeployBtn": {
+                    "isDisabled": null
+                },
+                "ProjectCredentialsBtn": {
+                    "isDisabled": true
+                }
+            }
+        }
+    }
+}

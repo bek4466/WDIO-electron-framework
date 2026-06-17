@@ -1,0 +1,108 @@
+{"TestCase1":{
+    "TestDescription":"Verify Info message displayed when Button Panel device is reachable",
+    "Precondition" : "Set the Physical Ebus ID to 14 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Button Panels Support",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 987 (Button Panels Support)",
+    "TaskLink":"\"Task Issue: CSP-1132\", \"https://extron.atlassian.net/browse/CSP-1132\"",
+    "TestCaseLink":"\"Test Case: CSP-T1259  \", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1259\"",
+    "TestCaseHeader":"Verify Info message displayed when Button Panel device is reachable",
+    "ModifyTestData":{
+        "devices.1.name": "EBP 110EU/MK",
+        "devices.1.ebus_id" : 3
+        },
+    "VerifyMessage":[
+        {"MessageText":"EBP 110EU/MK - Hardware found : Device is reachable at the 3.", "MessageType":"Info","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+},
+"TestCase2":{
+    "TestDescription":"Verify Info message displayed when live Button panel device matches described device in destiny file",
+    "Precondition" : "Set the Physical Ebus ID to 14 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Button Panels Support",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 987 (Button Panels Support)",
+    "TaskLink":"\"Task Issue: CSP-1132\", \"https://extron.atlassian.net/browse/CSP-1132\"",
+    "TestCaseLink":"\"Test Case: CSP-T1260\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1260\"",
+    "TestCaseHeader":"Verify Info message displayed when live Button panel device matches described device in destiny file",
+    "ModifyTestData":{
+        "devices.1.name": "EBP 110EU/MK",
+        "devices.1.ebus_id" : 3
+        },
+    "VerifyMessage":[
+        {"MessageText":"EBP 110EU/MK - Hardware Match : The specified device match with the live device at the 3.", "MessageType":"Info","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+},
+"TestCase3":{
+    "TestDescription":"Verify error message displayed when Button Panel device is not compatible",
+    "Precondition" : "Set the Physical Ebus ID to 14 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Button Panels Support",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 987 (Button Panels Support)",
+    "TaskLink":"\"Task Issue: CSP-1132\", \"https://extron.atlassian.net/browse/CSP-1132\"",
+    "TestCaseLink":"\"Test Case: CSP-T1266\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1266\"",
+    "TestCaseHeader":"Verify error message displayed when Button Panel device is not compatible",
+    "ModifyTestData":{
+        "devices.1.name": "EBP 110EU/MK",
+        "devices.1.ebus_id" : 18
+        },
+    "VerifyMessage":[
+        {"MessageText":"EBP 110EU/MK - Hardware Incompatible : The specified device is not compatible with the live device at the 18.", "MessageType":"Error","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+},
+
+"TestCase4":{
+    "TestDescription":"Verify error message displayed when Button Panel device is not reachable",
+    "Precondition" : "Set the Physical Ebus ID to 14 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Button Panels Support",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 987 (Button Panels Support)",
+    "TaskLink":"\"Task Issue: CSP-1132\", \"https://extron.atlassian.net/browse/CSP-1132\"",
+    "TestCaseLink":"\"Test Case: CSP-T1263\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1263\"",
+    "TestCaseHeader":"Verify error message displayed when Button Panel device is not reachable",
+    "ModifyTestData":{
+        "devices.1.name": "EBP 110EU/MK",
+        "devices.1.part_number" : "60-1190-30",
+        "devices.1.ebus_id" : 5
+        },
+    "VerifyMessage":[
+        {"MessageText":"EBP 110EU/MK - Hardware not found : The device at the 5 is not found. Please check the device connection and retry.", "MessageType":"Error","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+},
+"TestCase5":{
+    "TestDescription":"Verify Warning message displayed when Button Panel device is not matching",
+    "Precondition" : "Set the Physical Ebus ID to 3 as a precondition to pass the test case",
+    "Owner":"Amit B",
+    "SuiteType":"Button Panels Support",
+    "UserStoryLink":"\"User Story: CSP-994\", \"https://extron.atlassian.net/browse/CSP-994\"",
+    "UserStory":"CSP- 987 (Button Panels Support)",
+    "TaskLink":"\"Task Issue: CSP-1132\", \"https://extron.atlassian.net/browse/CSP-1132\"",
+    "TestCaseLink":"\"Test Case: CSP-T1269\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1268\"",
+    "TestCaseHeader":"Verify Warning message displayed when Button Panel device is not matching",
+    "ModifyTestData":{
+        "devices.1.part_number" : "60-1085-00",
+        "devices.1.ebus_id" : 3
+        },
+    "VerifyMessage":[
+        {"MessageText":"EBP 110EU/MK - Hardware mismatch : The specified device does not match live device at the 3.", "MessageType":"Warning","Exist":true},
+        {"MessageText":"EbusProject - Project deployment completed.", "MessageType":"Info","Exist":true}
+
+    ],
+    "Execute":"True"
+}
+}

@@ -1,0 +1,142 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that first listed Lan Address for Dual Nic Primary Controller is included in Project Credentials when multiple LAN type addressess are listed within Network interface array in systeminfo.json.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1660\", https://extron.atlassian.net/browse/TOOL-1660 ",
+            "UserStory": "TOOL-1660 (As  a user, I want to identify the device in the connection manager so that I can specify the credentials and perform project deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1210\", https://extron.atlassian.net/browse/TOOL-1210 ",
+            "TestCaseLink": "\"Test Case: TOOL-4096\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4096 ",
+            "ProjectFile": "GoldenDualnicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+              
+             
+            },
+            "InsertTestData": {
+              "devices.0.network.interfaces.1.address": "<<Pro550_IPCP_2>>",
+              "devices.0.network.interfaces.1.type": "LAN",
+              "devices.0.network.interfaces.2.address": "10.113.135.2",
+              "devices.0.network.interfaces.2.type": "LAN"
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+          "DeployPage": {
+            "ProjectCredentialsBtn":{"click":{}},
+            "Timeout" : 10000,
+            
+            "ProjectCredentialsPopUp": {
+              "Address":{
+                  "row_0": {
+                      "verifyIP": "<<IPCP360_IPCP_dualnic>>",
+                      "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                      "verifyNotExistIP2": "10.113.135.2"
+                  },
+                  "row_1": {
+                    "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                    "verifyNotExistIP2": "10.113.135.2"
+                },
+                "row_2": {
+                  "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                  "verifyNotExistIP2": "10.113.135.2"
+                }
+              }
+          }
+        }
+      },
+        "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify that first listed Lan Address for Dual Nic Primary Controller is included in Connection Manager when the Lan and Avlan type network addresess are included within Network interface array in systeminfo.json.",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "Deployment",
+          "UserStoryLink": "\"User Story: TOOL-1660\", https://extron.atlassian.net/browse/TOOL-1660 ",
+          "UserStory": "TOOL-1660 (As  a user, I want to identify the device in the connection manager so that I can specify the credentials and perform project deployment)",
+          "TaskLink": "\"Task Issue: TOOL-1210\", https://extron.atlassian.net/browse/TOOL-1210 ",
+          "TestCaseLink": "\"Test Case: TOOL-4081\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4081 ",
+          "ProjectFile": "GoldenDualnicProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      
+      "Preconditions": {
+          "ModifyTestData": {
+            "devices.0.network.interfaces.0.address": "<<IPCP360_IPCP_dualnic_AV>>",
+            "devices.0.network.interfaces.0.type": "AVLAN",
+            "devices.0.network.interfaces.1.address": "<<IPCP360_IPCP_dualnic>>",
+            "devices.0.network.interfaces.1.type": "LAN" 
+           
+          },
+          "InsertTestData": {
+            
+            "devices.0.network.interfaces.2.address": "<<AV_IPCP255_IPCP_dualnic_AV>>",
+            "devices.0.network.interfaces.2.type": "AVLAN"
+          },
+          "DeleteData": [
+              
+          ]
+      },
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+        "DeployPage": {
+          "ProjectCredentialsBtn":{"click":{}},
+          "Timeout" : 10000,
+          
+          "ProjectCredentialsPopUp": {
+            "Address":{
+                "row_0": {
+                    "verifyIP": "<<IPCP360_IPCP_dualnic>>",
+                    "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                    "verifyNotExistIP2": "10.113.135.2"
+                },
+                "row_1": {
+                  "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                  "verifyNotExistIP2": "10.113.135.2"
+              },
+              "row_2": {
+                "verifyNotExistIP": "<<Pro550_IPCP_2>>",
+                "verifyNotExistIP2": "10.113.135.2"
+              }
+            }
+        }
+      }
+    },
+      "Execute": "True"
+  }
+}
+

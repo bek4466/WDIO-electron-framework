@@ -1,0 +1,115 @@
+{
+    "Execute":["TestCase1","TestCase2"],
+  
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of Peripheral Controller at the time of  Deploy(Index Identifier",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-1728\", https://extron.atlassian.net/browse/TOOL-1728",
+            "UserStory": "Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOL-4126\", https://extron.atlassian.net/browse/TOOL-4126",
+            "TestCaseLink": "\"Test Case: TOOL-T3885\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3885",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "DeleteData":["devices.1.name"]
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<hardwareMatchMessagePeripheral>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of Primary Controller at the time of Deploy (Index Identifier)",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-1728\", https://extron.atlassian.net/browse/TOOL-1728",
+            "UserStory": "Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOL-4126\", https://extron.atlassian.net/browse/TOOL-4126",
+            "TestCaseLink": "\"Test Case: TOOL-T3884\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3884",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+        
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "DeleteData":["devices.0.name"]
+                  
+                  
+                
+                }
+            
+            ,
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<hardwareMatchMessagePrimary>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+
+            
+        }
+       
+    }
+ 
+   
+   
+          }

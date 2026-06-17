@@ -1,0 +1,100 @@
+{
+    "Execute":[ "TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that adding more than 8 ebus's  in destiny gives error message.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1686\", https://extron.atlassian.net/browse/TOOL-1686 ",
+            "UserStory": "TOOL-1686 (devices.ebus_id)",
+            "TaskLink": "\"Task Issue: TOOL-2003\",https://extron.atlassian.net/browse/TOOL-2003 ",
+            "TestCaseLink": "\"Test Case: TOOL-T3731\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3731 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "1240",
+                "devices.0.name": "My Host Device"
+            },
+            "InsertTestData": {
+                "devices.3.ebus_id" : 1,
+                "devices.3.name" : "My eBUS Device 1",
+                "devices.3.part_number": "60-1085-30",
+                "devices.3.alias": "eBUSAlias",
+                "devices.4.ebus_id" : 2,
+                "devices.4.name" : "My eBUS Device 2",
+                "devices.4.part_number": "60-1085-30",
+                "devices.4.alias": "eBUSAlias2",
+                "devices.5.ebus_id" : 3,
+                "devices.5.name" : "My eBUS Device 3",
+                "devices.5.part_number": "60-1085-30",
+                "devices.5.alias": "eBUSAlias3",
+                "devices.6.ebus_id" : 4,
+                "devices.6.name" : "My eBUS Device 4",
+                "devices.6.part_number": "60-1085-30",
+                "devices.6.alias": "eBUSAlias4",
+                "devices.7.ebus_id" : 5,
+                "devices.7.name" : "My eBUS Device 5",
+                "devices.7.part_number": "60-1085-30",
+                "devices.7.alias": "eBUSAlias5",
+                "devices.8.ebus_id" : 6,
+                "devices.8.name" : "My eBUS Device 6",
+                "devices.8.part_number": "60-1085-30",
+                "devices.8.alias": "eBUSAlias6",
+                "devices.9.ebus_id" : 7,
+                "devices.9.name" : "My eBUS Device 7",
+                "devices.9.part_number": "60-1085-30",
+                "devices.9.alias": "eBUSAlias7",
+                "devices.10.ebus_id" : 8,
+                "devices.10.name" : "My eBUS Device 8",
+                "devices.10.part_number": "60-1085-30",
+                "devices.10.alias": "eBUSAlias8",
+                "devices.11.ebus_id" : 9,
+                "devices.11.name" : "My eBUS Device 9",
+                "devices.11.part_number": "60-1085-30",
+                "devices.11.alias": "eBUSAlias9"
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Host Device<<overEightEbusErrorMessage>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "true"
+    }
+
+   
+}

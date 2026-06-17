@@ -1,0 +1,319 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment should go through, if system info has peripheral with address as host name using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/TOOL-2065\"",
+            "UserStory": "TOOL-2065 (CLI Project Descriptor Validation)",
+            "TaskLink": "\"Task Issue: TOOL-2223\", \"https://extron.atlassian.net/browse/TOOL-2223\"",
+            "TestCaseLink": "\"Test Case: TOOL-T189\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T189\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify deployment should go through, if system info has peripheral with address as host name using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1": {
+                    "name": "My Peripheral Device",
+                    "part_number": "60-1432-01",
+                    "alias": "Peripheral",
+                    "username": "admin",
+                    "password": "extron",
+                    "network": {
+                        "host_network_type": "LAN",
+                        "interfaces": [
+                            {
+                                "address": "_IPCP-Pro-360-18-17-D8",
+                                "type": "LAN"
+                            },
+                            {
+                                "address": "192.168.254.1",
+                                "type": "AVLAN"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Peripheral Device - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment should go through, if system info has peripheral with address as host name(FQDN) using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/TOOL-2065\"",
+            "UserStory": "TOOL-2065 (CLI Project Descriptor Validation)",
+            "TaskLink": "\"Task Issue: TOOL-2223\", \"https://extron.atlassian.net/browse/TOOL-2223\"",
+            "TestCaseLink": "\"Test Case: TOOL-T190\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T190\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify deployment should go through, if system info has peripheral with address as host name(FQDN) using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1": {
+                    "name": "My Peripheral Device",
+                    "part_number": "60-1432-01",
+                    "alias": "Peripheral",
+                    "username": "admin",
+                    "password": "extron",
+                    "network": {
+                        "host_network_type": "LAN",
+                        "interfaces": [
+                            {
+                                "address": "_IPCP-Pro-360-18-17-D8.extron.com",
+                                "type": "LAN"
+                            },
+                            {
+                                "address": "192.168.254.1",
+                                "type": "AVLAN"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Peripheral Device - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for invalid peripheral devices.alias for CLI - Empty.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/TOOL-2065\"",
+            "UserStory": "TOOL-2065 (CLI Project Descriptor Validation)",
+            "TaskLink": "\"Task Issue: TOOL-2223\", \"https://extron.atlassian.net/browse/TOOL-2223\"",
+            "TestCaseLink": "\"Test Case: TOOL-T196\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T196\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify there should be error message in message pane for invalid peripheral devices.alias for CLI - Empty."
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.name": "My Peripheral Device",
+                "devices.1.alias": true
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Peripheral Device - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Peripheral Device - Device paired successfully with primary device",
+                    "MessageType": "info",
+                    "Exist": false
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for missing peripheral devices.alias for CLI - Empty String",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/TOOL-2065\"",
+            "UserStory": "TOOL-2065 (CLI Project Descriptor Validation)",
+            "TaskLink": "\"Task Issue: TOOL-2223\", \"https://extron.atlassian.net/browse/TOOL-2223\"",
+            "TestCaseLink": "\"Test Case: TOOL-T197\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T197\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify there should be error message in message pane for missing peripheral devices.alias for CLI - Empty String"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.name": "My Peripheral Device",
+                "devices.1.alias": ""
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Peripheral Device - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Peripheral Device - Device paired successfully with primary device",
+                    "MessageType": "info",
+                    "Exist": false
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that at the time of deployment using CLI, a info message validates existence of Hardware(Primary Controller) at the time of Deploy",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/TOOL-2065\"",
+            "UserStory": "TOOL-2065 (CLI Project Descriptor Validation)",
+            "TaskLink": "\"Task Issue: TOOL-2223\", \"https://extron.atlassian.net/browse/TOOL-2223\"",
+            "TestCaseLink": "\"Test Case: TOOL-T208\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T208\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that at the time of deployment using CLI, a info message validates existence of Hardware(Primary Controller) at the time of Deploy"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.name": "My Peripheral Device",
+                "devices.0.network": {
+                    "interfaces": [
+                        {
+                            "address": "198.168.254.1",
+                            "type": "OOB"
+                        },
+                        {
+                            "address": "198.168.254.2",
+                            "type": "AVLAN"
+                        },
+                        {
+                            "address": "10.113.89.220",
+                            "type": "LAN"
+                        },
+                        {
+                            "address": "10.113.89.221",
+                            "type": "LAN"
+                        }
+                    ]
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Peripheral Device - Device paired successfully with primary device",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Device - Hardware found : Connected to device at 10.113.89.220.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase6": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy(Cli Deployment)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/TOOL-2065\"",
+            "UserStory": "TOOL-2065 (CLI Project Descriptor Validation)",
+            "TaskLink": "\"Task Issue: TOOL-2223\", \"https://extron.atlassian.net/browse/TOOL-2223\"",
+            "TestCaseLink": "\"Test Case: TOOL-T209\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T209\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy(Cli Deployment)"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.name": "My Peripheral Device",
+                "devices.1.network": {
+                    "host_network_type": "LAN",
+                    "interfaces": [
+                        {
+                            "address": "198.168.254.1",
+                            "type": "OOB"
+                        },
+                        {
+                            "address": "198.168.254.2",
+                            "type": "AVLAN"
+                        },
+                        {
+                            "address": "10.113.89.214",
+                            "type": "LAN"
+                        },
+                        {
+                            "address": "10.113.89.221",
+                            "type": "LAN"
+                        }
+                    ]
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Peripheral Device - Device paired successfully with primary device",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Peripheral Device - Hardware found : Connected to device at 10.113.89.214.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

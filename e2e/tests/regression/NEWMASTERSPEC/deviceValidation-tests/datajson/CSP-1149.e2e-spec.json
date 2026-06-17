@@ -1,0 +1,115 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that missing key for \"devices.password\" (Peripheral Device) throws warning messages and Kevin window is NOT displayed.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1591\", https://extron.atlassian.net/browse/TOOL-1591",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1242\", https://extron.atlassian.net/browse/TOOL-1242",
+      "TestCaseLink": "\"Test Case: CSP-T1277\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1277",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.network.interfaces.0.address": "<<OFFLINECONTROLLER>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": ""
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<unreachableNamedPeripheralDeviceMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that missing key for \"devices.username\" (Peripheral Device) throws warning messages and Kevin window is NOT displayed.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1591\", https://extron.atlassian.net/browse/TOOL-1591",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1242\", https://extron.atlassian.net/browse/TOOL-1242",
+      "TestCaseLink": "\"Test Case: CSP-T1280\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1280",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.network.interfaces.0.address": "<<OFFLINECONTROLLER>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<unreachableNamedPeripheralDeviceMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

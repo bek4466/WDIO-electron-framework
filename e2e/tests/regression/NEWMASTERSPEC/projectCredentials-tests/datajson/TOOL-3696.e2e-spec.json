@@ -1,0 +1,100 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that data file is in correct location for downloaded project",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3600\", https://extron.atlassian.net/browse/TOOL-3600",
+      "UserStory": "TOOL-3600 Download/Recovery: Recover Data File from Primary Controller",
+      "TaskLink": "\"Task Issue: TOOL-3696\", https://extron.atlassian.net/browse/TOOL-3696",
+      "TestCaseLink": "\"Test Case: TOOL-T4500\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4500",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ],
+        "DeployAction2": [
+          "ProjectDownload"
+        ],
+        "CommonMethod": {
+          "findFile": {
+            "path": "TmpDownloadProject/dataFile\\DataFile.json"
+          }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that data file is in correct location for downloaded project (Uncertified)",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3600\", https://extron.atlassian.net/browse/TOOL-3600",
+      "UserStory": "TOOL-3600 Download/Recovery: Recover Data File from Primary Controller",
+      "TaskLink": "\"Task Issue: TOOL-3696\", https://extron.atlassian.net/browse/TOOL-3696",
+      "TestCaseLink": "\"Test Case: TOOL-T4516\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4516",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      
+    },
+    "Steps": {
+        "AppAction": [
+          "Logout",
+          {
+            "user": "uncertified",
+            "pass": "uncertified"
+          }
+        ],
+
+        "Timeout": "fast",
+        "DeployPage": {
+          "ProjectFilePathInput": {
+            "setPath": "CredentialsProject\\systeminfoTmp.json"
+          }
+        },
+
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ],
+        "DeployAction2": [
+          "ProjectDownload"
+        ],
+        "CommonMethod": {
+          "findFile": {
+            "path": "TmpDownloadProject/dataFile\\DataFile.json"
+          }
+      }
+    }
+  }
+}

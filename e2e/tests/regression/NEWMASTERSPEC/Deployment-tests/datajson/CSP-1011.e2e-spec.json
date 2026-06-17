@@ -1,0 +1,130 @@
+{
+    "Execute":[ "TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid type \"devices.name\" (NAV Peripheral Device) in destiny gives appropriate error message.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1683\", https://extron.atlassian.net/browse/TOOL-1683 ",
+            "UserStory": "TOOL-1683 (As Francisco Garcia, I want to identify issues with my NAVigator, So that I can successfully deploy my NAV system)",
+            "TaskLink": "\"Task Issue: TOOL-1369\", https://extron.atlassian.net/browse/TOOL-1369 ",
+            "TestCaseLink": "\"Test Case: CSP-T1164\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1164 ",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "1238",
+                "devices.1.name": 1234,
+                "devices.1.network.interfaces.0.address": "<<Navigator_1>>"
+               
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "1234<<invalidDName>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify error message should be shown in message pane for missing NAV devices's Part number.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1683\", https://extron.atlassian.net/browse/TOOL-1683 ",
+            "UserStory": "TOOL-1683 (As Francisco Garcia, I want to identify issues with my NAVigator, So that I can successfully deploy my NAV system)",
+            "TaskLink": "\"Task Issue: TOOL-1369\", https://extron.atlassian.net/browse/TOOL-1369 ",
+            "TestCaseLink": "\"Test Case: CSP-T1165\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1165 ",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+
+                "devices.1.network.interfaces.0.address": "<<Navigator_1>>",
+                "devices.1.name": "NavDevice"
+               
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+                "devices.1.part_number"
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NavDevice<<missingPrimaryPartNumber>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+
+   
+}

@@ -1,0 +1,31 @@
+{
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message",
+        "Owner": "Kiran Shrestha",
+        "SuiteType": "Deploy Validation",
+        "UserStoryLink": "\"User Story: TOOL-3112\", https://extron.atlassian.net/browse/TOOL-3112",
+        "UserStory": "TOOL-3112 (TLP - Deployment)",
+        "TaskLink": "\"Task Issue: TOOL-3313\", https://extron.atlassian.net/browse/TOOL-3313",
+        "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+        "TestCaseLink": "\"Test Case: TOOL-T835\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173495",
+        "TestCaseHeader": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "system.name": "TestTLPLL"
+        }
+      },
+      "Steps": {
+        "Command": "Deploy",
+        "VerifyMessage": [
+          {
+            "MessageText": "TLP Pro 300M with LinkLicense - Hardware Match : Device matched with live device on the network.",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    }
+  }

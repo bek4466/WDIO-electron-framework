@@ -1,0 +1,90 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Single NIC controller system deploys with software on LAN and Dual NIC device on LAN",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1740\", https://extron.atlassian.net/browse/TOOL-1740 ",
+            "UserStory": "TOOL-1740 (As a user, I want to use Dual NIC controllers in the project and perform deployment so that I can make my system more secure)",
+            "TaskLink": "\"Task Issue: TOOL-1196\", https://extron.atlassian.net/browse/TOOL-1196 ",
+            "TestCaseLink": "\"Test Case: CSP-T1092\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1092 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+              "system.system_id": "1439",
+              "devices.0.network.interfaces.0.address": "<<Pro350__IPCP>>",
+              "devices.0.name": "Primary_control",
+              "devices.1.name": "Secondary_controller",
+              "devices.2.name": "Pheripheral"
+              
+
+             
+            },
+            "InsertTestData": {
+              "devices.3.name": "DualNic_controller",
+              "devices.3.part_number" : "60-1431-01",
+              "devices.3.alias" : "Dual_nic_controller",
+              
+              "devices.3.network": {},
+              "devices.3.network.host_network_type":"LAN",
+                "devices.3.network.interfaces" : [],
+              "devices.3.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+              "devices.3.network.interfaces.0.type": "LAN",
+              "devices.3.network.interfaces.1.address": "192.168.254.1",
+              "devices.3.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                  "MessageText": "Pheripheral<<pairingPositiveMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                },
+                {
+                  "MessageText": "Secondary_controller<<pairingPositiveMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                },
+                {
+                  "MessageText": "DualNic_controller<<pairingPositiveMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}
+

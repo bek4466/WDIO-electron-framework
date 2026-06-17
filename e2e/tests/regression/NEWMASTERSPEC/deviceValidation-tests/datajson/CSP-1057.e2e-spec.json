@@ -1,0 +1,65 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be an error message when primary_device_alias has NAV device's alias.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1683\", https://extron.atlassian.net/browse/TOOL-1683",
+            "UserStory": "TOOL-1683 (NAVigator Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-1377\", https://extron.atlassian.net/browse/TOOL-1377",
+            "TestCaseLink": "\"Test Case: CSP-T1182\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1182",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+              "system.primary_device_alias": "NavAlias",
+              "devices.0.part_number": "60-1431-01",
+              "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+              "devices.1.part_number": "60-1534-01",
+              "devices.1.network.interfaces.0.address": "<<Navigator>>",
+              "devices.2.part_number": "60-1525-12",
+              "devices.2.alias": "NavAlias",
+              "devices.2.name": "My Device",
+              "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+              "devices.3.part_number": "60-1525-14",
+              "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<primaryTlpAliasMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

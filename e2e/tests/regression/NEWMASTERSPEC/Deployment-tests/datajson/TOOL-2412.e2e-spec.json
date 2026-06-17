@@ -1,0 +1,122 @@
+{
+    "Execute":["TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Json pointer is considered as a value when Json pointer are incorrect -UI.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-2327\", https://extron.atlassian.net/browse/TOOL-2327",
+            "UserStory": "TOOL-2327 (As CSDU user, I want to be able to troubleshoot issues with my deployment when using a data + project descriptor file.)",
+            "TaskLink": "\"Task Issue: TOOL-2412\", https://extron.atlassian.net/browse/TOOL-2412",
+            "TestCaseLink": "\"Test Case: CSP-T351\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T351",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "system.data_file_path"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "/path/to/credentials",
+              "pass": "/path/to/credentials"
+            },
+            {
+              "user": "/path/to/credentials",
+              "pass": "/path/to/credentials"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist" : true
+                },
+                {
+                    "MessageText": "<<incorrectPrimaryCredentials>>",
+                    "MessageType": "Error",
+                    "Exist" : true
+                },
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify all Json pointers are considered as a value except Address, user name and password -UI.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-2327\", https://extron.atlassian.net/browse/TOOL-2327",
+            "UserStory": "TOOL-2327 (As CSDU user, I want to be able to troubleshoot issues with my deployment when using a data + project descriptor file.)",
+            "TaskLink": "\"Task Issue: TOOL-2412\", https://extron.atlassian.net/browse/TOOL-2412",
+            "TestCaseLink": "\"Test Case: CSP-T353\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T353",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "QA/path/path",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "QA/path/path<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist" : true
+                },
+                {
+                    "MessageText": "QA/path/path<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist" : true
+                },
+                {
+                    "MessageText": "QA/path/path<<HardwareFoundMessage>>",
+                    "MessageType": "Info",
+                    "Exist" : true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

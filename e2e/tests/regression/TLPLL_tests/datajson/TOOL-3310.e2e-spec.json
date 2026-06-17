@@ -1,0 +1,41 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify TLP w/ LL cannot be peripheral device to another controller",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3111\", https://extron.atlassian.net/browse/TOOL-3111",
+      "UserStory": "TOOL-3111 (TLP w/LL - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3310\", https://extron.atlassian.net/browse/TOOL-3310",
+      "ProjectFile": "HWTLPLLProject\\systeminfoBadSetup.json",
+      "TestCaseLink": "\"Test Case: TOOL-T861\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T861",
+      "TestCaseHeader": "Verify that Primary controller not online gives appropriate error message while starting Trace."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 300M with LinkLicense - Invalid : Primary controller doesn't support the peripheral device.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

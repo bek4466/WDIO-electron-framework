@@ -1,0 +1,56 @@
+{
+  "Execute": ["TestCase1"],
+
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that missing info in system author information give appropriate warning messages",
+      "Owner": "Amit B",
+      "SuiteType": "System Validation Tests ",
+      "UserStoryLink": "\"User Story: TOOL-1677\", https://extron.atlassian.net/browse/TOOL-1768",
+      "UserStory": "system.author",
+      "TaskLink": "\"Task Issue: TOOL-4162\", https://extron.atlassian.net/browse/TOOL-4162",
+      "TestCaseLink": "\"Test Case: TOOL-T3496\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3496",
+      "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.name": "My Device",
+        "devices.1.name": "My Peripheral Device"
+      },
+      "DeleteData": ["system.author"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingAuthorMessage>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+
+    "Execute": "True"
+  }
+}

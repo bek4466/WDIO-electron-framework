@@ -1,0 +1,228 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "(NAVigator) Verify there should be an error message when primary_device_alias has NAV device's alias.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3337\", https://extron.atlassian.net/browse/TOOL-3337",
+            "TestCaseLink": "\"Test Case: TOOL-T908\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861872",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.0.alias": "NewAlas",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.1.alias": "ProcessorAlias",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.3.network.interfaces.0.address": "NAVSD_101"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "system.primary_device_alias: Invalid - The target device cannot be a primary controller",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment failed.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "(NAVE 101) Verify there should be an error message when primary_device_alias has NAV device's alias.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3337\", https://extron.atlassian.net/browse/TOOL-3337",
+            "TestCaseLink": "\"Test Case: TOOL-T908\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861872",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.0.alias": "NewAlas",
+                "devices.1.network2.interfaces.0.address": "Navigator",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.3.network.interfaces.0.address": "NAVSD_101",
+                "devices.4.alias": "ProcessorAlias"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "system.primary_device_alias: Invalid - The target device cannot be a primary controller",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment failed.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "(NAV SD 101) Verify there should be an error message when primary_device_alias has NAV device's alias.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3337\", https://extron.atlassian.net/browse/TOOL-3337",
+            "TestCaseLink": "\"Test Case: TOOL-T908\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861872",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.0.alias": "NewAlas",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.3.network.interfaces.0.address": "NAVSD_101",
+                "devices.3.alias": "ProcessorAlias"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "system.primary_device_alias: Invalid - The target device cannot be a primary controller",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment failed.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing key for \"devices.password\" (NAV Peripheral Device) throws warning messages and Kevin window is NOT displayed.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3277\", https://extron.atlassian.net/browse/TOOL-3277",
+            "UserStory": "TOOL-3277 (NAV - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3337\", https://extron.atlassian.net/browse/TOOL-3337",
+            "TestCaseLink": "\"Test Case: TOOL-T927\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16862278",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.3.network.interfaces.0.address": "NAVSD_101"
+            },
+            "InsertTestData": {},
+            "DeleteData": [
+                "devices.1.password",
+                "devices.2.password",
+                "devices.3.password"
+            ]
+        },
+        "Steps": {
+            "CheckKevin": "Closed",
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : 10.113.81.83 - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

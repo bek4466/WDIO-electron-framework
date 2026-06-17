@@ -1,0 +1,47 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing system definition key give appropriate error messages",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1667\", https://extron.atlassian.net/browse/TOOL-1667",
+            "UserStory": "TOOL-1667: system",
+            "TaskLink": "\"Task Issue: CSP-410\", https://extron.atlassian.net/browse/CSP-410",
+            "TestCaseLink": "\"Test Case: TOOL-T2442\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2442",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": [
+                "system"
+            ]
+        },
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingSystemKey>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

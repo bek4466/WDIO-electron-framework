@@ -1,0 +1,137 @@
+{
+  "Execute": [
+    "TestCase1","TestCase2"
+  ],
+  "TestCase1": {
+        "TestCaseInfo": {
+          "TestDescription": "Verify deploying an unchanged certified project will not update certification.dat file",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "Protecting Sensitive Data",
+          "UserStoryLink": "\"User Story: TOOL-5382\", https://extron.atlassian.net/browse/TOOL-5382",
+          "UserStory": "TOOL-5382 (Correcting re-writing the certification file unnecessarily when deploying or deploying code only)",
+          "TaskLink": "\"Task Issue: TOOL-5546\", https://extron.atlassian.net/browse/TOOL-5546",
+          "TestCaseLink": "\"Test Case: TOOL-T4930\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4930",
+          "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+          "CommonMethod": {
+            "saveFileModifiedDate": {
+                "filePath": "ProtectProjectTest\\systeminfoTmp-certification.dat"
+            }
+        },
+          "DeployAction": ["Certify"],
+          "CommonMethod_2": {
+                "compareFileModifiedDateToSavedDate": {
+                    "filePath": "ProtectProjectTest\\systeminfoTmp-certification.dat",
+                    "expect": "DifferentFromSaved"
+                }
+            },
+          "CommonMethod_3": {
+            "saveFileModifiedDate": {
+            "filePath": "ProtectProjectTest\\systeminfoTmp-certification.dat"
+          }
+            },
+            "Timeout": "medium",
+            "DeployAction2": [
+              "Deploy"
+            ],
+            "VerifyMessage": [
+              {
+                "MessageText": "<<deploySuccessMsg>>",
+                "MessageType": "Info",
+                "Exist": true
+              }
+            ],
+            "CommonMethod_4": {
+             
+                "compareFileModifiedDateToSavedDate": {
+                    "filePath": "ProtectProjectTest\\systeminfoTmp-certification.dat",
+                    "expect": "SameAsSaved"
+                }
+            }
+          
+        }
+  },
+  "TestCase2": {
+        "TestCaseInfo": {
+          "TestDescription": "Verify deploying a changed certified project will update certification.dat file",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "Protecting Sensitive Data",
+          "UserStoryLink": "\"User Story: TOOL-5382\", https://extron.atlassian.net/browse/TOOL-5382",
+          "UserStory": "TOOL-5382 (Correcting re-writing the certification file unnecessarily when deploying or deploying code only)",
+          "TaskLink": "\"Task Issue: TOOL-5546\", https://extron.atlassian.net/browse/TOOL-5546",
+          "TestCaseLink": "\"Test Case: TOOL-T4940\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4940",
+          "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+          "CommonMethod": {
+            "saveFileModifiedDate": {
+                "filePath": "ProtectProjectTest\\systeminfoTmp-certification.dat"
+            }
+        },
+          "DeployAction": ["Certify"],
+          "CommonMethod_2": {
+                "compareFileModifiedDateToSavedDate": {
+                    "filePath": "ProtectProjectTest\\systeminfoTmp-certification.dat",
+                    "expect": "DifferentFromSaved"
+                }
+            },
+          "CommonMethod_3": {
+            "saveFileModifiedDate": {
+            "filePath": "ProtectProjectTest\\systeminfoTmp-certification.dat"
+          }
+          },
+          "EditProjectFile": {
+            "ModifyTestData": {
+                      "system.system_id": "1010"
+          }
+            },
+            "Timeout": "medium",
+            "DeployAction2": [
+              "Deploy"
+            ],
+            "VerifyMessage": [
+              {
+                "MessageText": "<<deploySuccessMsg>>",
+                "MessageType": "Info",
+                "Exist": true
+              }
+            ],
+            "CommonMethod_4": {
+             
+                "compareFileModifiedDateToSavedDate": {
+                    "filePath": "ProtectProjectTest\\systeminfoTmp-certification.dat",
+                    "expect": "DifferentFromSaved"
+                }
+            }
+        }
+  }
+}

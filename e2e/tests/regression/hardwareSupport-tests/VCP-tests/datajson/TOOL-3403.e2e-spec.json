@@ -1,0 +1,191 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be a message for incompatible hardware. with VCP as Primary and CCI Pro 700 as Peripheral(Deprecated)",
+            "Owner": "Austin Lee",
+            "SuiteType": "VCP System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+            "UserStory": "TOOL-3222 (VCP - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3403\", https://extron.atlassian.net/browse/TOOL-3403",
+            "TestCaseLink": "\"Test Case: TOOL-T967\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T967",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "devices.0.name": "VCP",
+                "devices.0.part_number": "60-1838-01",
+                "devices.0.network.interfaces.0.address": "VCP_LAN"
+            },
+            "InsertTestData": {
+                "devices.2.name": "CCI Pro 700",
+                "devices.2.part_number": "60-1206-02",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "TLP300M",
+                "devices.2.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "CCI Pro 700 - Invalid : Primary controller doesn't support the peripheral device",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestVCP - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be a message for incompatible hardware. with VCP as Primary and Ebus as Peripheral",
+            "Owner": "Austin Lee",
+            "SuiteType": "VCP System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+            "UserStory": "TOOL-3222 (VCP - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3403\", https://extron.atlassian.net/browse/TOOL-3403",
+            "TestCaseLink": "\"Test Case: TOOL-T968\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T968",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "devices.0.name": "VCP",
+                "devices.0.part_number": "60-1838-01",
+                "devices.0.network.interfaces.0.address": "VCP_LAN",
+                "devices.1.name": "IPCP Pro 360Q xi : IPCP360_Qxi_LAN",
+                "devices.1.part_number": "60-1916-01",
+                "devices.1.alias": "ProcessorAlias_2",
+                "devices.1.network.interfaces.0.address": "IPCP360_Qxi_LAN",
+                "devices.1.network.interfaces.0.type": "LAN"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "IPCP360_Qxi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN",
+                "devices.2.name": "EBP 100 : 1",
+                "devices.2.part_number": "60-1388-00",
+                "devices.2.alias": "eBUSAlias",
+                "devices.2.ebus_id": 1
+            },
+            "DeleteData": [
+                "devices.1.ui"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "EBP 100 : 1 - Invalid : Primary controller doesn't support the peripheral device",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestVCP - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is thrown for successful deployment when VCP is Primary Device and Qxi is secondary device",
+            "Owner": "Austin Lee",
+            "SuiteType": "VCP System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+            "UserStory": "TOOL-3222 (VCP - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3403\", https://extron.atlassian.net/browse/TOOL-3403",
+            "TestCaseLink": "\"Test Case: TOOL-T969\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T969",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "system.system_id": "0101",
+                "devices.0.name": "VCP",
+                "devices.0.part_number": "60-1838-01",
+                "devices.0.network.interfaces.0.address": "VCP_LAN",
+                "devices.1.name": "IPCP Pro 360Q xi : IPCP360_Qxi_LAN",
+                "devices.1.part_number": "60-1916-01",
+                "devices.1.alias": "ProcessorAlias_2",
+                "devices.1.network.interfaces.0.address": "IPCP360_Qxi_LAN",
+                "devices.1.network.interfaces.0.type": "LAN"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "IPCP360_Qxi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": [
+                "devices.1.ui"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPCP Pro 360Q xi : IPCP360_Qxi_LAN - Device paired successfully with primary device using address (IPCP360_Qxi_LAN) with systemId (0101)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestVCP - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

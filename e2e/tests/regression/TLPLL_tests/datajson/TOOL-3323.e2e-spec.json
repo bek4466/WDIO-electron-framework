@@ -1,0 +1,46 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of TLCA1 at the time of Deploy",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Hardware Validation",
+      "UserStoryLink": "\"User Story: TOOL-3133\", https://extron.atlassian.net/browse/TOOL-3133",
+      "UserStory": "TOOL-3133 (TLCA 1 - Hardware Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3323\", https://extron.atlassian.net/browse/TOOL-3323",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T947\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T947",
+      "TestCaseHeader": "Verify that a info message validates existence of TLCA1 at the time of Deploy"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 300M with LinkLicense - Application is using TLCA 1 for project deployment",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "TestTLPLL - Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

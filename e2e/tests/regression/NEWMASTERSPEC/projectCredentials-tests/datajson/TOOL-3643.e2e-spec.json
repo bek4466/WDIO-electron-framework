@@ -1,0 +1,64 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Credential offline validation no longer occurs",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3575\", https://extron.atlassian.net/browse/TOOL-3575",
+      "UserStory": "TOOL-3575 Project Credentials M2: Deprecate Offline Validation for Username and Password Properties",
+      "TaskLink": "\"Task Issue: TOOL-3643\", https://extron.atlassian.net/browse/TOOL-3643",
+      "TestCaseLink": "\"Test Case: TOOL-T4480\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4480",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "true",
+        "pass": "false"
+      },
+      {
+        "user": "true",
+        "pass": "false"
+      }
+    ],
+    "Steps": {
+      "ProjectCredentialsBtn": {
+        "click": {}
+      },
+      "DeployPage": {
+        "UsernameField": {
+          "row_0": {
+            "matches": ""
+          },
+          "row_1": {
+            "matches": ""
+          }
+        },
+        "PasswordField": {
+          "row_0": {
+            "matches": ""
+          },
+          "row_1": {
+            "matches": ""
+          }
+        }
+      }
+    }
+  }
+}

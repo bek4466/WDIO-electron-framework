@@ -1,0 +1,167 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that InvalidOption flag for CLI Deploy Command gives proper error output.",
+            "Owner": "Amit B",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2103\", https://extron.atlassian.net/browse/TOOL-2103",
+            "UserStory": "TOOL-2103 (CLI Deploy - Deploy Command - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2403\", https://extron.atlassian.net/browse/TOOL-2403",
+            "TestCaseLink": "\"Test Case: TOOL-T321\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T321\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that InvalidOption flag for CLI Deploy Command gives proper error output."
+        },
+        "Steps": {
+            "CommandLineParams": "deploy --invalidOption",
+            "VerifyExitCode": "invalidFileOption",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-180: error: required option '-f, --file <filepath>' not specifiedFor more information enter:csdu.cmd deploy --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing required parameter for CLI Deploy Command gives proper error output.",
+            "Owner": "Amit B",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2103\", https://extron.atlassian.net/browse/TOOL-2103",
+            "UserStory": "TOOL-2103 (CLI Deploy - Deploy Command - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2403\", https://extron.atlassian.net/browse/TOOL-2403",
+            "TestCaseLink": "\"Test Case: TOOL-T326\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T326\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that missing required parameter for CLI Deploy Command gives proper error output."
+        },
+        "Steps": {
+            "CommandLineParams": "deploy -f",
+            "VerifyExitCode" : "missingFileOption",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-181: error: option '-f, --file <filepath>' argument missingFor more information enter:csdu.cmd deploy --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that non-JSON file path for CLI Deploy Command gives proper error output.",
+            "Owner": "Amit B",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2103\", https://extron.atlassian.net/browse/TOOL-2103",
+            "UserStory": "TOOL-2103 (CLI Deploy - Deploy Command - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2403\", https://extron.atlassian.net/browse/TOOL-2403",
+            "TestCaseLink": "\"Test Case: TOOL-T327\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T327\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that non-JSON file path for CLI Deploy Command gives proper error output."
+        },
+        "Steps": {
+            "CommandLineParams": "deploy -f nonJsonSysInfo",
+            "VerifyExitCode":"invalidFileType",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-182: error: Invalid file type - please select Json fileFor more information enter:csdu.cmd deploy --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that no destiny file at specified path for CLI Deploy Command gives proper error output.",
+            "Owner": "Amit B",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2103\", https://extron.atlassian.net/browse/TOOL-2103",
+            "UserStory": "TOOL-2103 (CLI Deploy - Deploy Command - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2403\", https://extron.atlassian.net/browse/TOOL-2403",
+            "TestCaseLink": "\"Test Case: TOOL-T328\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T328\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that no destiny file at specified path for CLI Deploy Command gives proper error output."
+        },
+        "Steps": {
+            "CommandLineParams": "deploy -f noDestinyFile",
+            "VerifyExitCode" : "fileNotExistOption",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-183: error: File not found at the specified locationFor more information enter:csdu.cmd deploy --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that corrupted json file for CLI Deploy Command gives proper error output.",
+            "Owner": "Amit B",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2103\", https://extron.atlassian.net/browse/TOOL-2103",
+            "UserStory": "TOOL-2103 (CLI Deploy - Deploy Command - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2403\", https://extron.atlassian.net/browse/TOOL-2403",
+            "TestCaseLink": "\"Test Case: TOOL-T329\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T329\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that corrupted json file for CLI Deploy Command gives proper error output."
+        },
+        "Steps": {
+            "CommandLineParams": "deploy -f CorruptDestinyFile",
+            "VerifyExitCode":"invalidSyntax",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-184: error: Invalid syntax - please correct Json format.For more information enter:csdu.cmd deploy --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase6": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that user gets correct message when user deployment fails with CLI",
+            "Owner": "Amit B",
+            "SuiteType": "Generic Error Code ",
+            "UserStoryLink": "\"User Story: TOOL-2066\", \"https://extron.atlassian.net/browse/TOOL-2066\"",
+            "UserStory": "TOOL-2240 (CSDU CLI Deploy Error Codes)",
+            "TaskLink": "\"Task Issue: TOOL-2462\", \"https://extron.atlassian.net/browse/TOOL-2462\"",
+            "TestCaseLink": "\"Test Case: TOOL-T151\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T151\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that user gets correct message when user deployment fails with CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.username": "NotUsername",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode" : "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Device - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect.  Please correct the device credentials and retry.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "-185: error: Project - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+    
+}

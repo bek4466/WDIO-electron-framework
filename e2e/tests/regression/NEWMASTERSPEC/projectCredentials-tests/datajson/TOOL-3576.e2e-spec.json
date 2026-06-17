@@ -1,0 +1,178 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials UI can edit device credentials",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3534\", https://extron.atlassian.net/browse/TOOL-3534",
+      "UserStory": "TOOL-3534 Project Credentials: Editing Existing File - Happy Path",
+      "TaskLink": "\"Task Issue: TOOL-3576\", https://extron.atlassian.net/browse/TOOL-3576",
+      "TestCaseLink": "\"Test Case: TOOL-T3371\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3371",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "Josh",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "Josh"
+            }
+          },
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "DeployPage_2": {
+        "ProjectCredentialsBtn": {
+          "click": {}
+        },
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "admin"
+            }
+          },
+          "CancelBtn": {
+            "click": {}
+          }
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials UI can edit device credentials (close application)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3534\", https://extron.atlassian.net/browse/TOOL-3534",
+      "UserStory": "TOOL-3534 Project Credentials: Editing Existing File - Happy Path",
+      "TaskLink": "\"Task Issue: TOOL-3576\", https://extron.atlassian.net/browse/TOOL-3576",
+      "TestCaseLink": "\"Test Case: TOOL-T3372\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3372",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "Josh",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "Josh"
+            }
+          },
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "AppAction": [
+        "Close",
+        "Open"
+      ],
+      "DeployPage_2": {
+        "ProjectFilePathInput": {
+          "setPath": "CredentialsProject\\systeminfoTmp.json"
+        },
+        "ProjectCredentialsBtn": {
+          "click": {}
+        },
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "admin"
+            }
+          },
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      }
+    }
+  }
+}

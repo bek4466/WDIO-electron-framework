@@ -1,0 +1,49 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device gives appropriate Error hardware message when unsupported on Primary",
+            "Owner": "Kiran",
+            "SuiteType": "SSI-tests",
+            "UserStoryLink": "\"User Story: TOOL-5521\", https://extron.atlassian.net/browse/TOOL-5521 ",
+            "UserStory": "TOOL-5521 (CSDU: SSI 100C & SSI 100W (SHAFER))",
+            "TaskLink": "\"Task Issue: TOOL-6039\", https://extron.atlassian.net/browse/TOOL-6039 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4620\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4620 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<Pro350__IPCP>>",
+                "devices.1.name": "SSI 100W",
+                "devices.1.part_number": "60-1960-01",
+                "devices.1.network.interfaces.0.address": "<<SSI100W>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "SSI 100W<<primaryNoSupportPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

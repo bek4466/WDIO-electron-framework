@@ -1,0 +1,373 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that credentials file can be created for protected projected with 'Allow Deployment and Troubleshooting without password' enabled and no credentials file when generating protected file.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5334\", https://extron.atlassian.net/browse/TOOL-5334 ",
+      "UserStory": "TOOL-5334: Editing Device Credentials on a Protected Project",
+      "TaskLink": "\"Task Issue: TOOL-5902\", https://extron.atlassian.net/browse/TOOL-5902 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4964\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4964 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\noCredentialAllowed.cspp",
+          "to": "TmpDownloadProject\\noCredentialAllowed.cspp"
+        }
+      },
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\noCredentialAllowed.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "isEnabled": true
+        },
+        "DeployBtn": {
+          "isEnabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout2": "medium",
+      "DeployPage3": {
+        "ProjectCredentialsPopUp": {
+          "DeviceName": {
+            "row_0": {
+              "exists": true
+            },
+            "row_1": {
+              "exists": true
+            }
+          },
+          "UsernameField": {
+            "row_0": {
+              "matches": ""
+            },
+            "row_1": {
+              "matches": ""
+            }
+          }
+        }
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "Comment": "Step 5.3 to 5.5 skipped because they are covered in the original tc",
+      "DeployAction2": [],
+      "DeployPage4": {
+        "ExtractProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage5": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "123"
+          },
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "extractBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout4": "fast",
+      "Toast": {
+        "VerifyMessage": "<<extractSuccessMessage>>"
+      },
+      "CommonMethod2": {
+        "findFile": {
+          "path": "TmpDownloadProject\\AlarmClock-certification.dat"
+        }
+      },
+      "DeployPage6": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\AlarmClock.json"
+        }
+      },
+      "Timeout5": "fast",
+      "DeployPage7": {
+        "DeployBtn": {
+          "isEnabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout6": "fast",
+      "DeployPage8": {
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "admin"
+            },
+            "row_1": {
+              "matches": "admin"
+            }
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that credentials file can be generated for protected project that does NOT have credentials file.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5334\", https://extron.atlassian.net/browse/TOOL-5334 ",
+      "UserStory": "TOOL-5334: Editing Device Credentials on a Protected Project",
+      "TaskLink": "\"Task Issue: TOOL-5902\", https://extron.atlassian.net/browse/TOOL-5902 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4965\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4965 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\noCredentialNotAllowed.cspp",
+          "to": "TmpDownloadProject\\noCredentialNotAllowed.cspp"
+        }
+      },
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\noCredentialNotAllowed.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "isEnabled": true
+        },
+        "ProjectCredentialsBtn": {
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout2": "medium",
+      "DeployPage3": {
+        "ProjectCredentialsPopUp": {
+          "DeviceName": {
+            "row_0": {
+              "exists": true
+            },
+            "row_1": {
+              "exists": true
+            }
+          },
+          "UsernameField": {
+            "row_0": {
+              "matches": ""
+            },
+            "row_1": {
+              "matches": ""
+            }
+          }
+        }
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "DeployPage4": {
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      },
+      "TroubleshootingAction": [],
+      "TroubleshootingPage": {
+        "StartTraceBtn": {
+          "isDisabled": null
+        },
+        "RefreshLogBtn": {
+          "isDisabled": null
+        },
+        "StartProgramBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction": [],
+      "DeployPage5": {
+        "ExtractProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage7": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "123"
+          },
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "extractBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout4": "fast",
+      "Toast": {
+        "VerifyMessage": "<<extractSuccessMessage>>"
+      },
+      "CommonMethod2": {
+        "findFile": {
+          "path": "TmpDownloadProject\\AlarmClock-certification.dat"
+        }
+      },
+      "DeployPage6": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\AlarmClock.json"
+        }
+      },
+      "Timeout5": "fast",
+      "DeployPage8": {
+        "DeployBtn": {
+          "isEnabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout6": "fast",
+      "DeployPage9": {
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "admin"
+            },
+            "row_1": {
+              "matches": "admin"
+            }
+          }
+        }
+      }
+    }
+  },
+  "TestCase3": {
+    "Comment": "Potentially inconsistent due to refresh and start trace staying grey. Does not happen on manual testing.",
+    "TestCaseInfo": {
+      "TestDescription": "Verify Invalid Credentials Validation Messages for .cspp with 'Allow Deployment and Troubleshooting without password' enabled gives appropriate messages",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5334\", https://extron.atlassian.net/browse/TOOL-5334 ",
+      "UserStory": "TOOL-5334: Editing Device Credentials on a Protected Project",
+      "TaskLink": "\"Task Issue: TOOL-5902\", https://extron.atlassian.net/browse/TOOL-5902 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4966\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4966 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\allDeviceInvalidUserAllowed.cspp",
+          "to": "TmpDownloadProject\\allDeviceInvalidUserAllowed.cspp"
+        }
+      },
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\allDeviceInvalidUserAllowed.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "DeployBtn": {
+          "isEnabled": null
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 725T<<incorrectCredentials>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "IPCP Pro 350<<incorrectCreds>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [],
+      "Timeout2": "slow",
+      "TroubleshootingAction2": [
+        "RefreshProgramLog"
+      ],
+      "VerifyTroubleShootingMessage": [
+        {
+          "MessageText": "<<controllerCredentialsIncorrectMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "Timeout3": "fast",
+      "TroubleshootingAction3": [
+        "ClearTroubleshootingMessagePane",
+        "StartTrace"
+      ],
+      "VerifyTroubleShootingMessage2": [
+        {
+          "MessageText": "<<controllerCredentialsIncorrectMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "Timeout4": "fast",
+      "TroubleshootingAction4": [
+        "ClearTroubleshootingMessagePane",
+        "StartProgramLog"
+      ],
+      "VerifyTroubleShootingMessage3": [
+        {
+          "MessageText": "<<controllerCredentialsIncorrectMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  }
+}

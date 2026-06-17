@@ -1,0 +1,411 @@
+{
+    "Execute":["TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify system correctly pairs with NAV Endpoints.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1679\", https://extron.atlassian.net/browse/TOOL-1679 ",
+            "UserStory": "TOOL-1679 (As Francisco Garcia, I want to deploy a programmed system with a NAVigator and NAV endpoints, So that I can control my NAV system and use NAV Pro Series Control Ports to control 3rd party devices)",
+            "TaskLink": "\"Task Issue: TOOL-1360\", https://extron.atlassian.net/browse/TOOL-1360 ",
+            "TestCaseLink": "\"Test Case: CSP-T1139\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1139 ",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+              "system.system_id": "1234",
+              "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+              "devices.1.network.interfaces.0.address": "<<Navigator_1>>"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "GmCommands": {
+              "Primary_Controller": "<<IPCP255_IPCP_dualnic>>",
+              "NAV_Devices": [
+                  "<<Navigator_1>>",
+                  "<<NAVE_101>>",
+                  "<<NAVSD_101>>"
+                ]
+            }
+        },
+        
+        "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify good deploy hardware validation messages for NAV Endpoints.",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "Deployment",
+          "UserStoryLink": "\"User Story: TOOL-1679\", https://extron.atlassian.net/browse/TOOL-1679 ",
+          "UserStory": "TOOL-1679 (As Francisco Garcia, I want to deploy a programmed system with a NAVigator and NAV endpoints, So that I can control my NAV system and use NAV Pro Series Control Ports to control 3rd party devices)",
+          "TaskLink": "\"Task Issue: TOOL-1360\", https://extron.atlassian.net/browse/TOOL-1360 ",
+          "TestCaseLink": "\"Test Case: CSP-T1138\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1138 ",
+          "ProjectFile": "NavProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      
+      "Preconditions": {
+          "ModifyTestData": {
+            "system.system_id": "1232",
+            "devices.1.network.interfaces.0.address": "<<Navigator_1>>",
+            "devices.2.name": "EndPoint",
+            "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+            "devices.3.name": "SDEndPoint",
+            "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+          },
+          "InsertTestData": {
+             
+          },
+          "DeleteData": [
+              
+          ]
+      },
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                  "MessageText": "<<deploySuccessMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+              },
+              {
+                "MessageText": "EndPoint<<HardwareFoundMessage>><<NAVE_101>>.",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                "MessageText": "EndPoint<<correctCredentialsMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                "MessageText": "EndPoint<<hardwareMatchMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                "MessageText": "SDEndPoint<<HardwareFoundMessage>><<NAVSD_101>>.",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                "MessageText": "SDEndPoint<<correctCredentialsMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                "MessageText": "SDEndPoint<<hardwareMatchMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+              }
+          ]
+      },
+      "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+        "TestDescription": "Verify NAVigator system is properly deployed on LAN topologies (topology 1).",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "Deployment",
+        "UserStoryLink": "\"User Story: TOOL-1679\", https://extron.atlassian.net/browse/TOOL-1679 ",
+        "UserStory": "TOOL-1679 (As Francisco Garcia, I want to deploy a programmed system with a NAVigator and NAV endpoints, So that I can control my NAV system and use NAV Pro Series Control Ports to control 3rd party devices)",
+        "TaskLink": "\"Task Issue: TOOL-1360\", https://extron.atlassian.net/browse/TOOL-1360 ",
+        "TestCaseLink": "\"Test Case: CSP-T1136\",https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1136 ",
+        "ProjectFile": "NavProject\\systeminfo.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    
+    "Preconditions": {
+        "ModifyTestData": {
+          "system.system_id": "1233",
+          "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+          "devices.1.name": "NavDevice",
+          "devices.1.network.interfaces.0.address": "<<Navigator_1>>",
+          "devices.2.network.interfaces.0.address": "<<NAVE_101>>"
+        },
+        "InsertTestData": {
+           
+        },
+        "DeleteData": [
+       
+          "devices.3.name",
+          "devices.3.part_number",
+          "devices.3.alias",
+          "devices.3.network"
+        ]
+    },
+    "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+    "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+            {
+                "MessageText": "<<deploySuccessMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+              "MessageText": "NavDevice<<HardwareFoundMessage>><<Navigator_1>>.",
+              "MessageType": "Info",
+              "Exist": true
+          }
+        ],
+        "GmCommands": {
+          "Primary_Controller": "<<IPCP255_IPCP_dualnic>>",
+          "NAV_Devices": [
+              "<<Navigator_1>>",
+              "<<NAVE_101>>"
+            ]
+        }
+    },
+    "Execute": "True"
+},
+
+"TestCase4": {
+  "TestCaseInfo": {
+      "TestDescription": "Verify NAVigator system is properly deployed on LAN topologies (topology 2).",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Deployment",
+      "UserStoryLink": "\"User Story: TOOL-1679\", https://extron.atlassian.net/browse/TOOL-1679 ",
+      "UserStory": "TOOL-1679 (As Francisco Garcia, I want to deploy a programmed system with a NAVigator and NAV endpoints, So that I can control my NAV system and use NAV Pro Series Control Ports to control 3rd party devices)",
+      "TaskLink": "\"Task Issue: TOOL-1360\", https://extron.atlassian.net/browse/TOOL-1360 ",
+      "TestCaseLink": "\"Test Case: CSP-T1136\",https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1136 ",
+      "ProjectFile": "NavProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+  },
+  
+  "Preconditions": {
+      "ModifyTestData": {
+        "system.system_id": "1235",
+        "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+        "devices.1.name": "NavDevice",
+        "devices.1.network.interfaces.0.address": "<<Navigator_1>>",
+        "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+        "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+  
+      },
+      "InsertTestData": {
+         
+      },
+      "DeleteData": [
+     
+      ]
+  },
+  "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+  "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+          {
+              "MessageText": "<<deploySuccessMessage>>",
+              "MessageType": "Info",
+              "Exist": true
+          },
+          {
+            "MessageText": "NavDevice<<HardwareFoundMessage>><<Navigator_1>>.",
+            "MessageType": "Info",
+            "Exist": true
+        }
+      ],
+      "GmCommands": {
+        "Primary_Controller": "<<IPCP255_IPCP_dualnic>>",
+        "NAV_Devices": [
+            "<<Navigator_1>>",
+            "<<NAVE_101>>",
+            "<<NAVSD_101>>"
+          ]
+      }
+  },
+  "Execute": "True"
+},
+
+"TestCase5": {
+  "TestCaseInfo": {
+      "TestDescription": "Verify NAVigator system is properly deployed on LAN topologies (topology 3).",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Deployment",
+      "UserStoryLink": "\"User Story: TOOL-1679\", https://extron.atlassian.net/browse/TOOL-1679 ",
+      "UserStory": "TOOL-1679 (As Francisco Garcia, I want to deploy a programmed system with a NAVigator and NAV endpoints, So that I can control my NAV system and use NAV Pro Series Control Ports to control 3rd party devices)",
+      "TaskLink": "\"Task Issue: TOOL-1360\", https://extron.atlassian.net/browse/TOOL-1360 ",
+      "TestCaseLink": "\"Test Case: CSP-T1136\",https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1136 ",
+      "ProjectFile": "NavProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+  },
+  
+  "Preconditions": {
+      "ModifyTestData": {
+        "system.system_id": "1236",
+        "devices.1.name": "NavDevice",
+        "devices.1.network.interfaces.0.address": "<<Navigator_1>>",
+        "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+        "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+       
+      },
+      "InsertTestData": {
+        "devices.4.name": "NavDevice_2",
+        "devices.4.part_number": "60-1534-01",
+        "devices.4.alias": "secondNav",
+        "devices.4.network": {},
+        "devices.4.network.host_network_type" :"LAN",
+        "devices.4.network.interfaces" : [],
+        
+        "devices.4.network.interfaces.0.address": "<<Navigator>>",
+        "devices.4.network.interfaces.0.type": "LAN",
+        "devices.5.name": "NavE_2",
+        "devices.5.part_number": "60-1525-12",
+        "devices.5.alias": "secondNavE",
+        "devices.5.network": {},
+        "devices.5.network.host_network_type" :"LAN",
+        "devices.5.network.interfaces" : [],
+        
+        "devices.5.network.interfaces.0.address": "<<NAVE_101_1>>",
+        "devices.5.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": [
+     
+      ]
+  },
+  "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+  "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+          {
+              "MessageText": "<<deploySuccessMessage>>",
+              "MessageType": "Info",
+              "Exist": true
+          },
+          {
+            "MessageText": "NavDevice<<HardwareFoundMessage>><<Navigator_1>>.",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "NavDevice_2<<HardwareFoundMessage>><<Navigator>>.",
+            "MessageType": "Info",
+            "Exist": true
+          }
+      ],
+      "GmCommands": {
+        "Primary_Controller": "<<IPCP255_IPCP_dualnic>>",
+        "NAV_Devices": [
+            "<<Navigator_1>>",
+            "<<Navigator>>",
+            "<<NAVE_101>>",
+            "<<NAVSD_101>>",
+            "<<NAVE_101_1>>"
+          ]
+      }
+  },
+  "Execute": "True"
+}
+    
+}

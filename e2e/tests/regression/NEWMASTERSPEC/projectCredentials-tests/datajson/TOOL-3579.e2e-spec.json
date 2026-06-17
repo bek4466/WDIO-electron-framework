@@ -1,0 +1,152 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials UI does not show entry with missing IP address",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3546\", https://extron.atlassian.net/browse/TOOL-3546",
+      "UserStory": "TOOL-3546 Project Credentials: UI Business Rules",
+      "TaskLink": "\"Task Issue: TOOL-3579\", https://extron.atlassian.net/browse/TOOL-3579",
+      "TestCaseLink": "\"Test Case: TOOL-T3376\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3376",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.0.network.interfaces.0.address"
+      ]
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "CredentialsProject\\systeminfoTmp.json"
+        },
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "Address": {
+            "row_0": {
+              "isEmpty": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials UI does show entry with bare minimum systeminfo file information",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3546\", https://extron.atlassian.net/browse/TOOL-3546",
+      "UserStory": "TOOL-3546 Project Credentials: UI Business Rules",
+      "TaskLink": "\"Task Issue: TOOL-3579\", https://extron.atlassian.net/browse/TOOL-3579",
+      "TestCaseLink": "\"Test Case: TOOL-T3377\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3377",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.0.name",
+        "devices.0.network.interfaces"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "DeviceName": {
+            "row_1": {
+              "exists": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials UI does not show entry with missing device Alias",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3546\", https://extron.atlassian.net/browse/TOOL-3546",
+      "UserStory": "TOOL-3546 Project Credentials: UI Business Rules",
+      "TaskLink": "\"Task Issue: TOOL-3579\", https://extron.atlassian.net/browse/TOOL-3579",
+      "TestCaseLink": "\"Test Case: TOOL-T3388\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3388",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.0.alias"
+      ]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployPage": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "DeviceName": {
+            "row_1": {
+              "exists": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

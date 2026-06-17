@@ -1,0 +1,107 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that \"Deploy Code Only\" button remains disabled at the time of active deployment",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-2494: Deploy Code only UI\", https://extron.atlassian.net/browse/TOOL-2494",
+            "UserStory": "TOOL-2494: Deploy Code only UI",
+            "TaskLink": "\"Task Issue: TOOL-2546\", https://extron.atlassian.net/browse/TOOL-2546",
+            "TestCaseLink": "\"Test Case: TOOL-T396\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T396",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.1.name": "Secondary Device"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "Timeout" : 1000,
+            "DeployPage": {
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": true
+                }
+            },
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployPage2": {
+                "DeployCodeOnlyBtn": {
+                    "isEnabled": true
+                }
+            }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that \"Deploy Code Only\" button remains disabled at the time of active code only deployment",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-2494: Deploy Code only UI\", https://extron.atlassian.net/browse/TOOL-2494",
+            "UserStory": "TOOL-2494: Deploy Code only UI",
+            "TaskLink": "\"Task Issue: TOOL-2546\", https://extron.atlassian.net/browse/TOOL-2546",
+            "TestCaseLink": "\"Test Case: TOOL-T397\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T397",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.1.name": "Secondary Device"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployPage2": {
+                "DeployCodeOnlyBtn": {
+                    "isEnabled": true
+                }
+            }
+        }
+    }
+}

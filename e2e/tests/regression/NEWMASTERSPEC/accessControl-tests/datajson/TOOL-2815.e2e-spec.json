@@ -1,0 +1,276 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3",
+    "TestCase4"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify license is renewed upon logging in after user has logged out of app",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2253\", https://extron.atlassian.net/browse/TOOL-2253",
+      "UserStory": "TOOL-2253 (As a CSDU user, I want the ability for my current license to check in when I am online So that is periodically renewed)",
+      "TaskLink": "\"Task Issue: TOOL-2815\", https://extron.atlassian.net/browse/TOOL-2815",
+      "TestCaseLink": "\"Test Case: TOOL-T281\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T281",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "ProfileAction": [
+        "SaveCurrentDate",
+        "SaveExpirationDate",
+        "SaveRenewedDate"
+      ],
+      "AppAction": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "ProfileAction_2": [],
+      "ProfilePage": {
+        "ExpirationText": {
+          "is30DaysFromCurrentDate": true
+        },
+        "LastRenewedDateText": {
+          "matchesCurrentDate": true
+        }
+      },
+      "Timeout_3": "15000"
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify License is renewed with a new session of the app",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2253\", https://extron.atlassian.net/browse/TOOL-2253",
+      "UserStory": "TOOL-2253 (As a CSDU user, I want the ability for my current license to check in when I am online So that is periodically renewed)",
+      "TaskLink": "\"Task Issue: TOOL-2815\", https://extron.atlassian.net/browse/TOOL-2815",
+      "TestCaseLink": "\"Test Case: TOOL-T282\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T282",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "ProfileAction": [
+        "SaveCurrentDate",
+        "SaveExpirationDate",
+        "SaveRenewedDate"
+      ],
+      "ProfilePage": {
+        "ExpirationText": {
+          "is30DaysFromCurrentDate": true
+        },
+        "LastRenewedDateText": {
+          "matchesCurrentDate": true
+        }
+      },
+      "Timeout_3": "15000"
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify license is renewed upon logging in after user has logged out of app for Uncertified User",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2253\", https://extron.atlassian.net/browse/TOOL-2253",
+      "UserStory": "TOOL-2253 (As a CSDU user, I want the ability for my current license to check in when I am online So that is periodically renewed)",
+      "TaskLink": "\"Task Issue: TOOL-2815\", https://extron.atlassian.net/browse/TOOL-2815",
+      "TestCaseLink": "\"Test Case: TOOL-T288\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T288",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "ProfileAction": [
+        "SaveCurrentDate",
+        "SaveExpirationDate",
+        "SaveRenewedDate"
+      ],
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "ProfileAction_2": [],
+      "ProfilePage": {
+        "ExpirationText": {
+          "is30DaysFromCurrentDate": true
+        },
+        "LastRenewedDateText": {
+          "matchesCurrentDate": true
+        }
+      },
+      "Timeout_3": "15000"
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify License is renewed with a new session of the app for Uncertified User",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2253\", https://extron.atlassian.net/browse/TOOL-2253",
+      "UserStory": "TOOL-2253 (As a CSDU user, I want the ability for my current license to check in when I am online So that is periodically renewed)",
+      "TaskLink": "\"Task Issue: TOOL-2815\", https://extron.atlassian.net/browse/TOOL-2815",
+      "TestCaseLink": "\"Test Case: TOOL-T289\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T289",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "Timeout_3": "fast",
+      "AppAction_4": [
+        "Close"
+      ],
+      "Timeout_4": "fast",
+      "AppAction_5": [
+        "Open"
+      ],
+      "Timeout_5": "15000",
+      "ProfileAction": [
+        "SaveCurrentDate",
+        "SaveExpirationDate",
+        "SaveRenewedDate"
+      ],
+      "ProfilePage": {
+        "ExpirationText": {
+          "is30DaysFromCurrentDate": true
+        },
+        "LastRenewedDateText": {
+          "matchesCurrentDate": true
+        }
+      },
+      "Timeout_6": "15000"
+    },
+    "Execute": "True"
+  }
+}

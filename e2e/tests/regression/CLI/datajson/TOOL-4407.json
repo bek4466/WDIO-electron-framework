@@ -1,0 +1,108 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "Owner": "Amit B",
+      "SuiteType": "Cli File Validation",
+      "UserStoryLink": "\"User Story: TOOL-4353\", \"https://extron.atlassian.net/browse/TOOL-4353\"",
+      "UserStory": "TOOL - 4353  CLI Refactoring - Error handling for unsupported characters in project resources (or non-project resources)",
+      "TaskLink": "\"Task Issue: TOOL-4407\", \"https://extron.atlassian.net/browse/TOOL-4407\"",
+      "TestCaseLink": "\"Test Case: TOOL-T4681\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4681\"",
+      "ProjectFile": "NotGoodProject\\systeminfo.json",
+      "TestCaseHeader": "Verify CLI no error when deploying a project that contains unsupported characters in a non project file and/or folder in the project's root directory"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "Primary Controller",
+        "devices.0.network.interfaces.0.address": "IPL-Pro-CR88-0B-E1-94.extron.com",
+        "devices.0.part_number": "60-1416-01"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "cliCommand",
+      "VerifyExitCode": "default",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": "info: Projectwithvtlpprimary_2.4.1.62 - Project deployment completed.",
+          "MessageType": "info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify CLI no error when deploying a project that contains unsupported characters in a filename in a non-project folde",
+      "Owner": "Amit B",
+      "SuiteType": "Cli File Validation",
+      "UserStoryLink": "\"User Story: TOOL-4353\", \"https://extron.atlassian.net/browse/TOOL-4353\"",
+      "UserStory": "TOOL - 4353  CLI Refactoring - Error handling for unsupported characters in project resources (or non-project resources)",
+      "TaskLink": "\"Task Issue: TOOL-4407\", \"https://extron.atlassian.net/browse/TOOL-4407\"",
+      "TestCaseLink": "\"Test Case: TOOL-T4682\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4682\"",
+      "ProjectFile": "NotGoodProject\\systeminfo.json",
+      "TestCaseHeader": "Verify CLI no error when deploying a project that contains unsupported characters in a filename in a non-project folder"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "Primary Controller",
+        "devices.0.network.interfaces.0.address": "IPL-Pro-CR88-0B-E1-94.extron.com",
+        "devices.0.part_number": "60-1416-01"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "cliCommand",
+      "VerifyExitCode": "default",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": "info: Projectwithvtlpprimary_2.4.1.62 - Project deployment completed.",
+          "MessageType": "info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify CLI error handling for unsupported characters in project resources",
+      "Owner": "Amit B",
+      "SuiteType": "Cli File Validation",
+      "UserStoryLink": "\"User Story: TOOL-4353\", \"https://extron.atlassian.net/browse/TOOL-4353\"",
+      "UserStory": "TOOL - 4353  CLI Refactoring - Error handling for unsupported characters in project resources (or non-project resources)",
+      "TaskLink": "\"Task Issue: TOOL-4407\", \"https://extron.atlassian.net/browse/TOOL-4407\"",
+      "TestCaseLink": "\"Test Case: TOOL-T4683\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4683\"",
+      "ProjectFile": "InvalidProjectWithInvalidFileNames\\proj.json",
+      "TestCaseHeader": "Verify CLI error handling for unsupported characters in project resources"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "Primary Controller",
+        "devices.0.network.interfaces.0.address": "IPL-Pro-CR88-0B-E1-94.extron.com",
+        "devices.0.part_number": "60-1416-01"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "cliCommand",
+      "VerifyExitCode": "FailedDeploy",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": "-186: error:.*/e2e/resources/InvalidProjectWithInvalidFileNames/sound/.*\\.txt includes unsupported characters. Please rename file and try again.",
+          "MessageType": "error",
+          "Exist": true
+        },
+
+        {
+          "MessageText": "-186: error:.*/e2e/resources/InvalidProjectWithInvalidFileNames/ir/.*\\.txt includes unsupported characters. Please rename file and try again.",
+          "MessageType": "error",
+          "Exist": true
+        },
+        {
+          "MessageText": "-186: error:.*/e2e/resources/InvalidProjectWithInvalidFileNames/layout/.*\\.txt includes unsupported characters. Please rename file and try again.",
+          "MessageType": "error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

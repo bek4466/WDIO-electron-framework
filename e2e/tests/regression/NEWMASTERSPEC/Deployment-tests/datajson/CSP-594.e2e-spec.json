@@ -1,0 +1,40 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Build Project and Verify deploy progress state when switching between views",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-548\", https://extron.atlassian.net/browse/CSP-548",
+            "UserStory": "CSP-548 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-594\", https://extron.atlassian.net/browse/CSP-594",
+            "TestCaseLink": "\"Test Case: CSP-T854\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T854",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "Timeout" : 1000,
+            "VerifyProgressBar": true,
+            "TroubleshootingAction":[],
+            "DeployAction2":[],
+            "VerifyProgressBar2": true
+        }
+    }
+}

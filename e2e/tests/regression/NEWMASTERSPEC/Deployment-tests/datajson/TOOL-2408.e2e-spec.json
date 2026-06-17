@@ -1,0 +1,60 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify provided extron_control_web id is used for Secondary ECW - NBP",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1742\", https://extron.atlassian.net/browse/TOOL-1742",
+            "UserStory": "TOOL-1742 (As Francisco Garcia want to use secondary Extron Control for Web So that I can easily control my system)",
+            "TaskLink": "\"Task Issue: CSP-2048\", https://extron.atlassian.net/browse/CSP-2408",
+            "TestCaseLink": "\"Test Case: CSP-T1506\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1506",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "NBP100_NBP",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.alias": "NBP100_NBP Alias",
+                "devices.1.extron_control_web_id": "1234",
+                "devices.1.network.interfaces.0.address": "<<NBP100_NBP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NBP100_NBP<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

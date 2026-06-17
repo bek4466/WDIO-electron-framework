@@ -1,0 +1,86 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2519\", https://extron.atlassian.net/browse/TOOL-2519",
+            "UserStory": "TOOL-2519 (Project Download - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2673\", https://extron.atlassian.net/browse/TOOL-2673",
+            "TestCaseLink": "\"Test Case: TOOL-T407\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T407",
+            "TestDescription": "Verify that project download works (CSDU & IP address)",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployPage": {
+                "ProjectCredentialsBtn": {
+                    "click": null
+                },
+                "ProjectCredentialsPopUp": {
+                    "isOpen" : true,
+                    "DeviceName":{
+                        "row_0": {
+                            "exists": true
+                        }
+                    },
+                    "Address":{
+                        "row_0": {
+                            "exists": true
+                        }
+                    },
+                    "UsernameField":{
+                        "row_2": {
+                            "exists": false
+                        }
+                    },
+                    "PasswordField":{
+                        "row_2": {
+                            "exists": false
+                        }
+                    },
+                    "CancelBtn":{
+                        "click": null
+                    }
+                }
+            },  
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployAction_2": ["ProjectDownload"]
+        },
+        "Execute": "True"
+    }
+}

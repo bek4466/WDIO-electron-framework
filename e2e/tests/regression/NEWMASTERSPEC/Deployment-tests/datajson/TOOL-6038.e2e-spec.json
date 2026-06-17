@@ -1,0 +1,447 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3",
+        "TestCase4A",
+        "TestCase4B",
+        "TestCase4C"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as a peripheral pointing to network address of a different model of same device gives appropriate warning message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "SSI-tests",
+            "UserStoryLink": "\"User Story: TOOL-5521\", https://extron.atlassian.net/browse/TOOL-5521 ",
+            "UserStory": "TOOL-5521 (CSDU: SSI 100C & SSI 100W (SHAFER))",
+            "TaskLink": "\"Task Issue: TOOL-6038\", https://extron.atlassian.net/browse/TOOL-6038 ",
+            "TestCaseLink": "\"Test Case: TOOL-T734\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T734 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP360QXI",
+                "devices.0.part_number": "60-1916-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.1.name": "SSI 100W",
+                "devices.1.part_number": "60-1961-01",
+                "devices.1.network.interfaces.0.address": "<<SSI100W>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<hardwareMismatch>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "SSI-tests",
+            "UserStoryLink": "\"User Story: TOOL-5521\", https://extron.atlassian.net/browse/TOOL-5521 ",
+            "UserStory": "TOOL-5521 (CSDU: SSI 100C & SSI 100W (SHAFER))",
+            "TaskLink": "\"Task Issue: TOOL-6038\", https://extron.atlassian.net/browse/TOOL-6038 ",
+            "TestCaseLink": "\"Test Case: TOOL-T760\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T760 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP360QXI",
+                "devices.0.part_number": "60-1916-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.1.name": "SSI 100W",
+                "devices.1.part_number": "60-1960-01",
+                "devices.1.network.interfaces.0.address": "<<SSI100W>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "invalidPassword"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "SSI 100W<<incorrectDeviceCredentials>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Peripheral Device specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "SSI-tests",
+            "UserStoryLink": "\"User Story: TOOL-5521\", https://extron.atlassian.net/browse/TOOL-5521 ",
+            "UserStory": "TOOL-5521 (CSDU: SSI 100C & SSI 100W (SHAFER))",
+            "TaskLink": "\"Task Issue: TOOL-6038\", https://extron.atlassian.net/browse/TOOL-6038 ",
+            "TestCaseLink": "\"Test Case: TOOL-T888\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T888 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP360QXI",
+                "devices.0.part_number": "60-1916-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.1.name": "SSI 100W",
+                "devices.1.part_number": "60-1960-01",
+                "devices.1.network.interfaces.0.address": "<<Navigator>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "SSI 100W<<incompatibleHardwareMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase4A": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "SSI-tests",
+            "UserStoryLink": "\"User Story: TOOL-5521\", https://extron.atlassian.net/browse/TOOL-5521 ",
+            "UserStory": "TOOL-5521 (CSDU: SSI 100C & SSI 100W (SHAFER))",
+            "TaskLink": "\"Task Issue: TOOL-6038\", https://extron.atlassian.net/browse/TOOL-6038 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "SsiDeployment",
+                "devices.0.name": "TLP 300M wLL",
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.name": "SSI 100W",
+                "devices.1.part_number": "60-1960-01",
+                "devices.1.network.interfaces.0.address": "<<SSI100W>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "SsiDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<pairingPositiveMessageFirstPartAddress>><<SSI100W>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<dualnicPairingMessagePart1>><<SSI100W>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<HardwareFoundMessage>><<SSI100W>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP 300M wLL<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase4B": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "SSI-tests",
+            "UserStoryLink": "\"User Story: TOOL-5521\", https://extron.atlassian.net/browse/TOOL-5521 ",
+            "UserStory": "TOOL-5521 (CSDU: SSI 100C & SSI 100W (SHAFER))",
+            "TaskLink": "\"Task Issue: TOOL-6038\", https://extron.atlassian.net/browse/TOOL-6038 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "SsiDeployment",
+                "devices.0.name": "IPCP350XI",
+                "devices.0.part_number": "60-1912-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+                "devices.1.name": "SSI 100W",
+                "devices.1.part_number": "60-1960-01",
+                "devices.1.network.interfaces.0.address": "<<SSI100W>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "SsiDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<pairingPositiveMessageFirstPartAddress>><<SSI100W>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<dualnicPairingMessagePart1>><<SSI100W>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<HardwareFoundMessage>><<SSI100W>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP350XI<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase4C": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a primary device",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "SSI-tests",
+            "UserStoryLink": "\"User Story: TOOL-5521\", https://extron.atlassian.net/browse/TOOL-5521 ",
+            "UserStory": "TOOL-5521 (CSDU: SSI 100C & SSI 100W (SHAFER))",
+            "TaskLink": "\"Task Issue: TOOL-6038\", https://extron.atlassian.net/browse/TOOL-6038 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4604 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "SsiDeployment",
+                "devices.0.name": "IPCP360QXI",
+                "devices.0.part_number": "60-1916-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>",
+                "devices.1.name": "SSI 100W",
+                "devices.1.part_number": "60-1960-01",
+                "devices.1.network.interfaces.0.address": "<<SSI100W>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "SsiDeployment<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<pairingPositiveMessageFirstPartAddress>><<SSI100W>><<pairingPositiveMessageSecondPartSystemID>>4120)",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<dualnicPairingMessagePart1>><<SSI100W>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<HardwareFoundMessage>><<SSI100W>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SSI 100W<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP360QXI<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "SsiDeployment<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

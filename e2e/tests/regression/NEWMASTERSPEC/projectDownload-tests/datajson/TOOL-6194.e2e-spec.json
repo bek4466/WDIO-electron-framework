@@ -1,0 +1,173 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Download Input box validates IPv6 correctly",
+            "Owner": "Kiran",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-5939\", https://extron.atlassian.net/browse/TOOL-5939 ",
+            "UserStory": "TOOL-5939 (IPv6 Project Download)",
+            "TaskLink": "\"Task Issue: TOOL-6194\", https://extron.atlassian.net/browse/TOOL-6194 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4985\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4985 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "1:2:3:4:5::8"
+                },
+                "DownloadProjectBtn": {
+                    "isEnabled": true
+                }
+            },
+            "Timeout": "superFast",
+            "DeployPage2": {
+                "DownloadProjectInput": {
+                    "setIp": "2001:adb8:85FAILa3:0000:0000:8a2e:0370:7334"
+                },
+                "DownloadProjectBtn": {
+                    "isEnabled": false
+                },
+                "DownloadProjectInput_2": {
+                    "verifyIpError": true
+                }
+            },
+            "Timeout2": "superFast",
+            "DeployPage3": {
+                "DownloadProjectInput": {
+                    "setIp": "2001:adb8:85a3:0000:0000:8a2e:0370:7334:192FAIL.168.1.1"
+                },
+                "DownloadProjectBtn": {
+                    "isEnabled": false
+                },
+                "DownloadProjectInput_2": {
+                    "verifyIpError": true
+                }
+            }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Download Input box validates IPv6 correctly",
+            "Owner": "Kiran",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-5939\", https://extron.atlassian.net/browse/TOOL-5939 ",
+            "UserStory": "TOOL-5939 (IPv6 Project Download)",
+            "TaskLink": "\"Task Issue: TOOL-6194\", https://extron.atlassian.net/browse/TOOL-6194 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4986\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4986 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "1:2:3:4:5::8"
+                },
+                "DownloadProjectBtn": {
+                    "isEnabled": true,
+                    "click": null
+                },
+                "ProjectDownloadSidePanel": {
+                    "EditBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout": "superFast",
+            "DeployPage2": {
+                "ProjectDownloadSidePanelEditPopUp": {
+                    "IpInput": {
+                        "set": "2001:adb8:85a3:0000:0000:8a2e:0370:7334"
+                    },
+                    "SaveBtn": {
+                        "isDisabled": false,
+                        "click": null
+                    }
+                }
+            },
+            "Timeout2": "superFast",
+            "DeployPage3": {
+                "ProjectDownloadSidePanel": {
+                    "EditBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout3": "superFast",
+            "DeployPage4": {
+                "ProjectDownloadSidePanelEditPopUp": {
+                    "IpInput": {
+                        "set": "2001:adb8:85FAILa3:0000:0000:8a2e:0370:7334"
+                    },
+                    "IpInputError": {
+                        "exists": true
+                    },
+                    "SaveBtn": {
+                        "isDisabled": true
+                    },
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout4": "superFast",
+            "DeployPage5": {
+                "ProjectDownloadSidePanel": {
+                    "ipAddressInput": {
+                        "isEqualTo": "2001:adb8:85a3:0000:0000:8a2e:0370:7334"
+                    }
+                }
+            }
+        }
+    }
+}

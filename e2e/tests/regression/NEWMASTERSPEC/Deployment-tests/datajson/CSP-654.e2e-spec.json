@@ -1,0 +1,114 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that adding exactly 8 ebus's in destiny file doesnt prevent project from uploading",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-78\", https://extron.atlassian.net/browse/CSP-78",
+            "UserStory": "CSP-78 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-649\", https://extron.atlassian.net/browse/CSP-649",
+            "TestCaseLink": "\"Test Case: CSP-T485\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T485",
+            "ProjectFile": "DeployProject\\systeminfoT485.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that adding exactly 8 ebus's in destiny file doesnt prevent project from uploading",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-78\", https://extron.atlassian.net/browse/CSP-78",
+            "UserStory": "CSP-78 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-649\", https://extron.atlassian.net/browse/CSP-649",
+            "TestCaseLink": "\"Test Case: CSP-T570\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T570",
+            "ProjectFile": "DeployProject\\systeminfoT570.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<controllerCantEbus>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for a eBUS device missing name key, the index of the device is used for Device Identifier for Missing devices.ebus_id",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-78\", https://extron.atlassian.net/browse/CSP-78",
+            "UserStory": "CSP-78 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-649\", https://extron.atlassian.net/browse/CSP-649",
+            "TestCaseLink": "\"Test Case: CSP-T670\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T670",
+            "ProjectFile": "DeployProject\\systeminfoT670.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingEbusNameandID>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

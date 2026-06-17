@@ -1,0 +1,191 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message",
+            "Owner": "Kiran S",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3217\", \"https://extron.atlassian.net/browse/TOOL-3217\"",
+            "TestCaseLink": "\"Test Case: TOOL-T759 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928428\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "wrong"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My 355MQ XI",
+                "devices.0.password": "wrong"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My 355MQ XI - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct the device credentials and retry.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message.",
+            "Owner": "Kiran S",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3217\", \"https://extron.atlassian.net/browse/TOOL-3217\"",
+            "TestCaseLink": "\"Test Case: TOOL-T760 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928429\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My 355MQ XI",
+                "devices.1.password" : "wrong"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct and retry or manually pair the device in Toolbelt.",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has correct credentials gives appropriate info message",
+            "Owner": "Kiran S",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3217\", \"https://extron.atlassian.net/browse/TOOL-3217\"",
+            "TestCaseLink": "\"Test Case: TOOL-T833 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173493\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as Primary Device that has correct credentials gives appropriate info message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Correct Credentials : Device's credentials are valid.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device that has correct credentials gives appropriate info message",
+            "Owner": "Kiran S",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3217\", \"https://extron.atlassian.net/browse/TOOL-3217\"",
+            "TestCaseLink": "\"Test Case: TOOL-T834 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173494\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as Peripheral Device that has correct credentials gives appropriate info message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Correct Credentials : Device's credentials are valid.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    }
+}

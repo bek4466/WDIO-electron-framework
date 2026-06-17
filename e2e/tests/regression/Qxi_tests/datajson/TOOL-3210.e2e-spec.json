@@ -1,0 +1,104 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate error message is thrown if primary device is not reachable at the time of file transfer",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3107\", https://extron.atlassian.net/browse/TOOL-3107",
+      "UserStory": "TOOL-3107 355 MQxi Validation",
+      "TaskLink": "\"Task Issue: TOOL-3210\", https://extron.atlassian.net/browse/TOOL-3210",
+      "TestCaseLink": "\"Test Case: TOOL-T750\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T750",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify Qxi test run"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+        "devices.0.part_number": "60-1991-01",
+        "devices.0.name": "Primary Device"
+      },
+
+      "InsertTestData": {
+        "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+        "devices.0.network.interfaces.1.type": "AVLAN"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Primary - File transfer failed : The device at the specified address is not reachable on the network. - Please check the device connection and make sure that it is reachable on the network and retry.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "False"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate info message is thrown for successful deployment when UUT is primary device",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3107\", https://extron.atlassian.net/browse/TOOL-3107",
+      "UserStory": "TOOL-3107 355 MQxi Validation",
+      "TaskLink": "\"Task Issue: TOOL-3210\", https://extron.atlassian.net/browse/TOOL-3107",
+      "TestCaseLink": "\"Test Case: TOOL-T788\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T788",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify that appropriate info message is thrown for successful deployment when UUT is primary device"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+        "devices.0.part_number": "60-1991-01",
+        "devices.0.name": "Primary Device"
+      },
+
+      "InsertTestData": {
+        "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+        "devices.0.network.interfaces.1.type": "AVLAN"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

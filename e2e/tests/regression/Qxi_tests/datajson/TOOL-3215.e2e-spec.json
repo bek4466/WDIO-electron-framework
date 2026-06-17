@@ -1,0 +1,189 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has hardware mismatch gives appropriate warning message",
+            "Owner": "Kiran S",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3215\", \"https://extron.atlassian.net/browse/TOOL-3215\"",
+            "TestCaseLink": "\"Test Case: TOOL-T733 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888013\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as Primary Device that has hardware mismatch gives appropriate warning message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.0.part_number": "60-1914-01",
+                "devices.0.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My 355MQ XI - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device that has hardware mismatch gives appropriate warning message",
+            "Owner": "Kiran S",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3215\", \"https://extron.atlassian.net/browse/TOOL-3215\"",
+            "TestCaseLink": "\"Test Case: TOOL-T734 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888014\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as Peripheral Device that has hardware mismatch gives appropriate warning message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Hardware mismatch : The specified device does not match live device on the network.",
+                "MessageType": "Warning",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Primary Device specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+            "Owner": "Kiran S",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3215\", \"https://extron.atlassian.net/browse/TOOL-3215\"",
+            "TestCaseLink": "\"Test Case: TOOL-T737 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888017\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that for UUT as Primary Device specified in destiny file, an incompatible device found at the address gives appropriate error warning"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "TLP525T_TLP",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Hardware Incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry.",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Peripheral Device specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+            "Owner": "Kiran S",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3215\", \"https://extron.atlassian.net/browse/TOOL-3215\"",
+            "TestCaseLink": "\"Test Case: TOOL-T738 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888018\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that for UUT as Peripheral Device specified in destiny file, an incompatible device found at the address gives appropriate error warning"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "TLP525T_TLP",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Hardware incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt..",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    }
+}

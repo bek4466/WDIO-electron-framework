@@ -1,0 +1,132 @@
+{
+    "Execute":[ "TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify network.interfaces.type info message shown when Single NIC Controller given two LAN types.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1659\", https://extron.atlassian.net/browse/TOOL-1659 ",
+            "UserStory": "TOOL-1659 (Network Interface Validation)",
+            "TaskLink": "\"Task Issue: TOOL-1485\", https://extron.atlassian.net/browse/TOOL-1485 ",
+            "TestCaseLink": "\"Test Case: TOOL-4088\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4088 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": 
+                    {
+                        "address": "10.113.89.20",
+                        "type": "LAN"
+                    }
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<primaryinfo1>><<Pro350__IPCP>><<primaryinfo3>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify network.interfaces.type info message shown when Dual NIC Controller given extra LAN and AVLAN type.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1659\", https://extron.atlassian.net/browse/TOOL-1659 ",
+            "UserStory": "TOOL-1659 (Network Interface Validation)",
+            "TaskLink": "\"Task Issue: TOOL-1485\", https://extron.atlassian.net/browse/TOOL-1485 ",
+            "TestCaseLink": "\"Test Case: TOOL-4091\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4091 ",
+            "ProjectFile": "GoldenDualnicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.network.interfaces.1.address": "198.168.254.2",
+                "devices.0.network.interfaces.1.type": "LAN"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.2.address": "192.168.254.1",
+                "devices.0.network.interfaces.2.type": "AVLAN",
+                "devices.0.network.interfaces.3.address": "198.168.254.3",
+                "devices.0.network.interfaces.3.type": "AVLAN"
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<primaryinfo1>><<controllerHost>><<primaryinfo2>><<IPCP360_IPCP_dualnic_AV>><<primaryinfo3>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+   
+}

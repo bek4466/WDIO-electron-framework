@@ -1,0 +1,96 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate info message is thrown for successful deployment when UUT is secondary device",
+      "Owner": "Amit bhagwat",
+      "SuiteType": "IPL EXP Hardware Validation",
+      "UserStoryLink": [
+        "\"User Story: TOOL-3234\", https://extron.atlassian.net/browse/TOOL-3234",
+        "\"User Story: TOOL-3235\", https://extron.atlassian.net/browse/TOOL-3235",
+        "\"User Story: TOOL-3236\", https://extron.atlassian.net/browse/TOOL-3236",
+        "\"User Story: TOOL-3237\", https://extron.atlassian.net/browse/TOOL-3237",
+        "\"User Story: TOOL-3238\", https://extron.atlassian.net/browse/TOOL-3238"
+      ],
+      "UserStory": "TOOL-3234, 3235, 3236, 3237, 3238 (IPL EXP Hardware Validation)",
+      "TaskLink": "\"Task Issue: TOOL-3331\", https://extron.atlassian.net/browse/TOOL-3331",
+      "TestCaseLink": "\"Test Case: TOOL-T891\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T891"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "InsertTestData": {
+        "devices.2.name": "My Peripheral Device 2",
+        "devices.2.part_number": "60-1908-01",
+        "devices.2.alias": "ProcessorAlias_3",
+        "devices.2.username": "admin",
+        "devices.2.password": "extron",
+        "devices.2.network.host_network_type": "LAN",
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "IPLEXP_200",
+        "devices.2.network.interfaces.0.type": "LAN",
+        "devices.3.name": "My Peripheral Device 3",
+        "devices.3.part_number": "60-1956-01",
+        "devices.3.alias": "ProcessorAlias_4",
+        "devices.3.username": "admin",
+        "devices.3.password": "extron",
+        "devices.3.network.host_network_type": "LAN",
+        "devices.3.network.interfaces": [],
+        "devices.3.network.interfaces.0.address": "IPLEXP_PDU4H",
+        "devices.3.network.interfaces.0.type": "LAN",
+        "devices.4.name": "My Peripheral Device 4",
+        "devices.4.part_number": "60-1907-01",
+        "devices.4.alias": "ProcessorAlias_5",
+        "devices.4.username": "admin",
+        "devices.4.password": "extron",
+        "devices.4.network.host_network_type": "LAN",
+        "devices.4.network.interfaces": [],
+        "devices.4.network.interfaces.0.address": "IPLEXP_RIO8",
+        "devices.4.network.interfaces.0.type": "LAN"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral Device 4 - Device paired successfully with primary device using address (IPLEXP_RIO8) with systemId (5427)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "My Peripheral Device 3 - Device paired successfully with primary device using address (IPLEXP_PDU4H) with systemId (5427)",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "My Peripheral Device 2 - Device paired successfully with primary device using address (IPLEXP_200) with systemId (5427)",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,225 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for NAV device's unsupported part number - PN is known but NOT allowed.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3341\", https://extron.atlassian.net/browse/TOOL-3341",
+            "TestCaseLink": "\"Test Case: TOOL-T896\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861860",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.1.part_number": "60-1470-00",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.2.part_number": "60-1470-00",
+                "devices.3.network.interfaces.0.address": "NAVSD_101",
+                "devices.3.part_number": "60-1470-00"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAVigator : 10.113.81.83 - part_number: Invalid - Hardware is not supported",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV E 101 - part_number: Invalid - Hardware is not supported",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - part_number: Invalid - Hardware is not supported",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a NAV Endpoint Device(Encoder) that has hardware mismatch with another NAV Endpoint Device(Decoder) gives appropriate warning message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3341\", https://extron.atlassian.net/browse/TOOL-3341",
+            "TestCaseLink": "\"Test Case: TOOL-T910\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861874",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "Navigator",
+                "devices.2.network.interfaces.0.address": "NAVSD_101",
+                "devices.3.network.interfaces.0.address": "NAVE_101"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAV E 101 - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Warning",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "NAV SD 101 - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Warning",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "(Replaced NAVE 101) Verify that for NAV endpoint devices specified in destiny file, a NAVigator device found at the address gives appropriate error warning",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3341\", https://extron.atlassian.net/browse/TOOL-3341",
+            "TestCaseLink": "\"Test Case: TOOL-T911\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861875",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "NAVSD_101",
+                "devices.2.network.interfaces.0.address": "Navigator",
+                "devices.3.network.interfaces.0.address": "NAVSD_101"
+
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAV E 101 - Hardware incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "(Replaced NAV10E 901) Verify that for NAV endpoint devices specified in destiny file, a NAVigator device found at the address gives appropriate error warning",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3341\", https://extron.atlassian.net/browse/TOOL-3341",
+            "TestCaseLink": "\"Test Case: TOOL-T911\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16861875",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.network.interfaces.0.address": "NAVSD_101",
+                "devices.2.network.interfaces.0.address": "NAVE_101",
+                "devices.3.network.interfaces.0.address": "Navigator"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "NAV SD 101 - Hardware incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

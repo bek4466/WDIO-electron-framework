@@ -1,0 +1,71 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify no error when deplopying a project that contains non-project files and folders with unsupported characters in the project root. \nVerify no error when deploying code only of a project that contains non-project files and folders with unsupported characters in the project root. \nVerify no error when deploying a project that contains unsupported character files in a non-project folder. \nVerify no error when deploying code only of a project that contains unsupported character files in a non-project folder.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Non-project files containing unsupported characters in project root or non-project folder\", https://extron.atlassian.net/browse/TOOL-4309 ",
+            "UserStory": "TOOL-4309: As a Control System Programmer or AV Technician, I want CSDU to ignore unsupported character issues with non-project files, So that I won’t have to force close the app and call Extron support.  ",
+            "TaskLink": "\"Task Issue: TOOL-4406\", https://extron.atlassian.net/browse/TOOL-4406 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4674,T4675,T4676 & T4677\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4674, https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4675, https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4676, https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4677 ",
+            "ProjectFile": "ValidProjectWithInvalidFileNames\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              },
+              {
+                  "user": "admin",
+                  "pass": "extron"
+              }
+
+        ],
+        
+        "Steps": {
+
+           
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            
+            "DeployAction2": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

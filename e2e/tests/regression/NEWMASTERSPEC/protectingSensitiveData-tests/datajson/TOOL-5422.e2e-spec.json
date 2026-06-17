@@ -1,0 +1,167 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase3_Flakey"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify certified user selecting a protected project that does not allow deployment and troubleshooting disables all options except for Project Credentials",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Protecting Sensitive Data",
+            "UserStoryLink": "\"User Story: TOOL-5332\", https://extron.atlassian.net/browse/TOOL-5332 ",
+            "UserStory": "TOOL-5332 (Protected Project Selection)",
+            "TaskLink": "\"Task Issue: TOOL-5422\", https://extron.atlassian.net/browse/TOOL-5422 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4900\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4900 ",
+            "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "ProtectProjectTest\\uncorruptNotAllowed.cspp"
+                },
+                "DeployBtn": {
+                    "isDisabled": null
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": null
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage2": {
+                "ProjectCredentialsBtn": {
+                    "isEnabled": true
+                }
+            },
+            "TroubleshootingAction": [
+                "VerifyRefreshProgramLogNotClickable",
+                "VerifyStartProgramNotClickable"
+            ],
+            "TroubleshootingPage": {
+                "StartTraceBtn": {
+                    "isDisbaled": null
+                }
+            }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify uncertified user selecting a protected project that does not allow deployment and troubleshooting disables all options except Project Credentials",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Protecting Sensitive Data",
+            "UserStoryLink": "\"User Story: TOOL-5332\", https://extron.atlassian.net/browse/TOOL-5332 ",
+            "UserStory": "TOOL-5332 (Protected Project Selection)",
+            "TaskLink": "\"Task Issue: TOOL-5422\", https://extron.atlassian.net/browse/TOOL-5422 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4901\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4901 ",
+            "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "Steps": {
+            "AppAction": [
+                "Logout",
+                {
+                    "user": "uncertified",
+                    "pass": "uncertified"
+                }
+            ],
+            "Timeout": "fast",
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "ProtectProjectTest\\AlarmClock_depolyment_not_allowed.cspp"
+                },
+                "DeployBtn": {
+                    "isDisabled": null
+                },
+                "ProjectCredentialsBtn": {
+                    "isEnabled": true
+                }
+            },
+            "TroubleshootingAction": [
+                "VerifyRefreshProgramLogNotClickable",
+                "VerifyStartProgramNotClickable",
+                "VerifyStopProgramClickable"
+            ],
+            "TroubleshootingPage": {
+                "StartTraceBtn": {
+                    "isDisbaled": null
+                }
+            },
+            "AppAction2": [
+                "Logout",
+                {
+                    "user": "certified",
+                    "pass": "certified"
+                }
+            ]
+        }
+    },
+    "TestCase3_Flakey": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify certified user selecting a protected project that allows deployment and troubleshooting is able to only deploy and troubleshoot",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Protecting Sensitive Data",
+            "UserStoryLink": "\"User Story: TOOL-5332\", https://extron.atlassian.net/browse/TOOL-5332 ",
+            "UserStory": "TOOL-5332 (Protected Project Selection)",
+            "TaskLink": "\"Task Issue: TOOL-5422\", https://extron.atlassian.net/browse/TOOL-5422 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4902\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4902 ",
+            "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "ProtectProjectTest\\uncorruptAllowed.cspp"
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage2": {
+                "DeployBtn": {
+                    "isEnabled": null
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": null
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                }
+            },
+            "Timeout2": "fast",
+            "DeployPage3": {
+                "ProjectCredentialsBtn": {
+                    "isEnabled": true
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+            ],
+            "Timeout3": "slow",
+            "TroubleShootingAction2": [
+                "StartTrace",
+                "RefreshProgramLog"
+            ],
+            "Timeout4": "slow",
+            "VerifyTraceMessage": [
+                {
+                    "MessageText": "<<traceMessage>>",
+                    "IpAddress": "<<Pro550_IPCP_2>>",
+                    "Exist": true
+                }
+            ],
+            "VerifyProgramMessageLogs": [
+                {
+                    "MessageText": "<<programLogMessage1>>",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

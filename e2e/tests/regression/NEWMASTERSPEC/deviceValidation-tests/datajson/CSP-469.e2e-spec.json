@@ -1,0 +1,837 @@
+    {
+    "Execute":["TestCase1", "TestCase2", "TestCase3", "TestCase4", "TestCase5", "TestCase6", "TestCase7", "TestCase8", "TestCase9", "TestCase10", "TestCase11"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.network.interfaces.address\" (invalid hostname) for primary controller gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T254\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T254",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350_IPCP_singlenic",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address": "space here",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.network.interfaces.address\" (invalid FQDN) for primary controller gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T255\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T255",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350_IPCP_singlenic",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address": "space here.extron.com",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.network.interfaces.address\" (not a string) for primary controller gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T256\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T256",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350_IPCP_singlenic",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address": true,
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.network.interfaces.address\" (invalid IPv4) for peripheral device gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T259\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T259",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350_IPCP_singlenic",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address":  "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "255.255"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.network.interfaces.address\" (invalid hostname) for peripheral device gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T260\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T260",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350_IPCP_singlenic",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address":  "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "space here"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase6": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.network.interfaces.address\" (invalid FQDN) for peripheral device gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T261\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T261",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350_IPCP_singlenic",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address":  "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "space here.extron.com"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase7": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.network.interfaces.address\" (not a string) for peripheral device gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T262\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T262",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP350_IPCP_singlenic",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address":  "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": true
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+                }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase8": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing key \"devices.network.interfaces.address\" for primary device gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T464\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T464",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Device",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.0.network.interfaces.0.address"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "InsertTestData":{
+                    "devices.0.network.interfaces.0.address":  "<<IPCP350_IPCP_singlenic>>"
+            }
+            },
+            "ChangeCredentials":[
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },{
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase9": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that duplicate value for key \"devices.network.interfaces.address\" for peripheral device gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T465\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T465",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Device",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address":  "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "TLP Pro 1022T_dupolicate",
+                "devices.2.part_number": "60-1601-02",
+                "devices.2.alias": "tlp1220_2",
+                "devices.2.network": {},
+                "devices.2.network.interfaces" : [],
+                "devices.2.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                "devices.2.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<duplicateDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                "devices.1.network.interfaces.0.address": "solarsystem.notpluto",
+                "devices.2.network.interfaces.0.address": "solarsystem.notpluto"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<duplicateDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_2": {
+                "ModifyTestData":{
+                "devices.1.network.interfaces.0.address": "http://www.abcd_efg.com",
+                "devices.2.network.interfaces.0.address": "http://www.abcd_efg.com"
+                }
+            },
+            "DeployAction_3": ["Deploy"],
+            "VerifyMessage_3": [
+                {
+                    "MessageText": "<<duplicateDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_3": {
+                "ModifyTestData":{
+                    "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                    "devices.2.alias": "60-1559-02",
+                    "devices.2.network.interfaces.0.address": "<<TLP525T_TLP>>"
+                }
+            },
+            "DeployAction_4": ["Deploy"],
+            "VerifyMessage_4": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase10": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that duplicate value for key \"devices.network.interfaces.address\" for peripheral device gives appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T465\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T465",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Device",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.network.interfaces.0.address":  "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "My Device_duplicate",
+                "devices.2.part_number": "60-1417-01",
+                "devices.2.alias": "Test_Rack_Pro350_2",
+                "devices.2.network": {},
+                "devices.2.network.interfaces" : [],
+                "devices.2.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.2.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<duplicateDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                "devices.0.network.interfaces.0.address": "solarsystem.notpluto",
+                "devices.2.network.interfaces.0.address": "solarsystem.notpluto"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<duplicateDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_2": {
+                "ModifyTestData":{
+                "devices.0.network.interfaces.0.address": "http://www.abcd_efg.com",
+                "devices.2.network.interfaces.0.address": "http://www.abcd_efg.com"
+                }
+            },
+            "DeployAction_3": ["Deploy"],
+            "VerifyMessage_3": [
+                {
+                    "MessageText": "<<duplicateDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile_3": {
+                "ModifyTestData":{
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                    "devices.2.alias": "60-1559-02",
+                    "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>"
+                }
+            },
+            "DeployAction_4": ["Deploy"],
+            "VerifyMessage_4": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase11": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for a primary device missing name key, the index of the device is used for Device Identifier for Missing devices.network.interfaces.address",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-1412\", https://extron.atlassian.net/browse/TOOL-1412",
+            "TestCaseLink": "\"Test Case: CSP-T674\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T674",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.0.name",
+                "devices.0.network.interfaces.0.address"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[0]<<missingPeripheralDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

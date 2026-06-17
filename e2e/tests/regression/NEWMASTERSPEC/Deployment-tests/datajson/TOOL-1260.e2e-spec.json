@@ -1,0 +1,195 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be error message in message pane for invalid primary devices.network.interfaces.address key -not a valid host name",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1595\", https://extron.atlassian.net/browse/TOOL-1595 ",
+            "UserStory": "TOOL-1595 (As Francisco Garcia,  I want to be able to use Hostnames to identify my devices, So that I have easier device identification readability.)",
+            "TaskLink": "\"Task Issue: TOOL-1260\", https://extron.atlassian.net/browse/TOOL-1260 ",
+            "TestCaseLink": "\"Test Case: CSP-T1508\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1508 ",
+            "ProjectFile": "DHCPProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+             
+                "devices.0.network.interfaces.0.address": "_<<IPCP360DUALNIC_AVLAN>>",
+                "devices.0.name": "Primary_control"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                  "MessageText": "<<deployFailureMsg>>",
+                  "MessageType": "Error",
+                  "Exist": true
+                },
+                {
+                  "MessageText": "Primary_control<<invalidDeviceAddress>>",
+                  "MessageType": "Error",
+                  "Exist": true
+                }
+                
+          
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify there should be error message in message pane for invalid peripheral devices.network.interfaces.address key -not a valid host name.",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "Deployment",
+          "UserStoryLink": "\"User Story: TOOL-1595\", https://extron.atlassian.net/browse/TOOL-1595 ",
+          "UserStory": "TOOL-1595 (As Francisco Garcia,  I want to be able to use Hostnames to identify my devices, So that I have easier device identification readability.)",
+          "TaskLink": "\"Task Issue: TOOL-1260\", https://extron.atlassian.net/browse/TOOL-1260 ",
+          "TestCaseLink": "\"Test Case: CSP-T1509\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1509 ",
+          "ProjectFile": "DHCPProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      
+      "Preconditions": {
+          "ModifyTestData": {
+           
+              "devices.1.network.interfaces.0.address": "_<<Local_SecondaryControllerDHCP_FQDN>>",
+              "devices.1.name": "Peripheral_device"
+          },
+          "InsertTestData": {
+             
+          },
+          "DeleteData": [
+             
+          ]
+      },
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                "MessageText": "<<deploySuccessMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                "MessageText": "Peripheral_device<<invalidDeviceAddress>>",
+                "MessageType": "Error",
+                "Exist": true
+              }
+              
+        
+          ]
+      },
+      "Execute": "True"
+  },
+
+  "TestCase3": {
+    "TestCaseInfo": {
+        "TestDescription": "Verify there should be error message in message pane for incorrect primary devices.network.interfaces.address key - incorrect AVLAN Address",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "Deployment",
+        "UserStoryLink": "\"User Story: TOOL-1595\", https://extron.atlassian.net/browse/TOOL-1595 ",
+        "UserStory": "TOOL-1595 (As Francisco Garcia,  I want to be able to use Hostnames to identify my devices, So that I have easier device identification readability.)",
+        "TaskLink": "\"Task Issue: TOOL-1260\", https://extron.atlassian.net/browse/TOOL-1260 ",
+        "TestCaseLink": "\"Test Case: CSP-T1510\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1510 ",
+        "ProjectFile": "DHCPProject\\systeminfo.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    
+    "Preconditions": {
+        "ModifyTestData": {
+         
+          "devices.0.network.interfaces.0.address": "<<IPCP360DUALNIC_AVLAN>>",
+          "devices.0.network.interfaces.1.address": "<<OFFLINECONTROLLER>>",
+          "devices.0.name": "Primary_control"
+        },
+        "InsertTestData": {
+           
+        },
+        "DeleteData": [
+           
+        ]
+    },
+    "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+    "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+          {
+            "MessageText": "<<deployFailureMsg>>",
+            "MessageType": "Error",
+            "Exist": true
+          },
+          {
+            "MessageText": "Primary_control<<incorrectAVLANAddress1>><<OFFLINECONTROLLER>><<incorrectAVLANAddress2>><<IPCP360_IPCP_dualnic_AV>><<incorrectAVLANAddress3>>",
+            "MessageType": "Error",
+            "Exist": true
+          }
+      
+      
+        ]
+    },
+    "Execute": "True"
+}
+   
+}

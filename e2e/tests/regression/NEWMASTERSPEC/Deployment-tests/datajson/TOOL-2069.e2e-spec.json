@@ -1,0 +1,84 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that user should be able to select destiny file with special characters name eg: t@stF$le.json",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1629\", https://extron.atlassian.net/browse/TOOL-1629",
+            "UserStory": "TOOL-1629 (As a Francisco, I want easier way to select my destiny file so that work faster)",
+            "TaskLink": "\"Task Issue: TOOL-2069\", https://extron.atlassian.net/browse/TOOL-2069",
+            "TestCaseLink": "\"Test Case: CSP-T16\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T16",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPCP550_IPCP_singlenic",
+                "devices.2.alias": "ProcessorAlias_2",
+                "devices.2.part_number": "60-1418-01",
+                "devices.2.network": {},
+                "devices.2.network.interfaces" : [],
+                "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+                "devices.2.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\t@stF$le.json"
+                }
+            },
+            "ChangeCredentials": [
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                }
+              ],
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

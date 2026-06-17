@@ -1,0 +1,149 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify project credential file exists upon download",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3596\", https://extron.atlassian.net/browse/TOOL-3596",
+      "UserStory": "TOOL-3596 Download/Recovery: Recover Project Credentials File from Primary Controller",
+      "TaskLink": "\"Task Issue: TOOL-3695\", https://extron.atlassian.net/browse/TOOL-3695",
+      "TestCaseLink": "\"Test Case: TOOL-T4502\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/20222715",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "DeployPage_3": {
+        "ProjectFilePathInput": {
+          "setPath": "CredentialsProject\\systeminfoTmp.json"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "DeployAction_3": [
+        "ProjectDownload"
+      ],
+      
+      "CommonMethod": {
+        "findFile": {
+          "path": "TmpDownloadProject\\systeminfoTmp-certification.dat"
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify project credential file exists upon download (Uncertified)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3596\", https://extron.atlassian.net/browse/TOOL-3596",
+      "UserStory": "TOOL-3596 Download/Recovery: Recover Project Credentials File from Primary Controller",
+      "TaskLink": "\"Task Issue: TOOL-3695\", https://extron.atlassian.net/browse/TOOL-3695",
+      "TestCaseLink": "\"Test Case: TOOL-T4504\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/20289312",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "DeployPage_3": {
+        "ProjectFilePathInput": {
+          "setPath": "CredentialsProject\\systeminfoTmp.json"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "DeployAction_3": [
+        "ProjectDownload"
+      ],
+      "AppAction_3": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "CommonMethod": {
+        "findFile": {
+          "path": "TmpDownloadProject\\systeminfoTmp-certification.dat"
+        }
+      }
+    }
+  }
+}

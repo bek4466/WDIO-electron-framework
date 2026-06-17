@@ -1,0 +1,211 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Endorsement",
+            "UserStoryLink": "\"User Story: TOOL-2256\", https://extron.atlassian.net/browse/TOOL-2256",
+            "UserStory": "TOOL-2256 (Provide certified/uncertified users the ability to deploy the shared project files)",
+            "TaskLink": "\"Task Issue: TOOL-2305\", https://extron.atlassian.net/browse/TOOL-2305",
+            "TestCaseLink": "\"Test Case: TOOL-T268\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/8656416",
+            "TestDescription": "Uncertified user is unable to deploy project certified by another certified user after deleting files.",
+            "ProjectFile": "ProjectEndorsementProject-268\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "ProcessorAlias",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Certify"
+            ],
+            "AppAction_2": [
+                "Logout",
+                {
+                    "user": "uncertified",
+                    "pass": "uncertified"
+                }
+            ],
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "ProjectEndorsementProject-268\\systeminfoTmp.json"
+                }
+            },
+            "CommonMethod": {
+                "deleteFile": "ProjectEndorsementProject-268\\sound\\SFolder\\touch.wav"
+            },
+            "Timeout": "fast",
+            "DeployAction_2": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "CommonMethod_2": {
+                "copyFile": {
+                    "from": "ProjectEndorsementProject-268\\sound\\touch.wav",
+                    "to": "ProjectEndorsementProject-268\\sound\\SFolder\\touch.wav"
+                }
+            },
+            "AppAction_3": [
+                "Logout",
+                {
+                    "user": "certified",
+                    "pass": "certified"
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Endorsement",
+            "UserStoryLink": "\"User Story: TOOL-2256\", https://extron.atlassian.net/browse/TOOL-2256",
+            "UserStory": "TOOL-2256 (Provide certified/uncertified users the ability to deploy the shared project files)",
+            "TaskLink": "\"Task Issue: TOOL-2305\", https://extron.atlassian.net/browse/TOOL-2305",
+            "TestCaseLink": "\"Test Case: TOOL-T269\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T269",
+            "TestDescription": "Uncertified user is unable to deploy project certified by another certified user after adding files.",
+            "ProjectFile": "ProjectEndorsementProject-268\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "ProcessorAlias",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Certify"
+            ],
+            "AppAction_2": [
+                "Logout",
+                {
+                    "user": "uncertified",
+                    "pass": "uncertified"
+                }
+            ],
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "ProjectEndorsementProject-268\\systeminfoTmp.json"
+                }
+            },
+            "CommonMethod_2": {
+                "copyFile": {
+                    "from": "ProjectEndorsementProject-268\\sound\\SFolder\\touch.wav",
+                    "to": "ProjectEndorsementProject-268\\sound\\SFolder\\tempSound.wav"
+                }
+            },
+            "Timeout": "fast",
+            "DeployAction_2": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "CommonMethod": {
+                "deleteFile": "ProjectEndorsementProject-268\\sound\\SFolder\\tempSound.wav"
+            },
+            "AppAction_3": [
+                "Logout",
+                {
+                    "user": "certified",
+                    "pass": "certified"
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Endorsement",
+            "UserStoryLink": "\"User Story: TOOL-2256\", https://extron.atlassian.net/browse/TOOL-2256",
+            "UserStory": "TOOL-2256 (Provide certified/uncertified users the ability to deploy the shared project files)",
+            "TaskLink": "\"Task Issue: TOOL-2305\", https://extron.atlassian.net/browse/TOOL-2305",
+            "TestCaseLink": "\"Test Case: TOOL-T271\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T271",
+            "TestDescription": "Verify accuracy of timestamp after certification",
+            "ProjectFile": "ProjectEndorsementProject-268\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "ProcessorAlias",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "isCertifyDateAccurate"
+            ]
+        },
+        "Execute": "True"
+    }
+}

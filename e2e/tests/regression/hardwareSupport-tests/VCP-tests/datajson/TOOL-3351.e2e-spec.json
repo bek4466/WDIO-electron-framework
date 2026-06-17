@@ -1,0 +1,184 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3351\", https://extron.atlassian.net/browse/TOOL-3351",
+            "TestCaseLink": "\"Test Case: TOOL-T759\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928428",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "VCP_LAN",
+                "devices.0.password": "extr"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct the device credentials and retry.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3351\", https://extron.atlassian.net/browse/TOOL-3351",
+            "TestCaseLink": "\"Test Case: TOOL-T760\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928429",
+            "ProjectFile": "VCPProject\\project.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.1.network.interfaces.0.address": "VCP_LAN",
+                "devices.1.password": "extr"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct and retry or manually pair the device in Toolbelt.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has correct credentials gives appropriate info message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3351\", https://extron.atlassian.net/browse/TOOL-3351",
+            "TestCaseLink": "\"Test Case: TOOL-T833\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173493",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "VCP_LAN"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device that has correct credentials gives appropriate info message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3351\", https://extron.atlassian.net/browse/TOOL-3351",
+            "TestCaseLink": "\"Test Case: TOOL-T834\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173494",
+            "ProjectFile": "VCPProject\\project.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.1.network.interfaces.0.address": "VCP_LAN"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

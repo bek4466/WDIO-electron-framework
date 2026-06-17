@@ -1,0 +1,85 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate error message is thrown if primary device is not reachable at the time of file transfer",
+            "Owner": "Austin Lee",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3128\", https://extron.atlassian.net/browse/TOOL-3128",
+            "UserStory": "TOOL-3128 (TLP w/LL - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3314\", https://extron.atlassian.net/browse/TOOL-3314",
+            "ProjectFile": "HWTLPLLProject\\systeminfox25.json",
+            "TestCaseLink": "\"Test Case: TOOL-T750\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T750",
+            "TestCaseHeader": "Verify that appropriate error message is thrown if primary device is not reachable at the time of file transfer"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestTLPLL",
+                "devices.1.name": "TLP Pro 725M with LinkLicense",
+                "devices.1.part_number": "60-1563-02C",
+                "devices.1.network.interfaces.0.address": "10.117.29.150"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 725M with LinkLicense - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestTLPLL - Project deployment failed.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is thrown for successful deployment when UUT is primary device",
+            "Owner": "Austin Lee",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3128\", https://extron.atlassian.net/browse/TOOL-3128",
+            "UserStory": "TOOL-3128 (TLP w/LL - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3314\", https://extron.atlassian.net/browse/TOOL-3314",
+            "ProjectFile": "HWTLPLLProject\\systeminfox25.json",
+            "TestCaseLink": "\"Test Case: TOOL-T753\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T753",
+            "TestCaseHeader": "Verify that appropriate info message is thrown for successful deployment when UUT is primary device"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestTLPLL",
+                "devices.1.name": "TLP Pro 725M with LinkLicense",
+                "devices.1.part_number": "60-1563-02C"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 725M with LinkLicense - File transfer successful",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestTLPLL - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

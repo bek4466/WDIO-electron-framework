@@ -1,0 +1,47 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deploy button and validations, when primary has right value in project json and peripheral credentials has pointers - file not found - UI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", https://extron.atlassian.net/browse/TOOL-2327",
+            "UserStory": "TOOL-2327: Data File - Bad Scenarios",
+            "TaskLink": "\"Task Issue: TOOL-2416\", https://extron.atlassian.net/browse/TOOL-2416",
+            "TestCaseLink": "\"Test Case: TOOL-T365\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T365",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "Secondary Device"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "system.data_file_path": "dataFilePath\\DataFile.json"
+                }
+            },
+            "DeployPage": {
+                "ProjectFilePathInput" : {
+                    "setPath": "ProtectingSecretsProject\\systeminfoTmp.json",
+                    "errorMessageToValidate": "<<notFoundDataFilePath>>"
+                }
+            }
+        }
+    }
+}

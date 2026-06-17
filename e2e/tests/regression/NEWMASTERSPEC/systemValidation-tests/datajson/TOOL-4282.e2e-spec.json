@@ -1,0 +1,113 @@
+{
+    "Execute":[ "TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Project Descriptor having invalid characters in the filename will result in an Error Displayed under File Path Box.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"M1 - Error handling for unsupported characters in Project Descriptor or Data File filename\",https://extron.atlassian.net/browse/TOOL-3953 ",
+            "UserStory": "TOOL-3953: As a Control System Programmer or AV Technician,I want to be informed when my project contains unsupported characters,So that I won’t have to force close the app and call Extron support. ",
+            "TaskLink": "\"Task Issue: TOOL-4282\", https://extron.atlassian.net/browse/TOOL-4282 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4644\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4644 ",
+            "ProjectFile": "DeployProject\\hg&t_ValidDataFile.json"
+        }, 
+        
+        
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\hg&t_ValidDataFile.json"
+                }
+            },
+            "VerifyErrorUnderDeployFilePath": [
+                {
+                    "MessageText": "hg&t_ValidDataFile.json <<unsupportedCharacterTryAgain>>",
+                    "Exist": true
+                }
+            ],
+            "DeployPage_2": {
+                "DeployBtn": {
+                    "isDisabled": true
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": true
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                },
+                "ProjectCredentialsBtn": {
+                    "isDisabled": true
+                }
+            },
+            "TroubleshootingAction": [
+                "verifyRefreshProgramLogNotClickable"
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Project having invalid characters in the datafile filename will result in an Error Displayed under File Path Box.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"M1 - Error handling for unsupported characters in Project Descriptor or Data File filename\",https://extron.atlassian.net/browse/TOOL-3953 ",
+            "UserStory": "TOOL-3953: As a Control System Programmer or AV Technician,I want to be informed when my project contains unsupported characters,So that I won’t have to force close the app and call Extron support. ",
+            "TaskLink": "\"Task Issue: TOOL-4282\", https://extron.atlassian.net/browse/TOOL-4282 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4645\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4645 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.data_file_path": "dataFile_rename\\dat%&file.json"
+            },
+            "DeleteData": []
+        },
+
+        
+        
+        "Steps": {
+
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                }
+            },
+            "VerifyErrorUnderDeployFilePath": [
+                {
+                    "MessageText": "dat%&file.json <<unsupportedCharacterTryAgain>>",
+                    "Exist": true
+                }
+            ],
+            "DeployPage_2": {
+                "DeployBtn": {
+                    "isDisabled": true
+                },
+                "DeployCodeOnlyBtn": {
+                    "isDisabled": true
+                },
+                "CertifyProjectBtn": {
+                    "isDisabled": true
+                },
+                "ProjectCredentialsBtn": {
+                    "isDisabled": true
+                }
+            },
+            "TroubleshootingAction": [
+                "verifyRefreshProgramLogNotClickable"
+            ]
+        }
+    }
+}

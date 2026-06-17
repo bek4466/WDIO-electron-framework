@@ -1,0 +1,198 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify cancel button erases all inputted data in Extract prompt box",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5331\", https://extron.atlassian.net/browse/TOOL-5331 ",
+      "UserStory": "TOOL-5331: Extraction Process",
+      "TaskLink": "\"Task Issue: TOOL-5421\", https://extron.atlassian.net/browse/TOOL-5421 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4899\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4899 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "exists": true,
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage3": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "exists": true,
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "exists": true,
+            "setPath": "TmpDownloadProject"
+          },
+          "cancelBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage4": {
+        "ExtractProjectBtn": {
+          "exists": true,
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout4": "fast",
+      "DeployPage5": {
+        "ExtractProjectPopUp": {
+          "selectBtn": {
+            "exists": true,
+            "isEmpty": true
+          },
+          "passwordInputBox": {
+            "exists": true,
+            "isEmpty": true
+          },
+          "cancelBtn": {
+            "click": null
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify failed attempt to extract project produce error banner",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5331\", https://extron.atlassian.net/browse/TOOL-5331 ",
+      "UserStory": "TOOL-5331: Extraction Process",
+      "TaskLink": "\"Task Issue: TOOL-5421\", https://extron.atlassian.net/browse/TOOL-5421 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4911\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4911 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\uncorruptAllowed.cspp"
+        }
+      },
+      "CommonMethod": {
+        "copyFile": {
+          "from": "TmpDownloadProject",
+          "to": "EmptyFolder"
+        },
+        "copyFile2": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\uncorruptAllowed.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "exists": true,
+          "isEnabled": true,
+          "click": null
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage3": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "exists": true,
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "exists": true,
+            "setPath": "EmptyFolder"
+          }
+        }
+      },
+      "Timeout3": "fast",
+      "CommonMethod2": {
+        "deleteFolder": "EmptyFolder"
+      },
+      "Timeout4": "medium",
+      "DeployPage4": {
+        "ExtractProjectPopUp": {
+          "extractBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout5": "fast",
+      "Banner": {
+        "BannerText": {
+          "verifyTextMatches": "<<extractFailBannerText>>"
+        },
+        "OpenHelpButton": {
+          "exists": true,
+          "isEnabled": true
+        },
+        "BannerExitButton": {
+          "click": null
+        }
+      },
+      "CommonMethod4": {
+        "cannotFindFolder": {
+          "path": "EmptyFolder"
+        }
+      },
+      "Timeout6": "fast",
+      "DeployPage5": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\uncorruptAllowed.cspp"
+        }
+      },
+      "Timeout7": "medium",
+      "CommonMethod5": {
+        "deleteFile": "TmpDownloadProject\\uncorruptAllowed.cspp"
+      },
+      "DeployPage6": {
+        "ExtractProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout8": "fast",
+      "DeployPage7": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "exists": true,
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "exists": true,
+            "setPath": "TmpDownloadProject"
+          },
+          "extractBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout9": "fast",
+      "Banner2": {
+        "BannerText": {
+          "verifyTextMatches": "<<extractFailBannerText>>"
+        },
+        "OpenHelpButton": {
+          "exists": true,
+          "isEnabled": true
+        },
+        "BannerExitButton": {
+          "click": null
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials Spinner Button",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-4049\", https://extron.atlassian.net/browse/TOOL-4049",
+      "UserStory": "TOOL-4049 Project Credentials UI Updated Workflow",
+      "TaskLink": "\"Task Issue: TOOL-4294\", https://extron.atlassian.net/browse/TOOL-4294",
+      "TestCaseLink": "\"Test Case: TOOL-T4648\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4648",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {},
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "ProjectCredentialsBtn": {
+        "clickVerifySpinner": {}
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials Spinner Button On Large Project",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-4049\", https://extron.atlassian.net/browse/TOOL-4049",
+      "UserStory": "TOOL-4049 Project Credentials UI Updated Workflow",
+      "TaskLink": "\"Task Issue: TOOL-4294\", https://extron.atlassian.net/browse/TOOL-4294",
+      "TestCaseLink": "\"Test Case: TOOL-T4649\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4649",
+      "ProjectFile": "LargeProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {},
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "ProjectCredentialsBtn": {
+        "clickVerifySpinner": {}
+      }
+    }
+  }
+}

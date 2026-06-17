@@ -1,0 +1,35 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Upon Login user should be able to see tooltip adjacent to the text box",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-4680\", https://extron.atlassian.net/browse/TOOL-4680",
+      "UserStory": "TOOL-4680 (Updating the supported characters info message in CSDU)",
+      "TaskLink": "\"Task Issue: TOOL-4748\", https://extron.atlassian.net/browse/TOOL-4748",
+      "TestCaseLink": "\"Test Case: TOOL-T4758\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4758",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+     
+    },
+    
+    "Steps": {
+      "DeployPage": {
+
+            "ValidTooltipMsg": [
+              {
+                  "MessageText": "<<validProjectResources>>",
+                  "Exist": true
+              }
+          ]
+      }
+     
+    },
+    "Execute": "True"
+  }
+}

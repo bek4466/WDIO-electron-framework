@@ -1,0 +1,127 @@
+{
+  "Execute": [ "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Multiple Primary controller can be paired with same Navigator.",
+      "Owner": "Alaa Abdin",
+      "SuiteType": "Deployment",
+      "UserStoryLink": "\"User Story: TOOL-1680\",https://extron.atlassian.net/browse/TOOL-1680 ",
+      "UserStory": "TOOL-1680 (As Francisco Garcia,  I want to deploy a programmed system with a NAVigator, So that I can control my NAV system.)",
+      "TaskLink": "\"Task Issue: TOOL-1356\", https://extron.atlassian.net/browse/TOOL-1356 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4079\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4079 ",
+      "ProjectFile": "NavProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.system_id": "1999",
+        "devices.0.name": "Primary_control",
+        "devices.1.name": "Nav",
+        "devices.2.name": "NavE",
+        "devices.3.name": "NavSD"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+            "MessageText": "Nav<<pairingPositiveMessage>> using address (<<Navigator>>) with systemId (1999)",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "NavE<<pairingPositiveMessage>> using address (<<NAVE_101>>) with systemId (1999)",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+          "MessageText": "NavSD<<pairingPositiveMessage>> using address (<<NAVSD_101>>) with systemId (1999)",
+          "MessageType": "Info",
+          "Exist": true
+      }
+      ],
+      "EditProjectFile": {
+        "ModifyTestData": {
+          "system.system_id": "2999",
+            "devices.0":{}
+        },
+        "InsertTestData": {
+          "devices.0": {
+            
+            "name": "Primary_control",
+            "part_number": "60-1417-01",
+            "alias": "ProcessorAlias",
+            "network": {
+              "interfaces": [
+                  {
+                      "address": "<<Pro350__IPCP>>",
+                      "type": "LAN"
+                  }
+              ]
+          }
+        }
+            
+        },
+        "DeleteData": [
+            
+        ]
+    },
+    "DeployAction2": [
+      "ClearMessagePane",
+      "Deploy"
+      ],
+      "VerifyMessage2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+            "MessageText": "Nav<<pairingPositiveMessage>> using address (<<Navigator>>) with systemId (2999)",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "NavE<<pairingPositiveMessage>> using address (<<NAVE_101>>) with systemId (2999)",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+          "MessageText": "NavSD<<pairingPositiveMessage>> using address (<<NAVSD_101>>) with systemId (2999)",
+          "MessageType": "Info",
+          "Exist": true
+      }
+      ]
+    },
+    "Execute": "True"
+  
+  }
+}

@@ -1,0 +1,120 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deployment Does not Modify Project Credentials file if no Changes were made",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-3669\", https://extron.atlassian.net/browse/TOOL-3969",
+            "UserStory": "TOOL-3669 (Deployment does not modify Project Credentials File if PD changes haven't taken place)",
+            "TaskLink": "\"Task Issue: TOOL-4886\", https://extron.atlassian.net/browse/TOOL-4886",
+            "TestCaseLink": "\"Test Case: TOOL-T4711\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/79485187",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "Timeout": "fast",
+            "CommonMethod": {
+                "saveFileModifiedDate": {
+                    "filePath": "DeployProject\\systeminfoTmp-credential.dat"
+                }
+            },
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist" : true
+                }
+            ], 
+            "CommonMethod_2": {
+                "compareFileModifiedDateToSavedDate": {
+                    "filePath": "DeployProject\\systeminfoTmp-credential.dat",
+                    "expect": "SameAsSaved"
+                }
+            }
+            
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deploy Code Only Does not Modify Project Credentials file if no Changes were made",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-3669\", https://extron.atlassian.net/browse/TOOL-3969",
+            "UserStory": "TOOL-3669 (Deployment does not modify Project Credentials File if PD changes haven't taken place)",
+            "TaskLink": "\"Task Issue: TOOL-4886\", https://extron.atlassian.net/browse/TOOL-4886",
+            "TestCaseLink": "\"Test Case: TOOL-T4712\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/79485190",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "Timeout": "fast",
+            "CommonMethod": {
+                "saveFileModifiedDate": {
+                    "filePath": "DeployProject\\systeminfoTmp-credential.dat"
+                }
+            },
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist" : true
+                }
+            ], 
+            "DeployAction_2": ["DeployCodeOnly"],
+            "CommonMethod_2": {
+                "compareFileModifiedDateToSavedDate": {
+                    "filePath": "DeployProject\\systeminfoTmp-credential.dat",
+                    "expect": "SameAsSaved"
+                }
+            }
+            
+        },
+        "Execute": "True"
+    }
+}

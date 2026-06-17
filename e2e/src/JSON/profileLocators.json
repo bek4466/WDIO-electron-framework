@@ -1,0 +1,15 @@
+{
+    "profilePage": "#profilePage",
+    "profile":"//div[@id='profilePage']//div[@class='option-container']",
+    "titleText": "//h1[@class='title']",
+    "licenseText": "//h2[@class='license-title']",
+    "statusText": "//p[contains(text(),'Status: Certified')]",
+    "uncertifiedStatusText": "//p[contains(text(),'Status: Uncertified')]",
+    "expirationText": "//p[contains(text(),'Expiration: ')]",
+    "remainderDaysText": "//p[contains(text(),'Remaining Days: ')]",
+    "remainderDaysVal": "//p[contains(text(),'Remaining Days: 30')]",
+    "lastRenewed": "//p[contains(text(),'Last Renewed:')]",
+    "renewBtn": "//button[@class='btn-tertiary btn-md']",
+    "lisenceCard": "//div[@class='shadow-1']",
+    "ApplicationRenewAlert": "//div[contains(text(),'Application License Renewed')]"
+}

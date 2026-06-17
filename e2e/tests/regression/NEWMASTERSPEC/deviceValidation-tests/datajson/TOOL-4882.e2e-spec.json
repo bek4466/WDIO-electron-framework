@@ -1,0 +1,199 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3", "TestCase4"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "ZRTP Hardware Validation Tests",
+      "UserStoryLink": "\"User Story: TOOL-4801\", https://extron.atlassian.net/browse/TOOL-4801",
+      "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-4882\", https://extron.atlassian.net/browse/TOOL-4882",
+      "TestCaseLink": "\"Test Case: TOOL-T760\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928429",
+      "ProjectFile": "DeployProject\\tlrcSystem.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {}
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extro"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "ZRTP 725T<<incorrectPeripheralCreds>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify peripheral ZRTP device that has hardware mismatch gives appropriate warning message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "ZRTP Hardware Validation Tests",
+      "UserStoryLink": "\"User Story: TOOL-4801\", https://extron.atlassian.net/browse/TOOL-4801",
+      "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-4882\", https://extron.atlassian.net/browse/TOOL-4882",
+      "TestCaseLink": "\"Test Case: TOOL-T4802\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/90776602",
+      "ProjectFile": "DeployProject\\tlrcSystem.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.network.interfaces.0.address": "<<ZRTP1025T>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "ZRTP 725T<<hardwareMismatch>>",
+          "MessageType": "Warning",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify peripheral ZRTP device that has hardware not found on network gives appropriate error message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "ZRTP Hardware Validation Tests",
+      "UserStoryLink": "\"User Story: TOOL-4801\", https://extron.atlassian.net/browse/TOOL-4801",
+      "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-4882\", https://extron.atlassian.net/browse/TOOL-4882",
+      "TestCaseLink": "\"Test Case: TOOL-T4803\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/90776619",
+      "ProjectFile": "DeployProject\\tlrcSystem.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.network.interfaces.0.address": "10.119.92.172"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "ZRTP 725T<<deviceUnreachablePeripheralMessage>>",
+          "MessageType": "Warning",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Error message for has incompatible hardware for peripheral ZRTP devic",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "ZRTP Hardware Validation Tests",
+      "UserStoryLink": "\"User Story: TOOL-4801\", https://extron.atlassian.net/browse/TOOL-4801",
+      "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-4882\", https://extron.atlassian.net/browse/TOOL-4882",
+      "TestCaseLink": "\"Test Case: TOOL-T4804\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/90777288",
+      "ProjectFile": "DeployProject\\tlrcSystem.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.network.interfaces.0.address": "<<ZRTP1025T>>"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "ZRTP 725T<<incompatibleHardwareMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

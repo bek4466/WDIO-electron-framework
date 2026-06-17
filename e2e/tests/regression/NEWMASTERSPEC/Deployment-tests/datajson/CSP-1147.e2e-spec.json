@@ -1,0 +1,135 @@
+{
+    "Execute":[ "TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Device not reachable error message is displayed for peripheral during deployment and Peripheral is offline.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1593\", https://extron.atlassian.net/browse/TOOL-1593 ",
+            "UserStory": "TOOL-1593 (As Francisco Garcia,  I want to identify issues with TLP NC  while performing deployment, So that I can correct them and have a successful project deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1253\", https://extron.atlassian.net/browse/TOOL-1253 ",
+            "TestCaseLink": "\"Test Case: CSP-T1365\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1365 ",
+            "ProjectFile": "XiControllerProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+              "system.system_id": "1239",
+                "devices.2.network.interfaces.0.address": "<<OFFLINECONTROLLER>>",
+                "devices.2.name": "Peripheral_TLP"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+              {
+                "MessageText": "<<deploySuccessMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                "MessageText": "Peripheral_TLP<<pairingNegativeMessage>>(1239) and address (<<IPCP350_Xi_IPCP>>)",
+                "MessageType": "Error",
+                "Exist": true
+          }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify Device not reachable error message is displayed for peripheral during deployment and Peripheral is offline.",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "Deployment",
+          "UserStoryLink": "\"User Story: TOOL-1593\", https://extron.atlassian.net/browse/TOOL-1593 ",
+          "UserStory": "TOOL-1593 (As Francisco Garcia,  I want to identify issues with TLP NC  while performing deployment, So that I can correct them and have a successful project deployment)",
+          "TaskLink": "\"Task Issue: TOOL-1253\", https://extron.atlassian.net/browse/TOOL-1253 ",
+          "TestCaseLink": "\"Test Case: CSP-T1365\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1371 ",
+          "ProjectFile": "XiControllerProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      
+      "Preconditions": {
+          "ModifyTestData": {
+            "system.system_id": "1239",
+              "devices.2.name": "Peripheral_TLP"
+          },
+          "InsertTestData": {
+             
+          },
+          "DeleteData": [
+             
+          ]
+      },
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+                {
+                  "MessageText": "<<deploySuccessMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                },
+                {
+                  "MessageText": "Peripheral_TLP<<pairingPositiveMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                }
+            ],
+          "GmCommands": {
+            "Primary_Controller": "<<IPCP350_Xi_IPCP>>",
+            "Check_Pairing_Peripheral_Devices":[
+              "<<IPCP350_Xi_IPCP_1>>","<<TLP725T_TLP>>"
+          ]
+          }
+      },
+      "Execute": "True"
+  }
+
+
+    
+   
+}

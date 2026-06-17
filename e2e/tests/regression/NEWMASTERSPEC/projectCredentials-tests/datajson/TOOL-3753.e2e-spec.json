@@ -1,0 +1,206 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials Alert Banner disappears after resolving issue, corrupted file case",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3661\", https://extron.atlassian.net/browse/TOOL-3661",
+      "UserStory": "Project Credentials File: Alert Banner disappears after resolving issue",
+      "TaskLink": "\"Task Issue: TOOL-3753\", https://extron.atlassian.net/browse/TOOL-3753",
+      "TestCaseLink": "\"Test Case: TOOL-T4530\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4530",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "CredentialsProject\\systeminfoTmp-credential.dat",
+          "to": "tempFile"
+        }
+      },
+      "CommonMethod_2": {
+        "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat"
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "CommonMethod_3": {
+        "appendToFile": {
+          "filePath": "CredentialsProject\\systeminfoTmp-credential.dat",
+          "text": "ThisIsInvalidText"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "Banner": {
+        "BannerText": {
+          "exists": true
+        },
+        "OpenHelpButton": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "exists": true
+        },
+        "BannerExitButton": {
+          "exists": true
+        }
+      },
+      "CommonMethod_4": {
+        "copyFile": {
+          "from": "tempFile",
+          "to": "CredentialsProject\\systeminfoTmp-credential.dat"
+        }
+      },
+      "CommonMethod_5": {
+        "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat"
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Feature works after resolving Project Credentials issue, corrupted file case",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3661\", https://extron.atlassian.net/browse/TOOL-3661",
+      "UserStory": "Project Credentials File: Alert Banner disappears after resolving issue",
+      "TaskLink": "\"Task Issue: TOOL-3753\", https://extron.atlassian.net/browse/TOOL-3753",
+      "TestCaseLink": "\"Test Case: TOOL-T4531\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4531",
+      "ProjectFile": "CredentialsProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "CredentialsProject\\systeminfoTmp-credential.dat",
+          "to": "tempFile"
+        }
+      },
+      "CommonMethod_2": {
+        "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat"
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "CommonMethod_3": {
+        "appendToFile": {
+          "filePath": "CredentialsProject\\systeminfoTmp-credential.dat",
+          "text": "ThisIsInvalidText"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "Banner": {
+        "BannerText": {
+          "exists": true
+        }
+      },
+      "CommonMethod_4": {
+        "copyFile": {
+          "from": "tempFile",
+          "to": "CredentialsProject\\systeminfoTmp-credential.dat"
+        }
+      },
+      "DeployAction_2": [
+        "Deploy",
+        "DeployCodeOnly"
+      ],
+      "Banner_2": {
+        "BannerText": {
+          "exists": false
+        }
+      },
+      "TroubleshootingAction": [
+        "StartTrace",
+        "StopProgramLog",
+        "StartProgramLog",
+        "RefreshProgramLog"
+      ],
+      "Banner_3": {
+        "BannerText": {
+          "exists": false
+        }
+      },
+      "ProfileAction": [],
+      "Banner_4": {
+        "BannerText": {
+          "exists": false
+        }
+      },
+      "AboutAction": [],
+      "Banner_5": {
+        "BannerText": {
+          "exists": false
+        }
+      },
+      "CommonMethod_5": {
+        "deleteFile": "CredentialsProject\\systeminfoTmp-credential.dat"
+      }
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify User should be able to see offline sign in link on login screen.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2254\", https://extron.atlassian.net/browse/TOOL-2254",
+      "UserStory": "TOOL-2254 (As a CSDU user, I want to be able to log into the application while I am offline.)",
+      "TaskLink": "\"Task Issue: TOOL-2323\", https://extron.atlassian.net/browse/TOOL-2323",
+      "TestCaseLink": "\"Test Case: TOOL-T233\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T233",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout_2": "15000",
+      "LoginPage": {
+        "OfflineSignInBtn": {
+            "isVisible": true
+        }
+      }
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify offline sign in should navigate to right page.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2254\", https://extron.atlassian.net/browse/TOOL-2254",
+      "UserStory": "TOOL-2254 (As a CSDU user, I want to be able to log into the application while I am offline.)",
+      "TaskLink": "\"Task Issue: TOOL-2323\", https://extron.atlassian.net/browse/TOOL-2323",
+      "TestCaseLink": "\"Test Case: TOOL-T234\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T234",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout_2": "15000",
+      "LoginPage": {
+        "OfflineSignInBtn": {
+            "click": null
+        }
+      }
+    },
+    "Execute": "True"
+  }
+}

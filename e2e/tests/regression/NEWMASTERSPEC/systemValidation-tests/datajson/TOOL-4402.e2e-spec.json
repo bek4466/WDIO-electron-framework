@@ -1,0 +1,214 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that when Project Descriptor name is edited , starting the trace displays appropriate error",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for project filename changes on the troubleshooting page\", https://extron.atlassian.net/browse/TOOL-4301 ",
+            "UserStory": "TOOL-4301: Error handling for project filename changes on the troubleshooting page ",
+            "TaskLink": "\"Task Issue: TOOL-4402\", https://extron.atlassian.net/browse/TOOL-4402 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4678\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4678 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "TroubleshootingAction": [],
+            "CommonMethod": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\systeminfoTmp.json",
+                        "newPath": "DeployProject\\newfileName.json"
+                    }
+                ]
+            },
+            "TroubleshootingAction2": [
+                "StartTrace",
+                "CloseError",
+                "StartTrace",
+                "VerifyErrorText",
+                "GoToDeploy"
+            ],
+            "DeployPage": {
+                "DeployBtn": {
+                    "isEnabled": true
+                }
+            },
+            "CommonMethod_2": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\newfileName.json",
+                        "newPath": "DeployProject\\systeminfoTmp.json"
+                    }
+                ]
+            }
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that when Project Descriptor name is edited , starting the Program Logs displays appropriate error",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for project filename changes on the troubleshooting page\", https://extron.atlassian.net/browse/TOOL-4301 ",
+            "UserStory": "TOOL-4301: Error handling for project filename changes on the troubleshooting page ",
+            "TaskLink": "\"Task Issue: TOOL-4402\", https://extron.atlassian.net/browse/TOOL-4402 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4679\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4679 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "TroubleshootingAction": [],
+            "CommonMethod": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\systeminfoTmp.json",
+                        "newPath": "DeployProject\\newfileName.json"
+                    }
+                ]
+            },
+            "TroubleshootingAction2": [
+                "ClickStopProgram",
+                "CloseError",
+                "ClickStopProgram",
+                "VerifyErrorText",
+                "GoToDeploy"
+            ],
+            "DeployPage": {
+                "DeployBtn": {
+                    "isEnabled": null
+                }
+            },
+            "CommonMethod_2": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\newfileName.json",
+                        "newPath": "DeployProject\\systeminfoTmp.json"
+                    }
+                ]
+            }
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that when Project Descriptor name is edited , refreshing the Program Logs displays appropriate error",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for project filename changes on the troubleshooting page\", https://extron.atlassian.net/browse/TOOL-4301 ",
+            "UserStory": "TOOL-4301: Error handling for project filename changes on the troubleshooting page ",
+            "TaskLink": "\"Task Issue: TOOL-4402\", https://extron.atlassian.net/browse/TOOL-4402 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4680\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4680 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "TroubleshootingAction": [],
+            "CommonMethod": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\systeminfoTmp.json",
+                        "newPath": "DeployProject\\newfileName.json"
+                    }
+                ]
+            },
+            "TroubleshootingAction2": [
+                "RefreshProgramLog",
+                "CloseError",
+                "RefreshProgramLog",
+                "VerifyErrorText",
+                "GoToDeploy"
+            ],
+            "DeployPage": {
+                "DeployBtn": {
+                    "isEnabled": null
+                }
+            },
+            "CommonMethod_2": {
+                "renameFiles": [
+                    {
+                        "currentPath": "DeployProject\\newfileName.json",
+                        "newPath": "DeployProject\\systeminfoTmp.json"
+                    }
+                ]
+            }
+        }
+    }
+}

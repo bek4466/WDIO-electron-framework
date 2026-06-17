@@ -1,0 +1,93 @@
+{"TestCase1":{
+    "TestDescription":"Verify there should be an error message for FW not sufficient for Peripheral (Ebus)(Disabled until device aquired)",
+    "Owner":"Miguel C",
+    "SuiteType":"Device Validation",
+    "UserStoryLink":"\"User Story: CSP-988\", \"https://extron.atlassian.net/browse/CSP-988\"",
+    "UserStory":"CSP- 988 (Button Panels Support - System Validation)",
+    "TaskLink":"\"Task Issue: CSP-1128\", \"https://extron.atlassian.net/browse/CSP-1128\"",
+    "TestCaseLink":"\"Test Case: CSP-T1274\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1274\"",
+    "ProjectFile":" \"..\", \"..\", \"..\", \"resources\", \"EbusProject\", \"systeminfo.json\"",
+    "TestCaseHeader":"Verify there should be an error message for FW not sufficient for Peripheral (Ebus)(Disabled until device aquired)",
+    "ModifyTestData":{
+        "devices.1.name": "My Ebus",
+        "devices.0.network.interfaces.0.address": "Address For <FW controller goes here"
+        },
+    "VerifyMessage":[
+        {"MessageText":"My Ebus - Invalid: Primary controller firmware not met to support the peripheral device - Please update the primary controller firmware to the latest version using Toolbelt and re-try", "MessageType":"Error","Exist":true},
+        {"MessageText":"Project deployment completed.", "MessageType":"Info","Exist":true},
+        {"MessageText":"My Ebus - Hardware not found: The device at the <specified eBus id> is not found. Please check the device connection and retry.", "MessageType":"Info","Exist":false}
+    ],
+    "Execute":"False"
+},
+"TestCase2":{
+    "TestDescription":"Verify that, when physical panels have same ebus ID's , user encounters error at the time of deploy(Disabled until device acquired)",
+    "Owner":"Miguel C",
+    "SuiteType":"Device Validation",
+    "UserStoryLink":"\"User Story: CSP-988\", \"https://extron.atlassian.net/browse/CSP-988\"",
+    "UserStory":"CSP- 988 (Button Panels Support - System Validation)",
+    "TaskLink":"\"Task Issue: CSP-1128\", \"https://extron.atlassian.net/browse/CSP-1128\"",
+    "TestCaseLink":"\"Test Case: CSP-T1244\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1244\"",
+    "ProjectFile":" \"..\", \"..\", \"..\", \"resources\", \"EbusProject\", \"systeminfo.json\"",
+    "TestCaseHeader":"Verify that, when physical panels have same ebus ID's , user encounters error at the time of deploy(Disabled until device aquired)",
+    "ModifyTestData":{
+        "devices.1.name": "My Ebus",
+        "devices.1.ebus_id": 2,
+        "devices.0.name": "My Primary",
+        "devices.0.network.interfaces.0.address": "10.117.30.103"
+        },
+        "InsertTestData": {
+            "devices.2": {
+                "ebus_id": 14,
+                "name": "EBP duplicate",
+                "part_number": "60-1388-00",
+                "alias": "eBUSAlias2"
+            }
+        },
+    "VerifyMessage":[
+        {"MessageText":"EBP duplicate - Invalid : device id must be unique.", "MessageType":"Error","Exist":true},
+        {"MessageText":"Project deployment completed.", "MessageType":"Info","Exist":true}
+    ],
+    "Execute":"False"
+},
+"TestCase3":{
+    "TestDescription":"Verify there should be an Info message when an extra Ebus attached to Controller is not accounted for in systeminfo.json",
+    "Owner":"Miguel C",
+    "SuiteType":"Device Validation",
+    "UserStoryLink":"\"User Story: CSP-988\", \"https://extron.atlassian.net/browse/CSP-988\"",
+    "UserStory":"CSP- 988 (Button Panels Support - System Validation)",
+    "TaskLink":"\"Task Issue: CSP-1128\", \"https://extron.atlassian.net/browse/CSP-1128\"",
+    "TestCaseLink":"\"Test Case: CSP-T1245\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1245\"",
+    "ProjectFile":" \"..\", \"..\", \"..\", \"resources\", \"EbusProject\", \"systeminfo.json\"",
+    "TestCaseHeader":"Verify there should be an Info message when an extra Ebus attached to Controller is not accounted for in systeminfo.json",
+    "ModifyTestData":{
+        "devices.1.name": "My Ebus",
+        "devices.1.ebus_id": 3,
+        "devices.0.name": "My Primary"
+        },
+    "VerifyMessage":[
+        {"MessageText":"My Primary - Hardware found : Extra eBus devices found on primary controller.", "MessageType":"Info","Exist":true},
+        {"MessageText":"Project deployment completed.", "MessageType":"Info","Exist":true}
+    ],
+    "Execute":"True"
+},
+"TestCase4":{
+    "TestDescription":"Verify there should be an error message when Ebus device present in the systeminfo.json doesnt support the Primary Controller",
+    "Owner":"Miguel C",
+    "SuiteType":"Device Validation",
+    "UserStoryLink":"\"User Story: CSP-988\", \"https://extron.atlassian.net/browse/CSP-988\"",
+    "UserStory":"CSP- 988 (Button Panels Support - System Validation)",
+    "TaskLink":"\"Task Issue: CSP-1128\", \"https://extron.atlassian.net/browse/CSP-1128\"",
+    "TestCaseLink":"\"Test Case: CSP-T1246\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1246\"",
+    "ProjectFile":" \"..\", \"..\", \"..\", \"resources\", \"EbusProject\", \"systeminfo.json\"",
+    "TestCaseHeader":"Verify there should be an error message when Ebus device present in the systeminfo.json doesnt support the Primary Controller",
+    "ModifyTestData":{
+        "devices.0.name": "My Primary",
+        "devices.0.network.interfaces.0.address": "10.113.89.222"
+        },
+    "VerifyMessage":[
+        {"MessageText":"My Primary - Invalid : Primary controller doesn't support the peripheral device.", "MessageType":"Error","Exist":true},
+        {"MessageText":"Project deployment completed.", "MessageType":"Info","Exist":true}
+    ],
+    "Execute":"True"
+}
+}

@@ -1,0 +1,92 @@
+{
+    "TestCase1": {
+        "TestDescription": "Verify that missing key for \"devices.password\" (Peripheral Device) throws warning messages and Kevin window is NOT displayed(Deprecated)",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-940\", \"https://extron.atlassian.net/browse/CSP-940\"",
+        "UserStory": "CSP- 940 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1111\", \"https://extron.atlassian.net/browse/CSP-1111\"",
+        "TestCaseLink": "\"Test Case: CSP-T1201\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1201\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify that missing key for \"devices.password\" (Peripheral Device) throws warning messages and Kevin window is NOT displayed.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP"
+        },
+        "DeleteData": [
+            "devices.1.password"
+        ],
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Device not paired with the primary device : The device at the specified address is not reachable on the network. Please check the device connection and make sure that it is reachable on the network and try pairing using systemId",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "False"
+    },
+    "TestCase2": {
+        "TestDescription": "Verify that missing key for \"devices.username\" (Peripheral Device) throws warning messages and Kevin window is NOT displayed.(Deprecated)",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-940\", \"https://extron.atlassian.net/browse/CSP-940\"",
+        "UserStory": "CSP- 940 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1111\", \"https://extron.atlassian.net/browse/CSP-1111\"",
+        "TestCaseLink": "\"Test Case: CSP-T1204\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-1204\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify that missing key for \"devices.username\" (Peripheral Device) throws warning messages and Kevin window is NOT displayed.",
+        "Credentials": [
+          {
+            "user": "",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP"
+        },
+        "DeleteData": [
+            "devices.1.username"
+        ],
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - Device not paired with the primary device : The device at the specified address is not reachable on the network. Please check the device connection and make sure that it is reachable on the network and try pairing using systemId",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "False"
+    }
+}

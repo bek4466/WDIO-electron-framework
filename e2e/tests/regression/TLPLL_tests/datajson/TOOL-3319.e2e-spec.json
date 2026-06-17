@@ -1,0 +1,166 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that more than 128 characters in \"devices.name\"(Peripheral Device ) in destiny gives appropriate error message.",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3319\", https://extron.atlassian.net/browse/TOOL-3319",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T649\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T649",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.name": "1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est massa, pellentesque lobortis condimentum in, interdum a nisi. Cras sit amet metus in ex tincidunt venenatis. Integer eget est lacus. Quisque et ornare arcu, id ultricies arcu. Suspendisse potenti. Cras nisl libero, dapibus vel eros et, eleifend eleifend mi. Donec non euismod dolor. Suspendisse auctor id nunc eu lobortis. Nunc id hendrerit tellus. Curabitur auctor scelerisque lectus, nec ultrices mi varius volutpat. Morbi ut vehicula orci. Aenean sed eros quis massa mattis suscipit a in nisl. Sed placerat leo id turpis suscipit, in ultrices orci egestas. Nulla consequat nec mi ut accumsan. In posuere, turpis vel pretium posuere, sapien sapien lobortis ipsum, fermentum feugiat nunc justo vitae odio. Pellentesque et enim pellentesque, varius tellus quis, posuere elit. Suspendisse pretium sed."
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est massa, pellentesque lobortis condimentum in, interdum a nisi. Cras sit amet metus in ex tincidunt venenatis. Integer eget est lacus. Quisque et ornare arcu, id ultricies arcu. Suspendisse potenti. Cras nisl libero, dapibus vel eros et, eleifend eleifend mi. Donec non euismod dolor. Suspendisse auctor id nunc eu lobortis. Nunc id hendrerit tellus. Curabitur auctor scelerisque lectus, nec ultrices mi varius volutpat. Morbi ut vehicula orci. Aenean sed eros quis massa mattis suscipit a in nisl. Sed placerat leo id turpis suscipit, in ultrices orci egestas. Nulla consequat nec mi ut accumsan. In posuere, turpis vel pretium posuere, sapien sapien lobortis ipsum, fermentum feugiat nunc justo vitae odio. Pellentesque et enim pellentesque, varius tellus quis, posuere elit. Suspendisse pretium sed. - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that duplicate \"devices.name\"(Peripheral Device) in destiny gives appropriate warning message at the time of build and upload.",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3319\", https://extron.atlassian.net/browse/TOOL-3319",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T650\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T650",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.name": "My Device",
+        "devices.1.name": "My Device"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TestTLPLL - Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "My Device - name: Invalid - Value must be unique",
+          "MessageType": "Warning",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid type \"devices.name\" (Peripheral Device) in destiny gives appropriate error message.",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3319\", https://extron.atlassian.net/browse/TOOL-3319",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T651\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T651",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.name": 1234
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "1234 - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify error message should be shown in message pane for missing Peripheral devices's Part number",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3319\", https://extron.atlassian.net/browse/TOOL-3319",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T652\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T652",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type."
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.name": "MyDevice"
+      },
+      "DeleteData": [
+        "devices.0.part_number"
+      ]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "MyDevice - part_number: Missing key - e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TestTLPLL - Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

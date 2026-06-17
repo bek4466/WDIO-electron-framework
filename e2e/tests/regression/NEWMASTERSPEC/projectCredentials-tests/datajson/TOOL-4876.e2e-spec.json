@@ -1,0 +1,198 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Project Credentials Window displays appropriate error message when alias is missing for the device",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-4574\", https://extron.atlassian.net/browse/TOOL-4574",
+      "UserStory": "Project Credentials - Endless Validation Spinner When missing/invalid Devices Key",
+      "TaskLink": "\"Task Issue: TOOL-4876\", https://extron.atlassian.net/browse/TOOL-4876",
+      "TestCaseLink": "\"Test Case: TOOL-T4783\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/89591310",
+      "ProjectFile": "DeployProject\\systeminfoNoPeripheral.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {},
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.0.alias"
+      ]
+    },
+    "Steps": {
+      "MiscellaneousAction": [
+        "DeleteCredentialsFile"
+      ],
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "Timeout": "slow",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        },
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "InfoIcon": {
+            "exists": true
+          },
+          "UnableToRetrieveDeviceMessage": {
+            "exists": true,
+            "hasReferMsgPaneText": true
+          },
+          "CloseBtn": {
+            "click": null
+          }
+        }
+      },
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingAlias>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "Timeout_2": "slow",
+      "AppAction_2": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "Timeout_3": "slow",
+      "DeployPage_2": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        },
+        "ProjectCredentialsBtn": {
+          "click": {}
+        },
+        "ProjectCredentialsPopUp": {
+          "InfoIcon": {
+            "exists": true
+          },
+          "UnableToRetrieveDeviceMessage": {
+            "exists": true,
+            "hasReferMsgPaneText": true
+          },
+          "CloseBtn": {
+            "click": true
+          }
+        }
+      },
+      "Timeout_4": "fast",
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<missingAlias>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Project Credentials Window displays appropriate error message when part number is missing for the device",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-4574\", https://extron.atlassian.net/browse/TOOL-4574",
+      "UserStory": "Project Credentials - Endless Validation Spinner When missing/invalid Devices Key",
+      "TaskLink": "\"Task Issue: TOOL-4876\", https://extron.atlassian.net/browse/TOOL-4876",
+      "TestCaseLink": "\"Test Case: TOOL-T4784\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/89591366",
+      "ProjectFile": "DeployProject\\systeminfoNoPeripheral.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {},
+      "InsertTestData": {},
+      "DeleteData": [
+        "devices.0.part_number"
+      ]
+    },
+    "Steps": {
+      "MiscellaneousAction": [
+        "DeleteCredentialsFile"
+      ],
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "Timeout": "slow",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        },
+        "ProjectCredentialsBtn": {
+          "click": null
+        },
+        "ProjectCredentialsPopUp": {
+          "InfoIcon": {
+            "exists": true
+          },
+          "UnableToRetrieveDeviceMessage": {
+            "exists": true,
+            "hasReferMsgPaneText": true
+          },
+          "CloseBtn": {
+            "click": null
+          }
+        }
+      },
+      "VerifyMessage": [
+        {
+          "MessageText": "<<missingPrimaryPartNumber>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "Timeout_2": "slow",
+      "AppAction_2": [
+        "Logout",
+        "Close",
+        "Open",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "Timeout_3": "slow",
+      "DeployPage_2": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        },
+        "ProjectCredentialsBtn": {
+          "click": {}
+        },
+        "ProjectCredentialsPopUp": {
+          "InfoIcon": {
+            "exists": true
+          },
+          "UnableToRetrieveDeviceMessage": {
+            "exists": true,
+            "hasReferMsgPaneText": true
+          },
+          "CloseBtn": {
+            "click": true
+          }
+        }
+      },
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<missingPrimaryPartNumber>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    }
+  }
+}

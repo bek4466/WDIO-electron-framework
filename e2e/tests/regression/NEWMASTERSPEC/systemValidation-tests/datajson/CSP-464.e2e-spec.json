@@ -1,0 +1,109 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "An error message is raised when devices.part_number provided is invalid, for primary device",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1688\", https://extron.atlassian.net/browse/TOOL-1688 ",
+            "UserStory": "TOOL-1688 (devices.part_number)",
+            "TaskLink": "\"Task Issue: TOOL-1287\", https://extron.atlassian.net/browse/TOOL-1287 ",
+            "TestCaseLink": "\"Test Case: TOOL-T2582\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2582",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+              "devices.0.name": "My Primary Device",
+              "devices.0.part_number": "abcd"
+              
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            
+                
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary Device<<partNumberUnsupportedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "An error message is raised when devices.part_number provided is invalid, for non-primary device",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "System Validation Test",
+          "UserStoryLink": "\"User Story: TOOL-1688\", https://extron.atlassian.net/browse/TOOL-1688 ",
+          "UserStory": "TOOL-1688 (devices.part_number)",
+          "TaskLink": "\"Task Issue: TOOL-1287\", https://extron.atlassian.net/browse/TOOL-1287 ",
+          "TestCaseLink": "\"Test Case: TOOL-T2583\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2583",
+          "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+
+      "Preconditions": {
+          "ModifyTestData": { 
+            "devices.1.name": "My peripheral Device",
+            "devices.1.part_number": "abcd"
+            
+          },
+          "InsertTestData": {
+          },
+          "DeleteData": [
+          
+              
+          ]
+      },        
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+            {
+              "MessageText": "<<deploySuccessMessage>>",
+              "MessageType": "Info",
+              "Exist": true
+          },
+              {
+                  "MessageText": "My peripheral Device<<partNumberUnsupportedMessage>>",
+                  "MessageType": "Error",
+                  "Exist": true
+              }
+          ]
+      },
+      "Execute": "True"
+  }
+}

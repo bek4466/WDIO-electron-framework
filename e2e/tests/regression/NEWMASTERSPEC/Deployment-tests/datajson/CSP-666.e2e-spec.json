@@ -1,0 +1,41 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that adding exactly 8 ebus's in destiny file doesnt prevent project from uploading",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-599\", https://extron.atlassian.net/browse/CSP-599",
+            "UserStory": "CSP-599 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-666\", https://extron.atlassian.net/browse/CSP-666",
+            "TestCaseLink": "\"Test Case: CSP-T893\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T893",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput" : {
+                    "setPath": "DeployProject\\systeminfotesting.json",
+                    "errorMessageToValidate": "<<noFileErrorMessage>>"
+                },
+                "DeployBtn":{
+                    "isDisabled": null
+                }
+            }
+        }
+    }
+}

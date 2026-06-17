@@ -1,0 +1,117 @@
+{
+    "Execute": [
+      "TestCase1",
+      "TestCase2"
+    ],
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that more than 128 characters in  devices.name(NAV Peripheral Device ) in destiny gives appropriate error message.",
+        "Owner": "Miguel Cruz",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-914\", https://extron.atlassian.net/browse/CSP-914",
+        "UserStory": "NAVigator Bas Scenarios",
+        "TaskLink": "\"Task Issue: CSP-1010\", https://extron.atlassian.net/browse/CSP-1010",
+        "TestCaseLink": "\"Test Case: CSP-T1161\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1161",
+        "ProjectFile": "NavProject\\systeminfo.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.name" : "testingmorethan128testingmorethan128chatestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorsractorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorscharacterstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactors"
+        },
+        "InsertTestData": {},
+        "DeleteData": []
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "testingmorethan128testingmorethan128chatestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorsractorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorscharacterstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactorstestingmorethan128charactors<<maxNameLengthMsg>>",
+            "MessageType": "Error",
+            "Exist": true
+          },
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that duplicate devices.name(NAV Peripheral Device) in destiny gives appropriate warning message at the time of build and upload.",
+        "Owner": "Miguel Cruz",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-914\", https://extron.atlassian.net/browse/CSP-914",
+        "UserStory": "NAVigator Bas Scenarios",
+        "TaskLink": "\"Task Issue: CSP-1008\", https://extron.atlassian.net/browse/CSP-1008",
+        "TestCaseLink": "\"Test Case: CSP-T1163\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1163",
+        "ProjectFile": "NavProject\\systeminfo.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name": "My NAV Device",
+          "devices.1.name": "My NAV Device"
+        },
+        "InsertTestData": {},
+        "DeleteData": []
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "My NAV Device<<uniqueDeviceName>>",
+            "MessageType": "Warning",
+            "Exist": true
+          },
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    }
+  }

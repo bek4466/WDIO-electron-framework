@@ -1,0 +1,146 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify EXTRACT is not enabled unless password is inputted and a location to extract is selected",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5550\", https://extron.atlassian.net/browse/TOOL-5550 ",
+      "UserStory": "TOOL-5550: Extract Dialog Box",
+      "TaskLink": "\"Task Issue: TOOL-5420\", https://extron.atlassian.net/browse/TOOL-5420 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4892\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4892 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage_2": {
+        "ExtractProjectBtn": {
+          "click": null
+        },
+        "ExtractProjectPopUp": {
+          "extractBtn": {
+            "isEnabled": false
+          },
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "extractBtn2": {
+            "isEnabled": false
+          },
+          "passwordInputBox2": {
+            "setPassword": "badpassword"
+          },
+          "extractBtn3": {
+            "isEnabled": false
+          },
+          "passwordInputBox3": {
+            "clearPassword": null
+          },
+          "selectBtn": {
+            "setPath": "ProtectProjectTest"
+          },
+          "extractBtn4": {
+            "isEnabled": false
+          },
+          "passwordInputBox4": {
+            "setPassword": "any"
+          },
+          "extractBtn5": {
+            "isEnabled": true
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify password in the extract prompt box password box is hidden",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5550\", https://extron.atlassian.net/browse/TOOL-5550 ",
+      "UserStory": "TOOL-5550: Extract Dialog Box",
+      "TaskLink": "\"Task Issue: TOOL-5420\", https://extron.atlassian.net/browse/TOOL-5420 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4893\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4893 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage_2": {
+        "ExtractProjectBtn": {
+          "click": null
+        },
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "randompassword",
+            "isObfuscated": true
+          }
+        }
+      }
+    }
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify inputting wrong password then inputting correct password is successful",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5550\", https://extron.atlassian.net/browse/TOOL-5550 ",
+      "UserStory": "TOOL-5550: Extract Dialog Box",
+      "TaskLink": "\"Task Issue: TOOL-5420\", https://extron.atlassian.net/browse/TOOL-5420 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4896\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4896 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage_2": {
+        "ExtractProjectBtn": {
+          "click": null
+        },
+        "ExtractProjectPopUp": {
+          "selectBtn": {
+            "setPath": "ProtectProjectTest"
+          },
+          "passwordInputBox": {
+            "setPassword": "wrongPassword"
+          },
+          "extractBtn": {
+            "click": null
+          },
+          "passwordFailMsg": {
+            "verifyTextMatches": "The password you entered is incorrect"
+          },
+          "passwordInputBox2": {
+            "setPassword": "1234"
+          },
+          "extractBtn_2": {
+            "click": null
+          }
+        }
+      },
+      "Timeout_2": "fast",
+      "DeployPage_3": {
+        "successLink": {
+            "exists": true
+          }
+      }
+    }
+  }
+}

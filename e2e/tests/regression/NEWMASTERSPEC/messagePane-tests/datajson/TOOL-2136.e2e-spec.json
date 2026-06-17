@@ -1,0 +1,163 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Mesagepane-Tests",
+      "UserStoryLink": "\"User Story: TOOL-1736 \", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-2136\", https://extron.atlassian.net/browse/TOOL-2136",
+      "TestCaseLink": "\"Test Case: CSP-T1054\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/5660873",
+      "TestDescription": "Verify that only \"Warning\" Messages are displayed when filter is applied on \"Warning\" message type",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.author.name": 1234,
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "10.113.89.243"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "DeployPage": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Warning", 
+          "checkMessagePaneLogsSeverity": "Warning"
+        }
+      }
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Mesagepane-Tests",
+      "UserStoryLink": "\"User Story: TOOL-1736 \", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-2136\", https://extron.atlassian.net/browse/TOOL-2136",
+      "TestCaseLink": "\"Test Case: CSP-T1055\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/5660875",
+      "TestDescription": "Verify that only \"Error\" Messages are displayed when filter is applied on \"Error\" message type",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "10.113.89.243"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "DeployPage": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Error", 
+          "checkMessagePaneLogsSeverity": "Error"
+        }
+      }
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Mesagepane-Tests",
+      "UserStoryLink": "\"User Story: TOOL-1736 \", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-2136\", https://extron.atlassian.net/browse/TOOL-2136",
+      "TestCaseLink": "\"Test Case: CSP-T1056\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/5660877",
+      "TestDescription": "Verify that Multiple filters can be applied at once",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.author.name": 1234,
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "10.113.89.243"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "DeployPage": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Error", 
+          "checkMessagePaneLogsSeverity": "Error"
+        }
+      },
+      "DeployPage_2": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Warning", 
+          "checkMessagePaneLogsSeverity": "Warning"
+        }
+      },
+      "DeployPage_3": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Info", 
+          "checkMessagePaneLogsSeverity": "Info"
+        }
+      }
+    },
+    "Execute": "True"
+  }
+}

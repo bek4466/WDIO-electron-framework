@@ -1,0 +1,195 @@
+{
+  "Execute": [
+    "TestCase1"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Project Protect secrets test",
+      "Owner": "Oybek T",
+      "SuiteType": "Project Protect secrets",
+      "UserStoryLink": "\"User Story: TOOL-3547\", https://extron.atlassian.net/browse/TOOL-3547",
+      "UserStory": "TOOL-3547: Project Credentials: UI Business Rules Primary Device Credentials Missing - Deployment/Deploy Code Only/Trace/Program Log/Start Program",
+      "TaskLink": "\"Task Issue: TOOL-3582\", https://extron.atlassian.net/browse/TOOL-3582",
+      "TestCaseLink": "\"Test Case: TOOL-T3381\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3381",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {},
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Steps": {
+      "DeployAction": ["VerifyBrowseLabelIsNotTypeable", "VerifyBrowseLabelIsNotPasteable"],
+      "DeployPage": {
+        "ProtectProjectBtn": {
+          "click": null,
+          "exists": "true or false",
+          "isEnabled": "true or false",
+          "verifyHoverMessage": "msg to check for, //div[@id='cdk-overlay-2'] "
+        },
+        "ProtectProjectPopUp": {
+          "isOpen": "true or false",
+          "title": {
+            "exists": "true or false",
+            "matches": "someText"
+          },
+          "protectDescription": {
+            "exists": "true or false",
+            "matches": "someText"
+          },
+          "selectLocationDescription": {
+            "exists": "true or false",
+            "matches": "someText"
+          },
+          "passwordInputBox": {
+            "exists": "true or false",
+            "setPassword": "abc",
+            "clearPassword": null,
+            "isObfuscated": "true or false",
+            "isEmpty": "true or false"
+          },
+          "reenterPasswordInputBox": {
+            "exists": "true or false",
+            "setPassword": "abc",
+            "clearPassword": null,
+            "isObfuscated": "true or false",
+            "isEmpty": "true or false"
+          },
+          "passwordErrorMessage": {
+            "exists": "true or false",
+            "verifyTextMatches": "password does not match. etc. etc."
+          },
+          "allowDeployAndTroubleshootWithoutPasswordCheckBox": {
+            "click": null,
+            "isChecked": "true or false"
+          },
+          "selectBtn": {
+            "exists": "true or false",
+            "click": "not included because click alone is useless and if we need to click testability it will be done with the setPath below anyway",
+            "setPath": "somePath/file.json    //this is a full action that will click the select location btn, and handle the window explorer stuff as well."
+          },
+          "protectPath": {
+            "exists": "true or false",
+            "verifyPathMatches": "DeployProject/systemTmp.cspp"
+          },
+          "createBtn": {
+            "click": null,
+            "exists": "true or false",
+            "isEnabled": "true or false"
+          },
+          "cancelBtn": {
+            "click": null,
+            "exists": "true or false"
+          },
+          "closeBtn": {
+            "click": null,
+            "exists": "true or false"
+          },
+          "failBanner": {
+            "exists": "true or false",
+            "close": null
+          },
+          "successLink": {
+            "exists": "true or false",
+            "verifyMessageMatches": "You successfully created a protected projectNameHere"
+          }
+        },
+        "ExtractProjectBtn": {
+          "click": null,
+          "isEnabled": "true or false"
+        },
+        "ExtractProjectPopUp": {
+          "isOpen": "true or false",
+          "title": {
+            "exists": "true or false",
+            "matches": "someText"
+          },
+          "extractDescription": {
+            "exists": "true or false",
+            "matches": "someText"
+          },
+          "selectLocationDescription": {
+            "exists": "true or false",
+            "matches": "someText"
+          },
+          "passwordInputBox": {
+            "exists": "true or false",
+            "setPassword": "abc",
+            "clearPassword": null,
+            "isObfuscated": "true or false"
+          },
+          "passwordFailMsg": {
+            "exists": "true or false",
+            "verifyTextMatches": "some text"
+          },
+          "selectBtn": {
+            "exists": "true or false",
+            "setPath": "somePath/file.json    //this is a full action that will click the select location btn, and handle the window explorer stuff as well."
+          },
+          "extractToPath": {
+            "exists": "true or false",
+            "verifyPathMatches": "DeployProject"
+          },
+          "extractBtn": {
+            "click": null,
+            "exists": "true or false",
+            "isEnabled": "true or false"
+          },
+          "cancelBtn": {
+            "click": null,
+            "exists": "true or false"
+          },
+          "closeBtn": {
+            "click": null,
+            "exists": "true or false"
+          },
+          "failBanner": {
+            "exists": "true or false",
+            "close": null
+          },
+          "successLink": {
+            "exists": "true or false"
+          }
+        }
+      },
+      "CommonMethod": {
+        "doNotFindFile": {
+          "path": "ProtectProjectTest\\systeminfoTmp.cspp"
+        },
+        "appendToFile": {
+          "filePath": "ProtectProjectTest\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        },
+        "prependToFile": {
+          "filePath": "ProtectProjectTest\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        },
+        "textToMidFile": {
+          "filePath": "ProtectProjectTest\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        },
+        "saveFileContent": {
+          "filePath": "ProtectProjectTest\\AlarmClock-certification.dat"
+        },
+        "compareFileContentToSavedFileContent": {
+          "filePath": "TmpDownloadProject\\AlarmClock-certification.dat",
+          "expect": "SameAsSaved"
+        }
+      },
+      "TroubleshootingPage": {
+        "StartTraceBtn": {
+          "click": null,
+          "exists": "true/false",
+          "isEnabled": null,
+          "isDisabled": null
+        }
+
+      },
+      "TroubleshootingAction": [
+        "VerifyRefreshProgramLogNotClickable",
+        "VerifyStartProgramNotClickable",
+        "VerifyStopProgramClickable"
+       ]
+    }
+  }
+}

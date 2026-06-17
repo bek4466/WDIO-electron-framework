@@ -1,0 +1,82 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription":
+            [ 
+                "Verify that when a project is deployed with a trace message associated with Hex character 26, it will be interpreted as ampersand character",
+                "\nVerify that when a project is deployed with a trace message associated with Hex character 41, it will be interpreted as Uppercase A",
+                "\nVerify that when a project is deployed with a trace message associated with Hex character 41, it will be interpreted as Uppercase A",
+                "\nVerify that when a project is deployed with a trace message associated with Hex character 41, it will be interpreted as Uppercase A"
+            ],
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Trace Test",
+            "UserStoryLink": "\"User Story: TOOL-3955\", https://extron.atlassian.net/browse/TOOL-3955",
+            "UserStory": "TOOL-3955 (Allowing CSDU to interpret non-printable characters like GS)",
+            "TaskLink": "\"Task Issue: TOOL-4670\", https://extron.atlassian.net/browse/TOOL-4670",
+            "TestCaseLink": "\"Test Case: TOOL-T4720\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4720 ",
+            "TestCaseLink_2": "\"Test Case: TOOL-T4721\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4721 ",
+            "TestCaseLink_3": "\"Test Case: TOOL-T4722\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4722 ",
+            "TestCaseLink_4": "\"Test Case: TOOL-T4723\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4723 ",
+            "ProjectFile": "NonPrintableCharacters\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "Timeout": 10000,
+            "CheckSpecificTraceMessages": [
+                {
+                  "MessageText": "Testing&.",
+                  "Exist": true
+                },
+                {
+                    "MessageText": "Testing+.",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Testing1.",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TestingA.",
+                    "Exist": true
+                }
+            ]
+               
+        },
+        "Execute": "True"
+    }
+}

@@ -1,0 +1,120 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify credentials are cleared after logging out and re-opening application using Online Sign in",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2599\", https://extron.atlassian.net/browse/TOOL-2599",
+      "UserStory": "TOOL-2599 (As a CSDU user, I want my log in information that was cached, cleared when I log out of the application.)",
+      "TaskLink": "\"Task Issue: TOOL-2646\", https://extron.atlassian.net/browse/TOOL-2646",
+      "TestCaseLink": "\"Test Case: TOOL-T410\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T410",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout"
+      ],
+      "LoginPage": {
+        "SignInBtn": {
+          "isVisible": true
+        }
+      }
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify all trace/program/message pane entries and project connection should be cleared after logging back in via Online Sign in",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2599\", https://extron.atlassian.net/browse/TOOL-2599",
+      "UserStory": "TOOL-2599 (As a CSDU user, I want my log in information that was cached, cleared when I log out of the application.)",
+      "TaskLink": "\"Task Issue: TOOL-2646\", https://extron.atlassian.net/browse/TOOL-2646",
+      "TestCaseLink": "\"Test Case: TOOL-T413\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T413",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "Timeout_3": "medium",
+      "VerifyMessage": [
+        {
+          "MessageText": "isEmpty",
+          "MessageType": "",
+          "Exist": true
+        }
+      ],
+      "Timeout_4": "medium",
+      "TroubleshootingAction": ["NoProgramLog", "NoTraceMessage"]
+    },
+    "Execute": "True"
+  }
+}

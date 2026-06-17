@@ -1,0 +1,228 @@
+{
+	"TestCase1": {
+		"TestDescription": " Verify there should be error message in message pane for invalid peripheral devices.alias- Empty",
+		"Owner": "Amit B",
+		"SuiteType": "Device Validation",
+		"UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+		"UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+		"TaskLink": "\"Task Issue: CSP-1122\", \"https://extron.atlassian.net/browse/CSP-1122\"",
+		"TestCaseLink": "\"Test Case: TOOL-T658\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T658\"",
+		"TestCaseHeader": "Build Project and Deploy it",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+		"ModifyTestData": {
+			"devices.1.alias": "",
+			"devices.1.name": "My NBP"
+		},
+		"VerifyMessage": [
+			{
+				"MessageText": "My NBP - alias: Invalid - Must be a string at least 1 character in length e.g. \"alias\": \"device_alias\"",
+				"MessageType": "Error",
+				"Exist": true
+			},
+			{
+				"MessageText": "Project deployment completed.",
+				"MessageType": "Info",
+				"Exist": true
+			},
+			{
+				"MessageText": "My NBP - Device paired successfully with primary device",
+				"MessageType": "Info",
+				"Exist": false
+			}
+		],
+		"Execute": "True"
+	},
+	"TestCase2": {
+		"TestDescription": "Verify there should be error message in message pane for invalid peripheral devices.alias -Duplicate.",
+		"Owner": "Amit B",
+		"SuiteType": "Device Validation",
+		"UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+		"UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+		"TaskLink": "\"Task Issue: CSP-1122\", \"https://extron.atlassian.net/browse/CSP-1122\"",
+		"TestCaseLink": "\"Test Case: TOOL-T659\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T659\"",
+		"TestCaseHeader": "Build Project and Deploy it",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+		"InsertTestData": {
+			"devices.2": {
+				"name": "duplicate",
+				"part_number": "60-1835-01",
+				"username": "admin",
+				"password": "extron",
+				"alias": "duplicate",
+				"extron_control_web_id": "9309360b94afa252f847fe2e7754e7fe1409a35c",
+				"network": {
+					"host_network_type": "LAN",
+					"interfaces": [
+						{
+							"address": "10.117.30.136",
+							"type": "LAN"
+						}
+					]
+				},
+				"ui": {
+					"enable_click_sound": true,
+					"click_sound_file": "touch.wav",
+					"press_feedback": "none"
+				}
+			}
+		},
+		"ModifyTestData": {
+			"devices.1.alias": "duplicate",
+			"devices.1.name": "My NBP"
+		},
+		"VerifyMessage": [
+			{
+				"MessageText": "My NBP - alias: Invalid - Value must be unique",
+				"MessageType": "Error",
+				"Exist": true
+			},
+			{
+				"MessageText": "Project deployment completed.",
+				"MessageType": "Info",
+				"Exist": true
+			}
+		],
+		"Execute": "True"
+	},
+	"TestCase3": {
+		"TestDescription": "Verify that missing \"devices.network.host_network_type\" for peripheral device gives appropriate error message(Deprecated)",
+		"Owner": "Amit B",
+		"SuiteType": "Device Validation",
+		"UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+		"UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+		"TaskLink": "\"Task Issue: CSP-1122\", \"https://extron.atlassian.net/browse/CSP-1122\"",
+		"TestCaseLink": "\"Test Case: CSP-T1223\", \"https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1223\"",
+		"ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"DeployProject\", \"systeminfoT908.json\"",
+		"TestCaseHeader": "Build Project and Deploy it",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+		"DeleteData": [
+			"devices.1.network.host_network_type"
+		],
+		"VerifyMessage": [
+			{
+				"MessageText": "network.host_network_type: Missing key - Must specify network interface connection to primary controller e.g. \"host_network_type\": \"LAN\"",
+				"MessageType": "Error",
+				"Exist": true
+			},
+			{
+				"MessageText": "NBPProject - Project deployment completed.",
+				"MessageType": "Info",
+				"Exist": true
+			}
+		],
+		"Execute": "False"
+	},
+	"TestCase4": {
+		"TestDescription": " Verify there should be error message in message pane for Missing (Peripheral) devices.network.interfaces.",
+		"Owner": "Amit B",
+		"SuiteType": "Device Validation",
+		"UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+		"UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+		"TaskLink": "\"Task Issue: CSP-1122\", \"https://extron.atlassian.net/browse/CSP-1122\"",
+		"TestCaseLink": "\"Test Case: TOOL-T660\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T660\"",
+		"TestCaseHeader": "Build Project and Deploy it",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+		"DeleteData": [
+			"devices.1.network.interfaces"
+		],
+		"ModifyTestData": {
+			"devices.1.name": "My NBP"
+		},
+		"VerifyMessage": [
+			{
+				"MessageText": "My NBP - network.interfaces: Missing key - e.g. \"interfaces\": []",
+				"MessageType": "Error",
+				"Exist": true
+			},
+			{
+				"MessageText": "NBPProject - Project deployment completed.",
+				"MessageType": "Info",
+				"Exist": true
+			},
+			{
+				"MessageText": "My NBP - Device paired successfully with primary device",
+				"MessageType": "Info",
+				"Exist": false
+			}
+		],
+		"Execute": "True"
+	},
+	"TestCase5": {
+		"TestDescription": " Verify there should be error message in message pane for Invalid(peripheral) devices.network.interfaces - not an array",
+		"Owner": "Amit B",
+		"SuiteType": "Device Validation",
+		"UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+		"UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+		"TaskLink": "\"Task Issue: CSP-1122\", \"https://extron.atlassian.net/browse/CSP-1122\"",
+		"TestCaseLink": "\"Test Case: TOOL-T661\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T661\"",
+		"TestCaseHeader": "Build Project and Deploy it",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+		"ModifyTestData": {
+			"devices.1.network.interfaces": true,
+			"devices.1.name": "My NBP"
+		},
+		"VerifyMessage": [
+			{
+				"MessageText": "My NBP - network.interfaces: Invalid - Must be an array e.g. \"interfaces\": []",
+				"MessageType": "Error",
+				"Exist": true
+			},
+			{
+				"MessageText": "NBPProject - Project deployment completed.",
+				"MessageType": "Info",
+				"Exist": true
+			},
+			{
+				"MessageText": "My NBP - Device paired successfully with primary device",
+				"MessageType": "Info",
+				"Exist": false
+			}
+		],
+		"Execute": "True"
+	}
+}

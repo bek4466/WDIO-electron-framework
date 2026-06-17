@@ -1,0 +1,98 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as primary device and is not found on the network gives the appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3112\", https://extron.atlassian.net/browse/TOOL-3112",
+            "UserStory": "TOOL-3112 (TLP - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3311\", https://extron.atlassian.net/browse/TOOL-3311",
+            "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+            "TestCaseLink": "\"Test Case: TOOL-T733\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888013",
+            "TestCaseHeader": "Verify that UUT as primary device and is not found on the network gives the appropriate error message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestTLPLL",
+                "devices.1.network.interfaces.0.address": "10.113.89.247"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 300M with LinkLicense - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Primary Device specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3112\", https://extron.atlassian.net/browse/TOOL-3112",
+            "UserStory": "TOOL-3112 (TLP - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3311\", https://extron.atlassian.net/browse/TOOL-3311",
+            "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+            "TestCaseLink": "\"Test Case: TOOL-T737\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888017",
+            "TestCaseHeader": "Verify that for UUT as Primary Device specified in destiny file, an incompatible device found at the address gives appropriate error warning"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestTLPLL",
+                "devices.1.network.interfaces.0.address": "TLP1230WTG"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 300M with LinkLicense - Hardware Incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3112\", https://extron.atlassian.net/browse/TOOL-3112",
+            "UserStory": "TOOL-3112 (TLP - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3311\", https://extron.atlassian.net/browse/TOOL-3311",
+            "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+            "TestCaseLink": "\"Test Case: TOOL-T741\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888021",
+            "TestCaseHeader": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestTLPLL",
+                "devices.1.network.interfaces.0.address": "10.113.89.209"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 300M with LinkLicense - Hardware found : Connected to device at 10.113.89.209.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

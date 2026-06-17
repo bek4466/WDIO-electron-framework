@@ -1,0 +1,131 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a NAV Endpoint Device(Encoder) that has hardware mismatch with another NAV Endpoint Device(Decoder) gives appropriate warning message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1682\", https://extron.atlassian.net/browse/TOOL-1682",
+            "UserStory": "TOOL-1682 (NAV Endpoints Bad Scenarios)",
+            "TaskLink": "\"Task Issue: TOOL-1378\", https://extron.atlassian.net/browse/TOOL-1378",
+            "TestCaseLink": "\"Test Case: CSP-T1185\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1185",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+              "devices.0.part_number": "60-1431-01",
+              "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+              "devices.1.part_number": "60-1534-01",
+              "devices.1.network.interfaces.0.address": "<<Navigator>>",
+              "devices.2.part_number": "60-1525-12",
+              "devices.2.name": "My Device",
+              "devices.2.network.interfaces.0.address": "<<NAVSD_101>>",
+              "devices.3.part_number": "60-1525-14",
+              "devices.3.network.interfaces.0.address": "<<NAVE_101>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<primaryMismatch>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                },
+                {
+                  "MessageText": "<<deploySuccessMsg>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify that a NAV Endpoint Device(Encoder) that has hardware mismatch with another NAV Endpoint Device(Decoder) gives appropriate warning message",
+          "Owner": "Kiran Shrestha",
+          "SuiteType": "Deployment Test",
+          "UserStoryLink": "\"User Story: TOOL-1682\", https://extron.atlassian.net/browse/TOOL-1682",
+          "UserStory": "TOOL-1682 (NAV Endpoints Bad Scenarios)",
+          "TaskLink": "\"Task Issue: TOOL-1378\", https://extron.atlassian.net/browse/TOOL-1378",
+          "TestCaseLink": "\"Test Case: CSP-T1185\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1185",
+          "ProjectFile": "NavProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+          "ModifyTestData": {
+            "devices.0.part_number": "60-1431-01",
+            "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+            "devices.1.part_number": "60-1534-01",
+            "devices.1.network.interfaces.0.address": "<<NAVE_101>>",
+            "devices.2.part_number": "60-1525-12",
+            "devices.2.name": "My Device",
+            "devices.2.network.interfaces.0.address": "<<Navigator>>",
+            "devices.3.part_number": "60-1525-14",
+            "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+          },
+          "InsertTestData": {
+          },
+          "DeleteData": [
+          ]
+      },        
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                  "MessageText": "<<hardwareIncompatibleNAV>>",
+                  "MessageType": "Error",
+                  "Exist": true
+              },
+              {
+                "MessageText": "<<deploySuccessMsg>>",
+                "MessageType": "Info",
+                "Exist": true
+              }
+          ]
+      },
+      "Execute": "True"
+  }
+}

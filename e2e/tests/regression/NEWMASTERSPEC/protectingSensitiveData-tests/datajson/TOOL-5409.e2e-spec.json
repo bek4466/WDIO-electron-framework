@@ -1,0 +1,151 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that device credentials can be updated for protected project with 'Allow Deployment and Troubleshooting without password' enabled",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5334\", https://extron.atlassian.net/browse/TOOL-5334 ",
+      "UserStory": "TOOL-5334: Editing Device Credentials on a Protected Project",
+      "TaskLink": "\"Task Issue: TOOL-5409\", https://extron.atlassian.net/browse/TOOL-5409 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4873\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4873 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\invalidUserAllowed.cspp",
+          "to": "TmpDownloadProject\\invalidUserAllowed.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\invalidUserAllowed.cspp"
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage2": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage3": {
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "invalidUser"
+            }
+          },
+          "CancelBtn": {
+            "click": null
+          }
+        }
+      },
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Timeout4": "fast",
+      "Toast": {
+        "VerifyMessage": "<<successSavedCredentials>>"
+      },
+      "Timeout5": "fast",
+      "DeployPage4": {
+        "ProjectCredentialsBtn": {
+          "click": null
+        }
+      },
+      "Timeout6": "fast",
+      "DeployPage5": {
+        "ProjectCredentialsPopUp": {
+          "UsernameField": {
+            "row_0": {
+              "matches": "admin"
+            }
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that user can overwrite corrupt credentials for Protected project with 'Allow Deployment and Troubleshooting without password' enabled",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5334\", https://extron.atlassian.net/browse/TOOL-5334 ",
+      "UserStory": "TOOL-5334: Editing Device Credentials on a Protected Project",
+      "TaskLink": "\"Task Issue: TOOL-5409\", https://extron.atlassian.net/browse/TOOL-5409 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4875\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4875 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\corruptCredentialsAllowed.cspp",
+          "to": "TmpDownloadProject\\corruptCredentialsAllowed.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\corruptCredentialsAllowed.cspp"
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage2": {
+        "DeployBtn": {
+          "isEnabled": null
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "Timeout3": "slow",
+      "Banner": {
+        "BannerText": {
+          "exists": true
+        },
+        "BannerOverwriteButton": {
+          "click": null
+        }
+      },
+      "Timeout4": "medium",
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "DeployAction2": [
+        "ClearMessagePane"
+      ],
+      "Timeout5": "fast",
+      "DeployAction3": [
+        "Deploy"
+      ],
+      "Timeout6": "40000",
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    }
+  }
+}

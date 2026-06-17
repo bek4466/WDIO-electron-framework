@@ -1,0 +1,282 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral Device) at the time of Deploy- ( index Identifier scenario)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "IPL EXP Hardware Validation",
+            "UserStoryLink": [
+                "\"User Story: TOOL-3234\", https://extron.atlassian.net/browse/TOOL-3234",
+                "\"User Story: TOOL-3235\", https://extron.atlassian.net/browse/TOOL-3235",
+                "\"User Story: TOOL-3236\", https://extron.atlassian.net/browse/TOOL-3236",
+                "\"User Story: TOOL-3237\", https://extron.atlassian.net/browse/TOOL-3237",
+                "\"User Story: TOOL-3238\", https://extron.atlassian.net/browse/TOOL-3238"
+            ],
+            "UserStory": "TOOL-3234, 3235, 3236, 3237, 3238 (IPL EXP Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3328\", https://extron.atlassian.net/browse/TOOL-3328",
+            "TestCaseLink": "\"Test Case: TOOL-T630\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320797"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {
+                "devices.2.part_number": "60-1908-01",
+                "devices.2.alias": "ProcessorAlias_3",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "IPLEXP_200",
+                "devices.2.network.interfaces.0.type": "LAN",
+
+                "devices.3.part_number": "60-1956-01",
+                "devices.3.alias": "ProcessorAlias_4",
+                "devices.3.username": "admin",
+                "devices.3.password": "extron",
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "IPLEXP_PDU4H",
+                "devices.3.network.interfaces.0.type": "LAN",
+                
+                "devices.4.part_number": "60-1907-01",
+                "devices.4.alias": "ProcessorAlias_5",
+                "devices.4.username": "admin",
+                "devices.4.password": "extron",
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0.address": "IPLEXP_RIO8",
+                "devices.4.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[2] - Hardware found : Connected to device at IPLEXP_200.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[3] - Hardware found : Connected to device at IPLEXP_PDU4H.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[4] - Hardware found : Connected to device at IPLEXP_RIO8.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy - (Index Identifier scenario)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "IPL EXP Hardware Validation",
+            "UserStoryLink": [
+                "\"User Story: TOOL-3234\", https://extron.atlassian.net/browse/TOOL-3234",
+                "\"User Story: TOOL-3235\", https://extron.atlassian.net/browse/TOOL-3235",
+                "\"User Story: TOOL-3236\", https://extron.atlassian.net/browse/TOOL-3236",
+                "\"User Story: TOOL-3237\", https://extron.atlassian.net/browse/TOOL-3237",
+                "\"User Story: TOOL-3238\", https://extron.atlassian.net/browse/TOOL-3238"
+            ],
+            "UserStory": "TOOL-3234, 3235, 3236, 3237, 3238 (IPL EXP Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3328\", https://extron.atlassian.net/browse/TOOL-3328",
+            "TestCaseLink": "\"Test Case: TOOL-T631\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320798"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {
+                "devices.2.part_number": "60-1908-01",
+                "devices.2.alias": "ProcessorAlias_3",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "IPLEXP_200",
+                "devices.2.network.interfaces.0.type": "LAN",
+
+                "devices.3.part_number": "60-1956-01",
+                "devices.3.alias": "ProcessorAlias_4",
+                "devices.3.username": "admin",
+                "devices.3.password": "extron",
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "IPLEXP_PDU4H",
+                "devices.3.network.interfaces.0.type": "LAN",
+                
+                "devices.4.part_number": "60-1907-01",
+                "devices.4.alias": "ProcessorAlias_5",
+                "devices.4.username": "admin",
+                "devices.4.password": "extron",
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0.address": "IPLEXP_RIO8",
+                "devices.4.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[2] - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[3] - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[4] - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False",
+        "Comment": "Deprecated by Project Credentials Manager"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates matching of Peripheral Device hardware at the time of Deploy ((Index Identifier scenario)",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "IPL EXP Hardware Validation",
+            "UserStoryLink": [
+                "\"User Story: TOOL-3234\", https://extron.atlassian.net/browse/TOOL-3234",
+                "\"User Story: TOOL-3235\", https://extron.atlassian.net/browse/TOOL-3235",
+                "\"User Story: TOOL-3236\", https://extron.atlassian.net/browse/TOOL-3236",
+                "\"User Story: TOOL-3237\", https://extron.atlassian.net/browse/TOOL-3237",
+                "\"User Story: TOOL-3238\", https://extron.atlassian.net/browse/TOOL-3238"
+            ],
+            "UserStory": "TOOL-3234, 3235, 3236, 3237, 3238 (IPL EXP Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3328\", https://extron.atlassian.net/browse/TOOL-3328",
+            "TestCaseLink": "\"Test Case: TOOL-T632\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15320799"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {
+                "devices.2.part_number": "60-1908-01",
+                "devices.2.alias": "ProcessorAlias_3",
+                "devices.2.username": "admin",
+                "devices.2.password": "extron",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.address": "IPLEXP_200",
+                "devices.2.network.interfaces.0.type": "LAN",
+
+                "devices.3.part_number": "60-1956-01",
+                "devices.3.alias": "ProcessorAlias_4",
+                "devices.3.username": "admin",
+                "devices.3.password": "extron",
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0.address": "IPLEXP_PDU4H",
+                "devices.3.network.interfaces.0.type": "LAN",
+                
+                "devices.4.part_number": "60-1907-01",
+                "devices.4.alias": "ProcessorAlias_5",
+                "devices.4.username": "admin",
+                "devices.4.password": "extron",
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0.address": "IPLEXP_RIO8",
+                "devices.4.network.interfaces.0.type": "LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[2] - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[3] - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[4] - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

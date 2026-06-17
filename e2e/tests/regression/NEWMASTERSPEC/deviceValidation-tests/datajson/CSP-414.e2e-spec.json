@@ -1,0 +1,97 @@
+{
+    "Execute":["TestCase1","TestCase2"],
+  
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that code_entry_file being not a python file gives appropriate error messages",
+            "Owner": "Amit B",
+            "SuiteType": "System Validation Test ",
+            "UserStoryLink": "\"User Story: CSP-206\", https://extron.atlassian.net/browse/CSP-206",
+            "UserStory": "CSP-206: Vsystem.code_entry_file",
+            "TaskLink": "\"Task Issue: 414\", https://extron.atlassian.net/browse/CSP-414",
+            "TestCaseLink": "\"Test Case: CSP-T349\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T349", 
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData":{
+               
+                "system.code_entry_file": "main.ts"
+              
+                }
+    
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidCodeEntryFile>>",
+                    "MessageType":"Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+    ,
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid file path (Non-existent) for system folder(code_entry_file) gives appropriate error messages",
+            "Owner": "Amit B",
+            "SuiteType": "System Validation Test ",
+            "UserStoryLink": "\"User Story: CSP-206\", https://extron.atlassian.net/browse/CSP-206",
+            "UserStory": "CSP-206: Vsystem.code_entry_file",
+            "TaskLink": "\"Task Issue: 414\", https://extron.atlassian.net/browse/CSP-414",
+            "TestCaseLink": "\"Test Case: CSP-T354\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T354", 
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData":{
+               
+                "system.code_entry_file": "\\a\\main.py"
+              
+                }
+    
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "system.code_entry_file: Invalid - Invalid path: *.*",
+                    "MessageType":"Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+    }

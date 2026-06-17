@@ -1,0 +1,90 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3352\", https://extron.atlassian.net/browse/TOOL-3352",
+            "TestCaseLink": "\"Test Case: TOOL-T835\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173495",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "VCP_LAN"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device that has correct specified part number gives appropriate info mesage",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3352\", https://extron.atlassian.net/browse/TOOL-3352",
+            "TestCaseLink": "\"Test Case: TOOL-T836\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173496",
+            "ProjectFile": "VCPProject\\project.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.1.network.interfaces.0.address": "VCP_LAN"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Hardware Match : Device matched with live device on the network.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

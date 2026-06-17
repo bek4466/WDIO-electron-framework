@@ -1,0 +1,158 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a network.interfaces.address value of an invalid IPv6 address gives the appropriate error message (Primary)",
+            "Owner": "Kiran",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5937\", https://extron.atlassian.net/browse/TOOL-5937 ",
+            "UserStory": "TOOL-5937 (IPv6 Development)",
+            "TaskLink": "\"Task Issue: TOOL-6196\", https://extron.atlassian.net/browse/TOOL-6196 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4969\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4969 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPV6Only_Device",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "<<IPV6Only_Device_PartNumber>>",
+                "devices.0.network.interfaces.0.address": "0000:2001:db8:3333:FAIL:4444:CCCC:DDDD:EEEE:FFFF",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPV6Only_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": ["ClearMessagePane", "Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<invalidDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "Timeout2": "fast",
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.network.interfaces.0.address": "2001:db8:3333:4444:5555:6666:1.2.3.4.5"
+                }
+            },
+            "Timeout3": "fast",
+            "DeployAction2": ["ClearMessagePane"],
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                }
+            },
+            "DeployAction3": ["Deploy"],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<invalidDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<invalidDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a network.interfaces.address value of an invalid IPv6 address gives the appropriate error message (Peripheral)",
+            "Owner": "Kiran",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-5937\", https://extron.atlassian.net/browse/TOOL-5937 ",
+            "UserStory": "TOOL-5937 (IPv6 Development)",
+            "TaskLink": "\"Task Issue: TOOL-6196\", https://extron.atlassian.net/browse/TOOL-6196 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4970\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4970 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPV6Only_Device",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "<<IPV6Only_Device_PartNumber>>",
+                "devices.0.network.interfaces.0.address": "<<IPV6Only_Device>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "0000:2001:db8:3333:FAIL:4444:CCCC:DDDD:EEEE:FFFF"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPV6Only_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": ["ClearMessagePane", "Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "Timeout2": "fast",
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.1.network.interfaces.0.address": "2001:db8:3333:4444:5555:6666:1.2.3.4.5"
+                }
+            },
+            "Timeout3": "fast",
+            "DeployAction2": ["ClearMessagePane"],
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                }
+            },
+            "DeployAction3": ["Deploy"],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<invalidDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

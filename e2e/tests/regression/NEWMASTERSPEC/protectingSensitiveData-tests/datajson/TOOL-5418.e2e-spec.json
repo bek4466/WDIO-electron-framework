@@ -1,0 +1,279 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3",
+    "TestCase4"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify user is prompted a mismatch error if password and reeneter password do not match",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5418\", https://extron.atlassian.net/browse/TOOL-5418 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4878\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4878 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "title": {
+            "exists": true
+          },
+          "createBtn": {
+            "exists": true,
+            "isEnabled": false
+          },
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "createBtn2": {
+            "isEnabled": false
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "pass1"
+          },
+          "passwordErrorMessage": {
+            "verifyTextMatches": "Password does not match"
+          },
+          "createBtn3": {
+            "isEnabled": false
+          },
+          "reenterPasswordInputBox2": {
+            "setPassword": "1pass"
+          },
+          "passwordErrorMessage2": {
+            "verifyTextMatches": "Password does not match"
+          },
+          "createBtn4": {
+            "isEnabled": false
+          },
+          "reenterPasswordInputBox3": {
+            "setPassword": "1234"
+          },
+          "passwordErrorMessage3": {
+            "exists": false
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify PROTECT AND CREATE button is not enabled unless valid and matching passwords exist, and a location is selected",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5418\", https://extron.atlassian.net/browse/TOOL-5418 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4879\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4879 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "title": {
+            "exists": true
+          },
+          "createBtn": {
+            "exists": true,
+            "isEnabled": false
+          },
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "createBtn2": {
+            "isEnabled": false
+          },
+          "selectBtn": {
+            "setPath": "ProtectProjectTest"
+          }
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "ProtectProjectPopUp": {
+          "createBtn": {
+            "isEnabled": true
+          }
+        }
+      }
+    }
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify cancel button does not create a protected file",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5418\", https://extron.atlassian.net/browse/TOOL-5418 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4880\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4880 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\systeminfoTmp.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "title": {
+            "exists": true
+          },
+          "createBtn": {
+            "exists": true,
+            "isEnabled": false
+          },
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "cancelBtn": {
+            "click": null
+          },
+          "successLink": {
+            "exists": false
+          }
+        },
+        "ProtectProjectBtn2": {
+          "click": null
+        },
+        "ProtectProjectPopUp2": {
+          "title": {
+            "exists": true
+          },
+          "createBtn": {
+            "exists": true,
+            "isEnabled": false
+          },
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "createBtn2": {
+            "isEnabled": false
+          },
+          "selectBtn": {
+            "setPath": "ProtectProjectTest"
+          }
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "ProtectProjectPopUp": {
+          "createBtn": {
+            "isEnabled": true
+          },
+          "cancelBtn": {
+            "click": null
+          },
+          "successLink": {
+            "exists": false
+          }
+        }
+      },
+      "CommonMethod": {
+        "doNotFindFile": {
+          "path": "ProtectProjectTest\\systeminfoTmp.cspp"
+        }
+      }
+    }
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify successful creation if a protected project if allow deployment wihtout password is not checked",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5418\", https://extron.atlassian.net/browse/TOOL-5418 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4881\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4881 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\systeminfoTmp.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "title": {
+            "exists": true
+          },
+          "createBtn": {
+            "isEnabled": false
+          },
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "ProtectProjectTest"
+          }
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "ProtectProjectPopUp": {
+          "createBtn": {
+            "isEnabled": true
+          },
+          "allowDeployAndTroubleshootWithoutPasswordCheckBox": {
+            "isChecked": false
+          }
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage3": {
+        "ProtectProjectPopUp": {
+          "createBtn": {
+            "isEnabled": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout3": "fast",
+      "DeployPage4": {
+        "ProtectProjectPopUp": {
+          "successLink": {
+            "exists": true,
+            "verifyMessageMatches": "You successfully created a protected systeminfoTmp"
+          }
+        }
+      },
+      "CommonMethod": {
+        "findFile": {
+          "path": "ProtectProjectTest\\systeminfoTmp.cspp"
+        }
+      }
+    }
+  }
+}

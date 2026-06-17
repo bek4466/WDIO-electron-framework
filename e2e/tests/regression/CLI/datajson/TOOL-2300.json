@@ -1,0 +1,178 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Info message displayed when Button Panel device is reachable when deploying in CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2300\", https://extron.atlassian.net/browse/TOOL-2300",
+            "TestCaseLink": "\"Test Case: TOOL-T210\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T210",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Info message displayed when Button Panel device is reachable when deploying in CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device",
+                "devices.2": {
+                    "ebus_id": 3,
+                    "name": "EBUS Device",
+                    "part_number": "60-1190-30",
+                    "alias": "eBUSAlias",
+                    "extron_control_web_id": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c"
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: EBUS Device - Hardware found : Device is reachable at the 3.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Info message displayed when live Button panel device matches described device in destiny file when deploying in CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2300\", https://extron.atlassian.net/browse/TOOL-2300",
+            "TestCaseLink": "\"Test Case: TOOL-T211\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T211",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Info message displayed when live Button panel device matches described device in destiny file when deploying in CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device",
+                "devices.2": {
+                    "ebus_id": 3,
+                    "name": "EBUS Device",
+                    "part_number": "60-1388-00",
+                    "alias": "eBUSAlias",
+                    "extron_control_web_id": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c"
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: EBUS Device - Hardware Match : The specified device match with the live device at the 3.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Info message displayed when live Button panel device matches described device in destiny file when deploying in CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2300\", https://extron.atlassian.net/browse/TOOL-2300",
+            "TestCaseLink": "\"Test Case: TOOL-T212\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T212",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Info message displayed when live Button panel device matches described device in destiny file when deploying in CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device",
+                "devices.2": {
+                    "ebus_id": 3,
+                    "name": "EBUS Device",
+                    "part_number": "60-1190-30",
+                    "alias": "eBUSAlias",
+                    "extron_control_web_id": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c"
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: EBUS Device - Hardware found : Device is reachable at the 3.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Info message displayed when live VLR device matches described device in destiny file when deploying in CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2300\", https://extron.atlassian.net/browse/TOOL-2300",
+            "TestCaseLink": "\"Test Case: TOOL-T213\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T213",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Info message displayed when live VLR device matches described device in destiny file when deploying in CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device",
+                "devices.2": {
+                    "ebus_id": 3,
+                    "name": "EBUS Device",
+                    "part_number": "60-1388-00",
+                    "alias": "eBUSAlias",
+                    "extron_control_web_id": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c"
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: EBUS Device - Hardware Match : The specified device match with the live device at the 3.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

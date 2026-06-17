@@ -1,0 +1,133 @@
+{
+    "Execute":[ "TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for Primary Device (XI) specified in destiny file, an incompatible device found at the address gives appropriate error warning (Index Identifier Scenario).",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1572\", https://extron.atlassian.net/browse/TOOL-1572 ",
+            "UserStory": "TOOL-1572 (As Francisco Garcia, I want to identify issues with Xi Controller while performing deployment, so that I can correct them and have a successful project deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1152\", https://extron.atlassian.net/browse/TOOL-1152 ",
+            "TestCaseLink": "\"Test Case: CSP-T1379\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1379 ",
+            "ProjectFile": "XiControllerProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+              "system.system_id": "1239",
+                "devices.1.network.interfaces.0.address": "<<OFFLINECONTROLLER>>",
+                "devices.1.name": "Peripheral_device"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+              {
+                "MessageText": "<<deploySuccessMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                    "MessageText": "Peripheral_device<<pairingNegativeMessage>>(1239) and address (<<IPCP350_Xi_IPCP>>)",
+                    "MessageType": "Error",
+                    "Exist": true
+              }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify Devices paired successfully info message is displayed for peripheral device(Xi Controller) during deployment.",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "Deployment",
+          "UserStoryLink": "\"User Story: TOOL-1572\", https://extron.atlassian.net/browse/TOOL-1572 ",
+          "UserStory": "TOOL-1572 (As Francisco Garcia, I want to identify issues with Xi Controller while performing deployment, so that I can correct them and have a successful project deployment)",
+          "TaskLink": "\"Task Issue: TOOL-1152\", https://extron.atlassian.net/browse/TOOL-1152 ",
+          "TestCaseLink": "\"Test Case: CSP-T1380\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1380 ",
+          "ProjectFile": "XiControllerProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      
+      "Preconditions": {
+          "ModifyTestData": {
+              "system.system_id": "1239",
+              "devices.1.name": "Peripheral_device"
+          },
+          "InsertTestData": {
+             
+          },
+          "DeleteData": [
+             
+          ]
+      },
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+            {
+              "MessageText": "<<deploySuccessMessage>>",
+              "MessageType": "Info",
+              "Exist": true
+            },
+            {
+                  "MessageText": "Peripheral_device<<pairingPositiveMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+            }
+          ],
+          "GmCommands": {
+            "Primary_Controller": "<<IPCP350_Xi_IPCP>>",
+            "Check_Pairing_Peripheral_Devices":[
+              "<<IPCP350_Xi_IPCP_1>>"
+          ]
+          }
+      },
+      "Execute": "True"
+  }
+
+   
+}

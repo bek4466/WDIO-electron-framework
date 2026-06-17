@@ -1,0 +1,56 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that valid folder path for \"system.project_root_folder_path\" in project file does not throw error at the time of deployment",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deprecate system.project_root_folder_path in Project Descriptor & remaining CSDU messages",
+      "UserStoryLink": "\"User Story: TOOL-3702\", https://extron.atlassian.net/browse/TOOL-3702",
+      "UserStory": "TOOL-3702 (Deprecate system.project_root_folder_path in Project Descriptor & remaining CSDU messages)",
+      "TaskLink": "\"Task Issue: TOOL-3748\", https://extron.atlassian.net/browse/TOOL-3748",
+      "TestCaseLink": "\"Test Case: TOOL-T4538\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4538"
+    },
+    "Preconditions": {
+      "InsertTestData": {
+        "system.project_root_folder_path": "C:\\Projects\\neat\\modules\\extron-ui-prog-comp\\e2e\\resources\\DeployProject"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "False"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid folder path for \"system.project_root_folder_path\" in project file does not throw error at the time of deployment",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Deprecate system.project_root_folder_path in Project Descriptor & remaining CSDU messages",
+      "UserStoryLink": "\"User Story: TOOL-3702\", https://extron.atlassian.net/browse/TOOL-3702",
+      "UserStory": "TOOL-3702 (Deprecate system.project_root_folder_path in Project Descriptor & remaining CSDU messages)",
+      "TaskLink": "\"Task Issue: TOOL-3748\", https://extron.atlassian.net/browse/TOOL-3748",
+      "TestCaseLink": "\"Test Case: TOOL-T4539\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4539"
+    },
+    "Preconditions": {
+      "InsertTestData": {
+        "system.project_root_folder_path": "123"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

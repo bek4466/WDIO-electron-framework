@@ -1,0 +1,181 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3350\", https://extron.atlassian.net/browse/TOOL-3350",
+            "TestCaseLink": "\"Test Case: TOOL-T741\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888021",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "VCP_LAN"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Hardware found : Connected to device at VCP_LAN.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of UUT as a secondary controller at the time of Deploy",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3350\", https://extron.atlassian.net/browse/TOOL-3350",
+            "TestCaseLink": "\"Test Case: TOOL-T743\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888023",
+            "ProjectFile": "VCPProject\\project.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Hardware found : Connected to device at VCP_LAN.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as primary device and is not found on the network gives the appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3350\", https://extron.atlassian.net/browse/TOOL-3350",
+            "TestCaseLink": "\"Test Case: TOOL-T757\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928426",
+            "ProjectFile": "VCPProject\\projectPrimary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "10.114.10.140"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as secondary device and is not found on the network give the appropriate error message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "VCP Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3223\", https://extron.atlassian.net/browse/TOOL-3223",
+            "UserStory": "TOOL-3223 (VCP - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3350\", https://extron.atlassian.net/browse/TOOL-3350",
+            "TestCaseLink": "\"Test Case: TOOL-T758\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928427",
+            "ProjectFile": "VCPProject\\project.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.1.network.interfaces.0.address": "10.114.10.140"
+            },
+            "InsertTestData": {
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "VCP - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

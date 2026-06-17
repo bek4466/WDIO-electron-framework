@@ -1,0 +1,240 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify NAVigator system is properly deployed on LAN topologies(Project 1)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3343\", https://extron.atlassian.net/browse/TOOL-3343",
+            "TestCaseLink": "\"Test Case: TOOL-T923\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T923",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "",
+            "pass": ""
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator",
+                "devices.3.name": "NAV SD 101"
+            },
+            "DeleteData": [
+                "devices.2.name", 
+                "devices.2.part_number", 
+                "devices.2.alias", 
+                "devices.2.network"
+            ],
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "GmCommands": {
+                "Primary_Controller": "IPCP255_IPCP_dualnic",
+                "NAV_Devices": [
+                    "Navigator"
+                ]
+            }
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify NAVigator system is properly deployed on LAN topologies(Project 2)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3343\", https://extron.atlassian.net/browse/TOOL-3343",
+            "TestCaseLink": "\"Test Case: TOOL-T923\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T923",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator",
+                "devices.2.name": "NAV E 101",
+                "devices.3.name": "NAV SD 101"
+            },
+            "DeleteData": [
+            ],
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "GmCommands": {
+                "Primary_Controller": "IPCP255_IPCP_dualnic",
+                "NAV_Devices": [
+                    "Navigator",
+                    "NAVE_101"
+                ]
+            }
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify NAVigator system is properly deployed on LAN topologies(Project 3)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3343\", https://extron.atlassian.net/browse/TOOL-3343",
+            "TestCaseLink": "\"Test Case: TOOL-T923\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T923",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.1.name": "NAVigator",
+                "devices.2.name": "NAV E 101",
+                "devices.3.name": "NAV SD 101"
+            },
+            "InsertTestData": {
+                "devices.4" : {
+                    "name": "NAVigator2",
+                    "part_number": "60-1534-01",
+                    "alias": "SPDeviceAlias_5",
+                    "username": "admin",
+                    "password": "extron",
+                    "network": {
+                        "host_network_type": "LAN",
+                        "interfaces": [
+                            {
+                                "address": "Navigator_1",
+                                "type": "LAN"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TestNAV - Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "GmCommands": {
+                "Primary_Controller": "IPCP255_IPCP_dualnic",
+                "NAV_Devices": [
+                    "Navigator",
+                    "NAVE_101",
+                    "Navigator_1"
+                ]
+            }
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be a message when minimum FW for primary not met to support NAV devices",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "NAV Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3278\", https://extron.atlassian.net/browse/TOOL-3278",
+            "UserStory": "TOOL-3278 (NAV - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3343\", https://extron.atlassian.net/browse/TOOL-3343",
+            "TestCaseLink": "\"Test Case: TOOL-T926\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T926",
+            "ProjectFile": "NavProject\\systeminfoHW.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestNAV",
+                "devices.0.name": "BelowMinFW",
+                "devices.1.name": "NAVigator",
+                "devices.2.name": "NAV E 101",
+                "devices.3.name": "NAV SD 101",
+                "devices.0.network.interfaces.0.address": "LowFWIPCP"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "BelowMinFW - Invalid : Minimum firmware not met - Please update the device firmware to the latest version using Toolbelt and re-try",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "GmCommands": {
+                "Primary_Controller": "LowFWIPCP",
+                "NAV_Devices": [
+                    "Navigator",
+                    "NAVE_101"
+                ]
+            }
+        },
+        "Execute": "False"
+    }
+}

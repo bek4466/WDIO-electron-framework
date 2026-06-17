@@ -1,0 +1,90 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate error message is thrown if system is invalid due to incompatible HW",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "VCP System Validation",
+      "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+      "UserStory": "TOOL-3222 VCP System Validation",
+      "TaskLink": "\"Task Issue: TOOL-3345\", https://extron.atlassian.net/browse/TOOL-3345",
+      "TestCaseLink": "\"Test Case: TOOL-T843\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T843",
+      "ProjectFile": "VCPProject\\projectPrimary.json",
+      "TestCaseHeader": "Verify VCP test run"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.name": "My Peripheral",
+        "devices.1.part_number": "60-1431-01"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral - Invalid : Primary controller doesn't support the peripheral device.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate error message is thrown if system is invalid due to incompatible HW",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "VCP System Validation",
+      "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+      "UserStory": "TOOL-3222 VCP System Validation",
+      "TaskLink": "\"Task Issue: TOOL-3345\", https://extron.atlassian.net/browse/TOOL-3345",
+      "TestCaseLink": "\"Test Case: TOOL-T844\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T844",
+      "ProjectFile": "VCPProject\\project.json",
+      "TestCaseHeader": "Verify VCP test run"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.part_number": "60-1431-01",
+        "devices.1.name": "My Peripheral"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral - Invalid : Primary controller doesn't support the peripheral device.",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

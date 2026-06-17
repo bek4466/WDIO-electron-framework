@@ -1,0 +1,107 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that duplicate 'devices.name'(Peripheral Device) in destiny gives appropriate warning message at the time of build and upload",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1687\", https://extron.atlassian.net/browse/TOOL-1687 ",
+            "UserStory": "TOOL-1687 (devices.name)",
+            "TaskLink": "\"Task Issue: TOOL-1417\", https://extron.atlassian.net/browse/TOOL-1417 ",
+            "TestCaseLink": "\"Test Case: TOOL-T2575\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2575",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+              "devices.1.name": "device_name",
+              "devices.2.name": "device_name"
+              
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                  "MessageText": "<<deploySuccessMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+              },
+              {
+                "MessageText": "device_name<<uniqueDeviceName>>",
+                "MessageType": "Warning",
+                "Exist": true
+            }
+            ]
+        },
+        "Execute": "True"
+      },
+
+      "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid type 'devices.name' (Peripheral Device) in destiny gives appropriate error message",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1687\", https://extron.atlassian.net/browse/TOOL-1687 ",
+            "UserStory": "TOOL-1687 (devices.name)",
+            "TaskLink": "\"Task Issue: TOOL-1417\", https://extron.atlassian.net/browse/TOOL-1417 ",
+            "TestCaseLink": "\"Test Case: TOOL-T2597\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2597",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+              "devices.1.name": 1234,
+              "devices.2.name": 1234
+              
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                  "MessageText": "<<deploySuccessMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+              },
+              {
+                "MessageText": "1234<<invalidDName>>",
+                "MessageType": "Error",
+                "Exist": true
+            }
+            ]
+        },
+        "Execute": "True"
+      }
+  
+}

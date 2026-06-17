@@ -1,0 +1,176 @@
+{
+    "TestCase1": {
+        "TestDescription": "Verify there should be error message in message pane for Invalid (Peripheral) devices.network.interfaces.address key - not a string.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1125\", \"https://extron.atlassian.net/browse/CSP-1125\"",
+        "TestCaseLink": "\"Test Case: TOOL-T662\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T662\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be error message in message pane for Invalid (Peripheral) devices.network.interfaces.address key - not a string.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP",
+            "devices.1.network.interfaces.0.address": 2345
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestDescription": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid IPV4.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1125\", \"https://extron.atlassian.net/browse/CSP-1125\"",
+        "TestCaseLink": "\"Test Case: TOOL-T663\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T663\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid IPV4.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP",
+            "devices.1.network.interfaces.0.address": "1.2.3,"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestDescription": "Verify there should be error message in message pane for Missing (Peripheral) devices.network.interfaces.address key.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1125\", \"https://extron.atlassian.net/browse/CSP-1125\"",
+        "TestCaseLink": "\"Test Case: TOOL-T664\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T664\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be error message in message pane for Missing (Peripheral) devices.network.interfaces.address key.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP"
+        },
+        "DeleteData": [
+            "devices.1.network.interfaces.0.address"
+        ],
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestDescription": "Verify there should be error message in message pane for invalid (peripheral) devices.network.interfaces.address key -not a valid host name.",
+        "Owner": "Miguel C",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1125\", \"https://extron.atlassian.net/browse/CSP-1125\"",
+        "TestCaseLink": "\"Test Case: TOOL-T665\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T665\"",
+        "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"NBPProject\", \"systeminfo.json\"",
+        "TestCaseHeader": "Verify there should be error message in message pane for invalid (peripheral) devices.network.interfaces.address key -not a valid host name.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "My NBP",
+            "devices.1.network.interfaces.0.address": "_my-host-name"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "My NBP - Device paired successfully with primary device",
+                "MessageType": "Info",
+                "Exist": false
+            }
+        ],
+        "Execute": "True"
+    }
+}

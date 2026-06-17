@@ -1,0 +1,101 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that InvalidCommand for CLI gives proper error output.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2344\", https://extron.atlassian.net/browse/TOOL-2344",
+            "UserStory": "TOOL-2344 (CSDUCLI - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2404\", https://extron.atlassian.net/browse/TOOL-2404",
+            "TestCaseLink": "\"Test Case: TOOL-T317\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T317\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that InvalidCommand for CLI gives proper error output."
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "invalidCommand",
+            "VerifyExitCode": "invalidCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-18: error: unknown command 'invalidCommand'For more information enter:csdu.cmd  --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that InvalidOption for CLI gives proper error output.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2344\", https://extron.atlassian.net/browse/TOOL-2344",
+            "UserStory": "TOOL-2344 (CSDUCLI - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2404\", https://extron.atlassian.net/browse/TOOL-2404",
+            "TestCaseLink": "\"Test Case: TOOL-T319\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T319\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that InvalidOption for CLI gives proper error output."
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "--invalid-option invalidCommand",
+            "VerifyExitCode": "invalidOption",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-17: error: unknown option '--invalid-option'For more information enter:csdu.cmd  --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that InvalidOption and InvalidCommand for CLI gives proper error output.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2344\", https://extron.atlassian.net/browse/TOOL-2344",
+            "UserStory": "TOOL-2344 (CSDUCLI - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2404\", https://extron.atlassian.net/browse/TOOL-2404",
+            "TestCaseLink": "\"Test Case: TOOL-T320\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T320\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that InvalidOption and InvalidCommand for CLI gives proper error output."
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "--invalid-option invalidCommand",
+            "VerifyExitCode": "invalidOption",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-17: error: unknown option '--invalid-option'For more information enter:csdu.cmd  --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

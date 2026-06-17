@@ -1,0 +1,194 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", \"https://extron.atlassian.net/browse/TOOL-2066\"",
+            "UserStory": "TOOL-2066 (CLI Hardware Verification)",
+            "TaskLink": "\"Task Issue: TOOL-2212\", \"https://extron.atlassian.net/browse/TOOL-2212\"",
+            "TestCaseLink": "\"Test Case: TOOL-T179\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T179\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral Device) enables Deploy using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: My Peripheral Device - Correct Credentials : Device's credentials are valid.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that entering invalid \"devices.password\" (Primary Device) throws appropriate error during deployment using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", \"https://extron.atlassian.net/browse/TOOL-2066\"",
+            "UserStory": "TOOL-2066 (CLI Hardware Verification)",
+            "TaskLink": "\"Task Issue: TOOL-2212\", \"https://extron.atlassian.net/browse/TOOL-2212\"",
+            "TestCaseLink": "\"Test Case: TOOL-T180\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T180\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that entering invalid \"devices.password\" (Primary Device) throws appropriate error during deployment using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.password": "NotPassword",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Device - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect.  Please correct the device credentials and retry.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "error: Project - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that entering invalid \"devices.username\" (Primary Device) throws appropriate error during deployment using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", \"https://extron.atlassian.net/browse/TOOL-2066\"",
+            "UserStory": "TOOL-2066 (CLI Hardware Verification)",
+            "TaskLink": "\"Task Issue: TOOL-2212\", \"https://extron.atlassian.net/browse/TOOL-2212\"",
+            "TestCaseLink": "\"Test Case: TOOL-T181\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T181\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that entering invalid \"devices.username\" (Primary Device) throws appropriate error during deployment using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.username": "NotUsername",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Device - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect.  Please correct the device credentials and retry.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "error: Project - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that entering invalid \"devices.password\" (Peripheral Device) throws appropriate error during deployment using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", \"https://extron.atlassian.net/browse/TOOL-2066\"",
+            "UserStory": "TOOL-2066 (CLI Hardware Verification)",
+            "TaskLink": "\"Task Issue: TOOL-2212\", \"https://extron.atlassian.net/browse/TOOL-2212\"",
+            "TestCaseLink": "\"Test Case: TOOL-T182\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T182\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that entering invalid \"devices.password\" (Peripheral Device) throws appropriate error during deployment using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.password": "NotPassword",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Peripheral Device - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct and retry or manually pair the device in Toolbelt.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+    ,
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that entering invalid \"devices.username\" (Peripheral Device) throws appropriate error during deployment using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", \"https://extron.atlassian.net/browse/TOOL-2066\"",
+            "UserStory": "TOOL-2066 (CLI Hardware Verification)",
+            "TaskLink": "\"Task Issue: TOOL-2212\", \"https://extron.atlassian.net/browse/TOOL-2212\"",
+            "TestCaseLink": "\"Test Case: TOOL-T183\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T183\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that entering invalid \"devices.username\" (Peripheral Device) throws appropriate error during deployment using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.username": "NotUsername",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: My Peripheral Device - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct and retry or manually pair the device in Toolbelt.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

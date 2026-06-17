@@ -1,0 +1,119 @@
+{
+    "Execute": [
+      "TestCase1",
+      "TestCase2"
+    ],
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify there should be error message in message pane for NAV device's invalid part number key -PN not known or Invalid Format.",
+        "Owner": "Miguel Cruz",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-914\", https://extron.atlassian.net/browse/CSP-914",
+        "UserStory": "NAVigator Bas Scenarios",
+        "TaskLink": "\"Task Issue: CSP-1013\", https://extron.atlassian.net/browse/CSP-1013",
+        "TestCaseLink": "\"Test Case: CSP-T1168\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1168",
+        "ProjectFile": "NavProject\\systeminfo.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.name" : "My NAV Device",
+          "devices.1.part_number": "abcde"
+        },
+        "InsertTestData": {},
+        "DeleteData": []
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "My NAV Device <<InvalidPartNumber>>",
+            "MessageType": "Error",
+            "Exist": true
+          },
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify there should be error message in message pane for Missing (NAV peripheral) devices.alias.",
+        "Owner": "Miguel Cruz",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-914\", https://extron.atlassian.net/browse/CSP-914",
+        "UserStory": "NAVigator Bas Scenarios",
+        "TaskLink": "\"Task Issue: CSP-1013\", https://extron.atlassian.net/browse/CSP-1013",
+        "TestCaseLink": "\"Test Case: CSP-T1169\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1169",
+        "ProjectFile": "NavProject\\systeminfo.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.name" : "My NAV Device"
+        },
+        "InsertTestData": {},
+        "DeleteData": [
+          "devices.1.alias"
+        ]
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "My NAV Device<<missingDeviceAlias>>",
+            "MessageType": "Error",
+            "Exist": true
+          },
+          {
+            "MessageText": "<<deploySuccessMsg>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    }
+  }

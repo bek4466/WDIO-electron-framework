@@ -1,0 +1,57 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Trace Display Rate Performance",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Trace Test",
+            "UserStoryLink": "\"User Story: TOOL-4373\", https://extron.atlassian.net/browse/TOOL-4373",
+            "UserStory": "TOOL-4373 (ITUP: Trace message display rate improvement)",
+            "TaskLink": "\"Task Issue: TOOL-4437\", https://extron.atlassian.net/browse/TOOL-4437",
+            "TestCaseLink": "\"Test Case: TOOL-T4686\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/76963748",
+            "ProjectFile": "TraceProject\\systeminfo75msg.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+                "devices.0.name": "Primary",
+                "devices.0.alias": "ProcessorAlias",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "PanelAlias_1",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "TroubleshootingAction": ["StartTrace"],
+            "VerifyTraceMessage": [
+                "TimestampMatch",
+                
+                {
+                    "MessageText": "75",
+                    "IpAddress": "10.113.89.205",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

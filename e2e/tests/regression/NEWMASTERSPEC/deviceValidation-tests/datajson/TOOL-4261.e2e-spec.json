@@ -1,0 +1,165 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Proper Error Message displayed when User changes JSON file without re-adding credentials (Primary)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-4177\", https://extron.atlassian.net/browse/TOOL-4177",
+            "UserStory": "TOOL-4177 Project Credentials File: Updating Credentials Missing/Incorrect validation message + workflow (PRIMARY)",
+            "TaskLink": "\"Task Issue: TOOL-4261\", https://extron.atlassian.net/browse/TOOL-4261",
+            "TestCaseLink": "\"Test Case: TOOL-T4601\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4601",
+            "ProjectFile": "DeployProject\\systeminfoNoPrimary.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "InsertTestData": {}
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "InsertTestData": {
+                    "devices.1.name": "IPCP Pro 350",
+                    "devices.1.part_number": "60-1417-01",
+                    "devices.1.alias": "Test_Rack_Pro350",
+                    "devices.1.network": {},
+                    "devices.1.network.interfaces": [],
+                    "devices.1.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+                    "devices.1.network.interfaces.0.type": "LAN"
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPCP Pro 350<<incorrectCredentialsPrimary>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Proper Error Message displayed when User changes JSON file and Cancels PC Workflow (Primary)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-4177\", https://extron.atlassian.net/browse/TOOL-4177",
+            "UserStory": "TOOL-4177 Project Credentials File: Updating Credentials Missing/Incorrect validation message + workflow (PRIMARY)",
+            "TaskLink": "\"Task Issue: TOOL-4261\", https://extron.atlassian.net/browse/TOOL-4261",
+            "TestCaseLink": "\"Test Case: TOOL-T4621\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4621",
+            "ProjectFile": "DeployProject\\systeminfoNoPrimary.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "InsertTestData": {}
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "InsertTestData": {
+                    "devices.1.name": "IPCP Pro 350",
+                    "devices.1.part_number": "60-1417-01",
+                    "devices.1.alias": "Test_Rack_Pro350",
+                    "devices.1.network": {},
+                    "devices.1.network.interfaces": [],
+                    "devices.1.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+                    "devices.1.network.interfaces.0.type": "LAN"
+                }
+            },
+            "DeployPage": {
+                "ProjectCredentialsBtn": {
+                    "click": {}
+                },
+                "ProjectCredentialsPopUp": {
+                    "CancelBtn":{
+                        "click": {}
+                    }
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPCP Pro 350<<incorrectCredentialsPrimary>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Proper Error Message displayed when User changes JSON file after saving Project Credentials (Primary)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Device Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-4177\", https://extron.atlassian.net/browse/TOOL-4177",
+            "UserStory": "TOOL-4177 Project Credentials File: Updating Credentials Missing/Incorrect validation message + workflow (PRIMARY)",
+            "TaskLink": "\"Task Issue: TOOL-4261\", https://extron.atlassian.net/browse/TOOL-4261",
+            "TestCaseLink": "\"Test Case: TOOL-T4622\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4622",
+            "ProjectFile": "DeployProject\\systeminfoNoPrimary.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {},
+            "InsertTestData": {}
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "InsertTestData": {
+                    "devices.1.name": "IPCP Pro 350",
+                    "devices.1.part_number": "60-1417-01",
+                    "devices.1.alias": "Test_Rack_Pro350",
+                    "devices.1.network": {},
+                    "devices.1.network.interfaces": [],
+                    "devices.1.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+                    "devices.1.network.interfaces.0.type": "LAN"
+                }
+            },
+            "DeployPage": {
+                "ProjectCredentialsBtn": {
+                    "click": {}
+                },
+                "ProjectCredentialsPopUp": {
+                    "SaveBtn":{
+                        "click": {}
+                    }
+                }
+            },
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPCP Pro 350<<incorrectCredentialsPrimary>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

@@ -1,0 +1,328 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3", "TestCase4", "TestCase5"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a Peripheral Device (TLP MG/TG) that is unreachable on the network gives appropriate error message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1464\", https://extron.atlassian.net/browse/TOOL-1464",
+      "TestCaseLink": "\"Test Case: TOOL-T1521\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1414",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.address": "198.119.123.12"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deviceUnreachablePeripheralMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a Peripheral Device (TLP MG/TG) that is unreachable on the network gives appropriate error message (Index Identifier Scenario)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1464\", https://extron.atlassian.net/browse/TOOL-1464",
+      "TestCaseLink": "\"Test Case: TOOL-T1521\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1415",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.address": "198.119.123.12"
+      },
+      "InsertTestData": {},
+      "DeleteData": ["devices.2.name"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<deviceUnreachablePeripheralMessage>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that entering invalid \"devices.username\" (Peripheral TLP MG/TG) throws appropriate error during deployment",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1464\", https://extron.atlassian.net/browse/TOOL-1464",
+      "TestCaseLink": "\"Test Case: TOOL-T1416\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1416",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.network.interfaces.0.address": "<<TLP1525TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "myextron",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<incorrectPeripheralCreds>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "DeployAction_2": [ "Deploy" ],
+      "VerifyMessage_2":[
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that entering invalid \"devices.password\" (Peripheral TLP MG/TG) throws appropriate error during deployment",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1464\", https://extron.atlassian.net/browse/TOOL-1464",
+      "TestCaseLink": "\"Test Case: TOOL-T1417\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1417",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.address": "<<TLP1525TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "pwd"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<incorrectPeripheralCreds>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "DeployAction_2": [ "Deploy" ],
+      "VerifyMessage_2":[
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that entering invalid \"devices.username\" (Peripheral TLP MG/TG) throws appropriate error during deployment (Index Identifier Scenario)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1464\", https://extron.atlassian.net/browse/TOOL-1464",
+      "TestCaseLink": "\"Test Case: TOOL-T1418\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1418",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.network.interfaces.0.address": "<<TLP1525TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": ["devices.2.name"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "myextron",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<incorrectPeripheralCreds>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ],
+      "ChangeCredentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "DeployAction_2": [ "Deploy" ],
+      "VerifyMessage_2":[
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

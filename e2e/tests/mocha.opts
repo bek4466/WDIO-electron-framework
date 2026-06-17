@@ -1,0 +1,6 @@
+--timeout 10000000
+--slow 20000
+out/main.js
+--reporter spec
+--full-trace
+--exit

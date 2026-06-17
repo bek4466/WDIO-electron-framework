@@ -1,0 +1,62 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify clicking on Profile tab shows Profile page",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Access Control Test",
+            "UserStoryLink": "\"User Story: TOOL-2285\", https://extron.atlassian.net/browse/TOOL-2285",
+            "UserStory": "TOOL-2285 (As a CSDU user, I want to see all my licensing information in one area.)",
+            "TaskLink": "\"Task Issue: TOOL-2314\", https://extron.atlassian.net/browse/TOOL-2314",
+            "TestCaseLink": "\"Test Case: TOOL-T283\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T283",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Steps": {
+            "ProfileAction": [
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Username is visible in Profile View window.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Access Control Test",
+            "UserStoryLink": "\"User Story: TOOL-2285\", https://extron.atlassian.net/browse/TOOL-2285",
+            "UserStory": "TOOL-2285 (As a CSDU user, I want to see all my licensing information in one area.)",
+            "TaskLink": "\"Task Issue: TOOL-2314\", https://extron.atlassian.net/browse/TOOL-2314",
+            "TestCaseLink": "\"Test Case: TOOL-T284\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T284",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Steps": {
+            "ProfileAction": [
+                "UsernameInWindowTitle"
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that License Card shows in Profile View",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Access Control Test",
+            "UserStoryLink": "\"User Story: TOOL-2285\", https://extron.atlassian.net/browse/TOOL-2285",
+            "UserStory": "TOOL-2285 (As a CSDU user, I want to see all my licensing information in one area.)",
+            "TaskLink": "\"Task Issue: TOOL-2314\", https://extron.atlassian.net/browse/TOOL-2314",
+            "TestCaseLink": "\"Test Case: TOOL-T285\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T285",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Steps": {
+          "ProfileAction":[],
+          "ProfilePage": {
+            "LicenseCard": {
+                "isVisible": true
+            }
+          }
+        },
+        "Execute": "True"
+    }
+}

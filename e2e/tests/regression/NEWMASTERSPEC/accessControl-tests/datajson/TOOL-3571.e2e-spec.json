@@ -1,0 +1,206 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that application throws error after entering invalid username and invalid password",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-3526\", https://extron.atlassian.net/browse/TOOL-3526",
+      "UserStory": "TOOL-3526 (Retrieve Password - Unhappy Path)",
+      "TaskLink": "\"Task Issue: TOOL-3571\", https://extron.atlassian.net/browse/TOOL-3571",
+      "TestCaseLink": "\"Test Case: TOOL-T3367\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3367",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout": "15000",
+      "LoginPage": {
+        "SignInBtn": {
+          "click": null
+        }
+      },
+      "LoginPopUp": {
+        "enterCredentials": {
+          "user": "invalid",
+          "pass": "invalid"
+        },
+        "SignInBtn": {
+          "noSwitchWindowClick": null
+        },
+        "invalidUserAndPassText": {
+          "exists": true
+        },
+        "closePopUp": true
+      }
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that application throws error after entering invalid username and valid password",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-3526\", https://extron.atlassian.net/browse/TOOL-3526",
+      "UserStory": "TOOL-3526 (Retrieve Password - Unhappy Path)",
+      "TaskLink": "\"Task Issue: TOOL-3571\", https://extron.atlassian.net/browse/TOOL-3571",
+      "TestCaseLink": "\"Test Case: TOOL-T3368\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3368",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout": "15000",
+      "LoginPage": {
+        "SignInBtn": {
+          "click": null
+        }
+      },
+      "LoginPopUp": {
+        "enterCredentials": {
+          "user": "invalid",
+          "pass": "extron"
+        },
+        "SignInBtn": {
+          "noSwitchWindowClick": null
+        },
+        "invalidUserAndPassText": {
+          "exists": true
+        },
+        "closePopUp": true
+      }
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that application throws error after entering valid username and invalid password",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-3526\", https://extron.atlassian.net/browse/TOOL-3526",
+      "UserStory": "TOOL-3526 (Retrieve Password - Unhappy Path)",
+      "TaskLink": "\"Task Issue: TOOL-3571\", https://extron.atlassian.net/browse/TOOL-3571",
+      "TestCaseLink": "\"Test Case: TOOL-T3369\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3369",
+      "ProjectFile": "TraceProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "TLP 725M",
+        "devices.0.part_number": "60-1563-02C",
+        "devices.0.network.interfaces": [],
+        "devices.0.network.interfaces.0": {},
+        "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>",
+        "devices.0.network.interfaces.0.type": "LAN",
+        "devices.1.name": "TLP",
+        "devices.1.part_number": "60-1559-02",
+        "devices.1.network.interfaces.0.address": "<<TLP525T_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout": "15000",
+      "LoginPage": {
+        "SignInBtn": {
+          "click": null
+        }
+      },
+      "LoginPopUp": {
+        "enterCredentials": {
+          "user": "admin",
+          "pass": "invalid"
+        },
+        "SignInBtn": {
+          "noSwitchWindowClick": null
+        },
+        "invalidUserAndPassText": {
+          "exists": true
+        },
+        "closePopUp": true
+      }
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid primary devices.network.interfaces.address key -not a valid host name. (FQDN)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: TOOL-1596\", https://extron.atlassian.net/browse/TOOL-1596",
+      "UserStory": "FQDN Support",
+      "TaskLink": "\"Task Issue: TOOL-1257\", https://extron.atlassian.net/browse/TOOL-1257",
+      "TestCaseLink": "\"Test Case: CSP-T1518\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1518",
+      "ProjectFile": "GoldenDualnicProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "My Device",
+        "devices.0.network.interfaces.0.address": "CI_SecondaryControllerDHCP_FQDN"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<malformedDeviceAddress>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid peripheral devices.network.interfaces.address key -not a valid host name. (FQDN)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: TOOL-1596\", https://extron.atlassian.net/browse/TOOL-1596",
+      "UserStory": "FQDN Support",
+      "TaskLink": "\"Task Issue: TOOL-1257\", https://extron.atlassian.net/browse/TOOL-1257",
+      "TestCaseLink": "\"Test Case: CSP-T1519\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1519",
+      "ProjectFile": "GoldenDualnicProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.name": "My Peripheral Device",
+        "devices.1.network.interfaces.0.address": ".<<CI_SecondaryControllerDHCP_FQDN>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<malformedPeripheralDeviceAddress>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for incorrect primary devices.network.interfaces.address key - incorrect AVLAN Address (FQDN)",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Device Validaiton",
+      "UserStoryLink": "\"User Story: TOOL-1596\", https://extron.atlassian.net/browse/TOOL-1596",
+      "UserStory": "FQDN Support",
+      "TaskLink": "\"Task Issue: TOOL-1257\", https://extron.atlassian.net/browse/TOOL-1257",
+      "TestCaseLink": "\"Test Case: CSP-T1519\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1519",
+      "ProjectFile": "GoldenDualnicProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "My Device",
+        "devices.0.network.interfaces.1.address": "192.168.254.12"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deployFailureMsg>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<incorrectAVLANAddress3>>",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

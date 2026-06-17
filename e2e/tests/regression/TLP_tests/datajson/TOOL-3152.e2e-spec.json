@@ -1,0 +1,224 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid IPV4.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3152\", https://extron.atlassian.net/browse/TOOL-3152",
+      "TestCaseLink": "\"Test Case: TOOL-T663\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T663",
+      "TestCaseHeader": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid IPV4."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.network.interfaces.0.address": "1.2.3",
+        "devices.2.network.interfaces.0.address": "2.3.4",
+        "devices.3.network.interfaces.0.address": "3.4.5"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Missing (Peripheral) devices.network.interfaces.address key.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3152\", https://extron.atlassian.net/browse/TOOL-3152",
+      "TestCaseLink": "\"Test Case: TOOL-T664\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T664",
+      "TestCaseHeader": "Verify there should be error message in message pane for Missing (Peripheral) devices.network.interfaces.address key."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "DeleteData": [
+        "devices.1.network.interfaces.0.address",
+        "devices.2.network.interfaces.0.address",
+        "devices.3.network.interfaces.0.address"
+      ]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces.address: Missing key - e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid (peripheral) devices.network.interfaces.address key -not a valid host",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3152\", https://extron.atlassian.net/browse/TOOL-3152",
+      "TestCaseLink": "\"Test Case: TOOL-T665\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T665",
+      "TestCaseHeader": "Verify there should be error message in message pane for invalid (peripheral) devices.network.interfaces.address key -not a valid host"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.network.interfaces.0.address": "_my-host-name",
+        "devices.2.network.interfaces.0.address": "_my-host-name2",
+        "devices.3.network.interfaces.0.address": "_my-host-name3"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid FQDN.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3152\", https://extron.atlassian.net/browse/TOOL-3152",
+      "TestCaseLink": "\"Test Case: TOOL-T666\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T666",
+      "TestCaseHeader": "Verify there should be error message in message pane for invalid (Peripheral) devices.network.interfaces.address key-not a valid FQDN."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.network.interfaces.0.address": "_my-host-name.extron.com",
+        "devices.2.network.interfaces.0.address": "_my-host-name2.extron.com",
+        "devices.3.network.interfaces.0.address": "_my-host-name3.extron.com"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - network.interfaces.address: Invalid - Must be a valid IPv4, hostname or FQDN value e.g. \"address\": \"192.168.1.100\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

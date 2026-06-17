@@ -1,0 +1,105 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate Warning is thrown when system.sound_folder_path is pointed outside the root folder path",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Path Pointing outward validation messages and Deploymentn",
+      "UserStoryLink": "\"User Story: TOOL-3703\", https://extron.atlassian.net/browse/TOOL-3703",
+      "UserStory": "TOOL-3703 Path Pointing outward validation messages and Deploymentn",
+      "TaskLink": "\"Task Issue: TOOL-3783\", https://extron.atlassian.net/browse/TOOL-3783",
+      "TestCaseLink": "\"Test Case: TOOL-T4548\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian--plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4548"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "InsertTestData": {
+        "system.sound_folder_path": "..\\TempProject\\sound"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "system.sound_folder_path: Invalid - Invalid path: C:*.* Folder must be contained inside of the project folder.",
+          "MessageType": "Warning",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate Warning is thrown when system.rfile_folder_path is pointed outside the root folder path",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Path Pointing outward validation messages and Deploymentn",
+      "UserStoryLink": "\"User Story: TOOL-3703\", https://extron.atlassian.net/browse/TOOL-3703",
+      "UserStory": "TOOL-3703 Path Pointing outward validation messages and Deploymentn",
+      "TaskLink": "\"Task Issue: TOOL-3783\", https://extron.atlassian.net/browse/TOOL-3783",
+      "TestCaseLink": "\"Test Case: TOOL-T4547\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian--plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4547"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "InsertTestData": {
+        "system.rfile_folder_path": "..\\TempProject\\rFile"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "system.rfile_folder_path: Invalid - Invalid path: C:*.* Folder must be contained inside of the project folder.",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate Warning is thrown when system.irfile_folder_path is pointed outside the root folder path",
+      "Owner": "Amit Bhagwat",
+      "SuiteType": "Path Pointing outward validation messages and Deploymentn",
+      "UserStoryLink": "\"User Story: TOOL-3703\", https://extron.atlassian.net/browse/TOOL-3703",
+      "UserStory": "TOOL-3703 Path Pointing outward validation messages and Deploymentn",
+      "TaskLink": "\"Task Issue: TOOL-3783\", https://extron.atlassian.net/browse/TOOL-3783",
+      "TestCaseLink": "\"Test Case: TOOL-T4546\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4546"
+    },
+    "Preconditions": {
+      "InsertTestData": {
+        "system.irfile_folder_path": "..\\TempProject\\irDriver"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "system.irfile_folder_path: Invalid - Invalid path: C:*.* Folder must be contained inside of the project folder.",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

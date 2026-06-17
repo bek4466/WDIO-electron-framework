@@ -1,0 +1,52 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+                "TestDescription": "Verify Json pointer is considered as a value when system.data_file_path is missing from project descriptor file -UI.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-2327\", https://extron.atlassian.net/browse/TOOL-2327",
+            "UserStory": "TOOL-2327 (As CSDU user, I want to be able to troubleshoot issues with my deployment when using a data + project descriptor file.)",
+            "TaskLink": "\"Task Issue: TOOL-2410\", https://extron.atlassian.net/browse/TOOL-2410",
+            "TestCaseLink": "\"Test Case: TOOL-341\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T341",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "system.data_file_path"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist" : true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

@@ -1,0 +1,189 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy",
+            "Owner": "Kiran S",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3216\", \"https://extron.atlassian.net/browse/TOOL-3216\"",
+            "TestCaseLink": "\"Test Case: TOOL-T741 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888021\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that a info message validates existence of UUT as Primary Device at the time of Deploy"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My 355MQ XI - Hardware found : Connected to device at IPCP355_MQXi_LAN.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a info message validates existence of UUT as a secondary controller at the time of Deploy",
+            "Owner": "Kiran S",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3216\", \"https://extron.atlassian.net/browse/TOOL-3216\"",
+            "TestCaseLink": "\"Test Case: TOOL-T743 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15888023\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that a info message validates existence of UUT as a secondary controller at the time of Deploy"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "IPCP355_MQXi_LAN",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Hardware found : Connected to device at 10.113.119.171.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+            "TestCaseInfo": {
+                "TestDescription": "Verify that UUT as primary device and is not found on the network gives the appropriate error message",
+                "Owner": "Kiran S",
+                "SuiteType": "Device Validation",
+                "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+                "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+                "TaskLink": "\"Task Issue: TOOL-3216\", \"https://extron.atlassian.net/browse/TOOL-3216\"",
+                "TestCaseLink": "\"Test Case: TOOL-T757 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928426\"",
+                "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+                "TestCaseHeader": "Verify that UUT as primary device and is not found on the network gives the appropriate error message"
+            },
+            "Credentials": [
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              }
+            ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "10.112.123.12",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Hardware not found : Failed to connect. Please check device connection and try again.",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as secondary device and is not found on the network give the appropriate error message",
+            "Owner": "Kiran S",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-3179\", \"https://extron.atlassian.net/browse/TOOL-3179\"",
+            "UserStory": "TOOL-3179 (355MQ xi Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3216\", \"https://extron.atlassian.net/browse/TOOL-3216\"",
+            "TestCaseLink": "\"Test Case: TOOL-T758 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928427\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"XiControllerProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that UUT as secondary device and is not found on the network give the appropriate error message"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "TLP525T_TLP",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My 355MQ XI"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "IPCP355_MQXi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My 355MQ XI - Hardware not found : Failed to connect. Please check device connection and try again.",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    }
+}

@@ -1,0 +1,93 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Build and Upload is not successful after user provides blank password for Primary Controller",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-3\", https://extron.atlassian.net/browse/CSP-3",
+            "UserStory": "CSP-3 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-328\", https://extron.atlassian.net/browse/CSP-328",
+            "TestCaseLink": "\"Test Case: CSP-T61\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T61",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": ""
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "Timeout" : 10000,
+            "DeployPage" : {
+                "ProjectCredentialsPopUp": {
+                    "isOpen": true
+                }
+            },
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Build and Upload is not successful after user provides blank username for Primary Controller",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-3\", https://extron.atlassian.net/browse/CSP-3",
+            "UserStory": "CSP-3 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-328\", https://extron.atlassian.net/browse/CSP-328",
+            "TestCaseLink": "\"Test Case: CSP-T62\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T62",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "Timeout" : 10000,
+            "DeployPage" : {
+                "ProjectCredentialsPopUp": {
+                    "isOpen": true
+                }
+            },
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

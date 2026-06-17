@@ -1,0 +1,144 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify inputting wrong password three times or more prompts wait three seconds and try again error message",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5550\", https://extron.atlassian.net/browse/TOOL-5550 ",
+      "UserStory": "TOOL-5550: Extract Dialog Box",
+      "TaskLink": "\"Task Issue: TOOL-5553\", https://extron.atlassian.net/browse/TOOL-5553 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4897\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4897 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage_2": {
+        "ExtractProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout_2": "fast",
+      "DeployPage_3": {
+        "ExtractProjectPopUp": {
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "passwordInputBox": {
+            "setPassword": "badpassword"
+          },
+          "extractBtn": {
+            "click": null
+          },
+          "passwordFailMsg": {
+            "verifyTextMatches": "<<extractPasswordError>>"
+          },
+          "passwordInputBox_2": {
+            "setPassword": "invalid|"
+          },
+          "passwordFailMsg_2": {
+            "verifyTextMatches": "<<extractPasswordInvalidFormatError>>"
+          },
+          "passwordInputBox_3": {
+            "setPassword": "badpassword2"
+          },
+          "extractBtn_2": {
+            "click": null
+          },
+          "passwordInputBox_4": {
+            "setPassword": "badpassword2"
+          },
+          "extractBtn_3": {
+            "click": null
+          },
+          "passwordFailMsg_3": {
+            "verifyTextMatches": "<<extractThreeSecondError>>"
+          }
+        }
+      },
+      "Timeout_3": "medium",
+      "CommonMethod": {
+        "cannotFindFile": {
+          "path": "TmpDownloadProject\\systeminfoTmp-certification.dat"
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify inputting invalid characters in the password box prompts an error",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5550\", https://extron.atlassian.net/browse/TOOL-5550 ",
+      "UserStory": "TOOL-5550: Extract Dialog Box",
+      "TaskLink": "\"Task Issue: TOOL-5553\", https://extron.atlassian.net/browse/TOOL-5553 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4945\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4945 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage_2": {
+        "ExtractProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout_2": "fast",
+      "DeployPage_3": {
+        "ExtractProjectPopUp": {
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "passwordInputBox": {
+            "setPassword": "12| "
+          },
+          "extractBtn": {
+            "isEnabled": false
+          },
+          "passwordFailMsg": {
+            "verifyTextMatches": "<<extractPasswordInvalidFormatError>>"
+          },
+          "passwordInputBox_2": {
+            "setPassword": "12|"
+          },
+          "extractBtn_2": {
+            "isEnabled": false
+          },
+          "passwordFailMsg_2": {
+            "verifyTextMatches": "<<extractPasswordInvalidFormatError>>"
+          },
+          "passwordInputBox_3": {
+            "setPassword": "12"
+          },
+          "extractBtn_3": {
+            "isEnabled": true
+          },
+          "passwordFailMsg_3": {
+            "exists": false
+          },
+          "passwordInputBox_4": {
+            "clearPassword": null
+          },
+          "extractBtn_4": {
+            "isEnabled": false
+          },
+          "passwordFailMsg_4": {
+            "verifyTextMatches": "<<extractPasswordInvalidFormatError>>"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify program log gives appropriate message for device using IPv6",
+            "Owner": "Kiran",
+            "SuiteType": "Program Log",
+            "UserStoryLink": "\"User Story: TOOL-5940\", https://extron.atlassian.net/browse/TOOL-5940 ",
+            "UserStory": "TOOL-5940 (IPv6 Program Log)",
+            "TaskLink": "\"Task Issue: TOOL-6195\", https://extron.atlassian.net/browse/TOOL-6195 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4989\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4989 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPV6Only_Device",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "<<IPV6Only_Device_PartNumber>>",
+                "devices.0.network.interfaces.0.address": "<<IPV6Only_Device>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPV6Only_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "Timeout": "medium",
+            "TroubleshootingAction": ["RefreshProgramLog"],
+            "Timeout2": "fast",
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.network.interfaces.0.address": "1:2:3:4:5:6:7:8:9"
+                }
+            },
+            "Timeout3": "fast",
+            "DeployAction": ["ClearMessagePane"],
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\systeminfoTmp.json"
+                }
+            },
+            "Timeout4": "fast",
+            "TroubleshootingAction2" :[
+                "HideMessagePane"
+            ],
+            "DeployAction2": [],
+            "TroubleshootingAction3" :[
+                "RefreshProgramLog"
+            ],
+            "VerifyTroubleShootingMessage": [
+                {
+                    "MessageText": "<<invalidDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify program log gives appropriate message for device using IPv6 (Protected Project)",
+            "Owner": "Kiran",
+            "SuiteType": "Program Log",
+            "UserStoryLink": "\"User Story: TOOL-5940\", https://extron.atlassian.net/browse/TOOL-5940 ",
+            "UserStory": "TOOL-5940 (IPv6 Program Log)",
+            "TaskLink": "\"Task Issue: TOOL-6195\", https://extron.atlassian.net/browse/TOOL-6195 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4990\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4990 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPV6Only_Device",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "<<IPV6Only_Device_PartNumber>>",
+                "devices.0.network.interfaces.0.address": "1:2:3:4:5:6:7:8:9",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPV6Only_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProtectProjectBtn": {
+                    "click": null
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage2": {
+                 "ProtectProjectPopUp": {
+                    "passwordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "reenterPasswordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "allowDeployAndTroubleshootWithoutPasswordCheckBox": {
+                        "click": null
+                    },
+                    "selectBtn": {
+                        "setPath": "TmpDownloadProject"
+                    },
+                    "createBtn": {
+                        "click": null
+                    }
+                 }
+            },
+            "Timeout2": "fast",
+            "DeployAction": ["ClearMessagePane"],
+            "Timeout2a": "fast",
+            "DeployPage3": {
+                "ProjectFilePathInput": {
+                    "setPath": "TmpDownloadProject\\systeminfoTmp.cspp"
+                }
+            },
+            "Timeout3": "fast",
+            "TroubleshootingAction": [],
+            "Timeout4": "fast",
+            "DeployAction2": [],
+            "Timeout5": "fast",
+            "TroubleshootingAction2": ["RefreshProgramLog"],
+            "VerifyTroubleShootingMessage": [
+                {
+                    "MessageText": "<<invalidDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

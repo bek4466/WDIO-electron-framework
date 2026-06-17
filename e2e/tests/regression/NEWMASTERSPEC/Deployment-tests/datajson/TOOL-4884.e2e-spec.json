@@ -1,0 +1,141 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify project descriptor properties for ZRTP Pro 725T are correct",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Tests",
+            "UserStoryLink": "\"User Story: TOOL-4813\", https://extron.atlassian.net/browse/TOOL-4813",
+            "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Project Descriptor Properties",
+            "TaskLink": "\"Task Issue: TOOl-4885\", https://extron.atlassian.net/browse/TOOL-4885",
+            "TestCaseLink": "\"Test Case: TOOL-T4797\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/90593358",
+            "ProjectFile": "DeployProject\\tlrcSystem.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "<<ZRTP725T>>",
+                "devices.1.part_number": "60-1562-212"
+            }   
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "ZRTP 725T<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": false
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "comment": "Not active because we do not have an actual TLP 725M in automation currently.",
+        "TestCaseInfo": {
+            "TestDescription": "Verify project descriptor properties for ZRTP Pro 725M are correct",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Tests",
+            "UserStoryLink": "\"User Story: TOOL-4813\", https://extron.atlassian.net/browse/TOOL-4813",
+            "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Project Descriptor Properties",
+            "TaskLink": "\"Task Issue: TOOl-4885\", https://extron.atlassian.net/browse/TOOL-4885",
+            "TestCaseLink": "\"Test Case: TOOL-T4798\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/90593361",
+            "ProjectFile": "DeployProject\\tlrcSystem.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "",
+                "devices.1.part_number": "60-1563-212"
+            }   
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "ZRTP 725T<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": false
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify project descriptor properties for ZRTP Pro 1025T are correct",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Tests",
+            "UserStoryLink": "\"User Story: TOOL-4813\", https://extron.atlassian.net/browse/TOOL-4813",
+            "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Project Descriptor Properties",
+            "TaskLink": "\"Task Issue: TOOl-4885\", https://extron.atlassian.net/browse/TOOL-4885",
+            "TestCaseLink": "\"Test Case: TOOL-T4799\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/90593370",
+            "ProjectFile": "DeployProject\\tlrcSystem.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "<<ZRTP1025T>>",
+                "devices.1.part_number": "60-1565-212"
+            }   
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "ZRTP 725T<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": false
+                }
+            ]
+        },
+        "Execute": "True"
+    }   
+}

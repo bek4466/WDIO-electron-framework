@@ -1,0 +1,128 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate error message is thrown if device communication failed(False, turned off due to GM reset needs to be done in the middle of Deployment in CI",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Matrix Q xi - FOX3 - Deployment Validation",
+            "UserStoryLink": "\"User Story: TOOL-3301\", https://extron.atlassian.net/browse/TOOL-3301",
+            "UserStory": "TOOL-3301 (Matrix Q xi - FOX3 - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3382\", https://extron.atlassian.net/browse/TOOL-3382",
+            "ProjectFile": "FoxProject\\project.json",
+            "TestCaseLink": "\"Test Case: TOOL-T751\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T751",
+            "TestCaseHeader": "Verify that appropriate error message is thrown if device communication failed"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project"
+            },
+            "InsertTestData": {}
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "Matrix Q xi - FOX3 : 10.117.18.1 - Communication failed : There are issues with device communication.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate error message is thrown for peripheral during deployment and Peripheral is offline.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Matrix Q xi - FOX3 - Deployment Validation",
+            "UserStoryLink": "\"User Story: TOOL-3301\", https://extron.atlassian.net/browse/TOOL-3301",
+            "UserStory": "TOOL-3301 (Matrix Q xi - FOX3 - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3382\", https://extron.atlassian.net/browse/TOOL-3382",
+            "ProjectFile": "FoxProject\\project.json",
+            "TestCaseLink": "\"Test Case: TOOL-T754\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T754",
+            "TestCaseHeader": "Verify that appropriate error message is thrown for peripheral during deployment and Peripheral is offline."
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.1.network.interfaces.0.address": "OFFLINECONTROLLER",
+                "devices.1.network.interfaces.0.type": "LAN"
+            },
+            "InsertTestData": {
+
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 725T : 10.113.89.226 - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is thrown for successful deployment when UUT is secondary device",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Matrix Q xi - FOX3 - Deployment Validation",
+            "UserStoryLink": "\"User Story: TOOL-3301\", https://extron.atlassian.net/browse/TOOL-3301",
+            "UserStory": "TOOL-3301 (Matrix Q xi - FOX3 - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3382\", https://extron.atlassian.net/browse/TOOL-3382",
+            "ProjectFile": "FoxProject\\projectPeripheral.json",
+            "TestCaseLink": "\"Test Case: TOOL-T788\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T788",
+            "TestCaseHeader": "Verify that appropriate info message is thrown for successful deployment when UUT is secondary device"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "system.system_id": "3030",
+                "devices.2.name": "FOX3",
+                "devices.2.network.interfaces.0.address": "FOX3_Qxi_LAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "FOX3 - Device paired successfully with primary device using address (FOX3_Qxi_LAN) with systemId (3030)",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

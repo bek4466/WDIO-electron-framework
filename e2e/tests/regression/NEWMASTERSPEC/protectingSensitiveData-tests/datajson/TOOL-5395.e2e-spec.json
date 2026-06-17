@@ -1,0 +1,99 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify passwords in the Protect Project prompt box hidden",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5395\", https://extron.atlassian.net/browse/TOOL-5395 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4894\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4894 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234",
+            "isObfuscated": true
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "pass1",
+            "isObfuscated": true
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify cancel button erases all inputted data in Protect Project prompt box",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5395\", https://extron.atlassian.net/browse/TOOL-5395 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4898\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4898 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "title": {
+            "exists": true
+          },
+          "createBtn": {
+            "isEnabled": false
+          },
+          "passwordInputBox": {
+            "setPassword": "1234",
+            "isObfuscated": true
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234",
+            "isObfuscated": true
+          },
+          "createBtn2": {
+            "isEnabled": false
+          },
+          "cancelBtn": {
+            "click": null
+          },
+          "successLink": {
+            "exists": false
+          }
+        },
+        "ProtectProjectBtn2": {
+          "click": null
+        },
+        "ProtectProjectPopUp2": {
+          "title": {
+            "exists": true
+          },
+          "passwordInputBox": {
+            "isEmpty": true
+          },
+          "protectPath": {
+            "exists": false
+          }
+        }
+      }
+    }
+  }
+}

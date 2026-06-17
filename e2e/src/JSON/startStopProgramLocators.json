@@ -1,0 +1,9 @@
+{
+    "startStopProgramBtn": "[id='program-state-button']",
+    "stopProgramBtnTxt": "[id='program-state-button']",
+    "startProgramBtnTxt": "[id='program-state-button']",
+    "stopProgramButton": "[id='program-state-button']",
+    "startProgramButton": "[id='program-state-button']",
+    "startProgramText": "[id='program-state-button']",
+    "stopProgramText": "[id='program-state-button']"
+}

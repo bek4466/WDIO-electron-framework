@@ -1,0 +1,138 @@
+{
+  "Execute": [
+    "TestCase2"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Project Credentials UI saves different device credentials to an encrypted file.",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3533\", https://extron.atlassian.net/browse/TOOL-3533",
+      "UserStory": "TOOL-3533 Project Credentials: File Creation - Happy Path",
+      "TaskLink": "\"Task Issue: TOOL-3572\", https://extron.atlassian.net/browse/TOOL-3572",
+      "TestCaseLink": "\"Test Case: TOOL-T3357\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3357",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "John",
+        "pass": "extron"
+      },
+      {
+        "user": "Jane",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Certify"],
+      "AppAction": [
+        "Logout"
+      ],
+      "Timeout": "medium",
+      "AppAction_2": [
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        }
+      },
+      "ProjectCredentialsBtn": {
+        "click": {}
+      },
+      "ProjectCredentialsPopUp": {
+        "UsernameField": {
+          "row_0": {
+            "matches": "John"
+          },
+          "row_1": {
+            "matches": "Jane"
+          }
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Basic functionality after created credentials file",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Project Credentials",
+      "UserStoryLink": "\"User Story: TOOL-3533\", https://extron.atlassian.net/browse/TOOL-3533",
+      "UserStory": "TOOL-3533 Project Credentials: File Creation - Happy Path",
+      "TaskLink": "\"Task Issue: TOOL-3572\", https://extron.atlassian.net/browse/TOOL-3572",
+      "TestCaseLink": "\"Test Case: TOOL-T3356\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3356",
+      "ProjectFile": "TraceProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.name": "TLP Pro 1022T",
+        "devices.2.part_number": "60-1601-02",
+        "devices.2.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Certify", "Deploy"],
+      "VerifyMessage": [
+        {
+            "MessageText": "<<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        }
+      ],
+      "TroubleshootingAction": [
+        "StartTrace",
+        "RefreshProgramLog"
+      ],
+      "VerifyTraceMessageLogs": [
+        {
+          "MessageText": "<<traceMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "VerifyProgramMessageLogs": [
+        {
+            "MessageText": "INFO root",
+            "MessageType": "Info",
+            "Exist": true
+        }
+      ],
+      "TroubleshootingAction_2": [
+        "StopProgramLog",
+        "StartProgramLog"
+      ]
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+    "Execute":["TestCase1", "TestCase2","TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify FQDN case sensitivity - Camel Case",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1596\", https://extron.atlassian.net/browse/TOOL-1596",
+            "UserStory": "TOOL-1596: FQDN Support",
+            "TaskLink": "\"Task Issue: TOOL-2535\", https://extron.atlassian.net/browse/TOOL-2535",
+            "TestCaseLink": "\"Test Case: TOOL-T384\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T384",
+            "ProjectFile": "DHCPProject\\systeminfohost.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.0.network.interfaces.0.address": "IPCP-Pro-360-18-17-D8.extRon.Com"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Primary Device<<HardwareFoundMessage>>IPCP-Pro-360-18-17-D8.extRon.Com",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify FQDN case sensitivity - Capital Letters",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1596\", https://extron.atlassian.net/browse/TOOL-1596",
+            "UserStory": "TOOL-1596: FQDN Support",
+            "TaskLink": "\"Task Issue: TOOL-2535\", https://extron.atlassian.net/browse/TOOL-2535",
+            "TestCaseLink": "\"Test Case: TOOL-T385\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T385",
+            "ProjectFile": "DHCPProject\\systeminfohost.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.0.network.interfaces.0.address": "IPCP-PRO-360-18-17-D8.EXTRON.COM"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Primary Device<<HardwareFoundMessage>>IPCP-PRO-360-18-17-D8.EXTRON.COM",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify FQDN case sensitivity - Small Letters",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1596\", https://extron.atlassian.net/browse/TOOL-1596",
+            "UserStory": "TOOL-1596: FQDN Support",
+            "TaskLink": "\"Task Issue: TOOL-2535\", https://extron.atlassian.net/browse/TOOL-2535",
+            "TestCaseLink": "\"Test Case: TOOL-T386\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T386",
+            "ProjectFile": "DHCPProject\\systeminfohost.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.0.network.interfaces.0.address": "ipcp-pro-360-18-17-d8.extron.com"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Primary Device<<HardwareFoundMessage>>ipcp-pro-360-18-17-d8.extron.com",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

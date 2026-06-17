@@ -1,0 +1,197 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Info message displayed when ECM device is reachable when deploying in CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2301\", https://extron.atlassian.net/browse/TOOL-2301",
+            "TestCaseLink": "\"Test Case: TOOL-T214\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T214",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Info message displayed when ECM device is reachable when deploying in CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "Pro350_IPCP_1",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device",
+                "devices.2": {
+                    "ebus_id": 18,
+                    "name": "EBUS Device",
+                    "part_number": "60-1662-00",
+                    "alias": "eBUSAlias",
+                    "extron_control_web_id": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c"
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: EBUS Device - Hardware found : Device is reachable at the 18.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Info message displayed when live ECM device matches described device in destiny file when deploying in CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2301\", https://extron.atlassian.net/browse/TOOL-2301",
+            "TestCaseLink": "\"Test Case: TOOL-T215\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T215",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Info message displayed when live ECM device matches described device in destiny file when deploying in CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "Pro350_IPCP_1",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device",
+                "devices.2": {
+                    "ebus_id": 18,
+                    "name": "EBUS Device",
+                    "part_number": "60-1662-00",
+                    "alias": "eBUSAlias",
+                    "extron_control_web_id": "35d2ffed0fed7c00e7e7ea150e37fafb9d666c4c"
+                }
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: EBUS Device - Hardware Match : The specified device match with the live device at the 18.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a Primary Device that is unreachable on the network gives appropriate error message(Cli Deployment)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2301\", https://extron.atlassian.net/browse/TOOL-2301",
+            "TestCaseLink": "\"Test Case: TOOL-T216\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T216",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that a Primary Device that is unreachable on the network gives appropriate error message(Cli Deployment)"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "unReachableController"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: Project - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "error: My Device - Hardware not found : Failed to connect. Please check device connection and try again.",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a Peripheral Device that is unreachable on the network gives appropriate error message(Cli Deployment)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2301\", https://extron.atlassian.net/browse/TOOL-2301",
+            "TestCaseLink": "\"Test Case: TOOL-T217\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T217",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that a Peripheral Device that is unreachable on the network gives appropriate error message(Cli Deployment)"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.name": "Peripheral Device",
+                "devices.1.network.interfaces.0.address": "unReachableController"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "error: Peripheral Device - Device not paired with the primary device : The device at the specified address is not reachable on the network. Please check the device connection and make sure that it is reachable on the network",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a Primary Device that has hardware mismatch gives appropriate warning message(Cli Deploy)",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2301\", https://extron.atlassian.net/browse/TOOL-2301",
+            "TestCaseLink": "\"Test Case: TOOL-T218\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T218",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that a Primary Device that has hardware mismatch gives appropriate warning message(Cli Deploy)"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "Pro350_IPCP_1"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

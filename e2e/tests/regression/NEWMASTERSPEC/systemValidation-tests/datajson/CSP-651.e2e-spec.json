@@ -1,0 +1,101 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for a device missing name key, the index of the device is used for Device Identifier for Missing network.host_network_type key",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1684\", https://extron.atlassian.net/browse/TOOL-1684",
+            "UserStory": "TOOL-1684: Missing network.host_network_type",
+            "TaskLink": "\"Task Issue: CSP-651\", https://extron.atlassian.net/browse/CSP-651",
+            "TestCaseLink": "\"Test Case: TOOL-T2699\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2699",
+            "ProjectFile": "DeployProject\\systeminfoT669.json"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyProgressBar": true,
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "device[1] - <<missingPeriphHostNetworkTypeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed devices.network.host_network_type (not a string) for peripheral device gives appropriate error message",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1684\", https://extron.atlassian.net/browse/TOOL-1684",
+            "UserStory": "TOOL-1684: Missing network.host_network_type",
+            "TaskLink": "\"Task Issue: CSP-651\", https://extron.atlassian.net/browse/CSP-651",
+            "TestCaseLink": "\"Test Case: CSP-T242\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T242",
+            "ProjectFile": "DeployProject\\systeminfoT242.json"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name" : "Peripheral"
+            },
+            "DeleteData": []
+        },
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyProgressBar": true,
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Peripheral - <<malformedHostNetworkTypeMessageGeneric>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

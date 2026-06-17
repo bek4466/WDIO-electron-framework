@@ -1,0 +1,110 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Missing devices.ui. key under peripheral devices with UI gives warning message",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1692\", https://extron.atlassian.net/browse/TOOL-1692 ",
+            "UserStory": "TOOL-1692 (devices.ui)",
+            "TaskLink": "\"Task Issue: TOOL-1414\", https://extron.atlassian.net/browse/TOOL-1414 ",
+            "TestCaseLink": "\"Test Case: TOOL-T2360\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2360",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+              "devices.2.name": "My Peripheral Device"
+        
+              
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            
+              "devices.2.ui"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                  "MessageText": "<<deploySuccessMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+              },
+              {
+                "MessageText": "My Peripheral Device<<missingUi>>",
+                "MessageType": "Warning",
+                "Exist": true
+            }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify that Invalid devices.ui. key under peripheral devices with UI gives warning message",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "System Validation Test",
+          "UserStoryLink": "\"User Story: TOOL-1692\", https://extron.atlassian.net/browse/TOOL-1692 ",
+          "UserStory": "TOOL-1692 (devices.ui)",
+          "TaskLink": "\"Task Issue: TOOL-1414\", https://extron.atlassian.net/browse/TOOL-1414 ",
+          "TestCaseLink": "\"Test Case: TOOL-T2367\",https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2367",
+          "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+
+      "Preconditions": {
+          "ModifyTestData": { 
+            "devices.2.name": "My Peripheral Device",
+            "devices.2.ui": "Not an object"
+      
+            
+          },
+          "InsertTestData": {
+          },
+          "DeleteData": [
+          
+            
+          ]
+      },        
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                "MessageText": "<<deploySuccessMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+              "MessageText": "My Peripheral Device<<invalidUi>>",
+              "MessageType": "Warning",
+              "Exist": true
+          }
+          ]
+      },
+      "Execute": "True"
+  }
+}

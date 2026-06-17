@@ -1,0 +1,66 @@
+{
+    "Execute": [
+        "TestCase1"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-3295\", https://extron.atlassian.net/browse/TOOL-3295",
+            "UserStory": "TOOL-3295 (Project Recovery Message Update)",
+            "TaskLink": "\"Task Issue: TOOL-3438\", https://extron.atlassian.net/browse/TOOL-3438",
+            "TestCaseLink": "\"Test Case: TOOL-T980\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T980",
+            "TestDescription": "Verify that correct Project Recovery Message is displayed after clicking 'No Device Credentials Button'",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "ProjectDownloadSidePanel": {
+                    "usernameInput": {
+                        "set": "device"
+                    },
+                    "passwordInput": {
+                        "set": "extron"
+                    },
+                    "noDeviceCredentialsBtn": {
+                        "click": null
+                    },
+                    "noDeviceCredentialsPopUp": {
+                        "verifyNoCredentialsText": null
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

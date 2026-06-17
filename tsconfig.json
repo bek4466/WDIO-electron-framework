@@ -12,5 +12,14 @@
     "skipLibCheck": true,
     "outDir": "dist"
   },
-  "include": ["wdio.conf.ts", "config/**/*.ts", "src/**/*.ts"]
+  "include": [
+    "wdio.conf.ts",
+    "config/**/*.ts",
+    "src/**/*.ts",
+    "e2e/tests/support/**/*.ts",
+    "e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts",
+    "e2e/tests/regression/NBP/TestMaster.e2e-spec.ts",
+    "e2e/tests/regression/hardwareSupport-tests/master.e2e-spec.ts",
+    "e2e/src/allure/allure.ts"
+  ]
 }

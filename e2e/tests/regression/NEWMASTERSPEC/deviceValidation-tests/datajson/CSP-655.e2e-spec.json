@@ -1,0 +1,125 @@
+{
+    "Execute":[ "TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing key \"devices.network.interfaces.address\" for peripheral device gives appropriate error message.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691 ",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-2020\",https://extron.atlassian.net/browse/TOOL-2020 ",
+            "TestCaseLink": "\"Test Case: TOOL-T3582\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3582 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "My Peripheral"
+            },
+            "InsertTestData": {
+              
+            },
+            "DeleteData": [
+               "devices.1.network.interfaces.0.address"
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<missingPeripheralDeviceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that malformed \"devices.network.interfaces.address\" (invalid IPv4) for primary controller gives appropriate error message.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1691\", https://extron.atlassian.net/browse/TOOL-1691 ",
+            "UserStory": "TOOL-1691 (devices.network.interfaces.address)",
+            "TaskLink": "\"Task Issue: TOOL-2020\",https://extron.atlassian.net/browse/TOOL-2020 ",
+            "TestCaseLink": "\"Test Case: TOOL-T3583\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3583 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.network.interfaces.0.address": "255.255"
+            },
+            "InsertTestData": {
+              
+            },
+            "DeleteData": [
+              
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+
+   
+}

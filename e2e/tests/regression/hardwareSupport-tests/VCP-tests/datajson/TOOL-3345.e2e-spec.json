@@ -1,0 +1,90 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate error message is thrown for peripheral during deployment and Peripheral is offline.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "VCP Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3221\", https://extron.atlassian.net/browse/TOOL-3221",
+      "UserStory": "TOOL-3221 VCP Deployment",
+      "TaskLink": "\"Task Issue: TOOL-3345\", https://extron.atlassian.net/browse/TOOL-3345",
+      "TestCaseLink": "\"Test Case: TOOL-T754\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T754",
+      "ProjectFile": "VCPProject\\project.json",
+      "TestCaseHeader": "Verify VCP test run"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.network.interfaces.0.address": "10.119.100.10",
+        "devices.1.name": "My Peripheral"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "My Peripheral - Device not paired with the primary device : The device at the specified address is not reachable on the network. Please check the device connection and make sure that it is reachable on the network and try pairing using systemId",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that appropriate info message is thrown for successful deployment when UUT is secondary device",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "VCP Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3221\", https://extron.atlassian.net/browse/TOOL-3221",
+      "UserStory": "TOOL-3221 VCP Deployment",
+      "TaskLink": "\"Task Issue: TOOL-3345\", https://extron.atlassian.net/browse/TOOL-3345",
+      "TestCaseLink": "\"Test Case: TOOL-T788\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T788",
+      "ProjectFile": "VCPProject\\project.json",
+      "TestCaseHeader": "Verify VCP test run"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.name": "My Peripheral",
+        "devices.1.network.interfaces.0.address": "VCP_LAN"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "Project deployment completed.",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

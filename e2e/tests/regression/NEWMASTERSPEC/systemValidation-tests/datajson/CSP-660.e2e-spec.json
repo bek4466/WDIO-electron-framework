@@ -1,0 +1,45 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that a Build and upload is successful when performed with a multiple gdl files under system.layout_folder",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"TOOL-1563: Destiny File\", https://extron.atlassian.net/browse/TOOL-1563",
+            "UserStory": "TOOL-1563: Destiny File",
+            "TaskLink": "\"Task Issue: CSP-660\", https://extron.atlassian.net/browse/CSP-660",
+            "TestCaseLink": "\"Test Case: TOOL-T3540\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3540",
+            "ProjectFile": "DeployProject\\systeminfoT181.json"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

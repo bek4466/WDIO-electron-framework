@@ -1,0 +1,220 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Mesagepane-Tests",
+      "UserStoryLink": "\"User Story: TOOL-1735 \", https://extron.atlassian.net/browse/TOOL-1735",
+      "UserStory": "Message Pane - Filter",
+      "TaskLink": "\"Task Issue: TOOL-2137\", https://extron.atlassian.net/browse/TOOL-2137",
+      "TestCaseLink": "\"Test Case: CSP-T1057\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1057",
+      "TestDescription": "Verify that a Multiple filters can be cleared off at once",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.author.name": 1234,
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "10.113.89.243"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MesageType": "Info",
+          "Exist": true
+        }
+      ],
+      "Timeout": "slow",
+      "DeployPage": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Error", 
+          "checkMessagePaneLogsSeverity": "Error"
+        }
+      },
+      "DeployPage_2": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Warning", 
+          "checkMessagePaneLogsSeverity": "Warning"
+        }
+      },
+      "DeployPage_3": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Info", 
+          "checkMessagePaneLogsSeverity": "Info",
+          "clearAllSeverityFilters": null
+        }
+      },
+      "DeployPage_4": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Info", 
+          "filterMessageSeverityType_2": "Warning", 
+          "filterMessageSeverityType_3": "Error"
+        }
+      },
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MesageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Mesagepane-Tests",
+      "UserStoryLink": "\"User Story: TOOL-1735 \", https://extron.atlassian.net/browse/TOOL-1735",
+      "UserStory": "Message Pane - Filter",
+      "TaskLink": "\"Task Issue: TOOL-2137\", https://extron.atlassian.net/browse/TOOL-2137",
+      "TestCaseLink": "\"Test Case: CSP-T1058\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1058",
+      "TestDescription": "Verify that a Multiple filters can be cleared off at once",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.author.name": 1234,
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "10.113.89.243"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MesageType": "Info",
+          "Exist": true
+        }
+      ],
+      "Timeout": "slow",
+      "DeployPage": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Error", 
+          "checkMessagePaneLogsSeverity": "Error"
+        }
+      },
+      "DeployPage_2": {
+        "MessagePane": { 
+          "filterMessageSeverityType_3": "Error"
+        }
+      }
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Mesagepane-Tests",
+      "UserStoryLink": "\"User Story: TOOL-1735 \", https://extron.atlassian.net/browse/TOOL-1735",
+      "UserStory": "Message Pane - Filter",
+      "TaskLink": "\"Task Issue: TOOL-2137\", https://extron.atlassian.net/browse/TOOL-2137",
+      "TestCaseLink": "\"Test Case: CSP-T1059\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1059",
+      "TestDescription": "Verify that a Multiple filters can be cleared off at once",
+      "ProjectFile": "DeployProject\\systeminfo.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.author.name": 1234,
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "10.113.89.243"
+      }
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": ["Deploy"],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MesageType": "Info",
+          "Exist": true
+        }
+      ],
+      "Timeout": "slow",
+      "DeployPage": {
+        "MessagePane": {
+          "filterMessageSeverityType": "Error", 
+          "checkMessagePaneLogsSeverity": "Error"
+        }
+      },
+      "DeployPage_2": {
+        "MessagePane": { 
+          "filterMessageSeverityType_3": "Error"
+        }
+      },
+      "VerifyMessage_2": [
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MesageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

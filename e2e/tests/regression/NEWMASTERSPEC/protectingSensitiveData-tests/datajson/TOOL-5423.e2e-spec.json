@@ -1,0 +1,801 @@
+{
+  "Execute": [
+    "TestCase1_Flakey",
+    "TestCase2_Flakey"
+  ],
+  "TestCase1_Flakey": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that CSDU displays proper error message when project is tampered AFTER selection and Start Trace is clicked",
+      "Owner": "Kiran",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5333\", https://extron.atlassian.net/browse/TOOL-5333 ",
+      "UserStory": "TOOL-5333 (Tampered Protected Project)",
+      "TaskLink": "\"Task Issue: TOOL-5423\", https://extron.atlassian.net/browse/TOOL-5423 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4922\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4922 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction": [],
+      "Timeout3": "medium",
+      "CommonMethod2": {
+        "prependToFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout4": "medium",
+      "TroubleshootingAction2": ["StartTrace"],
+      "Timeout5": "fast",
+      "DeployPage3": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout6": "fast",
+      "TroubleshootingAction3": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction": [],
+      "Timeout7": "fast",
+      "DeployPage4": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      },
+
+
+      "PART TWO": "APPEND",
+      "CommonMethod3": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout8": "fast",
+      "DeployPage5": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout9": "fast",
+      "DeployPage6": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction4": [],
+      "Timeout10": "fast",
+      "CommonMethod4": {
+        "appendToFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout11": "medium",
+      "TroubleshootingAction5": ["StartTrace"],
+      "Timeout12": "fast",
+      "DeployPage7": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout13": "fast",
+      "TroubleshootingAction6": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage2": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction2": [],
+      "Timeout14": "fast",
+      "DeployPage8": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      },
+
+
+      "PART THREE": "MIDDLE",
+      "CommonMethod5": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout15": "fast",
+      "DeployPage9": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout16": "fast",
+      "DeployPage10": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction7": [],
+      "Timeout17": "fast",
+      "CommonMethod6": {
+        "textToMidFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout18": "medium",
+      "TroubleshootingAction8": ["StartTrace"],
+      "Timeout19": "fast",
+      "DeployPage11": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout20": "fast",
+      "TroubleshootingAction9": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage3": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction3": [],
+      "Timeout21": "fast",
+      "DeployPage12": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      }
+    }
+  },
+  "TestCase2_Flakey": {
+    "Comment": "Automation is not consistent. Manual testing works fine.",
+    "TestCaseInfo": {
+      "TestDescription": "Verify that CSDU displays proper error message when project is tampered AFTER selection and Start Program is clicked",
+      "Owner": "Kiran",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5333\", https://extron.atlassian.net/browse/TOOL-5333 ",
+      "UserStory": "TOOL-5333 (Tampered Protected Project)",
+      "TaskLink": "\"Task Issue: TOOL-5423\", https://extron.atlassian.net/browse/TOOL-5423 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4923\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4923 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage2": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction": [],
+      "Timeout3": "fast",
+      "CommonMethod2": {
+        "prependToFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout4": "fast",
+      "TroubleshootingAction2": ["StopProgramLog"],
+      "Timeout5": "fast",
+      "DeployPage3": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout6": "fast",
+      "TroubleshootingAction3": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction": [],
+      "Timeout7": "fast",
+      "DeployPage4": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      },
+
+
+      "PART TWO": "APPEND",
+      "CommonMethod3": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout8": "fast",
+      "DeployPage5": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout9": "fast",
+      "DeployPage6": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction4": [],
+      "Timeout10": "fast",
+      "CommonMethod4": {
+        "appendToFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout11": "fast",
+      "TroubleshootingAction5": ["StopProgramLog"],
+      "Timeout12": "fast",
+      "DeployPage7": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout13": "fast",
+      "TroubleshootingAction6": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage2": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction2": [],
+      "Timeout14": "fast",
+      "DeployPage8": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      },
+
+
+      "PART THREE": "MIDDLE",
+      "CommonMethod5": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout15": "fast",
+      "DeployPage9": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout16": "fast",
+      "DeployPage10": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction7": [],
+      "Timeout17": "fast",
+      "CommonMethod6": {
+        "textToMidFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout18": "fast",
+      "TroubleshootingAction8": ["StopProgramLog"],
+      "Timeout19": "fast",
+      "DeployPage11": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout20": "fast",
+      "TroubleshootingAction9": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage3": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction3": [],
+      "Timeout21": "fast",
+      "DeployPage12": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      }
+    }
+  },
+  "TestCase3": {
+    "Comment": "Mark tc as not automatable so we run it manually but leaving this in case the automation becomes consistent in future. Automation is not consistent. Manual testing works fine.",
+    "TestCaseInfo": {
+      "TestDescription": "Verify that CSDU displays proper error message when project is tampered AFTER selection and Refresh is clicked",
+      "Owner": "Kiran",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5333\", https://extron.atlassian.net/browse/TOOL-5333 ",
+      "UserStory": "TOOL-5333 (Tampered Protected Project)",
+      "TaskLink": "\"Task Issue: TOOL-5423\", https://extron.atlassian.net/browse/TOOL-5423 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4924\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4924 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "TroubleshootingAction": [],
+      "Timeout4": "slow",
+      "Timeout4b": "slow",
+      "CommonMethod2": {
+        "prependToFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout5": "fast",
+      "TroubleshootingAction2": ["RefreshProgramLog"],
+      "Timeout6": "fast",
+      "DeployPage3": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout7": "fast",
+      "TroubleshootingAction3": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction2": [],
+      "Timeout7 8": "fast",
+      "DeployPage4": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      },
+      "CommonMethod3":{
+        "deleteFile": "TmpDownloadProject\\TempProtectedProj.cspp"
+      },
+      "APPEND": "START",
+
+      "CommonMethod_append": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout_append": "fast",
+      "DeployPage_append": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<programStoppedMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "TroubleshootingAction_append": [],
+      "Timeout4_append": "medium",
+      "CommonMethod2_append": {
+        "appendToFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout5_append": "fast",
+      "TroubleshootingAction2_append": ["RefreshProgramLog"],
+      "Timeout6_append": "fast",
+      "DeployPage3_append": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout7_append": "fast",
+      "TroubleshootingAction3_append": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage_append": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction2_append": [],
+      "Timeout8_append": "fast",
+      "DeployPage4_append": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      },
+      "CommonMethod3_append":{
+        "deleteFile": "TmpDownloadProject\\TempProtectedProj.cspp"
+      },
+
+      "MIDDLE": "Start",
+      
+      "CommonMethod5": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\uncorruptAllowed.cspp",
+          "to": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout15": "fast",
+      "DeployPage9": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\TempProtectedProj.cspp"
+        }
+      },
+      "Timeout16": "fast",
+      "DeployPage10": {
+        "ExtractProjectBtn": {
+          "exists": true
+        }
+      },
+      "TroubleshootingAction7": [],
+      "Timeout17": "medium",
+      "CommonMethod6": {
+        "textToMidFile": {
+          "filePath": "TmpDownloadProject\\TempProtectedProj.cspp",
+          "text": "randomText!"
+        }
+      },
+      "Timeout18": "fast",
+      "TroubleshootingAction8": ["RefreshProgramLog"],
+      "Timeout19": "fast",
+      "DeployPage11": {
+        "ExtractProjectCorruptPopUp": {
+          "title": {
+            "exists": true
+          },
+          "mainMessage": {
+            "exists": true
+          },
+          "XBtn": {
+            "exists": true
+          },
+          "dismissBtn": {
+            "exists": true,
+            "click": null
+          }
+        }
+      },
+      "Timeout20": "fast",
+      "TroubleshootingAction9": ["verifyRefreshProgramLogNotClickable"],
+      "TroubleshootingPage3": {
+        "StartProgramBtn": {
+          "isDisabled": null
+        },
+        "StartTraceBtn": {
+          "isDisabled": null
+        }
+      },
+      "DeployAction3": [],
+      "Timeout21": "fast",
+      "DeployPage12": {
+        "ExtractProjectCorruptPopUp": {
+          "isOpen": false
+        },
+        "ProjectFilePathInput": {
+          "isEmpty": true
+        },
+        "DeployBtn": {
+          "isDisabled": null
+        },
+        "DeployCodeOnlyBtn": {
+          "isDisabled": null
+        },
+        "ProjectCredentialsBtn": {
+          "isDisabled": true
+        },
+        "ProtectProjectBtn": {
+          "isEnabled": false
+        },
+        "CertifyProjectBtn": {
+          "isDisabled": true
+        }
+      }
+    }
+  }
+}

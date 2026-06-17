@@ -1,0 +1,18 @@
+{
+	"TestCase1": {
+		"TestDescription": "Verify that response time for code only deploy for a small project is less than or equal to benchmark time",
+		"Owner": "Amit B",
+		"SuiteType": "Deploy Code Only",
+		"UserStoryLink": "\"User Story: TOOL-2498\", \"https://extron.atlassian.net/browse/TOOL-2547\"",
+		"UserStory": "TOOL- 2498 Deploy Only Python Files in CSDU",
+		"TaskLink": "\"Task Issue: TOOL-2547\", \"https://extron.atlassian.net/browse/TOOL-2547\"",
+		"TestCaseLink": "\"Test Case: TOOL-T1390\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T390\"",
+        "TestCaseHeader": "Verify that  response time for code only deploy for a small project is less than or equal to benchmark time",
+		"ProjectType":"Small",
+        "Nruns": 1,
+		"EcwRun" : false,
+		"EcwTestCommand" : "C:\\Users\\QAUser.QATESTPC\\Documents\\number.bat",
+		"ExpectedResponseTime":6,
+		"Execute": "False"
+	}
+}

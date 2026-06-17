@@ -1,0 +1,103 @@
+{
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT as primary device and is not found on the network gives the appropriate error message",
+        "Owner": "Kiran Shrestha",
+        "SuiteType": "Deploy Validation",
+        "UserStoryLink": "\"User Story: TOOL-3112\", https://extron.atlassian.net/browse/TOOL-3112",
+        "UserStory": "TOOL-3112 (TLP - Deployment)",
+        "TaskLink": "\"Task Issue: TOOL-3312\", https://extron.atlassian.net/browse/TOOL-3312",
+        "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+        "TestCaseLink": "\"Test Case: TOOL-T757\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928426",
+        "TestCaseHeader": "Verify that UUT as primary device and is not found on the network gives the appropriate error message"
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Preconditions": {
+        "ModifyTestData": {
+          "system.name": "TestTLPLL",
+            "devices.1.network.interfaces.0.address": "10.117.29.150"
+        }
+      },
+      "Steps": {
+        "Command": "Deploy",
+        "VerifyMessage": [
+          {
+            "MessageText": "TLP Pro 300M with LinkLicense - Hardware not found : Failed to connect. Please check device connection and try again.",
+            "MessageType": "Error",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    },
+    "TestCase2": {
+      "COMMENT": "TC uses old device.1.password. Needs to be updated when converted to new data driven",
+        "TestCaseInfo": {
+          "TestDescription": "Verify that UUT as primary device and has invalid credentials gives the appropriate error messagee",
+          "Owner": "Kiran Shrestha",
+          "SuiteType": "Deploy Validation",
+          "UserStoryLink": "\"User Story: TOOL-3112\", https://extron.atlassian.net/browse/TOOL-3112",
+          "UserStory": "TOOL-3112 (TLP - Deployment)",
+          "TaskLink": "\"Task Issue: TOOL-3313\", https://extron.atlassian.net/browse/TOOL-3313",
+          "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+          "TestCaseLink": "\"Test Case: TOOL-T759\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928428",
+          "TestCaseHeader": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message"
+        },
+        "Preconditions": {
+          "ModifyTestData": {
+            "system.name": "TestTLPLL",
+            "devices.1.password": "badPass",
+            "devices.1.network.interfaces.0.address": "10.113.89.209"
+          }
+        },
+        "Steps": {
+          "Command": "Deploy",
+          "VerifyMessage": [
+            {
+              "MessageText": "TLP Pro 300M with LinkLicense - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct the device credentials and retry.",
+              "MessageType": "Error",
+              "Exist": true
+            }
+          ]
+        },
+        "Execute": "False"
+      },
+      "TestCase3": {
+          "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has correct credentials gives appropriate info message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3112\", https://extron.atlassian.net/browse/TOOL-3112",
+            "UserStory": "TOOL-3112 (TLP - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3313\", https://extron.atlassian.net/browse/TOOL-3313",
+            "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+            "TestCaseLink": "\"Test Case: TOOL-T833\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173493",
+            "TestCaseHeader": "VVerify that UUT as Primary Device that has correct credentials gives appropriate info message"
+          },
+          "Preconditions": {
+            "ModifyTestData": {
+              "system.name": "TestTLPLL"
+            }
+          },
+          "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+              {
+                "MessageText": "TLP Pro 300M with LinkLicense - Correct Credentials : Device's credentials are valid.",
+                "MessageType": "Info",
+                "Exist": true
+              }
+            ]
+          },
+          "Execute": "True"
+        }
+  }

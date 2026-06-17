@@ -1,0 +1,132 @@
+{
+    "Execute":[ "TestCase1","TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify no error when certifying a project that contains non-project files and folders with unsupported characters in the project root.\n&\n Verify no error when certifying a project that contains unsupported character files in a non-project folder",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for Certifying a project with Non-Project Files containing unsupported characters in project root, non-project folder, or a project resource folder\", https://extron.atlassian.net/browse/TOOL-4352 ",
+            "UserStory": "TOOL-4352:As a Control System Programmer or AV Technician, I want to be notified when CSDU can’t certify project resources (due to unsupported characters), So that I can correct my mistake and certify my project again. ",
+            "TaskLink": "\"Task Issue: TOOL-4405\", https://extron.atlassian.net/browse/TOOL-4405 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4671 & TOOL-T4672\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4671 \n, https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4672 ",
+            "ProjectFile": "ValidProjectWithInvalidFileNames\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              }
+
+        ],
+        
+        
+        "Steps": {
+            "DeployAction": [
+                "Certify"
+            ],
+
+            "VerifyToastExists": {
+                "Exist": true
+            },
+            "Toast": {
+                "VerifyMessage": "<<projectCertified>>"
+            }
+               
+        }
+        
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify error messages and fail to certify a project that contains non project files with filenames containing unsupported characters in resource folders",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"Error handling for Certifying a project with Non-Project Files containing unsupported characters in project root, non-project folder, or a project resource folder\", https://extron.atlassian.net/browse/TOOL-4352 ",
+            "UserStory": "TOOL-4352:As a Control System Programmer or AV Technician, I want to be notified when CSDU can’t certify project resources (due to unsupported characters), So that I can correct my mistake and certify my project again. ",
+            "TaskLink": "\"Task Issue: TOOL-4405\", https://extron.atlassian.net/browse/TOOL-4405 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4673\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4673 ",
+            "ProjectFile": "InvalidProjectWithInvalidFileNames\\proj.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+
+            },
+            "DeleteData": [
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+              },
+              {
+                "user": "admin",
+                "pass": "extron"
+              }
+
+        ],
+        
+        
+        "Steps": {
+            "DeployAction": [
+                "Certify"
+            ],
+
+            "VerifyCertifyToast":[
+                {"Exist": false}
+            ],
+
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<failedCertify>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "rfile/projt#$@.txt <<unSupportedCharacter>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+              
+                {
+                    "MessageText": "src/projt#$@.txt <<unSupportedCharacter>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "layout/projt#$@.txt <<unSupportedCharacter>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "sound/projt#$@.txt <<unSupportedCharacter>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ir/projt#$@.txt <<unSupportedCharacter>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "VerifyErrorUnderDeployFilePath": [
+                {
+                    "MessageText": "<<underBrowseFailedCertify>>",
+                    "Exist": true
+                }
+            ]
+               
+        }
+        
+    }
+}

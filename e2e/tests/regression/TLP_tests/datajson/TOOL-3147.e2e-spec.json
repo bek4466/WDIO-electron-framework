@@ -1,0 +1,120 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.network\" in destiny gives appropriate error message for peripheral device.",
+            "Owner": "Kiran S",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3049\", \"https://extron.atlassian.net/browse/TOOL-3049\"",
+            "UserStory": "TOOL-3049 (TLP Pro 1230WTG - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3147\", \"https://extron.atlassian.net/browse/TOOL-3147\"",
+            "TestCaseLink": "\"Test Case: TOOL-T645 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15321375\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"HWTLPProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that for a Peripheral device missing name key, the index of the device is used for Device Identifier for Invalid devices.username."
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "My Peripheral Device",
+                "devices.2.name": "My Peripheral Device 2",
+                "devices.3.name": "My Peripheral Device 3"
+            },
+            "DeleteData": [
+                "devices.1.network",
+                "devices.2.network",
+                "devices.3.network"
+            ]
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Peripheral Device - network: Missing key e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 2 - network: Missing key e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 3 - network: Missing key e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid \"devices.network\" in destiny gives appropriate error message for peripheral device- not an object",
+            "Owner": "Kiran S",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-3049\", \"https://extron.atlassian.net/browse/TOOL-3049\"",
+            "UserStory": "TOOL-3049 (TLP Pro 1230WTG - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-3147\", \"https://extron.atlassian.net/browse/TOOL-3147\"",
+            "TestCaseLink": "\"Test Case: TOOL-T646 (1.0)\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15321376\"",
+            "ProjectFile": " \"..\", \"..\", \"..\", \"resources\", \"HWTLPProject\", \"systeminfo.json\"",
+            "TestCaseHeader": "Verify that invalid \"devices.network\" in destiny gives appropriate error message for peripheral device- not an object"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "My Peripheral Device",
+                "devices.1.network": "",
+                "devices.2.name": "My Peripheral Device 2",
+                "devices.2.network": "",
+                "devices.3.name": "My Peripheral Device 3",
+                "devices.3.network": ""
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Peripheral Device - network: Invalid - Must be an object e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 2 - network: Invalid - Must be an object e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Peripheral Device 3 - network: Invalid - Must be an object e.g. \"network\": {}",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

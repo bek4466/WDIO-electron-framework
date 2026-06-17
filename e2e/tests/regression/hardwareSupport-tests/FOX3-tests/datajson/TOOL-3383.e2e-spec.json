@@ -1,0 +1,189 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has hardware mismatch gives appropriate warning message",
+            "Owner": "Austin Lee",
+            "SuiteType": "Matrix Q xi Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3383\", https://extron.atlassian.net/browse/TOOL-3383",
+            "TestCaseLink": "\"Test Case: TOOL-T733\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T733",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My FOX3 Qxi"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My FOX3 Qxi - Hardware mismatch : The specified device does not match live device on the network.",
+                    "MessageType": "Warning",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Project deployment completed.",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device that has hardware mismatch gives appropriate warning message",
+            "Owner": "Austin Lee",
+            "SuiteType": "Matrix Q xi Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3383\", https://extron.atlassian.net/browse/TOOL-3383",
+            "TestCaseLink": "\"Test Case: TOOL-T734\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T734",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "FOX3_Qxi_LAN",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My FOX3 Qxi"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My FOX3 Qxi - Hardware mismatch : The specified device does not match live device on the network.",
+                "MessageType": "Warning",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Primary Device specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+            "Owner": "Austin Lee",
+            "SuiteType": "Matrix Q xi Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3383\", https://extron.atlassian.net/browse/TOOL-3383",
+            "TestCaseLink": "\"Test Case: TOOL-T737\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T737",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "TLP525T_TLP",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My FOX3 Qxi"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My FOX3 Qxi - Hardware Incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry.",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment failed.",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Peripheral Device specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+            "Owner": "Austin Lee",
+            "SuiteType": "Matrix Q xi Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3383\", https://extron.atlassian.net/browse/TOOL-3383",
+            "TestCaseLink": "\"Test Case: TOOL-T738\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T738",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "TLP525T_TLP",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My FOX3 Qxi"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My FOX3 Qxi - Hardware Incompatible : The specified device is not compatible with the live device. Please check the specified device type and retry or manually pair the device with the primary controller using primary controller address and system ID in Toolbelt.",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    }
+}

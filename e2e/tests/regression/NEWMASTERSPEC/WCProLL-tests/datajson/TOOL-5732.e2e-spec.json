@@ -1,0 +1,283 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3",
+        "TestCase4"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has hardware mismatch gives appropriate warning message",
+            "Owner": "Kiran",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-5704\", https://extron.atlassian.net/browse/TOOL-5704 ",
+            "UserStory": "TOOL-5704 (WC Pro 160 w/ LL - Hardware Validation)",
+            "UserStoryLink_2": "\"User Story: TOOL-5707\", https://extron.atlassian.net/browse/TOOL-5707 ",
+            "UserStory_2": "TOOL-5707 (WC Pro 150 OCS w/ LL - Hardware Validation)",
+            "UserStoryLink_3": "\"User Story: TOOL-5964\", https://extron.atlassian.net/browse/TOOL-5964 ",
+            "UserStory_3": "TOOL-5964 (Workspace Controller w/ LL part number change (160))",
+            "UserStoryLink_4": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_4": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5732\", https://extron.atlassian.net/browse/TOOL-5732 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6168\", https://extron.atlassian.net/browse/TOOL-6168 ",
+            "TestCaseLink": "\"Test Case: TOOL-T733\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T733 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "WC 160 w/LL",
+                "devices.0.part_number": "60-1804-01",
+                "devices.0.network.interfaces.0.address": "<<WC150_LL>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<primaryMismatch>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.name": "WC 150 w/LL",
+                    "devices.0.part_number": "60-1803-01",
+                    "devices.0.network.interfaces.0.address": "<<WC160_LL>>"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<primaryMismatch>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Primary Device specified in destiny file, an incompatible device found at the address gives appropriate error warning",
+            "Owner": "Kiran",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-5704\", https://extron.atlassian.net/browse/TOOL-5704 ",
+            "UserStory": "TOOL-5704 (WC Pro 160 w/ LL - Hardware Validation)",
+            "UserStoryLink_2": "\"User Story: TOOL-5707\", https://extron.atlassian.net/browse/TOOL-5707 ",
+            "UserStory_2": "TOOL-5707 (WC Pro 150 OCS w/ LL - Hardware Validation)",
+            "UserStoryLink_3": "\"User Story: TOOL-5964\", https://extron.atlassian.net/browse/TOOL-5964 ",
+            "UserStory_3": "TOOL-5964 (Workspace Controller w/ LL part number change (160))",
+            "UserStoryLink_4": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_4": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5732\", https://extron.atlassian.net/browse/TOOL-5732 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6168\", https://extron.atlassian.net/browse/TOOL-6168 ",
+            "TestCaseLink": "\"Test Case: TOOL-T737\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T737 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "WC 160 w/LL",
+                "devices.0.part_number": "60-1804-01",
+                "devices.0.network.interfaces.0.address": "<<Pro350__IPCP>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<hardwareIncompatible>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.name": "WC 150 w/LL",
+                    "devices.0.part_number": "60-1803-01",
+                    "devices.0.network.interfaces.0.address": "<<Pro350__IPCP>>"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<hardwareIncompatible>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as primary device and is not found on the network gives the appropriate error message",
+            "Owner": "Kiran",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-5704\", https://extron.atlassian.net/browse/TOOL-5704 ",
+            "UserStory": "TOOL-5704 (WC Pro 160 w/ LL - Hardware Validation)",
+            "UserStoryLink_2": "\"User Story: TOOL-5707\", https://extron.atlassian.net/browse/TOOL-5707 ",
+            "UserStory_2": "TOOL-5707 (WC Pro 150 OCS w/ LL - Hardware Validation)",
+            "UserStoryLink_3": "\"User Story: TOOL-5964\", https://extron.atlassian.net/browse/TOOL-5964 ",
+            "UserStory_3": "TOOL-5964 (Workspace Controller w/ LL part number change (160))",
+            "UserStoryLink_4": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_4": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5732\", https://extron.atlassian.net/browse/TOOL-5732 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6168\", https://extron.atlassian.net/browse/TOOL-6168 ",
+            "TestCaseLink": "\"Test Case: TOOL-T757\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T757 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "WC 160 w/LL",
+                "devices.0.part_number": "60-1804-01",
+                "devices.0.network.interfaces.0.address": "10.119.1.123"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<hardwareNotFoundMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.name": "WC 150 w/LL",
+                    "devices.0.part_number": "60-1803-01",
+                    "devices.0.network.interfaces.0.address": "10.119.1.123"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<hardwareNotFoundMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message",
+            "Owner": "Kiran",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-5704\", https://extron.atlassian.net/browse/TOOL-5704 ",
+            "UserStory": "TOOL-5704 (WC Pro 160 w/ LL - Hardware Validation)",
+            "UserStoryLink_2": "\"User Story: TOOL-5707\", https://extron.atlassian.net/browse/TOOL-5707 ",
+            "UserStory_2": "TOOL-5707 (WC Pro 150 OCS w/ LL - Hardware Validation)",
+            "UserStoryLink_3": "\"User Story: TOOL-5964\", https://extron.atlassian.net/browse/TOOL-5964 ",
+            "UserStory_3": "TOOL-5964 (Workspace Controller w/ LL part number change (160))",
+            "UserStoryLink_4": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_4": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5732\", https://extron.atlassian.net/browse/TOOL-5732 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6168\", https://extron.atlassian.net/browse/TOOL-6168 ",
+            "TestCaseLink": "\"Test Case: TOOL-T759\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T759 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "WC 160 w/LL",
+                "devices.0.part_number": "60-1804-01",
+                "devices.0.network.interfaces.0.address": "<<WC160_LL>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "invalid",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "WC 160 w/LL<<incorrectCreds>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.name": "WC 150 w/LL",
+                    "devices.0.part_number": "60-1803-01",
+                    "devices.0.network.interfaces.0.address": "<<WC150_LL>>"
+                }
+            },
+            "ChangeCredentials": [
+                {
+                    "user": "invalid",
+                    "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "WC 150 w/LL<<incorrectCreds>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

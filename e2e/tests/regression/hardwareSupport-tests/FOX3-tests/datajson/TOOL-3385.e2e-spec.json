@@ -1,0 +1,189 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as primary device and has invalid credentials gives the appropriate error message(Duplicate)",
+            "Owner": "Austin L",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3385\", \"https://extron.atlassian.net/browse/TOOL-3385\"",
+            "TestCaseLink": "\"Test Case: TOOL-T759\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928428\"",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "wrong"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My FOX3 Qxi"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My FOX3 Qxi - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct the device credentials and retry.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Project deployment failed.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as secondary device and has invalid credentials gives the appropriate error message.",
+            "Owner": "Austin L",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3385\", \"https://extron.atlassian.net/browse/TOOL-3385\"",
+            "TestCaseLink": "\"Test Case: TOOL-T760\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/15928429\"",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "wrong"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "FOX3_Qxi_LAN",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My FOX3 Qxi"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My FOX3 Qxi - Incorrect credentials : The specified device's credentials (username and/or password) are incorrect. Please correct and retry or manually pair the device in Toolbelt.",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has correct credentials gives appropriate info message",
+            "Owner": "Austin L",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3385\", \"https://extron.atlassian.net/browse/TOOL-3385\"",
+            "TestCaseLink": "\"Test Case: TOOL-T833\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173493\"",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "My FOX3 Qxi"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My FOX3 Qxi - Correct Credentials : Device's credentials are valid.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device that has correct credentials gives appropriate info message",
+            "Owner": "Austin L",
+            "SuiteType": "Hardware Validation",
+            "UserStoryLink": "\"User Story: TOOL-3303\", https://extron.atlassian.net/browse/TOOL-3303",
+            "UserStory": "TOOL-3303 (Matrix Q xi - FOX3 - Hardware Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3385\", \"https://extron.atlassian.net/browse/TOOL-3385\"",
+            "TestCaseLink": "\"Test Case: TOOL-T834\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173494\"",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.network.interfaces.0.address": "FOX3_Qxi_LAN",
+                "devices.1.part_number": "60-1991-01",
+                "devices.1.name": "My FOX3 Qxi"
+            },
+            "InsertTestData": {
+                "devices.1.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.1.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "My FOX3 Qxi - Correct Credentials : Device's credentials are valid.",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {
+                "MessageText": "Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    }
+}

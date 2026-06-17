@@ -1,0 +1,57 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be an error \"Device not reachable on the network\" in message window while retrieving trace, if primary controller is not online",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Message Pane",
+            "UserStoryLink": "\"CSP-120: As FG, I want to know why I am not able to connect to the device to start trace so that I can fix the issue\", https://extron.atlassian.net/browse/CSP-120",
+            "UserStory": "CSP-120",
+            "TaskLink": "\"Task Issue: CSP-179\", https://extron.atlassian.net/browse/CSP-179",
+            "TestCaseLink": "\"Test Case: CSP-T210\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T210",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Device",
+                "devices.0.network.interfaces.0.address": "<<OFFLINECONTROLLER>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailedMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "StartTrace"
+            ],
+            "VerifyTroubleShootingMessage": [
+                {
+                    "MessageText": "<<deviceUnreachable>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

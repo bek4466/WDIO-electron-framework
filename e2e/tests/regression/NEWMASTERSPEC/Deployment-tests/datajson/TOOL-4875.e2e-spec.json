@@ -1,0 +1,426 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2", "TestCase3", "TestCase4"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deployment works for ZRTP and Controller w/ UI LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4800\", https://extron.atlassian.net/browse/TOOL-4800",
+            "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Deployment",
+            "TaskLink": "\"Task Issue: TOOl-4873\", https://extron.atlassian.net/browse/TOOL-4873",
+            "TestCaseLink": "\"Test Case: TOOL-T4791\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/89837825",
+            "ProjectFile": "DeployProject\\tlrcSystem.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProjectFilePathInput": {
+                    "setPath": "DeployProject\\tlrcSystem.json"
+                }
+            },
+            "ChangeCredentials": [
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "ZRTP 725T<<pairingPositiveMessage>> using address",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "StartTrace",
+                "RefreshProgramLog"
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.part_number": "60-1912-01",
+                    "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "ZRTP 725T<<pairingPositiveMessage>> using address",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction_2": [
+                "StartTrace",
+                "RefreshProgramLog"
+            ],
+            "EditProjectFile_2": {
+                "ModifyTestData": {
+                    "devices.0.part_number": "60-1916-01",
+                    "devices.0.network.interfaces.0.address": "<<IPCP360_Qxi_LAN>>"
+                },
+                "InsertTestData": {
+                    "devices.0.network.interfaces.1": {},
+                    "devices.0.network.interfaces.1.address": "<<IPCP360_Qxi_AVLAN>>",
+                    "devices.0.network.interfaces.1.type": "AVLAN"
+                }
+            },
+            "DeployAction_3": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_3": [
+                {
+                    "MessageText": "ZRTP 725T<<pairingPositiveMessage>> using address",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction_3": [
+                "StartTrace",
+                "RefreshProgramLog"
+            ],
+            "EditProjectFile_3": {
+                "ModifyTestData": {
+                    "devices.0.part_number": "60-1667-02C",
+                    "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>"
+                }
+            },
+            "DeployAction_4": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_4": [
+                {
+                    "MessageText": "ZRTP 725T<<pairingPositiveMessage>> using address",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction_4": [
+                "StartTrace",
+                "RefreshProgramLog"
+            ],
+            "EditProjectFile_4": {
+                "ModifyTestData": {
+                    "devices.0.part_number": "60-1667-02C",
+                    "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>"
+                }
+            },
+            "DeployAction_5": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage_5": [
+                {
+                    "MessageText": "ZRTP 725T<<pairingPositiveMessage>> using address",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<programStoppedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction_5": [
+                "StartTrace",
+                "RefreshProgramLog"
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Redeployment works for ZRTP and Controller w/ UI LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4800\", https://extron.atlassian.net/browse/TOOL-4800",
+            "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Deployment",
+            "TaskLink": "\"Task Issue: TOOl-4873\", https://extron.atlassian.net/browse/TOOL-4873",
+            "TestCaseLink": "\"Test Case: TOOL-T4792\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/89837826",
+            "ProjectFile": "DeployProject\\tlrcSystem.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "system.system_id": "7934"
+                }
+            },
+            "DeployAction_2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deploy Code Only works for ZRTP and Controller w/ UI LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4800\", https://extron.atlassian.net/browse/TOOL-4800",
+            "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Deployment",
+            "TaskLink": "\"Task Issue: TOOl-4873\", https://extron.atlassian.net/browse/TOOL-4873",
+            "TestCaseLink": "\"Test Case: TOOL-T4793\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/89837827",
+            "ProjectFile": "DeployProject\\tlrcSystem.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"    
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployAction_2": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify appropriate error message for ZRTP(offline) and Controller w/ UI LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4800\", https://extron.atlassian.net/browse/TOOL-4800",
+            "UserStory": "ZRTP 725(T/M) & 1025(T/M) - Deployment",
+            "TaskLink": "\"Task Issue: TOOl-4873\", https://extron.atlassian.net/browse/TOOL-4873",
+            "TestCaseLink": "\"Test Case: TOOL-T4794\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/89838505",
+            "ProjectFile": "DeployProject\\tlrcSystem.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>", 
+                "devices.1.network.interfaces.0.address": "10.119.20.123"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "ZRTP 725T<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

@@ -1,0 +1,274 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify trace on IPv6 configured controller",
+            "Owner": "Kiran",
+            "SuiteType": "Trace Validation Messages",
+            "UserStoryLink": "\"User Story: TOOL-5980\", https://extron.atlassian.net/browse/TOOL-5980 ",
+            "UserStory": "TOOL-5980 (IPV6 Trace Validation Messages)",
+            "TaskLink": "\"Task Issue: TOOL-6280\", https://extron.atlassian.net/browse/TOOL-6280 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4998\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4998 ",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.code_entry_file": "main60secMsg.py",
+                "devices.0.network.interfaces.0.address": "<<IPV6Only_Device>>",
+                "devices.0.part_number": "<<IPV6Only_Device_PartNumber>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPV6Only_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": [
+                "devices.2",
+                "devices.1",
+                "system.data_file_path"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [],
+            "Timeout": "fast",
+            "TroubleshootingAction2": [
+                "StartTrace"
+            ],
+            "Timeout2": "fast",
+            "TroubleshootingAction3": [
+                "StopTrace"
+            ],
+            "VerifyTraceMessage": [
+                {
+                    "MessageText": "Trace Message",
+                    "IpAddress": "<<IPV6Only_Device>>",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify trace on protected IPv6 configured controller",
+            "Owner": "Kiran",
+            "SuiteType": "Trace Validation Messages",
+            "UserStoryLink": "\"User Story: TOOL-5980\", https://extron.atlassian.net/browse/TOOL-5980 ",
+            "UserStory": "TOOL-5980 (IPV6 Trace Validation Messages)",
+            "TaskLink": "\"Task Issue: TOOL-6280\", https://extron.atlassian.net/browse/TOOL-6280 ",
+            "TestCaseLink": "\"Test Case: TOOL-T5003\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T5003 ",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.code_entry_file": "main60secMsg.py",
+                "devices.0.network.interfaces.0.address": "<<IPV6Only_Device>>",
+                "devices.0.part_number": "<<IPV6Only_Device_PartNumber>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<IPV6Only_Device_AVLAN>>",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": [
+                "devices.2",
+                "devices.1",
+                "system.data_file_path"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "ProtectProjectBtn": {
+                    "click": null
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage2": {
+                "ProtectProjectPopUp": {
+                    "passwordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "reenterPasswordInputBox": {
+                        "setPassword": "1234"
+                    },
+                    "allowDeployAndTroubleshootWithoutPasswordCheckBox": {
+                        "click": null
+                    },
+                    "selectBtn": {
+                        "setPath": "TmpDownloadProject"
+                    },
+                    "createBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout2": "fast",
+            "DeployPage3": {
+                "ProjectFilePathInput": {
+                    "setPath": "TmpDownloadProject\\systeminfoTmp.cspp"
+                }
+            },
+            "Timeout3": "fast",
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [],
+            "Timeout4": "fast",
+            "TroubleshootingAction2": [
+                "StartTrace"
+            ],
+            "Timeout5": "fast",
+            "TroubleshootingAction3": [
+                "StopTrace"
+            ],
+            "VerifyTraceMessage": [
+                {
+                    "MessageText": "Trace Message",
+                    "IpAddress": "<<IPV6Only_Device>>",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "Comment": "This TC may break in future. VSCode vs CSDU multiple address issue(VScode goes bottom up, CSDU goes top down/first address accepted ignore others). Plans for future are to show warning in CSDU?",
+        "TestCaseInfo": {
+            "TestDescription": "Verify first IP configured will show on trace pane when a controller has both IPv6 and IPv4 configured in a project",
+            "Owner": "Kiran",
+            "SuiteType": "Trace Validation Messages",
+            "UserStoryLink": "\"User Story: TOOL-5980\", https://extron.atlassian.net/browse/TOOL-5980 ",
+            "UserStory": "TOOL-5980 (IPV6 Trace Validation Messages)",
+            "TaskLink": "\"Task Issue: TOOL-6280\", https://extron.atlassian.net/browse/TOOL-6280 ",
+            "TestCaseLink": "\"Test Case: TOOL-T5004\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T5004 ",
+            "ProjectFile": "TraceProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.code_entry_file": "main60secMsg.py",
+                "devices.0.network.interfaces.0.address": "<<DUAL_IPV4_Device>>",
+                "devices.0.part_number": "<<DUAL_IPV6_Device_PartNumber>>"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1": {},
+                "devices.0.network.interfaces.1.address": "<<DUAL_IPV6_Device>>",
+                "devices.0.network.interfaces.1.type": "LAN",
+                "devices.0.network.interfaces.2": {},
+                "devices.0.network.interfaces.2.address": "<<DUAL_IPV6_Device_AVLAN>>",
+                "devices.0.network.interfaces.2.type": "AVLAN"
+            },
+            "DeleteData": [
+                "devices.2",
+                "devices.1",
+                "system.data_file_path"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [],
+            "Timeout": "superFast",
+            "TroubleshootingAction2": [
+                "ClearTrace",
+                "StartTrace"
+            ],
+            "Timeout2": "fast",
+            "TroubleshootingAction3": [
+                "StopTrace"
+            ],
+            "VerifyTraceMessage": [
+                {
+                    "MessageText": "Trace Message",
+                    "IpAddress": "<<DUAL_IPV4_Device>>",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.network.interfaces.0.address": "<<DUAL_IPV6_Device>>",
+                    "devices.0.network.interfaces.1.address": "<<DUAL_IPV4_Device>>",
+                    "devices.0.network.interfaces.2.address": "<<DUAL_IPV6_Device_AVLAN>>",
+                    "devices.0.part_number": "<<DUAL_IPV6_Device_PartNumber>>"
+                },
+                "DeleteData": [
+                    "devices.2",
+                    "devices.1",
+                    "system.data_file_path"
+                ]
+            },
+            "DeployAction2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction5": [],
+            "Timeout3": "superFast",
+            "TroubleshootingAction6": [
+                "ClearTrace",
+                "StartTrace"
+            ],
+            "Timeout4": "fast",
+            "TroubleshootingAction7": [
+                "StopTrace"
+            ],
+            "VerifyTraceMessage2": [
+                {
+                    "MessageText": "Trace Message",
+                    "IpAddress": "<<DUAL_IPV6_Device>>",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

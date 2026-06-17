@@ -1,0 +1,278 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3", "TestCase4", "TestCase5"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral TLP MG/TG Device) enables Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1468\", https://extron.atlassian.net/browse/TOOL-1468",
+      "TestCaseLink": "\"Test Case: TOOL-T1424\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1424",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.address": "<<TLP1525TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that valid \"devices.username\" and \"devices.password\" (Peripheral TLP MG/TG Device) enables Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1468\", https://extron.atlassian.net/browse/TOOL-1468",
+      "TestCaseLink": "\"Test Case: TOOL-T1425\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1425",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.address": "<<TLP1525TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": ["devices.2.name"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<correctCredentialsMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates matching of Peripheral (TLP MG/TG) Device hardware at the time of Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1468\", https://extron.atlassian.net/browse/TOOL-1468",
+      "TestCaseLink": "\"Test Case: TOOL-T1426\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1426",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.address": "<<TLP1525TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates matching of Peripheral (TLP MG/TG) Device hardware at the time of Deploy ((Index Identifier scenario)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1468\", https://extron.atlassian.net/browse/TOOL-1468",
+      "TestCaseLink": "\"Test Case: TOOL-T1427\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1427",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.address": "<<TLP1525TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": ["devices.2.name"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<hardwareMatchMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify network.interfaces.address info message shown when peripheral (TLP NC) given two of the required NIC's .",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1736\", https://extron.atlassian.net/browse/TOOL-1736",
+      "UserStory": "TLP 1225, 1525 & 1725 MG/TG - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1468\", https://extron.atlassian.net/browse/TOOL-1468",
+      "TestCaseLink": "\"Test Case: TOOL-T1428\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1428",
+      "ProjectFile": "TLPTGMGProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<Pro550_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.address": "<<TLP1525TG>>",
+        "devices.2.network.interfaces.1": {},
+        "devices.2.network.interfaces.1.address": "10.117.30.103",
+        "devices.2.network.interfaces.1.type": "LAN"
+      },
+      "InsertTestData": {},
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<dualnicPairingMessagePart1>><<TLP1525TG>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,46 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify if user wipe off the previously selected file then deploy button should be disabled",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-23\", https://extron.atlassian.net/browse/CSP-23",
+            "UserStory": "CSP-23 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-649\", https://extron.atlassian.net/browse/CSP-649",
+            "TestCaseLink": "\"Test Case: CSP-T20\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T20",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DeployBtn": {
+                    "isEnabled": true
+                },
+                "ProjectFilePathInput":{
+                    "clearPath": {}
+                }
+            },
+            "Timeout" : 1000,
+            "DeployPage2": {
+                "DeployBtn": {
+                    "isDisabled": true
+                }
+            }
+        }
+    }
+}

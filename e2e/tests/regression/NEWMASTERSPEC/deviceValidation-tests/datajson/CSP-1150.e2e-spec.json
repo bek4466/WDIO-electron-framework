@@ -1,0 +1,191 @@
+{
+  "Execute": [
+    "TestCase1", "TestCase2", "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a Peripheral Device(TLP NC) that has hardware mismatch gives appropriate warning message (Index Identifier scenario)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1594\", https://extron.atlassian.net/browse/TOOL-1594",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1255\", https://extron.atlassian.net/browse/TOOL-1255",
+      "TestCaseLink": "\"Test Case: CSP-T1354\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1354",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.network.interfaces.0.address": "<<TLP1225TG>>"
+      },
+      "InsertTestData": {},
+      "DeleteData": ["devices.2.name"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<hardwareMismatch>>",
+          "MessageType": "Warning",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral TLP NC Device) at the time of Deploy",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1594\", https://extron.atlassian.net/browse/TOOL-1594",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1255\", https://extron.atlassian.net/browse/TOOL-1255",
+      "TestCaseLink": "\"Test Case: CSP-T1357\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1357",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.part_number": "60-1560-12",
+        "devices.2.network.interfaces.0.address": "<<TLP525CNC>>"
+      },
+      "InsertTestData": {
+        "devices.2.network.interfaces.1": {},
+        "devices.2.network.interfaces.1.address": "198.168.254.1",
+        "devices.2.network.interfaces.1.type": "OOB",
+        "devices.2.network.interfaces.2": {},
+        "devices.2.network.interfaces.2.address": "198.168.254.2",
+        "devices.2.network.interfaces.2.type": "AVLAN",
+        "devices.2.network.interfaces.3": {},
+        "devices.2.network.interfaces.3.address": "10.170.30.161",
+        "devices.2.network.interfaces.3.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that a info message validates existence of Hardware(Peripheral TLP NC Device) at the time of Deploy- ( index Identifier scenario)",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Device Validaiton Test",
+      "UserStoryLink": "\"User Story: TOOL-1594\", https://extron.atlassian.net/browse/TOOL-1594",
+      "UserStory": "TLP NC Support - Hardware Validation",
+      "TaskLink": "\"Task Issue: TOOL-1255\", https://extron.atlassian.net/browse/TOOL-1255",
+      "TestCaseLink": "\"Test Case: CSP-T1358\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1358",
+      "ProjectFile": "TLPNCProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+        "devices.1.network.interfaces.0.address": "<<IPCP350_Xi_IPCP_1>>",
+        "devices.2.name": "My Peripheral Device",
+        "devices.2.part_number": "60-1560-12",
+        "devices.2.network.interfaces.0.address": "<<TLP525CNC>>"
+      },
+      "InsertTestData": {
+        "devices.2.network.interfaces.1": {},
+        "devices.2.network.interfaces.1.address": "198.168.254.1",
+        "devices.2.network.interfaces.1.type": "OOB",
+        "devices.2.network.interfaces.2": {},
+        "devices.2.network.interfaces.2.address": "198.168.254.2",
+        "devices.2.network.interfaces.2.type": "AVLAN",
+        "devices.2.network.interfaces.3": {},
+        "devices.2.network.interfaces.3.address": "10.170.30.161",
+        "devices.2.network.interfaces.3.type": "LAN"
+      },
+      "DeleteData": ["devices.2.name"]
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device[2]<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

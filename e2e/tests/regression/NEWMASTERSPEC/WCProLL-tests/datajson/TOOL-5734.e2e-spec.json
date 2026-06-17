@@ -1,0 +1,216 @@
+{
+    "Execute": [
+        "TestCase1",
+        "TestCase2",
+        "TestCase3"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify adding a peripheral control to UUT as primary displays appropriate error message",
+            "Owner": "Kiran",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"User Story: TOOL-5706\", https://extron.atlassian.net/browse/TOOL-5706 ",
+            "UserStory": "TOOL-5706 (WC Pro 150 w/ LL - System Validation)",
+            "UserStoryLink_2": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_2": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5734\", https://extron.atlassian.net/browse/TOOL-5734 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6169\", https://extron.atlassian.net/browse/TOOL-6169 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4948\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4948 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "9493",
+                "devices.0.name": "WC 150 w/LL",
+                "devices.0.part_number": "60-1803-01",
+                "devices.0.network.interfaces.0.address": "<<WC150_LL>>",
+                "devices.1.name": "IPCP350",
+                "devices.1.part_number": "60-1417-01",
+                "devices.1.network.interfaces.0.address": "<<Pro350__IPCP>>"
+            },
+            "InsertTestData": {
+                "devices.2.name": "IPCP350xi",
+                "devices.2.part_number": "60-1912-01",
+                "devices.2.alias": "Ipcp350xiAlias",
+                "devices.2.network": {},
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0": {},
+                "devices.2.network.interfaces.0.address": "<<IPCP350_Xi_IPCP>>",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.name": "TLP725wLL",
+                "devices.3.part_number": "60-1563-02C",
+                "devices.3.alias": "Tlp725wllAlias",
+                "devices.3.network": {},
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces": [],
+                "devices.3.network.interfaces.0": {},
+                "devices.3.network.interfaces.0.address": "<<TLP725M_LL>>",
+                "devices.3.network.interfaces.0.type": "LAN",
+                "devices.4.name": "IPCP360QXINC",
+                "devices.4.part_number": "60-1916-01",
+                "devices.4.alias": "Ipcp360qxiAlias",
+                "devices.4.network": {},
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0": {},
+                "devices.4.network.interfaces.0.address": "<<FOX3_Qxi_LAN>>",
+                "devices.4.network.interfaces.0.type": "LAN",
+                "devices.4.network.interfaces.1": {},
+                "devices.4.network.interfaces.1.address": "<<FOX3_Qxi_AVLAN>>",
+                "devices.4.network.interfaces.1.type": "AVLAN"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "IPCP350<<primaryNoSupportPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP350xi<<primaryNoSupportPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP725wLL<<primaryNoSupportPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "IPCP360QXINC<<primaryNoSupportPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify adding a TLCA to UUT as primary displays appropriate error message",
+            "Owner": "Kiran",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"User Story: TOOL-5706\", https://extron.atlassian.net/browse/TOOL-5706 ",
+            "UserStory": "TOOL-5706 (WC Pro 150 w/ LL - System Validation)",
+            "UserStoryLink_2": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_2": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5734\", https://extron.atlassian.net/browse/TOOL-5734 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6169\", https://extron.atlassian.net/browse/TOOL-6169 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4949\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4949 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "9893",
+                "devices.0.name": "WC 150 w/LL",
+                "devices.0.part_number": "60-1803-01",
+                "devices.0.network.interfaces.0.address": "<<WC150_LL>>",
+                "devices.1.name": "TLCA 1",
+                "devices.1.part_number": "60-1748-10",
+                "devices.1.alias": "AdapterAlias"
+            },
+            "DeleteData": [
+                "devices.1.ui",
+                "devices.1.network",
+                "devices.1.extron_control_web_id"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLCA 1<<primaryNoSupportPeripheral>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify adding an EBUS to UUT as primary displays appropriate error message",
+            "Owner": "Kiran",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"User Story: TOOL-5706\", https://extron.atlassian.net/browse/TOOL-5706 ",
+            "UserStory": "TOOL-5706 (WC Pro 150 w/ LL - System Validation)",
+            "UserStoryLink_2": "\"User Story: TOOL-5978\", https://extron.atlassian.net/browse/TOOL-5978 ",
+            "UserStory_2": "TOOL-5978 (Workspace Controller w/ LL part number change (150))",
+            "TaskLink": "\"Task Issue: TOOL-5734\", https://extron.atlassian.net/browse/TOOL-5734 ",
+            "TaskLink_2": "\"Task Issue: TOOL-6169\", https://extron.atlassian.net/browse/TOOL-6169 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4950\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4950 ",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "9133",
+                "devices.0.name": "WC 150 w/LL",
+                "devices.0.part_number": "60-1803-01",
+                "devices.0.network.interfaces.0.address": "<<WC150_LL>>",
+                "devices.1.name": "EBP100",
+                "devices.1.part_number": "60-1388-00",
+                "devices.1.alias": "eBUSAlias",
+                "devices.1.extron_control_web_id": "cf681119-cc36-4ec9-a0d8-c88c9aedd41d"
+            },
+            "InsertTestData": {
+                "devices.1.ebus_id": 1
+            },
+            "DeleteData": [
+                "devices.1.ui",
+                "devices.1.network",
+                "devices.1.extron_control_web_id"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<controllerCantEbus>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

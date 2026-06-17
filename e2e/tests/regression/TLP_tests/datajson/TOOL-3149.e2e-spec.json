@@ -1,0 +1,224 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that invalid type \"devices.name\" (Peripheral Device) in destiny gives appropriate error message.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3149\", https://extron.atlassian.net/browse/TOOL-3149",
+      "TestCaseLink": "\"Test Case: TOOL-T651\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T651",
+      "TestCaseHeader": "Verify that invalid type \"devices.name\" (Peripheral Device) in destiny gives appropriate error message."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.name": 1234,
+        "devices.2.name": 2234,
+        "devices.3.name": 3234
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "1234 - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "2234 - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "3234 - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify error message should be shown in message pane for missing Peripheral devices's Part number.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3149\", https://extron.atlassian.net/browse/TOOL-3149",
+      "TestCaseLink": "\"Test Case: TOOL-T652\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T652",
+      "TestCaseHeader": "Verify error message should be shown in message pane for missing Peripheral devices's Part number."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project"
+      },
+      "DeleteData": [
+        "devices.1.part_number",
+        "devices.2.part_number",
+        "devices.3.part_number"
+      ]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - part_number: Missing key - e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - part_number: Missing key - e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - part_number: Missing key - e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3149\", https://extron.atlassian.net/browse/TOOL-3149",
+      "TestCaseLink": "\"Test Case: TOOL-T651\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T651",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.part_number": true,
+        "devices.2.part_number": true,
+        "devices.3.part_number": true
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - part_number: Invalid - Must be a string e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - part_number: Invalid - Must be a string e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - part_number: Invalid - Must be a string e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3040\", https://extron.atlassian.net/browse/TOOL-3040",
+      "UserStory": "TOOL-3040 (TLP - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3149\", https://extron.atlassian.net/browse/TOOL-3149",
+      "TestCaseLink": "\"Test Case: TOOL-T653\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T653",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "Test Real Project",
+        "devices.1.part_number": "60-1470-00",
+        "devices.2.part_number": "60-1470-00",
+        "devices.3.part_number": "60-1470-00"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLP Pro 1230WTG - part_number: Invalid - Hardware is not supported",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLP Pro 300M - part_number: Invalid - Hardware is not supported",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "TLI Pro 201 - part_number: Invalid - Hardware is not supported",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

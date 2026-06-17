@@ -1,0 +1,51 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify the functionality of Progress Bar during Project Descriptor validation warning",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1569\", https://extron.atlassian.net/browse/TOOL-1569",
+            "UserStory": "TOOL-1569: Deployment Progress Bar",
+            "TaskLink": "\"Task Issue: CSP-646\", https://extron.atlassian.net/browse/CSP-646",
+            "TestCaseLink": "\"Test Case: TOOL-T2822\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T2822",
+            "ProjectFile": "DeployProject\\systeminfoT896.json"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {},
+            "DeleteData": []
+        },
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyProgressBar": true,
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<uniqueDeviceName>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

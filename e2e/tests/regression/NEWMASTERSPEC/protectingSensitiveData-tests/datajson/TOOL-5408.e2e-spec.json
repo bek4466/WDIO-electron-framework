@@ -1,0 +1,229 @@
+{
+  "Execute": [
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that unprotected project without certification.dat is certified when Protecting Project",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5335\", https://extron.atlassian.net/browse/TOOL-5335 ",
+      "UserStory": "TOOL-5335: Certification Behavior on a Protected Project",
+      "TaskLink": "\"Task Issue: TOOL-5408\", https://extron.atlassian.net/browse/TOOL-5408 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4877\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4877 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "CommonMethod": {
+        "copyFile": {
+          "from": "ProtectProjectTest\\AlarmClock-certification.dat",
+          "to": "TmpDownloadProject\\AlarmClock-certification.dat"
+        },
+        "deleteFile": "ProtectProjectTest\\AlarmClock-certification.dat"
+      },
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "ProtectProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout2": "fast",
+      "DeployPage3": {
+        "ProtectProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "createBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout3": "medium",
+      "CommonMethod2": {
+        "copyFile": {
+          "from": "TmpDownloadProject\\AlarmClock-certification.dat",
+          "to": "ProtectProjectTest\\AlarmClock-certification.dat"
+        }
+      },
+      "Timeout4": "fast",
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "Timeout5": "fast",
+      "DeployPage4": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\AlarmClock.cspp"
+        }
+      },
+      "Timeout6": "fast",
+      "DeployPage5": {
+        "ExtractProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout7": "fast",
+      "DeployPage6": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "extractBtn": {
+            "click": null
+          }
+        }
+      },
+      "CommonMethod3": {
+        "findFile": {
+          "path": "TmpDownloadProject\\AlarmClock-certification.dat"
+        }
+      },
+      "DeployPage7": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\AlarmClock.json"
+        }
+      },
+      "Timeout8": "fast",
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify that Protecting Project for unprotected project with certification.dat does not modify the certificaiton.dat file",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5335\", https://extron.atlassian.net/browse/TOOL-5335 ",
+      "UserStory": "TOOL-5335: Certification Behavior on a Protected Project",
+      "TaskLink": "\"Task Issue: TOOL-5408\", https://extron.atlassian.net/browse/TOOL-5408 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4882\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4882 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        }
+      },
+      "Timeout": "fast",
+      "DeployPage2": {
+        "CertifyProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout2": "fast",
+      "CommonMethod": {
+        "saveFileContent": {
+          "filePath": "ProtectProjectTest\\AlarmClock-certification.dat"
+        }
+      },
+      "DeployPage3": {
+        "ProtectProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "createBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout3": "medium",
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "Timeout5": "fast",
+      "DeployPage4": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\AlarmClock.cspp"
+        }
+      },
+      "Timeout6": "fast",
+      "DeployPage5": {
+        "ExtractProjectBtn": {
+          "click": null
+        }
+      },
+      "Timeout7": "fast",
+      "DeployPage6": {
+        "ExtractProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "TmpDownloadProject"
+          },
+          "extractBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout8": "fast",
+      "CommonMethod3": {
+        "compareFileContentToSavedFileContent": {
+          "filePath": "TmpDownloadProject\\AlarmClock-certification.dat",
+          "expect": "SameAsSaved"
+        }
+      },
+      "DeployPage7": {
+        "ProjectFilePathInput": {
+          "setPath": "TmpDownloadProject\\AlarmClock.json"
+        }
+      },
+      "Timeout9": "fast",
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ],
+      "Timeout10": "fast",
+      "CommonMethod4": {
+        "compareFileContentToSavedFileContent": {
+          "filePath": "TmpDownloadProject\\AlarmClock-certification.dat",
+          "expect": "SameAsSaved"
+        }
+      }
+    }
+  }
+}

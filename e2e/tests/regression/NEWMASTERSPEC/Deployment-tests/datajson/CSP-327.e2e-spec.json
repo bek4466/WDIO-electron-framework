@@ -1,0 +1,134 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that user is not prompted for credentials twice once they are entered in systeminfo.json",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-3\", https://extron.atlassian.net/browse/CSP-3",
+            "UserStory": "CSP-3 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-327\", https://extron.atlassian.net/browse/CSP-327",
+            "TestCaseLink": "\"Test Case: CSP-T47\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T47",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "",
+                "pass": ""
+            },
+            {
+                "user": "",
+                "pass": ""
+            },
+            {
+                "user": "",
+                "pass": ""
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "Timeout" : 10000,
+            "DeployPage" : {
+                "ProjectCredentialsPopUp": {
+                    "isOpen": true
+                }
+            },
+            "ChangeCredentials": [
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                }
+            ],
+            "DeployAction2": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployPage2" : {
+                "ProjectCredentialsPopUp": {
+                    "isOpen": false
+                },
+                "ProjectFilePathInput": {
+                    "setPath": "GoldenSinglenicProject\\systeminfo.json"
+                }
+            },
+            "DeployAction3": [
+                "ClearMessagePane",
+                "Deploy"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that Build and Upload is not successful after user provides blank username/password for Primary Controller",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: CSP-3\", https://extron.atlassian.net/browse/CSP-3",
+            "UserStory": "CSP-3 (Deployment)",
+            "TaskLink": "\"Task Issue: CSP-327\", https://extron.atlassian.net/browse/CSP-327",
+            "TestCaseLink": "\"Test Case: CSP-T48\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T48",
+            "ProjectFile": "XiControllerProject\\systeminfo.json"
+        },
+        "Preconditions": {},
+        "Credentials": [
+            {
+                "user": "",
+                "pass": ""
+            },
+            {
+                "user": "",
+                "pass": ""
+            },
+            {
+                "user": "",
+                "pass": ""
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "Timeout" : 10000,
+            "DeployPage" : {
+                "ProjectCredentialsPopUp": {
+                    "isOpen": true,
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout_2": "fast",
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        }
+    }
+}

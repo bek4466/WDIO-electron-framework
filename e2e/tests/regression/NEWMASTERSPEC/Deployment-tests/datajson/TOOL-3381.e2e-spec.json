@@ -1,0 +1,52 @@
+{
+    "Execute":["TestCase2"],
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is thrown for successful deployment when UUT is primary device",
+            "Owner": "Austin Lee",
+            "SuiteType": "Matrix Q xi System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3302\", https://extron.atlassian.net/browse/TOOL-3302",
+            "UserStory": "TOOL-3302 (Matrix Q xi - FOX3 - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3381\", https://extron.atlassian.net/browse/TOOL-3381",
+            "TestCaseLink": "\"Test Case: TOOL-T753\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T753",
+            "ProjectFile": "XiControllerProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.network.interfaces.0.address": "FOX3_Qxi_LAN",
+                "devices.0.part_number": "60-1991-01",
+                "devices.0.name": "Primary Device"
+            },
+            "InsertTestData": {
+                "devices.0.network.interfaces.1.address": "FOX3_Qxi_AVLAN",
+                "devices.0.network.interfaces.1.type": "AVLAN"
+            },
+            "DeleteData": [
+                "devices.0.network"
+            ]
+        },
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                  "MessageText": "<<deploySuccessMsg>>",
+                  "MessageType": "Info",
+                  "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

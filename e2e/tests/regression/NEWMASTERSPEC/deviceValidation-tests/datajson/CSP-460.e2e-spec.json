@@ -1,0 +1,60 @@
+{
+    "Execute":["TestCase1"],
+  
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing system.author throws correct validation message",
+            "Owner": "Amit B",
+            "SuiteType": "System Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-298\", https://extron.atlassian.net/browse/CSP-298",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-455\", https://extron.atlassian.net/browse/CSP-455",
+            "TestCaseLink": "\"Test Case: CSP-T503\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T503",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Test Real Project",
+                "devices.0.name": "My Device",
+                "devices.1.name": "My Peripheral Device"
+              },
+         
+              "DeleteData": ["system.author"]
+            },
+            "Credentials": [
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                  "user": "admin",
+                  "pass": "extron"
+                },
+                {
+                    "user": "admin",
+                    "pass": "extron"
+                  }
+              ],
+            "Steps": {
+            "DeployAction": ["Deploy"],
+              "VerifyMessage": [
+                {
+                    "MessageText": "<<missingAuthorMessage>>",
+                    "MessageType":"Warning",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType":"Info",
+                    "Exist": true
+                }
+            ]
+    
+        },
+     
+   
+        "Execute": "True"
+    }
+    
+       }

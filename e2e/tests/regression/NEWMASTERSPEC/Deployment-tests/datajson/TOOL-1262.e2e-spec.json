@@ -1,0 +1,76 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment with offline peripheral device and pairing from toolbelt.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1595\", https://extron.atlassian.net/browse/TOOL-1595 ",
+            "UserStory": "TOOL-1595 (As Francisco Garcia,  I want to be able to use Hostnames to identify my devices, So that I have easier device identification readability.)",
+            "TaskLink": "\"Task Issue: TOOL-1262\", https://extron.atlassian.net/browse/TOOL-1262 ",
+            "TestCaseLink": "\"Test Case: CSP-T1514\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/CSP-T1514 ",
+            "ProjectFile": "DHCPProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "1339",
+                "devices.0.network.interfaces.0.address": "<<IPCP360DUALNIC_AVLAN>>",
+                "devices.0.name": "Primary_control",
+                "devices.1.name": "secondary_IP6",
+                "devices.1.network.interfaces.0.address": "1.1.1.1",
+                "devices.2.name": "secondary_Tlp",
+                "devices.2.network.interfaces.0.address": "<<OFFLINECONTROLLER>>"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+              {
+                "MessageText": "<<deploySuccessMessage>>",
+                "MessageType": "Info",
+                "Exist": true
+              },
+              {
+                "MessageText": "secondary_IP6<<pairingNegativeMessage>>(1339) and address (<<IPCP360DUALNIC_AVLAN>>)",
+                "MessageType": "Error",
+                "Exist": true
+              },
+              {
+                "MessageText": "secondary_Tlp<<pairingNegativeMessage>>(1339) and address (<<IPCP360DUALNIC_AVLAN>>)",
+                "MessageType": "Error",
+                "Exist": true
+              }
+          
+            ]
+           
+            
+        },
+        "Execute": "True"
+    }
+}

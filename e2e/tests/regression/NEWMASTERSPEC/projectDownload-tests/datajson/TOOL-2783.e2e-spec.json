@@ -1,0 +1,147 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2519\", hhttps://extron.atlassian.net/browse/TOOL-2519",
+            "UserStory": "TOOL-2519 (Project Download - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2783\", https://extron.atlassian.net/browse/TOOL-2783",
+            "TestCaseLink": "\"Test Case: TOOL-T507\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T507",
+            "TestDescription": "Verify that project download can be cancelled",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "ProjectDownloadSidePanel": {
+                    "usernameInput": {
+                        "set": "device"
+                    },
+                    "passwordInput": {
+                        "set": "extron"
+                    },
+                    "DownloadBtn_2": {
+                        "click": null
+                    },
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout": "slow",
+            "DeployPage_2": {
+                "ProjectDownloadSidePanel": {
+                    "DownloadBtn_2": {
+                        "exists": true
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2519\", hhttps://extron.atlassian.net/browse/TOOL-2519",
+            "UserStory": "TOOL-2519 (Project Download - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2783\", https://extron.atlassian.net/browse/TOOL-2783",
+            "TestCaseLink": "\"Test Case: TOOL-T512\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T512",
+            "TestDescription": "Verify that buttons are unresponsive when Project Download is cancelled.",
+            "ProjectFile": "DeployProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "ProjectDownloadSidePanel": {
+                    "usernameInput": {
+                        "set": "device"
+                    },
+                    "passwordInput": {
+                        "set": "extron"
+                    },
+                    "DownloadBtn_2": {
+                        "click": null
+                    },
+                    "noDeviceCredentialsBtn": {
+                        "isDisabled": true
+                    },
+                    "CancelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "Timeout": "fast",
+            "DeployPage_2": {
+                "ProjectDownloadSidePanel": {
+                    "DownloadBtn_2": {
+                        "exists": true
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

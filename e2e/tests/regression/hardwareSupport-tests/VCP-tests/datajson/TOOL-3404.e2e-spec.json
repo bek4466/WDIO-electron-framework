@@ -1,0 +1,190 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is thrown for successful deployment when VCP is Primary Device and Xi is secondary device",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "VCP System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+            "UserStory": "TOOL-3222 (VCP - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3404\", https://extron.atlassian.net/browse/TOOL-3404",
+            "TestCaseLink": "\"Test Case: TOOL-T970\", https://https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T970",
+            "ProjectFile": "VCPProject\\projectPrimarySecondary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "system.system_id" : "3030",
+                "devices.0.name": "VCP",
+                "devices.0.network.interfaces.0.address" : "VCP_LAN",
+                "devices.1.name" : "XI",
+                "devices.1.network.interfaces.0.address" : "IPCP350_Xi_IPCP"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "XI - Device paired successfully with primary device using address (IPCP350_Xi_IPCP) with systemId (3030)",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is thrown for successful deployment when VCP is Primary Device and VCP is secondary device",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "VCP System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+            "UserStory": "TOOL-3222 (VCP - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3404\", https://extron.atlassian.net/browse/TOOL-3404",
+            "TestCaseLink": "\"Test Case: TOOL-T971\", https://https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T971",
+            "ProjectFile": "VCPProject\\projectPrimarySecondary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "devices.0.name": "VCP",
+                "devices.0.network.interfaces.0.address" : "VCP_LAN",
+                "devices.1.name" : "My Peripheral",
+                "devices.1.part_number" : "60-1838-01",
+                "devices.1.network.interfaces.0.address" : "VCP_LAN2"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Peripheral - Device paired successfully with primary device using address (VCP_LAN2) with systemId (3030)",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be a message for incompatible hardware. with VCP as Primary and TLP Pro 520 M as Peripheral",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "VCP System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+            "UserStory": "TOOL-3222 (VCP - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3404\", https://extron.atlassian.net/browse/TOOL-3404",
+            "TestCaseLink": "\"Test Case: TOOL-T972\", https://https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T972",
+            "ProjectFile": "VCPProject\\projectPrimarySecondary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "devices.0.name": "VCP",
+                "devices.0.network.interfaces.0.address" : "VCP_LAN",
+                "devices.1.name" : "My Peripheral",
+                "devices.1.part_number" : "60-1185-02",
+                "devices.1.network.interfaces.0.address" : "TLP520M"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Peripheral - Invalid : Primary controller doesn't support the peripheral device",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be a message for incompatible hardware. with VCP as Primary and IPCP Device as Peripheral",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "VCP System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3222\", https://extron.atlassian.net/browse/TOOL-3222",
+            "UserStory": "TOOL-3222 (VCP - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3404\", https://extron.atlassian.net/browse/TOOL-3404",
+            "TestCaseLink": "\"Test Case: TOOL-T973\", https://https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T973",
+            "ProjectFile": "VCPProject\\projectPrimarySecondary.json"
+        },
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestVCP",
+                "devices.0.name": "VCP",
+                "devices.0.network.interfaces.0.address" : "VCP_LAN",
+                "devices.1.name" : "My Peripheral",
+                "devices.1.part_number" : "60-1418-01",
+                "devices.1.network.interfaces.0.address" : "IPCP550_IPCP_singlenic"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Peripheral - Invalid : Primary controller doesn't support the peripheral device",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

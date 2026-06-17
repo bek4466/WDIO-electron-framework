@@ -1,0 +1,59 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify trace counter exists and count only when there are trace messages",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Trace Test",
+            "UserStoryLink": "\"User Story: TOOL-4427\", https://extron.atlassian.net/browse/TOOL-4427",
+            "UserStory": "TOOL-4427 (Trace Message Counter (per session))",
+            "TaskLink": "\"Task Issue: TOOL-4498\", https://extron.atlassian.net/browse/TOOL-4498",
+            "TestCaseLink": "\"Test Case: TOOL-T4697\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4697 ",
+            "ProjectFile": "TraceProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "TroubleshootingAction": [
+                "VerifyTraceCountNotPresent",
+                "StartTrace",
+                "VerifyTraceCounter",
+                "StopTrace",
+                "ClearTrace",
+                "VerifyTraceCountNotPresent"
+              ]
+               
+        },
+        "Execute": "True"
+    }
+}

@@ -1,0 +1,451 @@
+{
+    "Execute": [ "TestCase1","TestCase2","TestCase3","TestCase4","TestCase5"],
+  
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a TLP w/LL (300M) device.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Deployment Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4153\", https://extron.atlassian.net/browse/TOOL-4153 ",
+        "UserStory": "TLP on TLP w/ LL - Deployment",
+        "TaskLink": "\"Task Issue: TOOL-4212\", https://extron.atlassian.net/browse/TOOL-4212 ",
+        "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4604 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "system.name":"TLP_w/LL",
+          "devices.0.name": "TLP_300M"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+          
+          {
+            "MessageText": "TLP_w/LL - <<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "TLP_w/LL<<projectDeployment>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "TLP_300M - <<fileTransferStatus>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "TLP_w/LL<<programStartedMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+          
+        ]
+        
+      },
+  
+      "Execute": "True"
+    },
+
+    "TestCase2": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a TLP w/LL (x25) device.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Deployment Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4153\", https://extron.atlassian.net/browse/TOOL-4153 ",
+        "UserStory": "TLP on TLP w/ LL - Deployment",
+        "TaskLink": "\"Task Issue: TOOL-4212\", https://extron.atlassian.net/browse/TOOL-4212 ",
+        "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4604 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "system.name":"TLPx25_w/LL",
+          "devices.0.name" : "TLP Pro 725M",
+          "devices.0.part_number" : "60-1563-02C",
+          "devices.0.network.interfaces.0.address" : "<<TLP725M_LL>>"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+          
+          {
+            "MessageText": "TLPx25_w/LL - <<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "TLPx25_w/LL<<projectDeployment>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "TLP Pro 725M - <<fileTransferStatus>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "TLPx25_w/LL<<programStartedMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+          
+        ]
+        
+    
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase3": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that appropriate info message is displayed for successful deploy code only when UUT is used with a (300M) TLP w/LL device.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Deployment Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4153\", https://extron.atlassian.net/browse/TOOL-4153 ",
+        "UserStory": "TLP on TLP w/ LL - Deployment",
+        "TaskLink": "\"Task Issue: TOOL-4212\", https://extron.atlassian.net/browse/TOOL-4212 ",
+        "TestCaseLink": "\"Test Case: TOOL-T4605\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4605 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "system.name":"TLP_w/LL",
+          "devices.0.name": "TLP_300M"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+          
+          {
+            "MessageText": "TLP_w/LL - <<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+        ],
+       
+        "EditProjectFile": {
+          "ModifyTestData": {
+            "system.name":"TLP_w/LL_code"
+            
+          },
+          "InsertTestData": {
+              
+          },
+          "DeleteData": [
+              
+          ]
+      },
+      "Timeout" : 1000,
+        "DeployAction2": [
+          "ClearMessagePane",
+          "DeployCodeOnly"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "TLP_w/LL_code - <<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        
+      },
+  
+      "Execute": "True"
+    },
+
+    "TestCase4": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that appropriate info message is displayed for successful deploy code only when UUT is used with a (x25) TLP w/LL device.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Deployment Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4153\", https://extron.atlassian.net/browse/TOOL-4153 ",
+        "UserStory": "TLP on TLP w/ LL - Deployment",
+        "TaskLink": "\"Task Issue: TOOL-4212\", https://extron.atlassian.net/browse/TOOL-4212 ",
+        "TestCaseLink": "\"Test Case: TOOL-T4605\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4605 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "system.name":"TLPx25_w/LL",
+          "devices.0.name" : "TLP Pro 725M",
+          "devices.0.part_number" : "60-1563-02C",
+          "devices.0.network.interfaces.0.address" : "<<TLP725M_LL>>"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+          
+          {
+            "MessageText": "TLPx25_w/LL - <<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+          
+        ],
+        "EditProjectFile": {
+          "ModifyTestData": {
+            "system.name":"TLP_w/LL_code"
+            
+          },
+          "InsertTestData": {
+              
+          },
+          "DeleteData": [
+              
+          ]
+      },
+      "Timeout" : 1000,
+        "DeployAction2": [
+          "ClearMessagePane",
+          "DeployCodeOnly"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "TLP_w/LL_code - <<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        
+    
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase5": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that appropriate Error message is displayed for unsuccessful deploy code only when UUT is used with a TLP w/LL device.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Deployment Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4153\", https://extron.atlassian.net/browse/TOOL-4153 ",
+        "UserStory": "TLP on TLP w/ LL - Deployment",
+        "TaskLink": "\"Task Issue: TOOL-4212\", https://extron.atlassian.net/browse/TOOL-4212 ",
+        "TestCaseLink": "\"Test Case: TOOL-T4607\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4607 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "system.name":"TLP_w/LL",
+          "devices.0.network.interfaces.0.address" : "<<OFFLINECONTROLLER>>"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": ["DeployCodeOnly"],
+        "VerifyMessage": [
+          
+          {
+            "MessageText": "TLP_w/LL - <<deployCodeOnlyFailed>>",
+            "MessageType": "Error",
+            "Exist": true
+          }
+        ]
+      
+            
+        
+      },
+  
+      "Execute": "True"
+    }
+  }

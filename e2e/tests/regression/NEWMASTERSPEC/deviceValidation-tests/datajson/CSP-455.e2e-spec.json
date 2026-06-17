@@ -1,0 +1,313 @@
+{
+    "Execute":["TestCase1", "TestCase2", "TestCase3", "TestCase4", "TestCase5", "TestCase6"],
+  
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.alias\"(Primary Device) in destiny gives appropriate error message for devices",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-298\", https://extron.atlassian.net/browse/CSP-298",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-455\", https://extron.atlassian.net/browse/CSP-455",
+            "TestCaseLink": "\"Test Case: CSP-T491\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T491",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "ModifyTestData":{
+                    "devices.0.name": "My Primary Device"
+                
+                },
+                "DeleteData":["devices.0.alias"]
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingDeviceAliasMessage>>",
+                    "MessageType":"Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+    ,
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that duplicate \"devices.alias\" (Primary Device) in destiny gives appropriate error message at the time of build and upload",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-298\", https://extron.atlassian.net/browse/CSP-298",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-455\", https://extron.atlassian.net/browse/CSP-455",
+            "TestCaseLink": "\"Test Case: CSP-T495\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T495",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "ModifyTestData":{
+                    "devices.0.name": "My Device",
+                    "devices.0.alias": "alias",
+                    "devices.1.name": "My Peripheral Device",
+                    "devices.1.alias": "alias"
+                
+                }
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "My Device - alias: Invalid - Value must be unique",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that invalid type \"devices.alias\"(Primary Device) in destiny gives appropriate error message",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-298\", https://extron.atlassian.net/browse/CSP-298",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-455\", https://extron.atlassian.net/browse/CSP-455",
+            "TestCaseLink": "\"Test Case: CSP-T502\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T502",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "ModifyTestData":{
+                    "devices.0.name": "My Primary Device",
+                    "devices.0.alias": 1234
+                
+                
+                }
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidDeviceAliasMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that missing \"devices.alias\" (Peripheral device) in destiny gives appropriate error message for devices",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-298\", https://extron.atlassian.net/browse/CSP-298",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-455\", https://extron.atlassian.net/browse/CSP-455",
+            "TestCaseLink": "\"Test Case: CSP-T511\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T511",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "ModifyTestData":{
+                    "devices.1.name": "My Peripheral Device"
+                  
+                
+                
+                },
+                "DeleteData":["devices.1.alias"]
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<missingPeripheralDeviceAliasMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType":"Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that duplicate \"devices.alias\" for Peripheral device in destiny gives appropriate error message at the time of build and upload",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-298\", https://extron.atlassian.net/browse/CSP-298",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-455\", https://extron.atlassian.net/browse/CSP-455",
+            "TestCaseLink": "\"Test Case: CSP-T512\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T512",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "ModifyTestData":{
+                    "devices.0.name": "My Primary Device",
+                    "devices.0.alias": "alias",
+                    "devices.1.name": "My Peripheral Device",
+                    "devices.1.alias": "alias"
+                
+                }
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<duplicatePeripheralDeviceAliasMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase6": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that user must have selected destiny file before accessing \"Kevin Settings\"",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation Tests ",
+            "UserStoryLink": "\"User Story: CSP-81\", https://extron.atlassian.net/browse/CSP-81",
+            "UserStory": "device.alias",
+            "TaskLink": "\"Task Issue: CSP-460\", https://extron.atlassian.net/browse/CSP-460",
+            "TestCaseLink": "\"Test Case: CSP-T140\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T140",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+       
+            "Preconditions" : {
+                "ModifyTestData":{
+                    "devices.0.name": "My Primary Device",
+                    "devices.0.alias": ""
+                
+                
+                }
+            },
+          
+    
+     
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+              }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidDeviceAliasMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+   
+          }

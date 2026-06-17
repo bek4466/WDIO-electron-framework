@@ -1,0 +1,330 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2", "TestCase3", "TestCase4"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2519\", https://extron.atlassian.net/browse/TOOL-2519",
+            "UserStory": "TOOL-2519 (Project Download - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2674\", https://extron.atlassian.net/browse/TOOL-2674",
+            "TestCaseLink": "\"Test Case: TOOL-T407\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T431",
+            "TestDescription": "Verify that CSDU is unresponsive when Modal screen is active",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                }
+            },
+            "DeployAction_2": [],
+            "DeployPage_2": {
+                "ProjectDownloadSidePanel": {
+                    "DownloadBtn": {
+                        "exists": true
+                    },
+                    "usernameInput": {
+                        "set": "device"
+                    },
+                    "passwordInput": {
+                        "set": "device"
+                    },
+                    "DownloadBtn_2": {
+                        "click": null
+                    }
+                }
+            },
+            "DeployAction_3": [],
+            "DeployPage_3": {
+                "ProjectDownloadSidePanel": {
+                    "CloseSidePanelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "DeployAction__4": [],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2519\", https://extron.atlassian.net/browse/TOOL-2519",
+            "UserStory": "TOOL-2519 (Project Download - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2674\", https://extron.atlassian.net/browse/TOOL-2674",
+            "TestCaseLink": "\"Test Case: TOOL-T432\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T432",
+            "TestDescription": "Verify that credentials are cleared after download project is complete",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployAction_2": ["ProjectDownload"],
+            "DeployPage": {
+                "ProjectDownloadSidePanel": {
+                    "CloseSidePanelBtn": {
+                        "click": null
+                    }
+                }
+            },
+            "DeployPage_2": {
+                "DownloadProjectInput": {
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "ProjectDownloadSidePanel": {
+                    "DownloadBtn": {
+                        "exists": true
+                    },
+                    "usernameInput": {
+                        "isEmpty": true
+                    },
+                    "passwordInput": {
+                        "isEmpty": true
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2519\", https://extron.atlassian.net/browse/TOOL-2519",
+            "UserStory": "TOOL-2519 (Project Download - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2674\", https://extron.atlassian.net/browse/TOOL-2674",
+            "TestCaseLink": "\"Test Case: TOOL-T433\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T433",
+            "TestDescription": "Verify that ip credentials are cleared after download project workflow is cancelled",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "ProjectDownloadSidePanel": {
+                    "usernameInput": {
+                        "set": "0"
+                    },
+                    "passwordInput": {
+                        "set": "0"
+                    },
+                    "CloseSidePanelBtn": {
+                        "click": null
+                    }
+                },
+                "DownloadProjectInput_2": {
+                    "isEmpty": true,
+                    "setIp": "0"
+                },
+                "DownloadProjectBtn_2": {
+                    "click": {}
+                },
+                "ProjectDownloadSidePanel_2": {
+                    "usernameInput": {
+                        "isEmpty": true
+                    },
+                    "passwordInput": {
+                        "isEmpty": true
+                    },
+                    "CloseSidePanelBtn": {
+                        "click": null
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Project Download",
+            "UserStoryLink": "\"User Story: TOOL-2519\", https://extron.atlassian.net/browse/TOOL-2519",
+            "UserStory": "TOOL-2519 (Project Download - Happy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2674\", https://extron.atlassian.net/browse/TOOL-2674",
+            "TestCaseLink": "\"Test Case: TOOL-T434\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T434",
+            "TestDescription": "Verify that IP replaces IP in download panel",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployPage": {
+                "DownloadProjectInput": {
+                    "setIp": "10.114.11.111"
+                },
+                "DownloadProjectBtn": {
+                    "click": null
+                },
+                "ProjectDownloadSidePanel": {
+                    "ipAddressInput": {
+                        "isEqualTo": "10.114.11.111"
+                    },
+                    "CloseSidePanelBtn": {
+                        "click": null
+                    }
+                },
+                "DownloadProjectInput_2": {
+                    "setIp": "10.114.11.222"
+                },
+                "DownloadProjectBtn_2": {
+                    "click": {}
+                },
+                "ProjectDownloadSidePanel_2": {
+                    "ipAddressInput": {
+                        "isEqualTo": "10.114.11.222"
+                    },
+                    "CloseSidePanelBtn": {
+                        "click": null
+                    }
+                }
+            }
+        },
+        "Execute": "True"
+    }
+}

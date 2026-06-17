@@ -1,0 +1,57 @@
+{
+    "Execute": [
+      "TestCase1"
+    ],
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that Deployment is not successful when Descriptor Primary Dual Nic Controller LAN matches live address and Descriptor Dual NIC AVLAN doesnt match Live Address",
+        "Owner": "Miguel Cruz",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: CSP-780\", https://extron.atlassian.net/browse/CSP-780",
+        "UserStory": "Dual NIC",
+        "TaskLink": "\"Task Issue: CSP-1022\", https://extron.atlassian.net/browse/CSP-1022",
+        "TestCaseLink": "\"Test Case: CSP-T1140\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1140",
+        "ProjectFile": "GoldenDualnicProject\\systeminfo.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name" : "My Controller",
+          "devices.0.network.interfaces.1.address" : "192.168.254.15"
+        },
+        "InsertTestData": {},
+        "DeleteData": []
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+        ],
+        "VerifyMessage": [
+          {
+            "MessageText": "<<goldenDualNicMismatchIP>>",
+            "MessageType": "Error",
+            "Exist": true
+          },
+          {
+            "MessageText": "<<deployFailureMsg>>",
+            "MessageType": "Error",
+            "Exist": true
+          }
+        ]
+      },
+      "Execute": "True"
+    }
+  }

@@ -1,0 +1,823 @@
+{
+    "Execute": ["TestCase1", "TestCase2", "TestCase3","TestCase4", "TestCase5","TestCase6","TestCase7", "TestCase8"],
+  
+    "TestCase1": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT(300M W/LL) as Primary Device that has correct credentials gives appropriate info message - TLP TLP LL.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Hardware Validation Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4155\", https://extron.atlassian.net/browse/TOOL-4155 ",
+        "UserStory": "TLP on TLP w/ LL - Hardware Validation",
+        "TaskLink": "\"Task Issue: TOOL-4322\", https://extron.atlassian.net/browse/TOOL-4322 ",
+        "TestCaseLink": "\"Test Case: TOOL-T833\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T833 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name" : "TLP 300M"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+      ],
+      "VerifyMessage": [
+        
+          {
+              "MessageText": "TLP 300M<<correctCredentialsMessage>>",
+              "MessageType": "Info",
+              "Exist": true
+          },
+          {
+            "MessageText": "<<incorrectCredentialsPrimary>>",
+            "MessageType": "Info",
+            "Exist": false
+          },
+          {
+            "MessageText": "<<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+      ]
+        
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT(x25M W/LL) as Primary Device that has correct credentials gives appropriate info message - TLP TLP LL.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Hardware Validation Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4155\", https://extron.atlassian.net/browse/TOOL-4155 ",
+        "UserStory": "TLP on TLP w/ LL - Hardware Validation",
+        "TaskLink": "\"Task Issue: TOOL-4322\", https://extron.atlassian.net/browse/TOOL-4322 ",
+        "TestCaseLink": "\"Test Case: TOOL-T833\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T833 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name" : "TLP x25",
+          "devices.0.part_number" : "60-1563-02C",
+          "devices.0.network.interfaces.0.address" : "<<TLP725M_LL>>"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+      ],
+      "VerifyMessage": [
+          {
+              "MessageText": "TLP x25<<correctCredentialsMessage>>",
+              "MessageType": "Info",
+              "Exist": true
+          },
+          {
+            "MessageText": "<<incorrectCredentialsPrimary>>",
+            "MessageType": "Info",
+            "Exist": false
+          },
+          {
+            "MessageText": "<<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+          
+      ]
+        
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase3": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT as Peripheral Device that has correct credentials gives appropriate info message -(300M W/LL)TLP tLP LL.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Hardware Validation Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4155\", https://extron.atlassian.net/browse/TOOL-4155 ",
+        "UserStory": "TLP on TLP w/ LL - Hardware Validation",
+        "TaskLink": "\"Task Issue: TOOL-4322\", https://extron.atlassian.net/browse/TOOL-4322 ",
+        "TestCaseLink": "\"Test Case: TOOL-T834\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T834 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.name" : "device1",
+          "devices.2.name" : "device2",
+          "devices.3.name" : "device3",
+          "devices.4.name" : "device4",
+          "devices.5.name" : "device5",
+          "devices.6.name" : "device6",
+          "devices.7.name" : "device7",
+          "devices.8.name" : "device8"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+      ],
+      "VerifyMessage": [
+          {
+            "MessageText": "device1<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device2<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device3<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device4<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device5<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device6<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device7<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device8<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+              "MessageText": "<<incorrectPeripheralCreds>>",
+              "MessageType": "Info",
+              "Exist": false
+          },
+          {
+            "MessageText": "<<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+      ]
+        
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase4": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT as Peripheral Device that has correct credentials gives appropriate info message -(x25M W/LL)TLP tLP LL.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Hardware Validation Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4155\", https://extron.atlassian.net/browse/TOOL-4155 ",
+        "UserStory": "TLP on TLP w/ LL - Hardware Validation",
+        "TaskLink": "\"Task Issue: TOOL-4322\", https://extron.atlassian.net/browse/TOOL-4322 ",
+        "TestCaseLink": "\"Test Case: TOOL-T834\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T834 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name" : "TLP x25",
+          "devices.0.part_number" : "60-1563-02C",
+          "devices.0.network.interfaces.0.address" : "<<TLP725M_LL>>",
+          "devices.1.name" : "device1",
+          "devices.2.name" : "device2",
+          "devices.3.name" : "device3",
+          "devices.4.name" : "device4",
+          "devices.5.name" : "device5",
+          "devices.6.name" : "device6",
+          "devices.7.name" : "device7",
+          "devices.8.name" : "device8"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+      ],
+      "VerifyMessage": [
+          {
+            "MessageText": "device1<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device2<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device3<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device4<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device5<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device6<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device7<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+            "MessageText": "device8<<correctCredentialsMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          },
+          {
+              "MessageText": "<<incorrectPeripheralCreds>>",
+              "MessageType": "Info",
+              "Exist": false
+          },
+          {
+            "MessageText": "<<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+      ]
+        
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase5": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message -(300M W/LL)TLP tLP LL.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Hardware Validation Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4155\", https://extron.atlassian.net/browse/TOOL-4155 ",
+        "UserStory": "TLP on TLP w/ LL - Hardware Validation",
+        "TaskLink": "\"Task Issue: TOOL-4322\", https://extron.atlassian.net/browse/TOOL-4322 ",
+        "TestCaseLink": "\"Test Case: TOOL-T835\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T835 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name" : "TLP 300M"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+      ],
+      "VerifyMessage": [
+          {
+            "MessageText": "TLP 300M<<hardwareMatchMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "TLP 300M<<HardwareFoundMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+         
+      ]
+        
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase6": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message (TLP x25) -TLP tLP LL.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Hardware Validation Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4155\", https://extron.atlassian.net/browse/TOOL-4155 ",
+        "UserStory": "TLP on TLP w/ LL - Hardware Validation",
+        "TaskLink": "\"Task Issue: TOOL-4322\", https://extron.atlassian.net/browse/TOOL-4322 ",
+        "TestCaseLink": "\"Test Case: TOOL-T835\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T835 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name" : "TLP x25",
+          "devices.0.part_number" : "60-1563-02C",
+          "devices.0.network.interfaces.0.address" : "<<TLP725M_LL>>"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+      ],
+      "VerifyMessage": [
+            {
+              "MessageText": "TLP x25<<hardwareMatchMessage>>",
+              "MessageType": "Info",
+              "Exist": true
+          },
+          {
+              "MessageText": "TLP x25<<HardwareFoundMessage>>",
+              "MessageType": "Info",
+              "Exist": true
+          },
+          {
+            "MessageText": "<<deploySuccessMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+          }
+      ]
+        
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase7": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that UUT as Peripheral Device that has correct specified part number gives appropriate info message -(x25M W/LL)TLP tLP LL.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Hardware Validation Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4155\", https://extron.atlassian.net/browse/TOOL-4155 ",
+        "UserStory": "TLP on TLP w/ LL - Hardware Validation",
+        "TaskLink": "\"Task Issue: TOOL-4322\", https://extron.atlassian.net/browse/TOOL-4322 ",
+        "TestCaseLink": "\"Test Case: TOOL-T836\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T836 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name" : "TLP x25",
+          "devices.0.part_number" : "60-1563-02C",
+          "devices.0.network.interfaces.0.address" : "<<TLP725M_LL>>",
+          "devices.1.name" : "device1",
+          "devices.2.name" : "device2",
+          "devices.3.name" : "device3",
+          "devices.4.name" : "device4",
+          "devices.5.name" : "device5",
+          "devices.6.name" : "device6",
+          "devices.7.name" : "device7",
+          "devices.8.name" : "device8"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+            "MessageText": "device1<<hardwareMatchMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "device1<<HardwareFoundMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "device2<<hardwareMatchMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "device2<<HardwareFoundMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "device3<<hardwareMatchMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+            "MessageText": "device3<<HardwareFoundMessage>>",
+            "MessageType": "Info",
+            "Exist": true
+        },
+        {
+          "MessageText": "device4<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device4<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device5<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device5<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device6<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device6<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device7<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device7<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device8<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "device8<<HardwareFoundMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+        
+      },
+  
+      "Execute": "True"
+    },
+    "TestCase8": {
+      "TestCaseInfo": {
+        "TestDescription": "Verify that for UUT as Peripheral Device specified in destiny file, an incompatible device found at the address gives appropriate error warning -(300M W/LL)TLP tLP LL.",
+        "Owner": "Alaa Abdin",
+        "SuiteType": "TLP w/LL Hardware Validation Tests ",
+        "UserStoryLink": "\"User Story: TOOL-4155\", https://extron.atlassian.net/browse/TOOL-4155 ",
+        "UserStory": "TLP on TLP w/ LL - Hardware Validation",
+        "TaskLink": "\"Task Issue: TOOL-4322\", https://extron.atlassian.net/browse/TOOL-4322 ",
+        "TestCaseLink": "\"Test Case: TOOL-T888\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T888 ",
+        "ProjectFile": "HWTLPLLProject\\systeminfo_TLPw-LL.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+        "ModifyTestData": {
+          "devices.0.name" : "300M",
+          "devices.1.network.interfaces.0.address" : "<<NAVE_101>>",
+          "devices.1.name" : "device1"
+        }
+      },
+      "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+          "user": "admin",
+          "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        },
+        {
+            "user": "admin",
+            "pass": "extron"
+        }
+      ],
+      "Steps": {
+        "DeployAction": [
+          "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "device1 - <<peripheralHardwareIncompatible>>",
+          "MessageType": "Error",
+          "Exist": true
+        },
+        {
+          "MessageText": "<<deploySuccessMessage>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+        
+      },
+  
+      "Execute": "True"
+    }
+  }

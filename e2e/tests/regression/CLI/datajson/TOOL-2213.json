@@ -1,0 +1,146 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify deployment should go through, if system info has address as host name using CLI",
+      "Owner": "Amit B",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+      "UserStory": "TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+      "TaskLink": "\"Task Issue: TOOL-2213\", \"https://extron.atlassian.net/browse/TOOL-2213\"",
+      "TestCaseLink": "\"Test Case: TOOL-T184\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T184\"",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify deployment should go through, if system info has address as host name using CLI"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "Primary Controller",
+        "devices.0.network.interfaces.0.address": "IPL-Pro-CR88-0B-E1-94.extron.com",
+        "devices.0.part_number": "60-1416-01"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "cliCommand",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": "info: NBPProject - Project deployment completed.",
+          "MessageType": "info",
+          "Exist": true
+        },
+        {
+          "MessageText": "info: Peripheral NBP 100 - Device paired successfully with primary device",
+          "MessageType": "info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify deployment should go through, if system info has address as host name(FQDN) using CLI",
+      "Owner": "Amit B",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+      "UserStory": "TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+      "TaskLink": "\"Task Issue: TOOL-2213\", \"https://extron.atlassian.net/browse/TOOL-2213\"",
+      "TestCaseLink": "\"Test Case: TOOL-T186\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T187\"",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify deployment should go through, if system info has address as host name(FQDN) using CLI"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "Primary Controller",
+        "devices.0.network.interfaces.0.address": "CI_PrimaryControllerDHCP_FQDN",
+        "devices.0.part_number": "60-1416-01"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "cliCommand",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": "info: NBPProject - Project deployment completed.",
+          "MessageType": "info",
+          "Exist": true
+        },
+        {
+          "MessageText": "info: Peripheral NBP 100 - Device paired successfully with primary device",
+          "MessageType": "info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "False"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify deployment should go through, if system info has peripheral with address as host name using CL",
+      "Owner": "Amit B",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+      "UserStory": "TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+      "TaskLink": "\"Task Issue: TOOL-2213\", \"https://extron.atlassian.net/browse/TOOL-2213\"",
+      "TestCaseLink": "\"Test Case: TOOL-T187\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T187\"",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify deployment should go through, if system info has peripheral with address as host name using CL"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "Primary Controller",
+        "devices.1.network.interfaces.0.address": "CI_PrimaryControllerDHCP.extron.com",
+        "devices.1.part_number": "60-1416-01"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "cliCommand",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": "info: NBPProject - Project deployment completed.",
+          "MessageType": "info",
+          "Exist": true
+        },
+        {
+          "MessageText": "info: Peripheral NBP 100 - Device paired successfully with primary device",
+          "MessageType": "info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "False"
+  },
+  "TestCase5": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify deployment should go through, if system info has peripheral with address as host name(FQDN) using CLI",
+      "Owner": "Amit B",
+      "SuiteType": "Device Validation",
+      "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+      "UserStory": "TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+      "TaskLink": "\"Task Issue: TOOL-2213\", \"https://extron.atlassian.net/browse/TOOL-2213\"",
+      "TestCaseLink": "\"Test Case: TOOL-T188\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T188\"",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+      "TestCaseHeader": "Verify deployment should go through, if system info has peripheral with address as host name(FQDN) using CLI"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.1.name": "Peripheral Controller",
+        "devices.1.network.interfaces.0.address": "CI_PrimaryControllerDHCP_FQDN",
+        "devices.1.part_number": "60-1416-01"
+      }
+    },
+    "Steps": {
+      "CommandLineParams": "cliCommand",
+      "VerifyCLIMessage": [
+        {
+          "MessageText": "info: NBPProject - Project deployment completed.",
+          "MessageType": "info",
+          "Exist": true
+        },
+        {
+          "MessageText": "info: Peripheral Controller - Device paired successfully with primary device",
+          "MessageType": "info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "False"
+  }
+}

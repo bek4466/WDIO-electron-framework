@@ -1,0 +1,62 @@
+{
+    "Execute":[ "TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Info Message Shown when File Transfer Succeeds on Primary Device.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1567\", https://extron.atlassian.net/browse/TOOL-1567 ",
+            "UserStory": "TOOL-1567 (As FG/MG, I want to know the status of file transfer so that I can identify and fix issues as soon as possible)",
+            "TaskLink": "\"Task Issue: TOOL-1903\", https://extron.atlassian.net/browse/TOOL-1903 ",
+            "TestCaseLink": "\"Test Case: TOOL-T3961\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T3961 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.system_id": "1240",
+                "devices.1.name": "Peripheral",
+                "devices.1.network.interfaces.0.address": "<<Pro350_IPCP_1>>"
+            },
+            "InsertTestData": {
+               
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "Peripheral<<pairingPositiveMessage>> using address (<<Pro350_IPCP_1>>) with systemId (1240)",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+
+   
+}

@@ -1,0 +1,204 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify there should be an error message when primary_device_alias has peripheral device's alias in CLI",
+            "Owner": "Amit B",
+            "SuiteType": "Device Validation",
+            "UserStoryLink": "\"User Story: TOOL-2065\", \"https://extron.atlassian.net/browse/CSP-2065\"",
+            "UserStory": "TOOL - 2065  Cli Deploy - Projector Descriptor Validation",
+            "TaskLink": "\"Task Issue: TOOL-2214\", \"https://extron.atlassian.net/browse/TOOL-2214\"",
+            "TestCaseLink": "\"Test Case: TOOL-T194\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/TOOL-T194\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify there should be an error message when primary_device_alias has peripheral device's alias in CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "Primary Controller",
+                "devices.0.alias": "dupalias",
+                "devices.1.alias": "dupalias"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: NBPProject - Project deployment failed.",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "error: Primary Controller - alias: Invalid - Value must be unique",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that good deploy info messages are displayed when using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2262\", https://extron.atlassian.net/browse/TOOL-2262",
+            "TestCaseLink": "\"Test Case: TOOL-T224\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T224",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that good deploy info messages are displayed when using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "Pro350_IPCP_1",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Device - File transfer successful.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Peripheral Device - Device paired successfully with primary device",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify CLI help command",
+            "Owner": "Amit Bhagwat",
+            "SuiteType": "CSDU CLI Unhappy Path",
+            "UserStoryLink": "\"User Story: TOOL-2086\", https://extron.atlassian.net/browse/TOOL-2346",
+            "UserStory": "TOOL-2086 (CLI CSDU CLI Unhappy Path)",
+            "TaskLink": "\"Task Issue: TOOL-2407\", https://extron.atlassian.net/browse/TOOL-2407",
+            "TestCaseLink": "\"Test Case: TOOL-T303\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T303\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify CLI help command."
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "help",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "Usage: csdu.cmd [options] [command]Options:  -v, --version       output of the version number  -h, --help          display help for commandCommands:  deploy [options]    deploy control system  validate [options]  validate control system  help [command]      display help for commandFor more information enter:csdu.cmd [command] --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Deploy command -h flag",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2346\", https://extron.atlassian.net/browse/TOOL-2346",
+            "UserStory": "TOOL-2346 (CLI Deploy - Deploy Command Help)",
+            "TaskLink": "\"Task Issue: TOOL-2404\", https://extron.atlassian.net/browse/TOOL-2404",
+            "TestCaseLink": "\"Test Case: TOOL-T311\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T311\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify Deploy command -h flag"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "deploy -h",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "Usage: csdu.cmd deploy [options]deploy control systemOptions:  -f, --file <filepath>  project descriptor file path  -h, --help             display help for commandExample:csdu.cmd deploy -f \"C:/Users/Public/Documents/EngConfRoom3/projDesc.json\"",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that InvalidOption for CLI gives proper error output.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2344\", https://extron.atlassian.net/browse/TOOL-2344",
+            "UserStory": "TOOL-2344 (CSDUCLI - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2404\", https://extron.atlassian.net/browse/TOOL-2404",
+            "TestCaseLink": "\"Test Case: TOOL-T319\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T319\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that InvalidOption for CLI gives proper error output."
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "--invalid-option invalidCommand",
+            "VerifyExitCode": "invalidOption",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-17: error: unknown option '--invalid-option'For more information enter:csdu.cmd  --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase6": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that InvalidOption flag for CLI Deploy Command gives proper error output.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2103\", https://extron.atlassian.net/browse/TOOL-2103",
+            "UserStory": "TOOL-2103 (CLI Deploy - Deploy Command - unhappy path)",
+            "TaskLink": "\"Task Issue: TOOL-2403\", https://extron.atlassian.net/browse/TOOL-2403",
+            "TestCaseLink": "\"Test Case: TOOL-T321\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T321\"",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that InvalidOption flag for CLI Deploy Command gives proper error output."
+        },
+        "Steps": {
+            "CommandLineParams": "deploy --invalidOption",
+            "VerifyExitCode": "invalidFileOption",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "-180: error: required option '-f, --file <filepath>' not specifiedFor more information enter:csdu.cmd deploy --help",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

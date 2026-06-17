@@ -1,0 +1,287 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2", "TestCase3", "TestCase4", "TestCase5"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has correct credentials gives appropriate info message - SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4151\", https://extron.atlassian.net/browse/TOOL-4151",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4214\", https://extron.atlassian.net/browse/TOOL-4214",
+            "TestCaseLink": "\"Test Case: TOOL-T833\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173493",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.network.interfaces.0.address": "<<Navigator>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device that has correct credentials gives appropriate info message - SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4151\", https://extron.atlassian.net/browse/TOOL-4151",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4214\", https://extron.atlassian.net/browse/TOOL-4214",
+            "TestCaseLink": "\"Test Case: TOOL-T834\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173494",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1431-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+                "devices.1.part_number": "60-1667-02C",
+                "devices.1.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Primary Device that has correct specified part number gives appropriate info message - SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4151\", https://extron.atlassian.net/browse/TOOL-4151",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4214\", https://extron.atlassian.net/browse/TOOL-4214",
+            "TestCaseLink": "\"Test Case: TOOL-T835\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173495",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.network.interfaces.0.address": "<<Navigator>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<HardwareFoundMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that UUT as Peripheral Device that has correct credentials gives appropriate info message - SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4151\", https://extron.atlassian.net/browse/TOOL-4151",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4214\", https://extron.atlassian.net/browse/TOOL-4214",
+            "TestCaseLink": "\"Test Case: TOOL-T834\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16173494",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1431-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+                "devices.1.part_number": "60-1667-02C",
+                "devices.1.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<HardwareFoundMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that for UUT as Peripheral Device specified in destiny file, an incompatible device found at the address gives appropriate error warning - SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4151\", https://extron.atlassian.net/browse/TOOL-4151",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4214\", https://extron.atlassian.net/browse/TOOL-4214",
+            "TestCaseLink": "\"Test Case: TOOL-T888\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16769218",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.network.interfaces.0.address": "<<Navigator>>",
+                "devices.1.part_number": "60-1667-02C",
+                "devices.1.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<incompatiblePriHardwareMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

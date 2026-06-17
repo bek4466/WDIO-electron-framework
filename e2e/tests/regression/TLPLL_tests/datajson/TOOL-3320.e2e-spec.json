@@ -1,0 +1,165 @@
+{
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3120\", https://extron.atlassian.net/browse/TOOL-3120",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T653\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T653",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number- Invalid type."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.part_number": true
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLCA 1 - part_number: Invalid - Must be a string e.g. \"part_number\": \"11-2222-33\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Peripheral device's unsupported part number - PN is known but NOT allowed",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3120\", https://extron.atlassian.net/browse/TOOL-3120",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T654\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T654",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's unsupported part number - PN is known but NOT allowed"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.part_number": "60-1470-00"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLCA 1 - part_number: Invalid - Hardware is not supported",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Peripheral device's invalid part number key -PN not known or Invalid Format",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3120\", https://extron.atlassian.net/browse/TOOL-3120",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T655\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T655",
+      "TestCaseHeader": "Verify there should be error message in message pane for Peripheral device's invalid part number key -PN not known or Invalid Format"
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.part_number": "abcde"
+      }
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLCA 1 - part_number: Invalid - Hardware is not supported",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify there should be error message in message pane for Missing (peripheral) devices.alias.",
+      "Owner": "Miguel Cruz",
+      "SuiteType": "Deploy Validation",
+      "UserStoryLink": "\"User Story: TOOL-3131\", https://extron.atlassian.net/browse/TOOL-3131",
+      "UserStory": "TOOL-3131 (TLCA 1 - Deployment)",
+      "TaskLink": "\"Task Issue: TOOL-3120\", https://extron.atlassian.net/browse/TOOL-3120",
+      "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+      "TestCaseLink": "\"Test Case: TOOL-T656\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T656",
+      "TestCaseHeader": "Verify there should be error message in message pane for Missing (peripheral) devices.alias."
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Preconditions": {
+      "ModifyTestData": {
+        "system.name": "TestTLPLL",
+        "devices.0.part_number": "abcde"
+      },
+      "DeleteData": [
+        "devices.0.alias"
+      ]
+    },
+    "Steps": {
+      "Command": "Deploy",
+      "VerifyMessage": [
+        {
+          "MessageText": "TLCA 1 - alias: Missing key - e.g. \"alias\": \"device_alias\"",
+          "MessageType": "Error",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify certified users have the protect project option",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5393\", https://extron.atlassian.net/browse/TOOL-5393 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4867\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4867 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProtectProjectBtn": {
+          "exists": true,
+          "isEnabled": false
+        },
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn2": {
+          "exists": true,
+          "isEnabled": true
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify uncertified users do not have the protect project option",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5393\", https://extron.atlassian.net/browse/TOOL-5393 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4868\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4868 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "DeployPage": {
+        "ProtectProjectBtn": {
+          "exists": false
+        },
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn2": {
+          "exists": false
+        }
+      },
+      "AppAction2": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ]
+    }
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify certified users with invalid project paths cannot protect project",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5393\", https://extron.atlassian.net/browse/TOOL-5393 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4869\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4869 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProtectProjectBtn": {
+          "exists": true,
+          "isEnabled": false
+        },
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock##!!.json"
+        },
+        "ProtectProjectBtn2": {
+          "exists": true,
+          "isEnabled": false
+        },
+        "ProjectFilePathInput2": {
+          "setPath": "ProtectProjectTest\\AlarmClocl_noDataFile.json"
+        },
+        "ProtectProjectBtn3": {
+          "exists": true,
+          "isEnabled": false
+        },
+        "ProjectFilePathInput3": {
+          "setPath": "ProtectProjectTest\\AlarmClockWithTextExt.txt"
+        },
+        "ProtectProjectBtn4": {
+          "exists": true,
+          "isEnabled": false
+        },
+        "ProjectFilePathInput4": {
+          "setPath": "ProtectProjectTest\\AlarmClock-certification.dat"
+        },
+        "ProtectProjectBtn5": {
+          "exists": true,
+          "isEnabled": false
+        },
+        "ProjectFilePathInput5": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn6": {
+          "exists": true,
+          "isEnabled": true
+        }
+      }
+    }
+  }
+}

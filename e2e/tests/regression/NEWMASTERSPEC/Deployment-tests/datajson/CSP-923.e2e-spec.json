@@ -1,0 +1,164 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify User Can control Navigator.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-1660\", https://extron.atlassian.net/browse/TOOL-1660 ",
+            "UserStory": "TOOL-1740 (As  a user, I want to identify the device in the connection manager so that I can specify the credentials and perform project deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1357\", https://extron.atlassian.net/browse/TOOL-1357 ",
+            "TestCaseLink": "\"Test Case: TOOL-T4082\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4082 ",
+            "ProjectFile": "NavProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+              "system.system_id": "1666",
+              "devices.0.name":"Primary",
+              "devices.0.part_number":"60-1434-01",
+              "devices.0.network.interfaces.0.address": "<<Table_Pro_555_W_AVLAN>>.extron.com",
+              "devices.1.name":"NAV",
+              "devices.1.network.host_network_type":"AVLAN",
+              "devices.1.network.interfaces.0.address": "<<Table_NAV_AVLAN_to_Pro555>>.local",
+              "devices.2.name":"NAV E",
+              "devices.2.network.host_network_type":"AVLAN",
+              "devices.2.network.interfaces.0.address": "<<Table_NAV_E101_AVLAN_to_Pro555>>.local",
+              "devices.3.name":"NAV SD",
+              "devices.3.network.host_network_type":"AVLAN",
+              "devices.3.network.interfaces.0.address": "<<Table_NAV_SD101_AVLAN_to_Pro555>>.local"
+             
+            },
+            "InsertTestData": {
+                "devices.4.name": "NAV SD501",
+                "devices.4.part_number": "60-1525-03",
+                "devices.4.alias": "SD501",
+                
+                "devices.4.network":{},
+                "devices.4.network.host_network_type": "AVLAN",
+                "devices.4.network.interfaces": [],
+                "devices.4.network.interfaces.0": {},
+                "devices.4.network.interfaces.0.address": "<<Table_NAV_SD501_AVLAN_to_Pro555>>.local",
+                "devices.4.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+                
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                  "MessageText": "NAV<<pairingPositiveMessage>> using address (<<Table_NAV_AVLAN_to_Pro555>>.local) with systemId (1666)",
+                  "MessageType": "Info",
+                  "Exist": true
+              },
+              {
+                  "MessageText": "NAV E<<pairingPositiveMessage>> using address (<<Table_NAV_E101_AVLAN_to_Pro555>>.local) with systemId (1666)",
+                  "MessageType": "Info",
+                  "Exist": true
+              },
+              {
+                  "MessageText": "NAV SD<<pairingPositiveMessage>> using address (<<Table_NAV_SD101_AVLAN_to_Pro555>>.local) with systemId (1666)",
+                  "MessageType": "Info",
+                  "Exist": true
+              },
+              {
+                "MessageText": "NAV SD501<<pairingPositiveMessage>> using address (<<Table_NAV_SD501_AVLAN_to_Pro555>>.local) with systemId (1666)",
+                "MessageType": "Info",
+                "Exist": true
+            }
+            ],
+            "CheckNavCommands": [
+              {
+                "ip": "<<Table_NAV_AVLAN_to_Pro555>>.local",
+                "username": "admin",
+                "password": "extron"
+              }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify deployment should go through, when trace is running.",
+          "Owner": "Alaa Abdin",
+          "SuiteType": "Deployment",
+          "UserStoryLink": "\"User Story: TOOL-1660\", https://extron.atlassian.net/browse/TOOL-1660 ",
+          "UserStory": "TOOL-1740 (As  a user, I want to identify the device in the connection manager so that I can specify the credentials and perform project deployment)",
+          "TaskLink": "\"Task Issue: TOOL-1357\", https://extron.atlassian.net/browse/TOOL-1357 ",
+          "TestCaseLink": "\"Test Case: TOOL-T4153\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4153 ",
+          "ProjectFile": "DeployProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      
+      "Preconditions": {
+          "ModifyTestData": {
+            "system.system_id": "1459"
+           
+          },
+          "InsertTestData": {
+           
+          },
+          "DeleteData": [
+              
+          ]
+      },
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+        "TroubleshootingAction":[ 
+                  "StartTrace"],
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                  "MessageText": "<<deploySuccessMessage>>",
+                  "MessageType": "Info",
+                  "Exist": true
+              }
+          ]
+      },
+      "Execute": "True"
+  }
+}
+

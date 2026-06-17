@@ -1,0 +1,1 @@
+export { MatText } from "./matText.po";

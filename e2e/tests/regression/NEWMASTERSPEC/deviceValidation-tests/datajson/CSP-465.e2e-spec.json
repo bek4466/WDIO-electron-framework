@@ -1,0 +1,244 @@
+    {
+    "Execute":["TestCase1","TestCase2","TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that the Build and Upload works successfully with Single NIC IPCP Controller, TLP and Secondary Controller   ",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1696\", https://extron.atlassian.net/browse/TOOL-1696",
+            "UserStory": "TOOL-1696 (devices.ui.click_sound_file)",
+            "TaskLink": "\"Task Issue: TOOL-1411\", https://extron.atlassian.net/browse/TOOL-1411",
+            "TestCaseLink": "\"Test Case: CSP-T226\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T226",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.alias": "tlp1220",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                "devices.1.ui.click_sound_file": "C:\\not\\a\\path"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidClickSoundFile>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.1.ui.click_sound_file": "touch.wav"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that wrong file type against devices.ui.click_sound_file key (Peripheral) in destiny gives appropriate warning message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1696\", https://extron.atlassian.net/browse/TOOL-1696",
+            "UserStory": "TOOL-1696 (devices.ui.click_sound_file)",
+            "TaskLink": "\"Task Issue: TOOL-1411\", https://extron.atlassian.net/browse/TOOL-1411",
+            "TestCaseLink": "\"Test Case: CSP-T228\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T228",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                "devices.1.ui.click_sound_file": "NotGoodProject\test.docx"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<invalidClickSoundFileType>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.1.ui.click_sound_file": "touch.wav"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that file path provided, not just filename for ui.click_sound_file (Peripheral) gives appropriate warning message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1696\", https://extron.atlassian.net/browse/TOOL-1696",
+            "UserStory": "TOOL-1696 (devices.ui.click_sound_file)",
+            "TaskLink": "\"Task Issue: TOOL-1411\", https://extron.atlassian.net/browse/TOOL-1411",
+            "TestCaseLink": "\"Test Case: CSP-T660\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/4150612",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1022T",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>",
+                "devices.1.ui.click_sound_file": "DeployProject\\subfolder\\touch.wav"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<unsupportedClickSoundPath>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData":{
+                    "devices.1.ui.click_sound_file": "touch.wav"
+                }
+            },
+            "DeployAction_2": ["Deploy"],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<deploySuccessMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that file path provided, not just filename for ui.click_sound_file (Peripheral) gives appropriate warning message",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1696\", https://extron.atlassian.net/browse/TOOL-1696",
+            "UserStory": "TOOL-1696 (devices.ui.click_sound_file)",
+            "TaskLink": "\"Task Issue: TOOL-1411\", https://extron.atlassian.net/browse/TOOL-1411",
+            "TestCaseLink": "\"Test Case: CSP-T679\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/4222266",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.part_number": "60-1601-02",
+                "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+                "devices.1.name",
+                "devices.1.ui.click_sound_file",
+                "devices.1.network.interfaces.0.type"
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "device[1] - <<missingClickSoundFile>>",
+                    "MessageType": "Warning",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    }
+}

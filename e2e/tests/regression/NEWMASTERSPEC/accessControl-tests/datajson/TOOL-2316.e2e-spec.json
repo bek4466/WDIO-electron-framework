@@ -1,0 +1,274 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3",
+    "TestCase4"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Certified User can access the application",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2251\", https://extron.atlassian.net/browse/TOOL-2251",
+      "UserStory": "TOOL-2251 (As Extron, I want both Certified and UC users to be able to log into the CSDU app So that they may be able to access the application.)",
+      "TaskLink": "\"Task Issue: TOOL-2316\", https://extron.atlassian.net/browse/TOOL-2316",
+      "TestCaseLink": "\"Test Case: TOOL-T241\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T241",
+      "ProjectFile": "DeployProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "IPCP550_IPCP_singlenic",
+        "devices.2.alias": "ProcessorAlias_2",
+        "devices.2.part_number": "60-1418-01",
+        "devices.2.network": {},
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Uncertified User can access the application",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2251\", https://extron.atlassian.net/browse/TOOL-2251",
+      "UserStory": "TOOL-2251 (As Extron, I want both Certified and UC users to be able to log into the CSDU app So that they may be able to access the application.)",
+      "TaskLink": "\"Task Issue: TOOL-2316\", https://extron.atlassian.net/browse/TOOL-2316",
+      "TestCaseLink": "\"Test Case: TOOL-T242\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T242",
+      "ProjectFile": "DeployProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "IPCP550_IPCP_singlenic",
+        "devices.2.alias": "ProcessorAlias_2",
+        "devices.2.part_number": "60-1418-01",
+        "devices.2.network": {},
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Certified User can deploy a project",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2251\", https://extron.atlassian.net/browse/TOOL-2251",
+      "UserStory": "TOOL-2251 (As Extron, I want both Certified and UC users to be able to log into the CSDU app So that they may be able to access the application.)",
+      "TaskLink": "\"Task Issue: TOOL-2316\", https://extron.atlassian.net/browse/TOOL-2316",
+      "TestCaseLink": "\"Test Case: TOOL-T243\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T243",
+      "ProjectFile": "DeployProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "IPCP550_IPCP_singlenic",
+        "devices.2.alias": "ProcessorAlias_2",
+        "devices.2.part_number": "60-1418-01",
+        "devices.2.network": {},
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "certified",
+          "pass": "certified"
+        }
+      ],
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify Certified User can deploy a project",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Access Control Test",
+      "UserStoryLink": "\"User Story: TOOL-2251\", https://extron.atlassian.net/browse/TOOL-2251",
+      "UserStory": "TOOL-2251 (As Extron, I want both Certified and UC users to be able to log into the CSDU app So that they may be able to access the application.)",
+      "TaskLink": "\"Task Issue: TOOL-2316\", https://extron.atlassian.net/browse/TOOL-2316",
+      "TestCaseLink": "\"Test Case: TOOL-T243\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T243",
+      "ProjectFile": "DeployProject\\systeminfo.json",
+      "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+      "ModifyTestData": {
+        "devices.0.name": "IPCP Pro 350",
+        "devices.0.alias": "Test_Rack_Pro350",
+        "devices.0.part_number": "60-1417-01",
+        "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+        "devices.1.name": "TLP Pro 1022T",
+        "devices.1.part_number": "60-1601-02",
+        "devices.1.alias": "tlp1220",
+        "devices.1.network.interfaces.0.address": "<<TLP1022_TLP>>"
+      },
+      "InsertTestData": {
+        "devices.2.name": "IPCP550_IPCP_singlenic",
+        "devices.2.alias": "ProcessorAlias_2",
+        "devices.2.part_number": "60-1418-01",
+        "devices.2.network": {},
+        "devices.2.network.interfaces": [],
+        "devices.2.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>",
+        "devices.2.network.interfaces.0.type": "LAN"
+      },
+      "DeleteData": []
+    },
+    "Credentials": [
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      },
+      {
+        "user": "admin",
+        "pass": "extron"
+      }
+    ],
+    "Steps": {
+      "AppAction": [
+        "Logout",
+        {
+          "user": "uncertified",
+          "pass": "uncertified"
+        }
+      ],
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "DeployProject\\systeminfoTmp.json"
+        }
+      },
+      "DeployAction": [
+        "Deploy"
+      ],
+      "VerifyMessage": [
+        {
+          "MessageText": "<<deploySuccessMsg>>",
+          "MessageType": "Info",
+          "Exist": true
+        }
+      ]
+    },
+    "Execute": "True"
+  }
+}

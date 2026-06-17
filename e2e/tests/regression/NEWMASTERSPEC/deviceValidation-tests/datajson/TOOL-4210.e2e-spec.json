@@ -1,0 +1,184 @@
+{
+  "Execute":["TestCase1", "TestCase2", "TestCase3"],
+  "TestCase1": {
+      "TestCaseInfo": {
+          "TestDescription": "Verify mismatch message with LL TLP's (300m to x25)",
+          "Owner": "Kiran Shrestha",
+          "SuiteType": "Device Validation Test",
+          "UserStoryLink": "\"User Story: TOOL-3927\", https://extron.atlassian.net/browse/TOOL-3927",
+          "UserStory": "TOOL-3927 (TLP w/LL Relaxing Compatibility Rules)",
+          "TaskLink": "\"Task Issue: TOOL-4210\", https://extron.atlassian.net/browse/TOOL-4210",
+          "TestCaseLink": "\"Test Case: TOOL-T4629\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/37830805 ",
+          "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+          "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+      },
+      "Preconditions": {
+          "ModifyTestData": {
+            "devices.1.part_number": "60-1667-02C",
+            "devices.1.network.interfaces.0.address": "<<TLP725M_LL>>"
+          },
+          "InsertTestData": {
+          },
+          "DeleteData": [
+          ]
+      },        
+      "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+      "Steps": {
+          "DeployAction": ["Deploy"],
+          "VerifyMessage": [
+              {
+                  "MessageText": "<<primaryMismatch>>",
+                  "MessageType": "Warning",
+                  "Exist": true
+              },
+              {
+                "MessageText": "<<deploySuccessMsg>>",
+                "MessageType": "Info",
+                "Exist": true
+              }
+          ]
+      },
+      "Execute": "True"
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+        "TestDescription": "Verify mismatch message with LL TLP's (x25 to 300m)",
+        "Owner": "Kiran Shrestha",
+        "SuiteType": "Device Validation Test",
+        "UserStoryLink": "\"User Story: TOOL-3927\", https://extron.atlassian.net/browse/TOOL-3927",
+        "UserStory": "TOOL-3927 (TLP w/LL Relaxing Compatibility Rules)",
+        "TaskLink": "\"Task Issue: TOOL-4210\", https://extron.atlassian.net/browse/TOOL-4210",
+        "TestCaseLink": "\"Test Case: TOOL-T4630\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/37830810",
+        "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.name": "TLP725M_LL w/ 300m",
+          "devices.1.part_number": "60-1563-02C",
+          "devices.1.network.interfaces.0.address": "<<TLP300M_LL>>"
+        },
+        "InsertTestData": {
+        },
+        "DeleteData": [
+        ]
+    },        
+    "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+    "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+            {
+                "MessageText": "<<primaryMismatch>>",
+                "MessageType": "Warning",
+                "Exist": true
+            },
+            {
+              "MessageText": "<<deploySuccessMsg>>",
+              "MessageType": "Info",
+              "Exist": true
+            }
+        ]
+    },
+    "Execute": "True"
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+        "TestDescription": "Verify mismatch message with LL TLP's (x25 to x25)",
+        "Owner": "Kiran Shrestha",
+        "SuiteType": "Device Validation Test",
+        "UserStoryLink": "\"User Story: TOOL-3927\", https://extron.atlassian.net/browse/TOOL-3927",
+        "UserStory": "TOOL-3927 (TLP w/LL Relaxing Compatibility Rules)",
+        "TaskLink": "\"Task Issue: TOOL-4210\", https://extron.atlassian.net/browse/TOOL-4210",
+        "TestCaseLink": "\"Test Case: TOOL-T4631\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/37830846",
+        "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.part_number": "60-1562-02C",
+          "devices.1.network.interfaces.0.address": "<<TLP725M_LL>>"
+        },
+        "InsertTestData": {
+        },
+        "DeleteData": [
+        ]
+    },        
+    "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+    "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+            {
+                "MessageText": "<<primaryMismatch>>",
+                "MessageType": "Warning",
+                "Exist": true
+            },
+            {
+              "MessageText": "<<deploySuccessMsg>>",
+              "MessageType": "Info",
+              "Exist": true
+            }
+        ]
+    },
+    "Execute": "True"
+  },
+  "TestCase4": {
+    "TestCaseInfo": {
+        "TestDescription": "Verify Incompatible device message with LL TLP's",
+        "Owner": "Kiran Shrestha",
+        "SuiteType": "Device Validation Test",
+        "UserStoryLink": "\"User Story: TOOL-3927\", https://extron.atlassian.net/browse/TOOL-3927",
+        "UserStory": "TOOL-3927 (TLP w/LL Relaxing Compatibility Rules)",
+        "TaskLink": "\"Task Issue: TOOL-4210\", https://extron.atlassian.net/browse/TOOL-4210",
+        "TestCaseLink": "\"Test Case: TOOL-T4632\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/37830869",
+        "ProjectFile": "HWTLPLLProject\\systeminfo.json",
+        "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+    },
+    "Preconditions": {
+        "ModifyTestData": {
+          "devices.1.part_number": "60-1667-02C",
+          "devices.1.network.interfaces.0.address": "<<IPCP550_IPCP_singlenic>>"
+        },
+        "InsertTestData": {
+        },
+        "DeleteData": [
+        ]
+    },        
+    "Credentials": [
+        {
+          "user": "admin",
+          "pass": "extron"
+        }
+      ],
+    "Steps": {
+        "DeployAction": ["Deploy"],
+        "VerifyMessage": [
+            {
+                "MessageText": "<<incompatiblePriHardwareMessage>>",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {
+              "MessageText": "<<deployFailureMsg>>",
+              "MessageType": "Error",
+              "Exist": true
+            }
+        ]
+    },
+    "Execute": "True"
+  }
+}

@@ -1,0 +1,276 @@
+{
+    "Execute":["TestCase1"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify Device not reachable error message is displayed for peripheral(TLP TG/MG) during deployment and Peripheral is offline.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1738\", https://extron.atlassian.net/browse/TOOL-1738",
+            "UserStory": "TOOL-1738 (TLP 1225, 1525 & 1725 MG/TG - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1467\", https://extron.atlassian.net/browse/TOOL-1467",
+            "TestCaseLink": "\"Test Case: CSP-T1408\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1408",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1025MG",
+                "devices.1.part_number": "60-1787-12",
+                "devices.1.network.host_network_type": "LAN",
+                "devices.1.network.interfaces.0.address": "10.119.31.100"
+            },
+            "InsertTestData": {
+                "devices.2.name": "TLP1225TG",
+                "devices.2.alias": "TLP1225TG_Alias",
+                "devices.2.part_number": "60-1788-12",
+                "devices.2.network": {},
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces" : [],
+                "devices.2.network.interfaces.0.address": "10.119.31.101",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.name": "TLP1525TG",
+                "devices.3.alias": "TLP1525TG_Alias",
+                "devices.3.part_number": "60-1790-12",
+                "devices.3.network": {},
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces" : [],
+                "devices.3.network.interfaces.0.address": "10.119.31.102",
+                "devices.3.network.interfaces.0.type": "LAN",
+                "devices.4.name": "TLP1525MG",
+                "devices.4.alias": "TLP1525MG_Alias",
+                "devices.4.part_number": "60-1789-12",
+                "devices.4.network": {},
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces" : [],
+                "devices.4.network.interfaces.0.address": "10.119.31.103",
+                "devices.4.network.interfaces.0.type": "LAN",
+                "devices.5.name": "TLP1725MG",
+                "devices.5.alias": "TLP1725MG_Alias",
+                "devices.5.part_number": "60-1791-12",
+                "devices.5.network": {},
+                "devices.5.network.host_network_type": "LAN",
+                "devices.5.network.interfaces" : [],
+                "devices.5.network.interfaces.0.address": "10.119.31.104",
+                "devices.5.network.interfaces.0.type": "LAN",
+                "devices.6.name": "TLP1725TG",
+                "devices.6.alias": "TLP1725TG_Alias",
+                "devices.6.part_number": "60-1792-12",
+                "devices.6.network": {},
+                "devices.6.network.host_network_type": "LAN",
+                "devices.6.network.interfaces" : [],
+                "devices.6.network.interfaces.0.address": "10.119.31.105",
+                "devices.6.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 1025MG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1225TG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1525TG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1525MG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1725MG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1725TG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "!!COMMENT!!" : "Devices unavaiable at time of tc creation so execute is off, for now. If looking at this later simply replace the fake ip with real ones in << >> format.",
+        "TestCaseInfo": {
+            "TestDescription": "Verify Devices paired successfully info message is displayed for peripheral device(TLP TG/MG) during deployment.",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Deployment Test",
+            "UserStoryLink": "\"User Story: TOOL-1738\", https://extron.atlassian.net/browse/TOOL-1738",
+            "UserStory": "TOOL-1738 (TLP 1225, 1525 & 1725 MG/TG - Deployment)",
+            "TaskLink": "\"Task Issue: TOOL-1467\", https://extron.atlassian.net/browse/TOOL-1467",
+            "TestCaseLink": "\"Test Case: CSP-T1409\", https://extron.atlassian.net/projects/CSP?selectedItem=com.atlassian.plugins.atlassian-connect-plugin%3Acom.kanoah.test-manager__main-project-page#!/testCase/CSP-T1409",
+            "ProjectFile": "DeployProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "IPCP Pro 350",
+                "devices.0.alias": "Test_Rack_Pro350",
+                "devices.0.part_number": "60-1417-01",
+                "devices.0.network.interfaces.0.address": "<<IPCP350_IPCP_singlenic>>",
+                "devices.1.name": "TLP Pro 1025MG",
+                "devices.1.part_number": "60-1787-12",
+                "devices.1.network.host_network_type": "LAN",
+                "devices.1.network.interfaces.0.address": "10.119.31.100"
+            },
+            "InsertTestData": {
+                "devices.2.name": "TLP1225TG",
+                "devices.2.alias": "TLP1225TG_Alias",
+                "devices.2.part_number": "60-1788-12",
+                "devices.2.network": {},
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces" : [],
+                "devices.2.network.interfaces.0.address": "10.119.31.101",
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.3.name": "TLP1525TG",
+                "devices.3.alias": "TLP1525TG_Alias",
+                "devices.3.part_number": "60-1790-12",
+                "devices.3.network": {},
+                "devices.3.network.host_network_type": "LAN",
+                "devices.3.network.interfaces" : [],
+                "devices.3.network.interfaces.0.address": "10.119.31.102",
+                "devices.3.network.interfaces.0.type": "LAN",
+                "devices.4.name": "TLP1525MG",
+                "devices.4.alias": "TLP1525MG_Alias",
+                "devices.4.part_number": "60-1789-12",
+                "devices.4.network": {},
+                "devices.4.network.host_network_type": "LAN",
+                "devices.4.network.interfaces" : [],
+                "devices.4.network.interfaces.0.address": "10.119.31.103",
+                "devices.4.network.interfaces.0.type": "LAN",
+                "devices.5.name": "TLP1725MG",
+                "devices.5.alias": "TLP1725MG_Alias",
+                "devices.5.part_number": "60-1791-12",
+                "devices.5.network": {},
+                "devices.5.network.host_network_type": "LAN",
+                "devices.5.network.interfaces" : [],
+                "devices.5.network.interfaces.0.address": "10.119.31.104",
+                "devices.5.network.interfaces.0.type": "LAN",
+                "devices.6.name": "TLP1725TG",
+                "devices.6.alias": "TLP1725TG_Alias",
+                "devices.6.part_number": "60-1792-12",
+                "devices.6.network": {},
+                "devices.6.network.host_network_type": "LAN",
+                "devices.6.network.interfaces" : [],
+                "devices.6.network.interfaces.0.address": "10.119.31.105",
+                "devices.6.network.interfaces.0.type": "LAN"
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 1025MG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1225TG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1525TG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1525MG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1725MG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "TLP1725TG<<pairingNegativeMessage>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "False"
+    }
+}

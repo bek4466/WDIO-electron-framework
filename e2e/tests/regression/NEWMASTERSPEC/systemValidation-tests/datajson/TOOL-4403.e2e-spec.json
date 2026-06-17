@@ -1,0 +1,128 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that at the time of Deploying the project, appropriate error messages are displayed when folders contain files having unsupported characters",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Improved File Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1670\", https://extron.atlassian.net/browse/TOOL-4310",
+            "UserStory": "TOOL-4310 (Non-project files containing unsupported characters in a project resource folder)",
+            "TaskLink": "\"Task Issue: TOOL-4403\", https://extron.atlassian.net/plugins/servlet/mobile?originPath=%2Fbrowse%2FTOOL-4403#issue/TOOL-4403",
+            "TestCaseLink": "\"Test Case: TOOL-T4684\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/76959376",
+            "ProjectFile": "InvalidProjectWithInvalidFileNames\\proj.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+
+        "Preconditions": {
+            "ModifyTestData": { 
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "rfile/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "src/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                                {
+                    "MessageText": "layout/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "sound/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ir/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that at the time of Deploy Code only, appropriate error messages are displayed when folders contain files having unsupported characters",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Improved File Validation Test",
+            "UserStoryLink": "\"User Story: TOOL-1670\", https://extron.atlassian.net/browse/TOOL-4310",
+            "UserStory": "TOOL-4310 (Non-project files containing unsupported characters in a project resource folder)",
+            "TaskLink": "\"Task Issue: TOOL-4403\", https://extron.atlassian.net/plugins/servlet/mobile?originPath=%2Fbrowse%2FTOOL-4403#issue/TOOL-4403",
+            "TestCaseLink": "\"Test Case: TOOL-T4685\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4685",
+            "ProjectFile": "InvalidProjectWithInvalidFileNames\\proj.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": { 
+            },
+            "InsertTestData": {
+            },
+            "DeleteData": [
+            ]
+        },        
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy", "DeployCodeOnly"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "rfile/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "src/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                                {
+                    "MessageText": "layout/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "sound/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "ir/projt#$@.txt <<unsupportedCharacterTryAgain>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

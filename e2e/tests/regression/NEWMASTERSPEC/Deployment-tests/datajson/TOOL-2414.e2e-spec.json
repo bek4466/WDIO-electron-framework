@@ -1,0 +1,170 @@
+{
+    "Execute":["TestCase1","TestCase2","TestCase3"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - Missing system.data_file_path - UI.",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", https://extron.atlassian.net/browse/TOOL-2327",
+            "UserStory": "TOOL-2327: Data File - Bad Scenarios",
+            "TaskLink": "\"Task Issue: TOOL-2414\", https://extron.atlassian.net/browse/TOOL-2414",
+            "TestCaseLink": "\"Test Case: TOOL-T357\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T357",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "Secondary Device",
+                "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+                "devices.0.network.interfaces.1.address": "<<IPCP255_IPCP_dualnic_AV>>"
+            },
+            "DeleteData": [
+                "system.data_file_path"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deploySuccessMsg>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<correctCredentialsMessage>>",
+                    "MessageType": "Info",
+                    "Exist" : true
+                },
+                {
+                    "MessageText": "<<hardwareMatchMessage>>",
+                    "MessageType": "Info",
+                    "Exist" : true
+                },
+                {
+                    "MessageText": "<<missingDataFilePath>>",
+                    "MessageType": "Error",
+                    "Exist" : false
+                },
+                {
+                    "MessageText": "Secondary Device<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist" : true
+                }
+            ]
+        }
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment and validations, when primary has right value in project json and peripheral credentials has pointers - Invalid system.data_file_path - UI.vvvvvvvvvvvvv",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", https://extron.atlassian.net/browse/TOOL-2327",
+            "UserStory": "TOOL-2327: Data File - Bad Scenarios",
+            "TaskLink": "\"Task Issue: TOOL-2414\", https://extron.atlassian.net/browse/TOOL-2414",
+            "TestCaseLink": "\"Test Case: TOOL-T359\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T359",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "Secondary Device",
+                "devices.1.network.interfaces.0.address": "<<Pro350_IPCP_1>>"
+            },
+            "DeleteData": [
+                "system.data_file_path"
+            ]
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<missingDataFilePath>>",
+                    "MessageType": "Error",
+                    "Exist" : false
+                },
+                {
+                    "MessageText": "<<invalidNetworkInterfaceAddress>>",
+                    "MessageType": "Error",
+                    "Exist" : true
+                }
+            ]
+        }
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify deployment and validations, when primary has pointers and peripheral credentials has right value in project json - Missing system.data_file_path - UI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deployment",
+            "UserStoryLink": "\"User Story: TOOL-2327\", https://extron.atlassian.net/browse/TOOL-2327",
+            "UserStory": "TOOL-2327: Data File - Bad Scenarios",
+            "TaskLink": "\"Task Issue: TOOL-2414\", https://extron.atlassian.net/browse/TOOL-2414",
+            "TestCaseLink": "\"Test Case: TOOL-T361\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T361",
+            "ProjectFile": "ProtectingSecretsProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.1.name": "Secondary Device",
+                "devices.0.network.interfaces.0.address": "<<IPCP255_IPCP_dualnic>>",
+                "devices.0.network.interfaces.1.address": "<<IPCP255_IPCP_dualnic_AV>>"
+            }
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "system.data_file_path": "dataFile1\\DataFile.json"
+                }
+            },
+            "DeployPage": {
+                "ProjectFilePathInput" : {
+                    "setPath": "ProtectingSecretsProject\\systeminfoTmp.json",
+                    "errorMessageToValidate": "<<invalidDatafilePath>>"
+                }
+            }
+        }
+    }
+}

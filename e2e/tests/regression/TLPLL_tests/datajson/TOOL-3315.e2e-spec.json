@@ -1,0 +1,52 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify TLP w/ LL cannot be peripheral device to another controller",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "System Validation",
+            "UserStoryLink": "\"User Story: TOOL-3129\", https://extron.atlassian.net/browse/TOOL-3129",
+            "UserStory": "TOOL-3129 (TLP x25 w/LL - System Validation)",
+            "TaskLink": "\"Task Issue: TOOL-3315\", https://extron.atlassian.net/browse/TOOL-3315",
+            "ProjectFile": "HWTLPLLProject\\systeminfox25.json",
+            "TestCaseLink": "\"Test Case: TOOL-T862\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/16676400",
+            "TestCaseHeader": "Verify TLP w/ LL cannot be peripheral device to another controller"
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "TestTLPLL",
+                "devices.1.alias": "725M w LL"
+            },
+            "InsertTestData": {
+                "devices.1.network.host_network_type": "LAN",
+                "devices.2.name": "IPCP 550 : IPCP550_IPCP_singlenic",
+                "devices.2.part_number": "60-1418-01",
+                "devices.2.alias": "PanelAlias",
+                "devices.2.network.host_network_type": "LAN",
+                "devices.2.network.interfaces": [],
+                "devices.2.network.interfaces.0.type": "LAN",
+                "devices.2.network.interfaces.0.address": "IPCP550_IPCP_singlenic"
+            }
+        },
+        "Steps": {
+            "Command": "Deploy",
+            "VerifyMessage": [
+                {
+                    "MessageText": "TLP Pro 725M with LinkLicense - Invalid : Primary controller doesn't support the peripheral device.",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

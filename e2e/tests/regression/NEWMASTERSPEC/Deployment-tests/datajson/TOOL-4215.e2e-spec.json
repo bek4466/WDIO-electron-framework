@@ -1,0 +1,316 @@
+{
+    "Execute": [
+        "TestCase1", "TestCase2", "TestCase3", "TestCase4"
+    ],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a TLP w/LL device - SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4149\", https://extron.atlassian.net/browse/TOOL-4149",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4215\", https://extron.atlassian.net/browse/TOOL-4215",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/33488280",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.network.interfaces.0.address": "<<Navigator>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferStatus>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.part_number": "60-1563-02C",
+                    "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>"
+                }
+            },
+            "DeployAction_2": [
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferStatus>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is displayed for successful deploy code only when UUT is used with a TLP w/LL device - SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4149\", https://extron.atlassian.net/browse/TOOL-4149",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4215\", https://extron.atlassian.net/browse/TOOL-4215",
+            "TestCaseLink": "\"Test Case: TOOL-T4605\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/33488338 ",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.part_number": "60-1667-02C",
+                "devices.0.network.interfaces.0.address": "<<TLP300M_LL>>",
+                "devices.1.network.interfaces.0.address": "<<Navigator>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info messages are displayed for successful deployment when UUT is used with a TLP w/LL device (x25M)- SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4149\", https://extron.atlassian.net/browse/TOOL-4149",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4215\", https://extron.atlassian.net/browse/TOOL-4215",
+            "TestCaseLink": "\"Test Case: TOOL-T4604\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/33488280",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+        
+                "devices.0.name" : "TLP Pro 725M",
+                "devices.0.part_number" : "60-1563-02C",
+                "devices.0.network.interfaces.0.address" : "<<TLP725M_LL>>",
+                "devices.1.network.interfaces.0.address": "<<Navigator>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "Deploy"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferStatus>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.part_number": "60-1563-02C",
+                    "devices.0.network.interfaces.0.address": "<<TLP725M_LL>>"
+                }
+            },
+            "DeployAction_2": [
+                "Deploy"
+            ],
+            "VerifyMessage_2": [
+                {
+                    "MessageText": "<<programStartedMessage>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<deploySuccessMsg1>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<fileTransferStatus>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "<<projectDeployment>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that appropriate info message is displayed for successful deploy code only when UUT is used with a TLP w/LL device - SPD TLP LL",
+            "Owner": "Kiran Shrestha",
+            "SuiteType": "Hardware Validation Tests ",
+            "UserStoryLink": "\"User Story: TOOL-4149\", https://extron.atlassian.net/browse/TOOL-4149",
+            "UserStory": "SPD on TLP w/ LL - Hardware Validation",
+            "TaskLink": "\"Task Issue: TOOl-4215\", https://extron.atlassian.net/browse/TOOL-4215",
+            "TestCaseLink": "\"Test Case: TOOL-T4605\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/33488338 ",
+            "ProjectFile": "NavProject\\systeminfo.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name" : "TLP Pro 725M",
+                "devices.0.part_number" : "60-1563-02C",
+                "devices.0.network.interfaces.0.address" : "<<TLP725M_LL>>",
+                "devices.1.network.interfaces.0.address": "<<Navigator>>",
+                "devices.2.network.interfaces.0.address": "<<NAVE_101>>",
+                "devices.3.network.interfaces.0.address": "<<NAVSD_101>>"
+            },
+            "InsertTestData": {},
+            "DeleteData": []
+        },
+        "Credentials": [
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+        ],
+        "Steps": {
+            "DeployAction": [
+                "DeployCodeOnly"
+            ],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployCodeOnlySuccess>>",
+                    "MessageType": "Info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

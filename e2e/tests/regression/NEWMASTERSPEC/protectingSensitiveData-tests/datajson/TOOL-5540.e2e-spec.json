@@ -1,0 +1,199 @@
+{
+  "Execute": [
+    "TestCase1",
+    "TestCase2",
+    "TestCase3"
+  ],
+  "TestCase1": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify tooltip is displayed for invalid Json files",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5540\", https://extron.atlassian.net/browse/TOOL-5540 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4912\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4912 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProtectProjectBtn": {
+          "verifyHoverMessage": "Project must be valid JSON"
+        },
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock##!!.json"
+        },
+        "ProtectProjectBtn2": {
+          "verifyHoverMessage": "Project must be valid JSON"
+        },
+        "ProjectFilePathInput2": {
+          "setPath": "ProtectProjectTest\\AlarmClock_noDataFile.json"
+        },
+        "ProtectProjectBtn3": {
+          "verifyHoverMessage": "Project must be valid JSON"
+        },
+        "ProjectFilePathInput3": {
+          "setPath": "ProtectProjectTest\\AlarmClock-credentials.dat"
+        },
+        "ProtectProjectBtn4": {
+          "verifyHoverMessage": "Project must be valid JSON"
+        },
+        "ProjectFilePathInput4": {
+          "setPath": "ProtectProjectTest\\AlarmClock-certification.dat"
+        },
+        "ProtectProjectBtn5": {
+          "verifyHoverMessage": "Project must be valid JSON"
+        },
+        "ProjectFilePathInput5": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn6": {
+          "verifyHoverMessage": ""
+        }
+      }
+    }
+  },
+  "TestCase2": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify protected projects overwrite previous projects with name conflicts",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5540\", https://extron.atlassian.net/browse/TOOL-5540 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4925\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4925 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "ProtectProjectTest"
+          },
+          "createBtn": {
+            "click": null
+          }
+        }
+      },
+      "CommonMethod": {
+        "saveFileModifiedDate": {
+          "filePath": "ProtectProjectTest\\AlarmClock.cspp"
+        }
+      },
+      "DeployPage2": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "ProtectProjectTest"
+          }
+        }
+      },
+      "CommonMethod2": {
+        "compareFileModifiedDateToSavedDate": {
+          "filePath": "ProtectProjectTest\\AlarmClock.json",
+          "expect": "DifferentFromSaved"
+        }
+      }
+    }
+  },
+  "TestCase3": {
+    "TestCaseInfo": {
+      "TestDescription": "Verify when protecting a project to a destination folder with unsupported characters protection will fail with an error",
+      "Owner": "Kiran Shrestha",
+      "SuiteType": "Protecting Sensitive Data",
+      "UserStoryLink": "\"User Story: TOOL-5327\", https://extron.atlassian.net/browse/TOOL-5327 ",
+      "UserStory": "TOOL-5327: Protect Process",
+      "TaskLink": "\"Task Issue: TOOL-5540\", https://extron.atlassian.net/browse/TOOL-5540 ",
+      "TestCaseLink": "\"Test Case: TOOL-T4926\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/v2/testCase/TOOL-T4926 ",
+      "ProjectFile": "ProtectProjectTest\\AlarmClock.json"
+    },
+    "Steps": {
+      "DeployPage": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "!!##ProtectProjectTest"
+          },
+          "createBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout": "fast",
+      "Banner": {
+        "BannerText": {
+          "exists": true,
+          "verifyTextMatches": "<<protectFailBannerText>>"
+        },
+        "BannerExitButton": {
+          "click": null
+        }
+      },
+
+      
+      "DeployPage2": {
+        "ProjectFilePathInput": {
+          "setPath": "ProtectProjectTest\\AlarmClock.json"
+        },
+        "ProtectProjectBtn": {
+          "click": null
+        },
+        "ProtectProjectPopUp": {
+          "passwordInputBox": {
+            "setPassword": "1234"
+          },
+          "reenterPasswordInputBox": {
+            "setPassword": "1234"
+          },
+          "selectBtn": {
+            "setPath": "!!##ProtectProjectTest\\project"
+          },
+          "createBtn": {
+            "click": null
+          }
+        }
+      },
+      "Timeout2": "fast",
+      "Banner2": {
+        "BannerText": {
+          "exists": true,
+          "verifyTextMatches": "<<protectFailBannerText>>"
+        }
+      }
+    }
+  }
+}

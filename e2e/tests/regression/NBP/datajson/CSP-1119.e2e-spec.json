@@ -1,0 +1,191 @@
+{
+    "TestCase1": {
+        "TestDescription": " Verify that missing key in \"systeminfo.devices.name\"( Peripheral Device) throws appropriate info message",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1119\", \"https://extron.atlassian.net/browse/CSP-1119\"",
+        "TestCaseLink": "\"Test Case: TOOL-T635\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T635\"",
+        "TestCaseHeader": "Build Project and Deploy it",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "DeleteData": [
+            "devices.1.name"
+        ],
+        "VerifyMessage": [
+            {
+                "MessageText": "device[1] - name: Missing key - Default value used \"device[1]\"",
+                "MessageType": "Info",
+                "Exist": true
+            },
+            {"MessageText":"Project deployment completed.", "MessageType":"Info","Exist":true}
+        ],
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestDescription": "Verify that more than 128 characters in \"devices.name\"(Peripheral Device ) in destiny gives appropriate error message",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1119\", \"https://extron.atlassian.net/browse/CSP-1119\"",
+        "TestCaseLink": "\"Test Case: TOOL-T649\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T649\"",
+        "TestCaseHeader": "Verify that more than 128 characters in \"devices.name\"(Peripheral Device ) in destiny gives appropriate error message",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+                "MessageType": "Error",
+                "Exist": true
+            },
+            {"MessageText":"Project deployment completed.", "MessageType":"Info","Exist":true}
+        ],
+        "Execute": "True"
+    },
+    "TestCase3": {
+        "TestDescription": "Verify that duplicate \"devices.name\"(Peripheral Device) in destiny gives appropriate warning message at the time of build and upload.",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1119\", \"https://extron.atlassian.net/browse/CSP-1119\"",
+        "TestCaseLink": "\"Test Case: TOOL-T650\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T650\"",
+        "TestCaseHeader": "Verify that duplicate \"devices.name\"(Peripheral Device) in destiny gives appropriate warning message at the time of build and upload.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "InsertTestData": {
+            "devices.2": {
+                "name": "duplicate",
+                "part_number": "60-1562-02",
+                "username": "admin",
+                "password": "extron",
+                "alias": "PanelAlias",
+                "extron_control_web_id": "9309360b94afa252f847fe2e7754e7fe1409a35b",
+                "network": {
+                    "host_network_type": "LAN",
+                    "interfaces": [
+                        {
+                            "address": "10.113.89.202",
+                            "type": "LAN"
+                        }
+                    ]
+                },
+                "ui": {
+                    "enable_click_sound": true,
+                    "click_sound_file": "touch.wav",
+                    "press_feedback": "none"
+                }            }
+        },
+        "ModifyTestData": {
+            "devices.1.name": "duplicate"
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "duplicate - name: Invalid - Value must be unique",
+                "MessageType": "Warning",
+                "Exist": true
+            },
+            {
+                "MessageText": "NBPProject - Project deployment completed.",
+                "MessageType": "Info",
+                "Exist": true
+            }
+        ],
+
+        "Execute": "True"
+    },
+    "TestCase4": {
+        "TestDescription": "Verify that invalid type \"devices.name\" (Peripheral Device) in destiny gives appropriate error message.",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1119\", \"https://extron.atlassian.net/browse/CSP-1119\"",
+        "TestCaseLink": "\"Test Case: TOOL-T651\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T651\"",
+        "TestCaseHeader": "Verify that invalid type \"devices.name\" (Peripheral Device) in destiny gives appropriate error message.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "ModifyTestData": {
+            "devices.1.name": true
+        },
+        "VerifyMessage": [
+            {
+                "MessageText": "true - name: Invalid - Must be a string between 1 - 128 characters e.g. \"name\": \"device_name\"",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    },
+    "TestCase5": {
+        "TestDescription": "Verify error message should be shown in message pane for missing Peripheral devices's Part number.",
+        "Owner": "Amit B",
+        "SuiteType": "Device Validation",
+        "UserStoryLink": "\"User Story: TOOL-1589\", \"https://extron.atlassian.net/browse/TOOL-1589\"",
+        "UserStory": "TOOL-1589 (NBP Bad Scenarios)",
+        "TaskLink": "\"Task Issue: CSP-1119\", \"https://extron.atlassian.net/browse/CSP-1119\"",
+        "TestCaseLink": "\"Test Case: TOOL-T652\", \"https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T652\"",
+        "TestCaseHeader": "Verify error message should be shown in message pane for missing Peripheral devices's Part number.",
+        "Credentials": [
+          {
+            "user": "admin",
+            "pass": "extron"
+          },
+          {
+            "user": "admin",
+            "pass": "extron"
+          }
+        ],
+        "DeleteData": [
+            "devices.1.part_number"
+        ],
+        "ModifyTestData":{
+            "devices.1.name": "My NBP"
+            },
+        "VerifyMessage": [
+            {
+                "MessageText": "My NBP - part_number: Missing key - e.g. \"part_number\": \"11-2222-33\"",
+                "MessageType": "Error",
+                "Exist": true
+            }
+        ],
+        "Execute": "True"
+    }
+}

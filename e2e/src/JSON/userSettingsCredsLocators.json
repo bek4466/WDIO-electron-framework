@@ -1,0 +1,73 @@
+{
+    "userSettingsBtn": "//button[@class='btn-secondary btn-md']/span[contains(text(),'Project Credentials')]",
+    "userSettingsDisabledBtn": "//button[@class='btn-secondary btn-md']/span[contains(text(),'Project Credentials')]",
+    "table": "//table[@id='deploy-creds-table']",
+    "credsComponent": "#deploy-creds-component",
+    "KevinDisable": "//button[@class='btn-secondary btn-md']/span[contains(text(),'Project Credentials')]",
+    "KevinEnable": "//button[@class='btn-secondary btn-md']/span[contains(text(),'Project Credentials')]",
+    "wholeTable": "//table[@id='deploy-creds-table']",
+    "credsCloseBtn": "//mat-icon[@svgicon='sync_close']",
+    "deviceNameHeader": "#deploy-creds-table-header-deviceName",
+    "IPaddressHeader": "#deploy-creds-table-header-deviceIP",
+    "usernameHeader": "#deploy-creds-table-header-username",
+    "passwordHeader": "#deploy-creds-table-header-password",
+    "firstPage" : "//a[@class='ui-paginator-first ui-paginator-element ui-state-default ui-corner-all']",
+    "previousPage":"//a[@class='ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all']",
+    "defaultPage":"//a[@class='ui-paginator-page ui-paginator-element ui-state-default ui-corner-all ng-star-inserted ui-state-active']",
+    "secondPage":"//a[@class='ui-paginator-page ui-paginator-element ui-state-default ui-corner-all ng-star-inserted']",
+    "nextPage":"//a[@class='ui-paginator-next ui-paginator-element ui-state-default ui-corner-all ui-state-disabled']",
+    "lastPage":"//a[@class='ui-paginator-last ui-paginator-element ui-state-default ui-corner-all ui-state-disabled']",
+    "footer":"//div[@class='ui-paginator-bottom ui-paginator ui-widget ui-widget-header ui-unselectable-text ui-helper-clearfix ng-star-inserted']",
+    "leftPage":"//span[@class='p-paginator-icon pi pi-angle-left']",
+    "rightPage":"//span[@class='p-paginator-icon pi pi-angle-right']",
+    "stepForward":"//span[@class='p-paginator-icon pi pi-angle-double-right']",
+    "stepBackward":"//span[@class='p-paginator-icon pi pi-angle-double-left']",
+    "deviceWarningIcon":"//mat-icon[contains(@id,'deploy-creds-table-icon-row')]",
+    "warningIcons":"//mat-icon[@svgicon='sync_warning_fill']",
+    "saveConnectionManagerButton": "//button[@type = 'button' and contains(text(),'save')]",
+    "cancelConnectionManagerButton":"//button[@type = 'button' and contains(text(),'cancel')]",
+    "closeConnectionManagerIcon":"//html/body/div[2]/div[2]/div/sync-base-dialog/sync-component-header/div/div/sync-icon-button/div/button/div/mat-icon",
+    "grabber": "#grabber",
+    "primaryErrorIcon": "(//div[@class='error-text'])[1]",
+    "secondaryErrorIcon": "(//div[@class='error-text'])[3]",
+    "openFileHelp":"//button[@style='' and contains(text(),' OPEN HELP FILE ')]",
+    "bannerText":"(//div[@fxflex='auto'])[3]",
+    "overWriteCredentials": "//button[@style='' and contains(text(),' OVERWRITE CREDENTIALS ')]",
+    "bannerExitButton": "(//mat-icon[@data-mat-icon-name='sync_close'])[2]",
+    "DeviceNameCol": {
+        "row1DeviceName": "#deploy-creds-table-deviceName-row-0",
+        "row2DeviceName": "#deploy-creds-table-deviceName-row-1",
+        "row3DeviceName": "#deploy-creds-table-deviceName-row-2",
+        "row4DeviceName": "#deploy-creds-table-deviceName-row-3",
+        "row5DeviceName": "#deploy-creds-table-deviceName-row-4"
+    },
+    "IPaddressCol": {
+        "row1IPaddress": "#deploy-creds-table-deviceIP-row-0",
+        "row2IPaddress": "#deploy-creds-table-deviceIP-row-1",
+        "row3IPaddress": "#deploy-creds-table-deviceIP-row-2",
+        "row4IPaddress": "#deploy-creds-table-deviceIP-row-3",
+        "row5IPaddress": "#deploy-creds-table-deviceIP-row-4"
+    },
+    "UserNameCol": {
+        "row1UserName": "#deploy-creds-table-username-row-0",
+        "row2UserName": "#deploy-creds-table-username-row-1",
+        "row3UserName": "#deploy-creds-table-username-row-2",
+        "row4UserName": "#deploy-creds-table-username-row-3",
+        "row5UserName": "#deploy-creds-table-username-row-4"
+    },
+    "PasswordCol": {
+        "row1Password": "#deploy-creds-table-password-row-0",
+        "row2Password": "#deploy-creds-table-password-row-1",
+        "row3Password": "#deploy-creds-table-password-row-2",
+        "row4Password": "#deploy-creds-table-password-row-3",
+        "row5Password": "#deploy-creds-table-password-row-4"
+    },
+    "HoverText": {
+        "primaryRow": "(//div[@class='error-text'])[1]",
+        "secondaryRow": "(//div[@class='error-text'])[3]"
+    },
+    "noDeviceText": "//*[@id='deploy-creds-component']/div[2]/sync-message-template/div/div/span[1]",
+    "infoIcon": "//*[@id='deploy-creds-component']/div[2]/sync-message-template/div/div/img",
+    "noRetrieveText": "//*[@id='deploy-creds-component']/div[2]/sync-message-template/div/div/span[2]",
+    "credentialsbtnenabled_disabled":"//button[contains(@id, 'spinner-button_')]"
+}

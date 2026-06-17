@@ -1,0 +1,19 @@
+{
+    "mainTab": "ControlScript Deployment Utility",
+    "serviceInitializer": "Service Initializer Process!",
+    "ExtronInsider": "Extron Insider Account Sign In | Extron",
+    "SMOKE": "Smoketest:",
+    "REGRESSION":{
+        "Login" : "Access Control Component",
+        "Deployment" : "Deployment Component",
+        "Connection_Manager": "Project Credentials Component",
+        "DEVICE_VAL" : "Device Validation",
+        "SYSTEM_VAL" : "System Validation",
+        "Trace" : "Trace Validation Component",
+        "Program_Log" : "Program Log Component",
+        "Side_Navigation": "Side Navigation Component",
+        "StartStop_Program" : "Start Stop Program Component",
+        "Message_Pane" : "Message Pane Component"
+    },
+    "NON_HARDWARE_TESTS": "UI Validation"
+}

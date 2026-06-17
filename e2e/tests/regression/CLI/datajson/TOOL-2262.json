@@ -1,0 +1,79 @@
+{
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that good deploy info messages are displayed when using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2262\", https://extron.atlassian.net/browse/TOOL-2262",
+            "TestCaseLink": "\"Test Case: TOOL-T224\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T224",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that good deploy info messages are displayed when using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": "Pro350_IPCP_1",
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "info: Project - Project deployment completed.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Device - File transfer successful.",
+                    "MessageType": "info",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "info: My Peripheral Device - Device paired successfully with primary device",
+                    "MessageType": "info",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify that bad deploy error message is displayed when using CLI",
+            "Owner": "Miguel Cruz",
+            "SuiteType": "Deploy Validation",
+            "UserStoryLink": "\"User Story: TOOL-2066\", https://extron.atlassian.net/browse/TOOL-2066",
+            "UserStory": "TOOL-2066 (CLI Deploy - Hardware validation)",
+            "TaskLink": "\"Task Issue: TOOL-2262\", https://extron.atlassian.net/browse/TOOL-2262",
+            "TestCaseLink": "\"Test Case: TOOL-T225\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T225",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json",
+            "TestCaseHeader": "Verify that bad deploy error message is displayed when using CLI"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "system.name": "Project",
+                "devices.0.name": "My Device",
+                "devices.0.network.interfaces.0.address": true,
+                "devices.1.part_number": "60-1794-01",
+                "devices.1.name": "My Peripheral Device"
+            }
+        },
+        "Steps": {
+            "CommandLineParams": "cliCommand",
+            "VerifyExitCode": "FailedDeploy",
+            "VerifyCLIMessage": [
+                {
+                    "MessageText": "error: Project - Project deployment failed.",
+                    "MessageType": "error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}

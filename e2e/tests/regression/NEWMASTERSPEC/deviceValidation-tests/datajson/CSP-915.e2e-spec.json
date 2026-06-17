@@ -1,0 +1,181 @@
+{
+    "Execute":["TestCase1", "TestCase2"],
+    "TestCase1": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify invalid network.interfaces.type error message shown when Single NIC Controller given Non-LAN type.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1659\", https://extron.atlassian.net/browse/TOOL-1659 ",
+            "UserStory": "TOOL-1659 (Network Interface Validation)",
+            "TaskLink": "\"Task Issue: TOOL-1484\", https://extron.atlassian.net/browse/TOOL-1484 ",
+            "TestCaseLink": "\"Test Case: TOOL-4085\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4085 ",
+            "ProjectFile": "GoldenSinglenicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.network.interfaces.0.type": "OOB"
+            },
+            "InsertTestData": {
+              
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<missingNetworkInterfaceType>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    },
+
+    "TestCase2": {
+        "TestCaseInfo": {
+            "TestDescription": "Verify invalid network.interfaces.type error message shown when Single NIC Controller given Non-LAN type.",
+            "Owner": "Alaa Abdin",
+            "SuiteType": "Device Validation Tests",
+            "UserStoryLink": "\"User Story: TOOL-1659\", https://extron.atlassian.net/browse/TOOL-1659 ",
+            "UserStory": "TOOL-1659 (Network Interface Validation)",
+            "TaskLink": "\"Task Issue: TOOL-1484\", https://extron.atlassian.net/browse/TOOL-1484 ",
+            "TestCaseLink": "\"Test Case: TOOL-4086\", https://extron.atlassian.net/projects/TOOL?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testCase/TOOL-T4086 ",
+            "ProjectFile": "GoldenDualnicProject\\systeminfo.json",
+            "EnvironmentFile": "C:\\projects\\apps\\extron-ui-prog-comp\\e2e\\src\\JSON\\CLI.json"
+        },
+        "Preconditions": {
+            "ModifyTestData": {
+                "devices.0.name": "My Primary",
+                "devices.0.network.interfaces.0.type": "Charlie",
+                "devices.0.network.interfaces.1.type": "Delta"
+            },
+            "InsertTestData": {
+              
+            },
+            "DeleteData": [
+               
+            ]
+        },
+        "Credentials": [
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+              "user": "admin",
+              "pass": "extron"
+            },
+            {
+                "user": "admin",
+                "pass": "extron"
+            }
+          ],
+        "Steps": {
+            "DeployAction": ["Deploy"],
+            "VerifyMessage": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<missingNetworkInterfaceTypeDual>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile": {
+                "ModifyTestData": {
+                    "devices.0.network.interfaces.0.type": "LAN"
+                },
+                "InsertTestData": {
+                    
+                },
+                "DeleteData": [
+                    
+                ]
+            },
+
+            "DeployAction2": [
+            "ClearMessagePane",
+            "Deploy"
+            ],
+            "VerifyMessage2": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<missingNetworkInterfaceTypeDualAVLAN>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ],
+            "EditProjectFile2": {
+                "ModifyTestData": {
+                    "devices.0.network.interfaces.0.type": "Charlie",
+                    "devices.0.network.interfaces.1.type": "AVLAN"
+                },
+                "InsertTestData": {
+                    
+                },
+                "DeleteData": [
+                    
+                ]
+            },
+
+            "DeployAction3": [
+            "ClearMessagePane",
+            "Deploy"
+            ],
+            "VerifyMessage3": [
+                {
+                    "MessageText": "<<deployFailureMsg>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                },
+                {
+                    "MessageText": "My Primary<<missingNetworkInterfaceType>>",
+                    "MessageType": "Error",
+                    "Exist": true
+                }
+            ]
+        },
+        "Execute": "True"
+    }
+}
