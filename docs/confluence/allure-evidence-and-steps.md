@@ -14,7 +14,7 @@ Every test can include:
 | -------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------- |
 | Suite labels               | `annotateTest()`                       | Groups results by smoke, regression, feature, and story.                                      |
 | Owner, severity, tags      | `annotateTest()`                       | Improves filtering and triage.                                                                |
-| Links                      | `annotateTest()` or JSON metadata      | Connects tests to requirements, tickets, or mock test case pages.                             |
+| Links                      | `annotateTest()` or JSON metadata      | Connects tests to requirements, tickets, or test case pages.                                  |
 | Business steps             | `allureStep()` or JSON flow step names | Shows the readable scenario flow.                                                             |
 | JSON test data             | `attachJson()` or JSON runner          | Shows exactly what data drove the test.                                                       |
 | Final screenshot           | `afterTest` evidence hook              | Captures the renderer state at the end of every test.                                         |
@@ -31,10 +31,8 @@ Generated report files stay under `reports/`, which is ignored by Git.
 Use Allure steps for actions that explain business intent:
 
 ```ts
-await allureStep('Open sample dashboard', () => sampleDashboardScreen.open());
-await allureStep('Increment counter through page object', () =>
-  sampleDashboardScreen.incrementCounter(),
-);
+await allureStep('Open login screen', () => loginScreen.open());
+await allureStep('Submit valid credentials', () => loginScreen.login(username, password));
 ```
 
 Avoid adding Allure steps for every selector lookup or every WebDriver command. Those details belong in the WDIO and ChromeDriver log attachments.
@@ -64,18 +62,18 @@ The TypeScript spec maps the JSON `action` to a typed handler. This gives the re
 
 ## Links
 
-Allure links can point to real or mock systems:
+Allure links can point to real systems:
 
 ```json
 "links": [
   {
-    "name": "Mock requirements",
-    "url": "https://example.com/wdio-electron-framework/requirements",
+    "name": "Login requirements",
+    "url": "https://example.com/requirements/login",
     "type": "requirement"
   },
   {
-    "name": "Mock test case",
-    "url": "https://example.com/wdio-electron-framework/test-cases/JSON-SMOKE-001",
+    "name": "Login smoke test case",
+    "url": "https://example.com/test-cases/LOGIN-SMOKE-001",
     "type": "test_case"
   }
 ]
@@ -86,7 +84,7 @@ Recommended link types:
 | Type          | Example Destination                              |
 | ------------- | ------------------------------------------------ |
 | `requirement` | Jira story, Confluence requirement, product spec |
-| `test_case`   | TestRail, Zephyr, Xray, or mock test case URL    |
+| `test_case`   | TestRail, Zephyr, Xray, or test case URL         |
 | `issue`       | Defect or support ticket                         |
 | `tms`         | Test management system item                      |
 
@@ -100,7 +98,7 @@ Windows command:
 $env:E2E_RECORD_VIDEO="true"
 $env:E2E_VIDEO_MAX_SECONDS="15"
 $env:E2E_VIDEO_FPS="10"
-yarn test:json-sample
+yarn test:smoke
 ```
 
 Requirements:

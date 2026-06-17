@@ -16,13 +16,13 @@ Before adding a test, confirm:
 
 ## Naming Guidelines
 
-| Artifact        | Convention                                        | Example                    |
-| --------------- | ------------------------------------------------- | -------------------------- |
-| Screen object   | `<feature>.screen.ts`                             | `login.screen.ts`          |
-| Smoke spec      | `<behavior>.spec.ts` under `src/specs/smoke`      | `app-launch.spec.ts`       |
-| Regression spec | `<behavior>.spec.ts` under `src/specs/regression` | `window-state.spec.ts`     |
-| Test data       | `<feature>.data.ts`                               | `sample-dashboard.data.ts` |
-| Selectors       | `data-testid` value describes purpose             | `submit-login-button`      |
+| Artifact        | Convention                                        | Example                |
+| --------------- | ------------------------------------------------- | ---------------------- |
+| Screen object   | `<feature>.screen.ts`                             | `login.screen.ts`      |
+| Smoke spec      | `<behavior>.spec.ts` under `src/specs/smoke`      | `app-launch.spec.ts`   |
+| Regression spec | `<behavior>.spec.ts` under `src/specs/regression` | `window-state.spec.ts` |
+| Test data       | `<feature>.data.ts`                               | `login.data.ts`        |
+| Selectors       | `data-testid` value describes purpose             | `submit-login-button`  |
 
 ## Step 1: Add Test Data
 

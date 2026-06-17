@@ -14,32 +14,6 @@ export type ElectronCapability = {
   'wdio:electronServiceOptions': ElectronServiceOptions;
 };
 
-function getSampleAppBinaryPath(): string {
-  if (process.platform === 'darwin') {
-    return path.resolve(
-      process.cwd(),
-      'dist/electron-smoke-app/Electron 41 Smoke App.app/Contents/MacOS/Electron 41 Smoke App',
-    );
-  }
-
-  if (process.platform === 'win32') {
-    return path.resolve(process.cwd(), 'dist/electron-smoke-app/electron.exe');
-  }
-
-  return path.resolve(process.cwd(), 'dist/electron-smoke-app/electron');
-}
-
-function getSampleAppDirectory(): string {
-  if (process.platform === 'darwin') {
-    return path.resolve(
-      process.cwd(),
-      'dist/electron-smoke-app/Electron.app/Contents/Resources/app',
-    );
-  }
-
-  return path.resolve(process.cwd(), 'dist/electron-smoke-app/resources/app');
-}
-
 function isWindowsAbsolutePath(value: string): boolean {
   return /^[a-zA-Z]:[\\/]/.test(value) || /^\\\\/.test(value);
 }
@@ -56,16 +30,15 @@ export function getElectronServiceOptions(): ElectronServiceOptions {
   const appBinaryPath = getEnv('ELECTRON_APP_BINARY_PATH');
   const appArgs = getListEnv('ELECTRON_APP_ARGS');
 
-  if (appBinaryPath) {
-    return {
-      appBinaryPath: normalizePathForCurrentHost(appBinaryPath),
-      appArgs,
-    };
+  if (!appBinaryPath) {
+    throw new Error(
+      'ELECTRON_APP_BINARY_PATH is required. Set it to the packaged Electron app binary, for example C:\\Apps\\YourElectronApp\\YourElectronApp.exe on Windows.',
+    );
   }
 
   return {
-    appBinaryPath: getSampleAppBinaryPath(),
-    appArgs: [getSampleAppDirectory(), ...appArgs],
+    appBinaryPath: normalizePathForCurrentHost(appBinaryPath),
+    appArgs,
   };
 }
 
@@ -74,8 +47,4 @@ export function buildElectronCapability(): ElectronCapability {
     browserName: 'electron',
     'wdio:electronServiceOptions': getElectronServiceOptions(),
   };
-}
-
-export function isUsingPackagedBinary(): boolean {
-  return getEnv('ELECTRON_APP_BINARY_PATH') !== '';
 }

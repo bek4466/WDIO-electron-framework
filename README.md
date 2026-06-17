@@ -18,10 +18,9 @@ Scalable WebdriverIO v9 + TypeScript framework for testing Electron `41.0.0` des
 yarn install
 yarn verify:electron
 yarn typecheck
-yarn test:smoke
 ```
 
-By default, `yarn test:smoke` launches the included sample Electron app. This proves the framework, WDIO service, TypeScript config, page object model, data layer, and reports all work before connecting it to a real app.
+Set `ELECTRON_APP_BINARY_PATH` before launching WDIO. The framework no longer ships a mock Electron app; it is configured to run against your packaged Electron application.
 
 ## Run Against a Packaged `.exe`
 
@@ -46,7 +45,7 @@ The capability is built in `config/electron.config.ts` and passed to `wdio-elect
 }
 ```
 
-When no `.exe` path is set, `yarn test:smoke` creates a lightweight packaged sample app under `dist/electron-smoke-app` and points WDIO at that real Electron binary for a runnable baseline.
+`ELECTRON_APP_BINARY_PATH` is required for WDIO runs. On Windows, point it at the packaged `.exe`.
 
 ## Project Layout
 
@@ -58,7 +57,6 @@ src/specs/smoke/                Critical launch and happy-path checks
 src/specs/regression/           Broader regression coverage
 src/test-data/                  Data-driven test inputs and expected values
 src/support/                    Shared selectors, waits, and assertions
-src/fixtures/electron-smoke-app/ Local Electron 41 smoke app
 e2e/src/                        Imported legacy E2E page objects and JSON data
 e2e/tests/                      Imported legacy E2E specs and JSON-driven master specs
 scripts/                        Maintenance and validation scripts
@@ -72,7 +70,6 @@ docs/confluence/                Confluence-ready framework documentation and dia
 yarn clean
 yarn test:smoke
 yarn test:regression
-yarn test:json-sample
 yarn test:e2e-json
 yarn typecheck
 yarn format
@@ -96,9 +93,9 @@ The report includes suite/epic/feature/story labels, severity, owner, tags, envi
 - Page object model starts with `BaseScreen` in `src/pages/base.screen.ts`.
 - Test data stays outside specs in `src/test-data`.
 - Selectors use `data-testid` by default for stable automation contracts.
-- Screenshots are saved to `reports/screenshots` on failure.
+- Screenshots are saved to `reports/screenshots`.
 - Allure results are saved to `reports/allure-results`.
-- The sample dashboard spec is skipped automatically when `ELECTRON_APP_BINARY_PATH` is set, so real `.exe` smoke runs stay generic until app-specific page objects are added.
+- Smoke and regression suites require a packaged Electron app path.
 
 ## Adding Real App Coverage
 

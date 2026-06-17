@@ -2,48 +2,22 @@
 
 ## Summary
 
-This branch extends the framework with two JSON-driven layers:
+This branch extends the framework with legacy E2E catalog support under `e2e/`, which discovers and validates imported JSON test cases from master manifests.
 
-- Legacy E2E catalog support under `e2e/`, which discovers and validates imported JSON test cases from master manifests.
-- A runnable sample JSON smoke flow under `src/`, which executes JSON-defined steps against the Electron 41 sample app through the framework page object model.
-
-The first layer protects the imported historical test assets. The second layer is the recommended pattern for adding new maintainable JSON-driven automation.
-
-## New Runnable JSON Sample
-
-The sample flow lives in:
-
-```text
-src/test-data/json/sample-dashboard.flow.json
-```
-
-The spec that consumes it lives in:
-
-```text
-src/specs/smoke/json-sample-dashboard.spec.ts
-```
-
-Run only this sample:
-
-```bash
-yarn test:json-sample
-```
-
-The command launches the packaged Electron 41 sample app, reads the JSON flow, maps each JSON action to a typed handler, and validates the UI through `sampleDashboardScreen`.
+Earlier temporary local validation assets have been removed. The framework now expects a real packaged Electron binary through `ELECTRON_APP_BINARY_PATH`.
 
 ## Execution Flow
 
 ```mermaid
 flowchart TD
-  A["yarn test:json-sample"] --> B["wdio.conf.ts sampleJson suite"]
-  B --> C["json-sample-dashboard.spec.ts"]
-  C --> D["sample-dashboard.flow.json"]
-  C --> E["runJsonFlowTest()"]
-  E --> F["Allure metadata and JSON attachment"]
-  E --> G["Typed step handler map"]
-  G --> H["sampleDashboardScreen page object"]
-  G --> I["expectTextToContain shared assertion"]
-  H --> J["Electron 41 sample app UI"]
+  A["ELECTRON_APP_BINARY_PATH set"] --> B["yarn test:e2e-json"]
+  B --> C["wdio.conf.ts e2eJson suite"]
+  C --> D["Refactored master specs"]
+  D --> E["defineJsonMasterSuite()"]
+  E --> F["Manifest discovery"]
+  F --> G["Executable JSON cases"]
+  G --> H["Allure metadata and JSON attachments"]
+  H --> I["Packaged Electron app evidence"]
 ```
 
 ## JSON Test Shape
@@ -84,4 +58,4 @@ Example step:
 4. Define a typed action union and handler map.
 5. Run `yarn typecheck`, `yarn format:check`, and the relevant WDIO suite.
 
-For large imported legacy cases, continue using `yarn test:e2e-json` and the catalog runner documented in `docs/e2e-json-data-driven.md`.
+For imported legacy cases, continue using `yarn test:e2e-json` and the catalog runner documented in `docs/e2e-json-data-driven.md`.

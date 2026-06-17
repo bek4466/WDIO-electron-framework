@@ -31,7 +31,6 @@ flowchart LR
     AllureResults["reports/allure-results"]
     AllureReport["reports/allure-report"]
     Screenshots["reports/screenshots"]
-    Dist["dist/electron-smoke-app"]
   end
 
   Specs --> TestData
@@ -50,7 +49,6 @@ flowchart LR
   ReportingConfig --> Screenshots
   WDIO --> AllureResults
   AllureResults --> AllureReport
-  ElectronConfig --> Dist
 ```
 
 ## Test Execution Sequence
@@ -60,7 +58,6 @@ sequenceDiagram
   autonumber
   participant Engineer as Automation Engineer
   participant Yarn as Yarn Script
-  participant Packager as Sample App Packager
   participant WDIO as WDIO Runner
   participant Service as Electron Service
   participant Driver as ChromeDriver
@@ -69,8 +66,7 @@ sequenceDiagram
   participant Allure as Allure Results
 
   Engineer->>Yarn: yarn test:smoke
-  Yarn->>Packager: pretest packages sample app
-  Packager-->>Yarn: dist/electron-smoke-app ready
+  Engineer->>Yarn: set ELECTRON_APP_BINARY_PATH
   Yarn->>WDIO: wdio run ./wdio.conf.ts --suite smoke
   WDIO->>Service: create Electron capability
   Service->>Driver: start browser automation session
@@ -105,11 +101,8 @@ flowchart TD
   Start["Test command starts"] --> EnvCheck{"ELECTRON_APP_BINARY_PATH set?"}
   EnvCheck -- "Yes" --> Normalize["Normalize provided binary path"]
   Normalize --> RealApp["Launch real packaged Electron app"]
-  EnvCheck -- "No" --> PackageSample["Package local Electron sample app"]
-  PackageSample --> ResolveSample["Resolve platform-specific sample binary"]
-  ResolveSample --> SampleApp["Launch included sample app"]
+  EnvCheck -- "No" --> ConfigError["Fail fast with setup error"]
   RealApp --> WDIO["WDIO executes specs"]
-  SampleApp --> WDIO
 ```
 
 ## Allure Reporting Flow

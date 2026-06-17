@@ -6,7 +6,6 @@ The WDIO Electron Framework is a scalable TypeScript automation framework for El
 
 The framework can run against:
 
-- the included packaged Electron sample app
 - a real packaged Electron binary through `ELECTRON_APP_BINARY_PATH`
 - a Windows `.exe` path when tests are executed on Windows
 
@@ -39,7 +38,6 @@ The framework can run against:
 config/                         WDIO, Electron, environment, and reporting config
 docs/                           Framework usage and Confluence-ready documentation
 scripts/                        Maintenance, packaging, and validation scripts
-src/fixtures/electron-smoke-app/ Local Electron 41 sample app
 src/pages/                      Base page/screen abstractions
 src/screens/                    Page object model classes
 src/specs/smoke/                Critical launch and happy-path checks
@@ -47,7 +45,6 @@ src/specs/regression/           Broader regression coverage
 src/support/                    Selectors, waits, assertions, Allure helpers
 src/test-data/                  Data-driven inputs and expectations
 reports/                        Generated test output, ignored by git
-dist/                           Generated packaged sample app, ignored by git
 ```
 
 ## Key Configuration Files
@@ -59,19 +56,9 @@ dist/                           Generated packaged sample app, ignored by git
 | `config/env.ts`                         | Typed environment variable helpers                |
 | `config/reporting.config.ts`            | Report and screenshot output paths                |
 | `src/support/allure.ts`                 | Reusable Allure labels, steps, and attachments    |
-| `scripts/package-sample-app.mjs`        | Packages the local Electron sample app            |
 | `scripts/validate-electron-version.mjs` | Verifies Electron is pinned to `41.0.0`           |
 
 ## Execution Modes
-
-### Included Sample App
-
-The default smoke and regression runs package and launch the included Electron sample app. This validates the framework end to end without requiring a real product build.
-
-```bash
-yarn test:smoke
-yarn test:regression
-```
 
 ### Real Packaged Electron App
 
@@ -97,12 +84,12 @@ yarn test:smoke
 
 ## Environment Variables
 
-| Variable                   | Required | Description                                                                    | Example                          |
-| -------------------------- | -------- | ------------------------------------------------------------------------------ | -------------------------------- |
-| `ELECTRON_APP_BINARY_PATH` | No       | Path to the real packaged Electron binary. If omitted, the sample app is used. | `C:\Apps\App\App.exe`            |
-| `ELECTRON_APP_ARGS`        | No       | Comma-separated arguments passed to the Electron app.                          | `--automation,--disable-updates` |
-| `EXPECTED_WINDOW_TITLES`   | No       | Comma-separated titles used by launch validation.                              | `Your App,Login`                 |
-| `WAIT_TIMEOUT_MS`          | No       | Default wait timeout in milliseconds.                                          | `15000`                          |
+| Variable                   | Required | Description                                           | Example                          |
+| -------------------------- | -------- | ----------------------------------------------------- | -------------------------------- |
+| `ELECTRON_APP_BINARY_PATH` | Yes      | Path to the real packaged Electron binary.            | `C:\Apps\App\App.exe`            |
+| `ELECTRON_APP_ARGS`        | No       | Comma-separated arguments passed to the Electron app. | `--automation,--disable-updates` |
+| `EXPECTED_WINDOW_TITLES`   | No       | Comma-separated titles used by launch validation.     | `Your App,Login`                 |
+| `WAIT_TIMEOUT_MS`          | No       | Default wait timeout in milliseconds.                 | `15000`                          |
 
 ## Common Commands
 
@@ -113,7 +100,7 @@ yarn test:smoke
 | `yarn typecheck`       | Run TypeScript compile checks                      |
 | `yarn format:check`    | Verify Prettier formatting                         |
 | `yarn format`          | Format project files                               |
-| `yarn clean`           | Remove generated reports and packaged sample app   |
+| `yarn clean`           | Remove generated reports and transient output      |
 | `yarn test:smoke`      | Run smoke suite                                    |
 | `yarn test:regression` | Run regression suite                               |
 | `yarn test:exe`        | Run smoke suite against configured packaged binary |
@@ -212,5 +199,4 @@ yarn allure:generate
 | Electron launches default app error           | Packaged app path points to Electron shell instead of real app resources | Verify packaging output and `appBinaryPath`              |
 | No renderer windows found                     | App failed to launch or startup is too slow                              | Check app path, app args, and increase `WAIT_TIMEOUT_MS` |
 | Allure report is empty                        | Tests did not run or results directory was cleaned                       | Run a test before `yarn allure:generate`                 |
-| Real app tests fail sample selectors          | Sample-only specs are not intended for real app binaries                 | Add product-specific screen objects and specs            |
 | Windows `.exe` path fails on non-Windows host | `.exe` must run on Windows                                               | Execute the `.exe` suite on a Windows machine            |
