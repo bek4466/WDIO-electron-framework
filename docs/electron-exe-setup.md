@@ -10,7 +10,7 @@ Set `ELECTRON_APP_BINARY_PATH` to the packaged `.exe` before running the smoke s
 $env:ELECTRON_APP_BINARY_PATH="C:\Apps\YourElectronApp\YourElectronApp.exe"
 $env:ELECTRON_APP_ARGS="--automation,--disable-updates"
 $env:EXPECTED_WINDOW_TITLES="Your App"
-npm run test:exe
+yarn test:exe
 ```
 
 The WDIO capability is generated in `config/electron.config.ts`:
@@ -27,7 +27,7 @@ The WDIO capability is generated in `config/electron.config.ts`:
 
 ## Local sample app
 
-When `ELECTRON_APP_BINARY_PATH` is not set, `npm run test:smoke` first creates a lightweight packaged sample app in:
+When `ELECTRON_APP_BINARY_PATH` is not set, `yarn test:smoke` first creates a lightweight packaged sample app in:
 
 ```text
 dist/electron-smoke-app

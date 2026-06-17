@@ -4,6 +4,7 @@
   "description": "Scalable WebdriverIO TypeScript automation framework for Electron 41 applications.",
   "private": false,
   "type": "module",
+  "packageManager": "yarn@1.22.22",
   "license": "MIT",
   "scripts": {
     "clean": "node ./scripts/clean-results.mjs",

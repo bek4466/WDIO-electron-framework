@@ -15,13 +15,13 @@ Scalable WebdriverIO v9 + TypeScript framework for testing Electron `41.0.0` des
 ## Quick Start
 
 ```bash
-npm install
-npm run verify:electron
-npm run typecheck
-npm run test:smoke
+yarn install
+yarn verify:electron
+yarn typecheck
+yarn test:smoke
 ```
 
-By default, `npm run test:smoke` launches the included sample Electron app. This proves the framework, WDIO service, TypeScript config, page object model, data layer, and reports all work before connecting it to a real app.
+By default, `yarn test:smoke` launches the included sample Electron app. This proves the framework, WDIO service, TypeScript config, page object model, data layer, and reports all work before connecting it to a real app.
 
 ## Run Against a Packaged `.exe`
 
@@ -31,7 +31,7 @@ Use `ELECTRON_APP_BINARY_PATH` for the real Windows Electron executable:
 $env:ELECTRON_APP_BINARY_PATH="C:\Apps\YourElectronApp\YourElectronApp.exe"
 $env:ELECTRON_APP_ARGS="--automation"
 $env:EXPECTED_WINDOW_TITLES="Your App"
-npm run test:exe
+yarn test:exe
 ```
 
 The capability is built in `config/electron.config.ts` and passed to `wdio-electron-service` as:
@@ -46,7 +46,7 @@ The capability is built in `config/electron.config.ts` and passed to `wdio-elect
 }
 ```
 
-When no `.exe` path is set, `npm run test:smoke` creates a lightweight packaged sample app under `dist/electron-smoke-app` and points WDIO at that real Electron binary for a runnable baseline.
+When no `.exe` path is set, `yarn test:smoke` creates a lightweight packaged sample app under `dist/electron-smoke-app` and points WDIO at that real Electron binary for a runnable baseline.
 
 ## Project Layout
 
@@ -66,13 +66,13 @@ docs/                           Usage notes
 ## Common Commands
 
 ```bash
-npm run clean
-npm run test:smoke
-npm run test:regression
-npm run typecheck
-npm run format
-npm run allure:generate
-npm run allure:open
+yarn clean
+yarn test:smoke
+yarn test:regression
+yarn typecheck
+yarn format
+yarn allure:generate
+yarn allure:open
 ```
 
 ## Framework Notes
@@ -94,5 +94,5 @@ npm run allure:open
 
 ```powershell
 $env:ELECTRON_APP_BINARY_PATH="C:\Apps\YourElectronApp\YourElectronApp.exe"
-npm run test:smoke
+yarn test:smoke
 ```
