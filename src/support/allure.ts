@@ -13,6 +13,11 @@ type AllureMetadata = {
   owner?: string;
   tags?: string[];
   description?: string;
+  links?: Array<{
+    name: string;
+    url: string;
+    type?: string;
+  }>;
 };
 
 export async function annotateTest(metadata: AllureMetadata): Promise<void> {
@@ -54,6 +59,10 @@ export async function annotateTest(metadata: AllureMetadata): Promise<void> {
 
   for (const tag of metadata.tags ?? []) {
     await allureReporter.addTag(tag);
+  }
+
+  for (const link of metadata.links ?? []) {
+    await allureReporter.addLink(link.url, link.name, link.type);
   }
 }
 

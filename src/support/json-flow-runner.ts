@@ -11,6 +11,11 @@ export type JsonFlowMetadata = {
   owner?: string;
   tags?: string[];
   description?: string;
+  links?: Array<{
+    name: string;
+    url: string;
+    type?: string;
+  }>;
 };
 
 export type JsonFlowStep<TAction extends string = string> = {

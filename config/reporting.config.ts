@@ -6,6 +6,8 @@ export const reportPaths = {
   allureResults: path.resolve(process.cwd(), 'reports/allure-results'),
   allureReport: path.resolve(process.cwd(), 'reports/allure-report'),
   screenshots: path.resolve(process.cwd(), 'reports/screenshots'),
+  videos: path.resolve(process.cwd(), 'reports/videos'),
+  wdioLogs: path.resolve(process.cwd(), 'reports/wdio-logs'),
 };
 
 export function ensureReportDirectories(): void {

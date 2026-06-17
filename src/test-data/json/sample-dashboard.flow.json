@@ -12,7 +12,19 @@
         "severity": "critical",
         "owner": "QA Automation",
         "tags": ["json-driven", "pom", "sample-app"],
-        "description": "Validates that JSON test data can drive screen object actions and shared assertions against the Electron 41 sample app."
+        "description": "Validates that JSON test data can drive screen object actions and shared assertions against the Electron 41 sample app.",
+        "links": [
+          {
+            "name": "Mock requirements",
+            "url": "https://example.com/wdio-electron-framework/requirements",
+            "type": "requirement"
+          },
+          {
+            "name": "Mock test case",
+            "url": "https://example.com/wdio-electron-framework/test-cases/JSON-SMOKE-001",
+            "type": "test_case"
+          }
+        ]
       },
       "data": {
         "title": "Electron 41 Smoke App",
