@@ -288,19 +288,6 @@ export function defineJsonMasterSuite(config: MasterSuiteConfig): void {
   const cases = discoverCases(config);
 
   describe(config.title, () => {
-    before(async () => {
-      if (executionMode === 'live') {
-        debugLog('Starting live JSON suite bootstrap', {
-          title: config.title,
-          cases: cases.length,
-        });
-        await bootstrapLiveJsonSession();
-        debugLog('Finished live JSON suite bootstrap', {
-          title: config.title,
-        });
-      }
-    });
-
     it('loads JSON-driven test cases from manifests', async () => {
       await annotateTest({
         suite: config.suite,
@@ -350,6 +337,16 @@ export function defineJsonMasterSuite(config: MasterSuiteConfig): void {
         await attachJson('E2E JSON test case', sanitizeForReport(testCase.raw));
 
         if (executionMode === 'live') {
+          debugLog('Starting live JSON test bootstrap', {
+            title: config.title,
+            caseId: testCase.id,
+          });
+          await bootstrapLiveJsonSession();
+          debugLog('Finished live JSON test bootstrap', {
+            title: config.title,
+            caseId: testCase.id,
+          });
+
           await allureStep('Execute JSON case against live Electron UI', () =>
             executeJsonCaseLive({
               id: testCase.id,
