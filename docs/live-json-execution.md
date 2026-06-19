@@ -13,7 +13,7 @@ Use `live` when you want the master specs to click/type/verify against the packa
 $env:CSDU_EXE_LOCATION="C:\Program Files\Extron\ControlScript Deployment Utility\ControlScript Deployment Utility.exe"
 $env:E2E_JSON_EXECUTION_MODE="live"
 $env:E2E_JSON_LIMIT="1"
-$env:E2E_JSON_FOLDERS="smoke-tests"
+$env:E2E_JSON_FOLDERS="Deployment-tests"
 $env:E2E_APP_READY_TITLE="ControlScript Deployment Utility"
 $env:E2E_APP_READY_SELECTOR="#deploy-component"
 $env:E2E_RESOURCE_ROOT="C:\path\to\e2e\resources"
@@ -39,6 +39,24 @@ Remove `E2E_JSON_LIMIT` after the first live case is stable.
 | `ELECTRON_APP_BROWSER_VERSION`               | Optional explicit Chromium/browser version for ChromeDriver matching.              |
 | `ELECTRON_AUTO_DETECT_BROWSER_VERSION=false` | Disables automatic browser-version detection from the `.exe`.                      |
 | `CHROMEDRIVER_BINARY_PATH`                   | Optional explicit ChromeDriver executable path.                                    |
+
+## Startup Timeout Triage
+
+If the app opens but WDIO waits and then reports `WebDriverError: Operation was aborted due to timeout`, first confirm the framework reaches the real app window instead of the splash/loading renderer:
+
+1. Set `E2E_JSON_FOLDERS=Deployment-tests` and `E2E_JSON_LIMIT=1` so only the first deployment case runs.
+2. Set `E2E_APP_READY_SELECTOR` to a selector that only exists after the real deployment UI is loaded. Prefer a stable application selector over a splash-screen selector.
+3. Increase `E2E_APP_READY_TIMEOUT_MS` if the packaged `.exe` needs a longer first launch.
+4. Review `reports/wdio-logs` and the Allure attachment named `Electron renderer readiness state`; it records the last window title, URL, configured selector, and whether the selector was found.
+
+Example:
+
+```powershell
+$env:E2E_JSON_FOLDERS="Deployment-tests"
+$env:E2E_JSON_LIMIT="1"
+$env:E2E_APP_READY_TIMEOUT_MS="180000"
+$env:E2E_APP_READY_SELECTOR="#deploy-component"
+```
 
 ## Live Mapping Coverage
 

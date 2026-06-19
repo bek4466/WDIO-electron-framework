@@ -101,19 +101,24 @@ async function attachFinalScreenshot(test: TestLike, isFailure: boolean): Promis
 }
 
 async function attachRuntimeState(result: TestResultLike): Promise<void> {
-  const runtimeState = await browser.execute(() => ({
-    title: document.title,
-    url: globalThis.location.href,
-    userAgent: navigator.userAgent,
-    platform: navigator.platform,
-    webdriver: navigator.webdriver,
-    viewport: {
-      width: globalThis.innerWidth,
-      height: globalThis.innerHeight,
-      devicePixelRatio: globalThis.devicePixelRatio,
-    },
-    documentReadyState: document.readyState,
-  }));
+  const runtimeState = await browser
+    .execute(() => ({
+      title: document.title,
+      url: globalThis.location.href,
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      webdriver: navigator.webdriver,
+      viewport: {
+        width: globalThis.innerWidth,
+        height: globalThis.innerHeight,
+        devicePixelRatio: globalThis.devicePixelRatio,
+      },
+      documentReadyState: document.readyState,
+    }))
+    .catch((error: Error) => ({
+      available: false,
+      reason: error.message,
+    }));
 
   await attachJson('Electron renderer runtime state', {
     result: {

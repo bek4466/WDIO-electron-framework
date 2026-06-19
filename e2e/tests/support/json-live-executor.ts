@@ -503,15 +503,27 @@ async function ensureRendererReady(): Promise<void> {
   await allureStep('Wait for Electron renderer readiness', async () => {
     const expectedTitle = process.env.E2E_APP_READY_TITLE;
     const readySelector = process.env.E2E_APP_READY_SELECTOR;
+    let lastRendererState: JsonRecord = {};
 
     await browser.waitUntil(
       async () => {
-        const handles = await browser.getWindowHandles();
+        const handles = await browser.getWindowHandles().catch((error: Error) => {
+          lastRendererState = { error: error.message };
+          return [];
+        });
 
         for (const handle of handles) {
           await browser.switchToWindow(handle);
           const title = await browser.getTitle().catch(() => '');
-          const readyState = await browser.execute(() => document.readyState).catch(() => '');
+          const url = await browser.getUrl().catch(() => '');
+
+          lastRendererState = {
+            handle,
+            title,
+            url,
+            expectedTitle: expectedTitle ?? null,
+            readySelector: readySelector ?? null,
+          };
 
           if (expectedTitle && !title.includes(expectedTitle)) {
             continue;
@@ -519,9 +531,26 @@ async function ensureRendererReady(): Promise<void> {
 
           if (readySelector) {
             const element = await browser.$(readySelector);
-            return element.isExisting().catch(() => false);
+            const selectorExists = await element.isExisting().catch(() => false);
+            lastRendererState = {
+              ...lastRendererState,
+              selectorExists,
+            };
+            return selectorExists;
           }
 
+          const readyState = await browser.execute(() => document.readyState).catch((error: Error) => {
+            lastRendererState = {
+              ...lastRendererState,
+              readyState: '',
+              executeError: error.message,
+            };
+            return '';
+          });
+          lastRendererState = {
+            ...lastRendererState,
+            readyState,
+          };
           return readyState === 'interactive' || readyState === 'complete';
         }
 
@@ -529,10 +558,11 @@ async function ensureRendererReady(): Promise<void> {
       },
       {
         timeout: Number(process.env.E2E_APP_READY_TIMEOUT_MS ?? 60000),
-        timeoutMsg:
-          'Electron renderer did not reach the configured ready state. Check E2E_APP_READY_TITLE/E2E_APP_READY_SELECTOR.',
+        timeoutMsg: `Electron renderer did not reach the configured ready state. Check E2E_APP_READY_TITLE/E2E_APP_READY_SELECTOR. Last state: ${JSON.stringify(lastRendererState)}`,
       },
     );
+
+    await attachJson('Electron renderer readiness state', lastRendererState);
   });
 }
 
