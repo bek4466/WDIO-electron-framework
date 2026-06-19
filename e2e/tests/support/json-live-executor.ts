@@ -52,6 +52,11 @@ const tabTitles = readJson('tabTitles.json');
 
 let liveSessionBootstrapped = false;
 
+function debugLog(message: string, details?: JsonRecord): void {
+  const suffix = details ? ` ${JSON.stringify(details)}` : '';
+  console.info(`[E2E JSON][${new Date().toISOString()}] ${message}${suffix}`);
+}
+
 function asRecord(value: unknown): JsonRecord {
   return value && typeof value === 'object' && !Array.isArray(value) ? (value as JsonRecord) : {};
 }
@@ -387,6 +392,10 @@ function resolveCommonTarget(context: ExecutionContext, value: unknown): string 
 }
 
 function copyAssociatedProjectFiles(source: string, destination: string): void {
+  debugLog('Copying project file and sidecars', {
+    source,
+    destination,
+  });
   fs.mkdirSync(path.dirname(destination), { recursive: true });
   fs.copyFileSync(source, destination);
 
@@ -395,6 +404,10 @@ function copyAssociatedProjectFiles(source: string, destination: string): void {
     const destinationSidecar = destination.replace(/\.json$/iu, suffix);
 
     if (fs.existsSync(sourceSidecar)) {
+      debugLog('Copying project sidecar', {
+        source: sourceSidecar,
+        destination: destinationSidecar,
+      });
       fs.copyFileSync(sourceSidecar, destinationSidecar);
     }
   }
@@ -472,6 +485,10 @@ function deleteByDottedPath(target: JsonRecord, dottedPath: string): void {
 
 function updateProjectRootFolderPath(projectFile: string): void {
   try {
+    debugLog('Updating project_root_folder_path', {
+      projectFile,
+      projectRootFolderPath: path.dirname(projectFile),
+    });
     const projectJson = JSON.parse(fs.readFileSync(projectFile, 'utf8')) as JsonRecord;
     const system = asRecord(projectJson.system);
 
@@ -483,11 +500,19 @@ function updateProjectRootFolderPath(projectFile: string): void {
     projectJson.system = system;
     fs.writeFileSync(projectFile, `${JSON.stringify(projectJson, null, 2)}\n`);
   } catch {
+    debugLog('Skipped project_root_folder_path update', {
+      projectFile,
+      reason: 'File is not readable JSON or cannot be updated.',
+    });
     // Some negative tests intentionally upload invalid JSON or protected project files.
   }
 }
 
 function applyJsonMutations(projectFile: string, mutations: JsonRecord): void {
+  debugLog('Applying JSON mutations', {
+    projectFile,
+    mutationGroups: Object.keys(mutations),
+  });
   const projectJson = JSON.parse(fs.readFileSync(projectFile, 'utf8')) as JsonRecord;
 
   for (const [operation, entries] of Object.entries(mutations)) {
@@ -512,6 +537,12 @@ async function ensureRendererReady(): Promise<void> {
     const readySelector = process.env.E2E_APP_READY_SELECTOR;
     let lastRendererState: JsonRecord = {};
 
+    debugLog('Waiting for Electron renderer readiness', {
+      expectedTitle,
+      readySelector: readySelector ?? null,
+      timeoutMs: Number(process.env.E2E_APP_READY_TIMEOUT_MS ?? 60000),
+    });
+
     await browser.waitUntil(
       async () => {
         const handles = await browser.getWindowHandles().catch((error: Error) => {
@@ -530,6 +561,11 @@ async function ensureRendererReady(): Promise<void> {
             readySelector: readySelector ?? null,
           };
 
+          debugLog('Observed Electron window during readiness wait', {
+            handle,
+            title,
+          });
+
           if (expectedTitle && !title.includes(expectedTitle)) {
             continue;
           }
@@ -541,6 +577,10 @@ async function ensureRendererReady(): Promise<void> {
               ...lastRendererState,
               selectorExists,
             };
+            debugLog('Checked ready selector', {
+              selector: readySelector,
+              selectorExists,
+            });
             return selectorExists;
           }
 
@@ -555,6 +595,7 @@ async function ensureRendererReady(): Promise<void> {
       },
     );
 
+    debugLog('Electron renderer readiness finished', lastRendererState);
     await attachJson('Electron renderer readiness state', lastRendererState);
   });
 }
@@ -562,15 +603,29 @@ async function ensureRendererReady(): Promise<void> {
 async function switchToWindowByTitle(expectedTitle: string): Promise<boolean> {
   const seenWindows: JsonRecord[] = [];
 
+  debugLog('Switching to Electron window by title', {
+    expectedTitle,
+    timeoutMs: Number(process.env.E2E_APP_WINDOW_TIMEOUT_MS ?? 60000),
+  });
+
   const found = await browser
     .waitUntil(
       async () => {
         const handles = await browser.getWindowHandles().catch(() => []);
 
+        debugLog('Observed window handles', {
+          count: handles.length,
+        });
+
         for (const handle of handles) {
           await browser.switchToWindow(handle);
           const title = await browser.getTitle().catch(() => '');
           seenWindows.push({ handle, title });
+          debugLog('Checked Electron window title', {
+            handle,
+            title,
+            expectedTitle,
+          });
 
           if (!expectedTitle || title.includes(expectedTitle)) {
             return true;
@@ -586,6 +641,11 @@ async function switchToWindowByTitle(expectedTitle: string): Promise<boolean> {
     )
     .catch(() => false);
 
+  debugLog('Finished switching to Electron window by title', {
+    expectedTitle,
+    found,
+    seenWindows: seenWindows.slice(-10),
+  });
   await attachJson('Electron window switch state', {
     expectedTitle,
     found,
@@ -603,6 +663,11 @@ export async function bootstrapLiveJsonSession(): Promise<void> {
   await allureStep('Bootstrap live Electron session', async () => {
     const startupPauseMs = Number(process.env.E2E_JSON_BOOTSTRAP_PAUSE_MS ?? 25000);
     const expectedTitle = process.env.E2E_APP_READY_TITLE ?? asString(tabTitles.mainTab);
+
+    debugLog('Starting live Electron bootstrap', {
+      startupPauseMs,
+      expectedTitle,
+    });
 
     if (startupPauseMs > 0) {
       await browser.pause(startupPauseMs);
@@ -627,6 +692,12 @@ export async function bootstrapLiveJsonSession(): Promise<void> {
       signInButtonExists,
     });
 
+    debugLog('Finished live Electron bootstrap', {
+      foundMainWindow,
+      endorseButtonExists,
+      signInButtonExists,
+    });
+
     liveSessionBootstrapped = true;
   });
 }
@@ -636,8 +707,15 @@ async function findElement(selector: string): Promise<WebdriverIO.Element> {
     throw new Error('Cannot find element because selector mapping resolved to an empty value.');
   }
 
+  debugLog('Waiting for element', {
+    selector,
+    timeoutMs: waitTimeout,
+  });
   const element = await browser.$(selector);
   await element.waitForExist({ timeout: waitTimeout });
+  debugLog('Element exists', {
+    selector,
+  });
   return element as unknown as WebdriverIO.Element;
 }
 
@@ -727,6 +805,11 @@ async function programLogText(): Promise<string> {
 async function setUploadPath(selector: string, filePath: string): Promise<void> {
   const absolutePath = path.resolve(filePath);
 
+  debugLog('Preparing upload path', {
+    selector,
+    filePath: absolutePath,
+  });
+
   if (!fs.existsSync(absolutePath)) {
     throw new Error(`Project file does not exist: ${absolutePath}`);
   }
@@ -743,6 +826,13 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
   const uploadInputExists = await uploadInput.isExisting().catch(() => false);
   const targetSelector = uploadInputExists ? uploadSelector : selector;
 
+  debugLog('Resolved upload input selector', {
+    configuredSelector: selector,
+    uploadSelector,
+    uploadInputExists,
+    targetSelector,
+  });
+
   await browser.execute((inputSelector) => {
     const element = document.querySelector(inputSelector) as HTMLInputElement | null;
     if (element) {
@@ -754,6 +844,10 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
 
   const element = await findElement(targetSelector);
   await element.setValue(absolutePath);
+  debugLog('Set upload input value', {
+    targetSelector,
+    filePath: absolutePath,
+  });
 
   await browser.execute((inputSelector) => {
     const element = document.querySelector(inputSelector) as HTMLElement | null;
@@ -774,9 +868,20 @@ async function executeElementOperation(
   const label = `${pathParts.join('.')} -> ${operation}`;
 
   if (!selector) {
+    debugLog('No selector mapping for operation', {
+      label,
+      path: pathParts.join('.'),
+      operation,
+    });
     context.unsupported.push(`No selector mapping for ${label}`);
     return;
   }
+
+  debugLog('Executing element operation', {
+    label,
+    selector,
+    operationName,
+  });
 
   await allureStep(label, async () => {
     if (operationName === 'setpath') {
@@ -964,7 +1069,12 @@ async function executeElementOperation(
       return;
     }
 
-    context.unsupported.push(`Unsupported operation ${label}`);
+      context.unsupported.push(`Unsupported operation ${label}`);
+      debugLog('Unsupported element operation', {
+        label,
+        selector,
+        operationName,
+      });
   });
 }
 
@@ -1041,10 +1151,14 @@ async function executePageBlock(
 
 async function setCredentials(credentials: unknown): Promise<void> {
   if (!Array.isArray(credentials) || credentials.length === 0) {
+    debugLog('No project credentials to enter');
     return;
   }
 
   await allureStep('Enter project credentials from JSON data', async () => {
+    debugLog('Entering project credentials', {
+      credentialRows: credentials.length,
+    });
     const settingsButton = await findElement(selectorFrom(credentialLocators, 'userSettingsBtn') ?? '');
     await settingsButton.click();
 
@@ -1080,6 +1194,11 @@ async function setCredentials(credentials: unknown): Promise<void> {
 
 async function executeAction(context: ExecutionContext, action: string, testCase: JsonRecord): Promise<void> {
   const actionName = normalizeKey(action);
+
+  debugLog('Executing JSON action', {
+    action,
+    actionName,
+  });
 
   await allureStep(`Execute JSON action: ${action}`, async () => {
     if (!actionName) {
@@ -1398,6 +1517,10 @@ async function executeAction(context: ExecutionContext, action: string, testCase
     }
 
     context.unsupported.push(`Unsupported action: ${action}`);
+    debugLog('Unsupported JSON action', {
+      action,
+      actionName,
+    });
   });
 }
 
@@ -1449,6 +1572,9 @@ async function verifyMessages(messages: unknown): Promise<void> {
 
 async function executeCommonMethod(context: ExecutionContext, methods: JsonRecord): Promise<void> {
   for (const [method, value] of Object.entries(methods)) {
+    debugLog('Executing CommonMethod', {
+      method,
+    });
     await allureStep(`Execute CommonMethod.${method}`, async () => {
       const methodName = normalizeKey(method);
       const record = asRecord(value);
@@ -1613,6 +1739,9 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
       }
 
       context.unsupported.push(`Unsupported CommonMethod: ${method}`);
+      debugLog('Unsupported CommonMethod', {
+        method,
+      });
     });
   }
 }
@@ -1741,10 +1870,25 @@ async function executeVerifyErrorUnderDeployFilePath(value: unknown): Promise<vo
 async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Promise<void> {
   const steps = asRecord(testCase.Steps);
 
+  debugLog('Executing JSON steps', {
+    stepCount: Object.keys(steps).length,
+    stepKeys: Object.keys(steps),
+  });
+
   for (const [blockName, value] of Object.entries(steps)) {
     const normalizedBlock = normalizeKey(blockName);
 
+    debugLog('Executing JSON step block', {
+      blockName,
+      normalizedBlock,
+    });
+
     if (normalizedBlock.includes('timeout')) {
+      debugLog('Pausing for JSON timeout block', {
+        blockName,
+        timeoutName: String(value),
+        timeoutMs: waitMs(value),
+      });
       await allureStep(`Pause for ${String(value)} timeout`, () => browser.pause(waitMs(value)));
       continue;
     }
@@ -1851,18 +1995,30 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
     }
 
     context.unsupported.push(`Unsupported step block: ${blockName}`);
+    debugLog('Unsupported JSON step block', {
+      blockName,
+      normalizedBlock,
+    });
   }
 }
 
 async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecord): Promise<void> {
   const sourceProject = resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
 
+  debugLog('Preparing project file', {
+    sourceProject: sourceProject ?? null,
+  });
+
   if (!sourceProject) {
+    debugLog('No project file configured for test case');
     return;
   }
 
   if (!fs.existsSync(sourceProject)) {
     context.currentProjectFile = sourceProject;
+    debugLog('Project source file does not exist; using unresolved path', {
+      sourceProject,
+    });
     return;
   }
 
@@ -1878,17 +2034,33 @@ async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecor
   }
 
   context.currentProjectFile = targetProject;
+  debugLog('Prepared project file', {
+    sourceProject,
+    targetProject,
+    hasPreconditions: Boolean(testCase.Preconditions),
+  });
 }
 
 function prepareProjectCode(context: ExecutionContext, testCase: JsonRecord): void {
   const sourceProjectCode = resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectCode));
 
+  debugLog('Preparing project code', {
+    sourceProjectCode: sourceProjectCode ?? null,
+  });
+
   if (!sourceProjectCode || !fs.existsSync(sourceProjectCode)) {
+    debugLog('No project code copy needed', {
+      sourceProjectCode: sourceProjectCode ?? null,
+    });
     return;
   }
 
   const targetProjectCode = tempProjectCodePath(sourceProjectCode);
   fs.copyFileSync(sourceProjectCode, targetProjectCode);
+  debugLog('Prepared project code', {
+    sourceProjectCode,
+    targetProjectCode,
+  });
 }
 
 export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void> {
@@ -1902,7 +2074,17 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
     unsupported: [],
   };
 
+  debugLog('Starting live JSON case execution', {
+    caseId: testCase.id,
+    sourceFolder: testCase.sourceFolder,
+    sourceFile: testCase.sourceFile,
+    resourceRoot: context.resourceRoot,
+  });
+
   await ensureRendererReady();
+  debugLog('Renderer ready for live JSON case', {
+    caseId: testCase.id,
+  });
   await attachJson('Live JSON execution context', {
     caseId: testCase.id,
     sourceFolder: testCase.sourceFolder,
@@ -1921,6 +2103,9 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
   await executeSteps(context, testCase.raw);
 
   if (testCase.raw.VerifyMessage) {
+    debugLog('Executing root VerifyMessage block', {
+      caseId: testCase.id,
+    });
     await verifyMessages(testCase.raw.VerifyMessage);
   }
 
@@ -1933,4 +2118,9 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
       );
     }
   }
+
+  debugLog('Finished live JSON case execution', {
+    caseId: testCase.id,
+    unsupportedCount: context.unsupported.length,
+  });
 }

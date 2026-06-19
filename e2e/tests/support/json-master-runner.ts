@@ -34,6 +34,11 @@ type NormalizedCase = {
 const defaultLimit = Number(process.env.E2E_JSON_LIMIT ?? 0);
 const executionMode = (process.env.E2E_JSON_EXECUTION_MODE ?? 'catalog').toLowerCase();
 
+function debugLog(message: string, details?: JsonRecord): void {
+  const suffix = details ? ` ${JSON.stringify(details)}` : '';
+  console.info(`[E2E JSON][${new Date().toISOString()}] ${message}${suffix}`);
+}
+
 function readJsonFile<T>(filePath: string): T {
   return JSON.parse(fs.readFileSync(filePath, 'utf8')) as T;
 }
@@ -200,11 +205,25 @@ function discoverCases(config: MasterSuiteConfig): NormalizedCase[] {
   const discoveredCases: NormalizedCase[] = [];
   const folders = config.dataDirName ? ['.'] : resolveFolders(baseDir, config);
 
+  debugLog('Discovering JSON cases', {
+    title: config.title,
+    baseDir,
+    executionMode,
+    limit: defaultLimit || 'none',
+    folders,
+  });
+
   for (const folder of folders) {
     const dataDir = config.dataDirName
       ? path.join(baseDir, config.dataDirName)
       : path.join(baseDir, folder, 'datajson');
     const manifest = readManifest(dataDir, config.manifestFileName);
+
+    debugLog('Reading JSON manifest', {
+      folder,
+      dataDir,
+      manifestCount: manifest.length,
+    });
 
     for (const fileName of manifest) {
       const filePath = path.join(dataDir, fileName);
@@ -223,11 +242,23 @@ function discoverCases(config: MasterSuiteConfig): NormalizedCase[] {
         }
 
         discoveredCases.push(normalizeCase(caseId, fileName, folder, candidateRecord));
+        debugLog('Discovered executable JSON case', {
+          folder,
+          fileName,
+          caseId,
+        });
       }
     }
   }
 
-  return defaultLimit > 0 ? discoveredCases.slice(0, defaultLimit) : discoveredCases;
+  const limitedCases = defaultLimit > 0 ? discoveredCases.slice(0, defaultLimit) : discoveredCases;
+
+  debugLog('Finished JSON case discovery', {
+    discovered: discoveredCases.length,
+    selected: limitedCases.length,
+  });
+
+  return limitedCases;
 }
 
 async function addLinks(testCase: NormalizedCase): Promise<void> {
@@ -259,7 +290,14 @@ export function defineJsonMasterSuite(config: MasterSuiteConfig): void {
   describe(config.title, () => {
     before(async () => {
       if (executionMode === 'live') {
+        debugLog('Starting live JSON suite bootstrap', {
+          title: config.title,
+          cases: cases.length,
+        });
         await bootstrapLiveJsonSession();
+        debugLog('Finished live JSON suite bootstrap', {
+          title: config.title,
+        });
       }
     });
 
@@ -286,6 +324,12 @@ export function defineJsonMasterSuite(config: MasterSuiteConfig): void {
 
     for (const testCase of cases) {
       it(`[${testCase.sourceFolder}] ${testCase.id} - ${testCase.description}`, async () => {
+        debugLog('Starting JSON test case', {
+          caseId: testCase.id,
+          sourceFolder: testCase.sourceFolder,
+          sourceFile: testCase.sourceFile,
+          executionMode,
+        });
         await annotateTest({
           suite: config.suite,
           epic: testCase.userStory,
@@ -320,6 +364,13 @@ export function defineJsonMasterSuite(config: MasterSuiteConfig): void {
             `Unsupported E2E_JSON_EXECUTION_MODE "${executionMode}". Use "catalog" or "live".`,
           );
         }
+
+        debugLog('Finished JSON test case', {
+          caseId: testCase.id,
+          sourceFolder: testCase.sourceFolder,
+          sourceFile: testCase.sourceFile,
+          executionMode,
+        });
       });
     }
   });
