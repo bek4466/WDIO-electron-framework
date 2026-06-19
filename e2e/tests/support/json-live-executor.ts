@@ -342,6 +342,43 @@ function tempProjectPath(projectPath: string): string {
   return path.join(parsed.dir, `${baseName}${parsed.ext}`);
 }
 
+function projectResourceBase(context: ExecutionContext, testCase?: JsonRecord): string {
+  if (context.currentProjectFile) {
+    return path.dirname(context.currentProjectFile);
+  }
+
+  const projectFile = asString(asRecord(testCase?.TestCaseInfo).ProjectFile);
+  const projectFolder = projectFile.split(/[\\/]/u)[0];
+
+  return projectFolder ? path.resolve(context.resourceRoot, projectFolder) : context.resourceRoot;
+}
+
+function resolveProjectRelativePath(context: ExecutionContext, relativePath: string, testCase?: JsonRecord): string {
+  const normalized = relativePath.replace(/\\/gu, path.sep);
+
+  if (path.isAbsolute(normalized)) {
+    return normalized;
+  }
+
+  return path.resolve(projectResourceBase(context, testCase), normalized);
+}
+
+function resolveCommonTarget(context: ExecutionContext, value: unknown): string {
+  const record = asRecord(value);
+  const rawPath = asRecord(record.rawPath);
+
+  if (rawPath.path || rawPath.file) {
+    return path.resolve(asString(rawPath.path), asString(rawPath.file));
+  }
+
+  const target =
+    asString(record.filePath) ||
+    asString(record.path) ||
+    asString(value);
+
+  return resolveResourcePath(context, target);
+}
+
 function copyAssociatedProjectFiles(source: string, destination: string): void {
   fs.mkdirSync(path.dirname(destination), { recursive: true });
   fs.copyFileSync(source, destination);
@@ -1226,30 +1263,24 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
     await allureStep(`Execute CommonMethod.${method}`, async () => {
       const methodName = normalizeKey(method);
       const record = asRecord(value);
-      const rawTarget =
-        asString(record.filePath) ||
-        asString(record.path) ||
-        asString(asRecord(record.rawPath).file) ||
-        asString(asRecord(record.rawPath).path) ||
-        asString(value);
+      const target = resolveCommonTarget(context, value);
 
       if (methodName === 'findfile') {
-        expect(fs.existsSync(resolveResourcePath(context, rawTarget))).to.equal(true);
+        expect(fs.existsSync(target)).to.equal(true);
         return;
       }
 
       if (['cannotfindfile', 'donotfindfile'].includes(methodName)) {
-        expect(fs.existsSync(resolveResourcePath(context, rawTarget))).to.equal(false);
+        expect(fs.existsSync(target)).to.equal(false);
         return;
       }
 
       if (methodName === 'cannotfindfolder') {
-        expect(fs.existsSync(resolveResourcePath(context, rawTarget))).to.equal(false);
+        expect(fs.existsSync(target)).to.equal(false);
         return;
       }
 
       if (methodName === 'deletefile') {
-        const target = resolveResourcePath(context, rawTarget);
         if (fs.existsSync(target)) {
           fs.unlinkSync(target);
         }
@@ -1257,7 +1288,6 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
       }
 
       if (methodName === 'deletefolder') {
-        const target = resolveResourcePath(context, rawTarget);
         if (fs.existsSync(target)) {
           fs.rmSync(target, { recursive: true, force: true });
         }
@@ -1310,7 +1340,12 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
           return;
         }
 
-        fs.copyFileSync(source, resolveResourcePath(context, to));
+        const destination = resolveResourcePath(context, to);
+        if (fs.existsSync(source) && fs.statSync(source).isDirectory()) {
+          fs.cpSync(source, destination, { recursive: true });
+        } else {
+          fs.copyFileSync(source, destination);
+        }
         return;
       }
 
@@ -1319,45 +1354,64 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
         for (const item of items) {
           const record = asRecord(item);
           fs.renameSync(
-            resolveResourcePath(context, asString(record.currentPath)),
-            resolveResourcePath(context, asString(record.newPath)),
+            resolveProjectRelativePath(context, asString(record.currentPath)),
+            resolveProjectRelativePath(context, asString(record.newPath)),
           );
         }
         return;
       }
 
       if (methodName === 'savefilemodifieddate') {
-        const target = resolveResourcePath(context, rawTarget);
         context.savedDates.set(target, fs.statSync(target).mtimeMs);
         return;
       }
 
       if (methodName === 'comparefilemodifieddatetosaveddate') {
-        const target = resolveResourcePath(context, rawTarget);
-        expect(fs.statSync(target).mtimeMs).to.equal(context.savedDates.get(target));
+        const currentDate = fs.statSync(target).mtimeMs;
+        const savedDate = context.savedDates.get(target);
+        const expectation = normalizeKey(asString(record.expect, 'SameAsSaved'));
+        if (expectation === 'differentfromsaved') {
+          expect(currentDate).not.to.equal(savedDate);
+        } else {
+          expect(currentDate).to.equal(savedDate);
+        }
         return;
       }
 
       if (methodName === 'savefilecontent') {
-        const target = resolveResourcePath(context, rawTarget);
         context.savedTexts.set(target, fs.readFileSync(target, 'utf8'));
         return;
       }
 
       if (methodName === 'comparefilecontenttosavedfilecontent') {
-        const target = resolveResourcePath(context, rawTarget);
-        expect(fs.readFileSync(target, 'utf8')).to.equal(context.savedTexts.get(target));
+        const currentContent = fs.readFileSync(target, 'utf8');
+        const savedContent = context.savedTexts.get(target);
+        const expectation = normalizeKey(asString(record.expect, 'SameAsSaved'));
+        if (expectation === 'differentfromsaved') {
+          expect(currentContent).not.to.equal(savedContent);
+        } else {
+          expect(currentContent).to.equal(savedContent);
+        }
         return;
       }
 
       if (methodName === 'checkmessageinfile') {
-        const target = resolveResourcePath(context, rawTarget || asString(record.filePath));
-        expect(fs.readFileSync(target, 'utf8')).to.contain(asString(record.text, asString(record.message)));
+        const text = asString(record.text, asString(record.message));
+        if (record.traceFileInTmpDownloadProject) {
+          const downloadFolder = path.resolve(context.resourceRoot, 'TmpDownloadProject');
+          const firstFile = fs.readdirSync(downloadFolder)[0];
+          if (!firstFile) {
+            throw new Error(`No files found in ${downloadFolder}`);
+          }
+          expect(fs.readFileSync(path.join(downloadFolder, firstFile), 'utf8')).to.contain(text);
+          return;
+        }
+
+        expect(fs.readFileSync(target, 'utf8')).to.contain(text);
         return;
       }
 
       if (methodName === 'tracefileintmpdownloadproject') {
-        const target = resolveResourcePath(context, rawTarget);
         expect(fs.existsSync(target)).to.equal(true);
         return;
       }
@@ -1388,6 +1442,104 @@ async function executeHardwareCommandBlock(name: string, value: unknown): Promis
     note: 'The command data is preserved for Allure. Runtime device command execution must be validated on the Windows lab machine.',
     value,
   });
+}
+
+async function executeRenameFiles(context: ExecutionContext, value: unknown, testCase: JsonRecord): Promise<void> {
+  const items = Array.isArray(value) ? value : [value];
+
+  await allureStep('Execute legacy RenameFiles block', async () => {
+    for (const item of items) {
+      const record = asRecord(item);
+      const currentPath = resolveProjectRelativePath(context, asString(record.currentPath), testCase);
+      const newPath = resolveProjectRelativePath(context, asString(record.newPath), testCase);
+      fs.mkdirSync(path.dirname(newPath), { recursive: true });
+      fs.renameSync(currentPath, newPath);
+    }
+  });
+}
+
+async function executeChangeName(context: ExecutionContext, value: unknown, testCase: JsonRecord): Promise<void> {
+  const items = Array.isArray(value) ? value : [value];
+
+  await allureStep('Execute legacy ChangeName block', async () => {
+    for (const item of items) {
+      const record = asRecord(item);
+      const targetName = asString(record.name);
+      if (!targetName) {
+        continue;
+      }
+
+      if (asString(record.file) === 'projectName') {
+        const source = context.currentProjectFile ?? resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
+        if (!source) {
+          throw new Error('ChangeName.projectName requires TestCaseInfo.ProjectFile or a prepared project file.');
+        }
+
+        const target = path.join(path.dirname(source), `${targetName}.json`);
+        fs.renameSync(source, target);
+        context.currentProjectFile = target;
+        continue;
+      }
+
+      if (asString(record.file) === 'dataFile') {
+        const source = path.resolve(projectResourceBase(context, testCase), '..', 'dataFile_rename', 'DataFile.json');
+        const target = path.resolve(projectResourceBase(context, testCase), '..', 'dataFile_rename', `${targetName}.json`);
+        fs.renameSync(source, target);
+      }
+    }
+  });
+}
+
+async function executeChangePythonFile(context: ExecutionContext, value: unknown, testCase: JsonRecord): Promise<void> {
+  await allureStep('Execute legacy ChangePythonFile block', async () => {
+    const projectCode = asString(asRecord(testCase.TestCaseInfo).ProjectCode);
+    const text = asString(value);
+
+    if (projectCode && text) {
+      const mainFile = resolveResourcePath(context, projectCode);
+      const mainTmpFile = path.join(path.dirname(mainFile), 'mainTmp.py');
+      if (fs.existsSync(mainTmpFile)) {
+        fs.appendFileSync(mainTmpFile, text);
+      }
+    }
+
+    await attachJson('Mapped legacy ChangePythonFile', {
+      note: 'Old master spec mostly paused here; appending text is applied only when ProjectCode and text are provided.',
+      value,
+    });
+  });
+}
+
+async function executeVerifyVtlp(value: unknown): Promise<void> {
+  await attachJson('Mapped legacy VerifyVTLP', {
+    note: 'Old master spec opened a controller VTLP web page. This is preserved as evidence because it requires lab controller access outside the Electron app session.',
+    value,
+  });
+}
+
+async function executeVerifyToastExists(value: unknown): Promise<void> {
+  const selector =
+    selectorFrom(deploymentLocators, 'endorsedAlert') ??
+    selectorFrom(toastLocators, 'rootContainer') ??
+    selectorFrom(toastLocators, 'toastText');
+
+  if (!selector) {
+    throw new Error('VerifyToastExists could not resolve a toast or endorsed-alert selector.');
+  }
+
+  await verifyElementExpectedMessages(selector, Array.isArray(value) ? value : [value]);
+}
+
+async function executeVerifyErrorUnderDeployFilePath(value: unknown): Promise<void> {
+  const selector =
+    selectorFrom(locators, 'projectDescriptorErrorMessageText') ??
+    selectorFrom(deploymentLocators, 'errorMsg');
+
+  if (!selector) {
+    throw new Error('VerifyErrorUnderDeployFilePath could not resolve a project-file error selector.');
+  }
+
+  await verifyElementExpectedMessages(selector, Array.isArray(value) ? value : [value]);
 }
 
 async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Promise<void> {
@@ -1431,6 +1583,21 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
       continue;
     }
 
+    if (normalizedBlock.startsWith('changepythonfile')) {
+      await executeChangePythonFile(context, value, testCase);
+      continue;
+    }
+
+    if (normalizedBlock.startsWith('renamefiles')) {
+      await executeRenameFiles(context, value, testCase);
+      continue;
+    }
+
+    if (normalizedBlock.startsWith('changename')) {
+      await executeChangeName(context, value, testCase);
+      continue;
+    }
+
     if (['changcredentials', 'changecredentials', 'credential', 'credentials'].includes(normalizedBlock)) {
       await setCredentials(value);
       continue;
@@ -1450,13 +1617,23 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
       continue;
     }
 
+    if (normalizedBlock === 'verifyvtlp') {
+      await executeVerifyVtlp(value);
+      continue;
+    }
+
+    if (normalizedBlock.startsWith('verifyerrorunderdeployfilepath')) {
+      await executeVerifyErrorUnderDeployFilePath(value);
+      continue;
+    }
+
     if (normalizedBlock.startsWith('verifyprogressbar')) {
       await executeAction(context, blockName, testCase);
       continue;
     }
 
     if (normalizedBlock === 'verifytoastexists' || normalizedBlock === 'verifycertifytoast') {
-      await executePageBlock(context, 'Toast', { [blockName]: { exists: true } });
+      await executeVerifyToastExists(value);
       continue;
     }
 

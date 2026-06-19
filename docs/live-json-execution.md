@@ -49,6 +49,7 @@ The live dispatcher maps the legacy master-spec action vocabulary into one TypeS
 - Page operations: `exists`, `Exist`, `isVisible`, `isEnabled`, `isDisabled`, `isDisbaled`, `isEmpty`, `isOpen`, `isChecked`, `isObfuscated`, `click`, `close`, `noSwitchWindowClick`, `setPath`, `set`, `setIp`, `setUsername`, `setPassword`, `setValue`, `setDownload`, `SendKeys`, `emailToType`, `clearInput`, `clearPath`, `clearValue`, `clearPassword`, `matches`, `matchesText`, `textMatches`, `verifyTextMatches`, `verifyMessageMatches`, `verifyPathMatches`, `verifyIP`, `verifyNotExistIP`, `verifyIpError`, `verifyHoverMessage`, and credential/download helper assertions.
 - JSON/file utilities: `Preconditions`, `EditProjectFile`, `findFile`, `cannotFindFile`, `doNotFindFile`, `deleteFile`, `deleteFolder`, `appendToFile`, `prependToFile`, `textToMidFile`, `replaceTextInFile`, `copyFile`, `renameFiles`, `saveFileModifiedDate`, `compareFileModifiedDateToSavedDate`, `saveFileContent`, `compareFileContentToSavedFileContent`, and `checkMessageInFile`.
 - Login/profile/sign-out/toast blocks: `AppAction`, `LoginPage`, `LoginPopUp`, `ProfilePage`, `ProfileAction`, `SignOutAction`, `SignOutPopUp`, `Toast`, `VerifyToastExists`, and `VerifyCertifyToast`.
+- Legacy master-spec branch blocks: `ChangePythonFile`, `ChangeName`, `RenameFiles`, `VerifyErrorUnderDeployFilePath`, and `VerifyVTLP` are explicitly routed.
 - Hardware command blocks: `GmCommands`, `CheckNavCommands`, `CheckECW`, and `CheckKevin` are mapped and attached to Allure as structured command evidence. Their real device side effects still require the Windows lab machine/device environment.
 
 `VerifyMessage`, `VerifyTraceMessage`, `VerifyTroubleShootingMessage`, `VerifyProgramMessageLogs`, `VerifyCLIMessage`, and `CheckSpecificTraceMessages` search visible message-pane rows, trace rows, and program-log text.
@@ -64,3 +65,13 @@ This refactor was validated with static checks only:
 - `yarn validate:e2e-json`
 
 WDIO was intentionally not run during this refactor. Runtime validation should happen on the Windows machine with the packaged Electron 41 `.exe`.
+
+## Old Master Spec Parity
+
+The live dispatcher has been reviewed against `bek4466/e2e-wdio-refactor` branch `old-code-e2e`, file `e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts`.
+
+All old top-level branch names from that master spec are now routed in the new executor:
+
+`AboutAction`, `AccessPageAction`, `AppAction`, `Banner`, `ChangeCredentials`, `ChangeName`, `ChangePythonFile`, `CheckECW`, `CheckNavCommands`, `CheckSpecificTraceMessages`, `CommonMethod`, `DeployAction`, `DeployPage`, `EditProjectFile`, `GmCommands`, `LoginPage`, `LoginPopUp`, `MiscellaneousAction`, `ProfileAction`, `ProfilePage`, `RenameFiles`, `SignOutAction`, `SignOutPopUp`, `Timeout`, `Toast`, `TroubleshootingAction`, `TroubleshootingPage`, `VerifyErrorUnderDeployFilePath`, `VerifyMessage`, `VerifyProgramMessageLogs`, `VerifyProgressBar`, `VerifyToastExists`, `VerifyTraceMessage`, `VerifyTraceMessageLogs`, `VerifyTroubleShootingMessage`, and `VerifyVTLP`.
+
+Device/network branches such as `GmCommands`, `CheckECW`, `CheckNavCommands`, and `VerifyVTLP` are intentionally mapped as structured Allure evidence because their old implementation reached outside the Electron app into lab devices or controller web pages.
