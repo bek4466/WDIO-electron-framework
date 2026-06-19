@@ -6,7 +6,7 @@ The WDIO Electron Framework is a scalable TypeScript automation framework for El
 
 The framework can run against:
 
-- a real packaged Electron binary through `ELECTRON_APP_BINARY_PATH`
+- a real packaged Electron binary through `CSDU_EXE_LOCATION` or `ELECTRON_APP_BINARY_PATH`
 - a Windows `.exe` path when tests are executed on Windows
 
 ## Technology Stack
@@ -62,12 +62,12 @@ reports/                        Generated test output, ignored by git
 
 ### Real Packaged Electron App
 
-Set `ELECTRON_APP_BINARY_PATH` to the packaged app binary before running tests.
+Set `CSDU_EXE_LOCATION` or `ELECTRON_APP_BINARY_PATH` to the packaged app binary before running tests.
 
 Windows PowerShell example:
 
 ```powershell
-$env:ELECTRON_APP_BINARY_PATH="C:\Apps\YourElectronApp\YourElectronApp.exe"
+$env:CSDU_EXE_LOCATION="C:\Program Files\Extron\ControlScript Deployment Utility\ControlScript Deployment Utility.exe"
 $env:ELECTRON_APP_ARGS="--automation,--disable-updates"
 $env:EXPECTED_WINDOW_TITLES="Your App"
 yarn test:exe
@@ -84,12 +84,16 @@ yarn test:smoke
 
 ## Environment Variables
 
-| Variable                   | Required | Description                                           | Example                          |
-| -------------------------- | -------- | ----------------------------------------------------- | -------------------------------- |
-| `ELECTRON_APP_BINARY_PATH` | Yes      | Path to the real packaged Electron binary.            | `C:\Apps\App\App.exe`            |
-| `ELECTRON_APP_ARGS`        | No       | Comma-separated arguments passed to the Electron app. | `--automation,--disable-updates` |
-| `EXPECTED_WINDOW_TITLES`   | No       | Comma-separated titles used by launch validation.     | `Your App,Login`                 |
-| `WAIT_TIMEOUT_MS`          | No       | Default wait timeout in milliseconds.                 | `15000`                          |
+| Variable                               | Required | Description                                                     | Example                                                            |
+| -------------------------------------- | -------- | --------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `CSDU_EXE_LOCATION`                    | No       | Preferred CSDU executable path alias.                           | `C:\Program Files\Extron\...\ControlScript Deployment Utility.exe` |
+| `ELECTRON_APP_BINARY_PATH`             | No       | Generic path to the real packaged Electron binary.              | `C:\Apps\App\App.exe`                                              |
+| `ELECTRON_APP_ARGS`                    | No       | Comma-separated arguments passed to the Electron app.           | `--automation,--disable-updates`                                   |
+| `ELECTRON_APP_BROWSER_VERSION`         | No       | Explicit embedded Chromium/browser version for driver matching. | `146.0.0.0`                                                        |
+| `ELECTRON_AUTO_DETECT_BROWSER_VERSION` | No       | Set to `false` to skip automatic `.exe` version detection.      | `false`                                                            |
+| `CHROMEDRIVER_BINARY_PATH`             | No       | Explicit ChromeDriver executable path.                          | `C:\tools\chromedriver.exe`                                        |
+| `EXPECTED_WINDOW_TITLES`               | No       | Comma-separated titles used by launch validation.               | `Your App,Login`                                                   |
+| `WAIT_TIMEOUT_MS`                      | No       | Default wait timeout in milliseconds.                           | `15000`                                                            |
 
 ## Common Commands
 

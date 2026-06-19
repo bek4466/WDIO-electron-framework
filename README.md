@@ -20,14 +20,14 @@ yarn verify:electron
 yarn typecheck
 ```
 
-Set `ELECTRON_APP_BINARY_PATH` before launching WDIO. The framework no longer ships a mock Electron app; it is configured to run against your packaged Electron application.
+Set `CSDU_EXE_LOCATION` or `ELECTRON_APP_BINARY_PATH` before launching WDIO. The framework no longer ships a mock Electron app; it is configured to run against your packaged Electron application.
 
 ## Run Against a Packaged `.exe`
 
-Use `ELECTRON_APP_BINARY_PATH` for the real Windows Electron executable:
+Use `CSDU_EXE_LOCATION` for the real Windows CSDU executable, or use `ELECTRON_APP_BINARY_PATH` for any packaged Electron executable:
 
 ```powershell
-$env:ELECTRON_APP_BINARY_PATH="C:\Apps\YourElectronApp\YourElectronApp.exe"
+$env:CSDU_EXE_LOCATION="C:\Program Files\Extron\ControlScript Deployment Utility\ControlScript Deployment Utility.exe"
 $env:ELECTRON_APP_ARGS="--automation"
 $env:EXPECTED_WINDOW_TITLES="Your App"
 yarn test:exe
@@ -38,14 +38,16 @@ The capability is built in `config/electron.config.ts` and passed to `wdio-elect
 ```ts
 {
   browserName: 'electron',
+  browserVersion: '146.0.0.0',
   'wdio:electronServiceOptions': {
-    appBinaryPath: 'C:\\Apps\\YourElectronApp\\YourElectronApp.exe',
+    appBinaryPath:
+      'C:\\Program Files\\Extron\\ControlScript Deployment Utility\\ControlScript Deployment Utility.exe',
     appArgs: ['--automation'],
   },
 }
 ```
 
-`ELECTRON_APP_BINARY_PATH` is required for WDIO runs. On Windows, point it at the packaged `.exe`.
+If no executable env var is set, the framework checks the common CSDU install paths under `C:\Program Files` and `C:\Program Files (x86)`. Browser version can be set with `ELECTRON_APP_BROWSER_VERSION`, or detected from the `.exe` to help WDIO select the right ChromeDriver.
 
 ## Project Layout
 
@@ -106,6 +108,6 @@ The report includes suite/epic/feature/story labels, severity, owner, tags, envi
 5. Run with the packaged `.exe` path:
 
 ```powershell
-$env:ELECTRON_APP_BINARY_PATH="C:\Apps\YourElectronApp\YourElectronApp.exe"
+$env:CSDU_EXE_LOCATION="C:\Program Files\Extron\ControlScript Deployment Utility\ControlScript Deployment Utility.exe"
 yarn test:smoke
 ```
