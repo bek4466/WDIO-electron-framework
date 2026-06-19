@@ -268,7 +268,7 @@ export function buildElectronCapability(): ElectronCapability {
   const capability: ElectronCapability = {
     browserName: 'electron',
     ...(browserVersion ? { browserVersion } : {}),
-    webSocketUrl: enableBidi,
+    ...(enableBidi ? { webSocketUrl: true } : {}),
     ...(chromeArgs.length > 0 ? { 'goog:chromeOptions': { args: chromeArgs } } : {}),
     'wdio:electronServiceOptions': serviceOptions,
     ...(chromedriverOptions ? { 'wdio:chromedriverOptions': chromedriverOptions } : {}),
