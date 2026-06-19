@@ -13,25 +13,38 @@ type ElectronServiceOptions = {
 
 export type ChromedriverOptions = {
   binary?: string;
+  logPath?: string;
+  verbose?: boolean;
   [key: string]: unknown;
 };
 
 export type ElectronCapability = {
   browserName: 'electron';
   browserVersion?: string;
+  webSocketUrl?: boolean;
+  'goog:chromeOptions'?: {
+    args?: string[];
+    [key: string]: unknown;
+  };
   'wdio:electronServiceOptions': ElectronServiceOptions;
   'wdio:chromedriverOptions'?: ChromedriverOptions;
 };
 
-export function getElectronBrowserVersion(
+export function getElectronCapabilityVersion(
   appBinaryPath?: string,
   appArgs: string[] = [],
 ): string | undefined {
   return (
+    getEnv('ELECTRON_CAPABILITY_VERSION') ||
+    getEnv('ELECTRON_APP_ELECTRON_VERSION') ||
+    getEnv('ELECTRON_VERSION') ||
+    ELECTRON_VERSION ||
     getEnv('ELECTRON_APP_BROWSER_VERSION') ||
     getEnv('ELECTRON_BROWSER_VERSION') ||
     getEnv('BROWSER_VERSION') ||
-    detectBrowserVersionFromBinarySync(appBinaryPath, appArgs) ||
+    (getBooleanEnv('ELECTRON_AUTO_DETECT_BROWSER_VERSION', false)
+      ? detectBrowserVersionFromBinarySync(appBinaryPath, appArgs)
+      : undefined) ||
     undefined
   );
 }
@@ -210,31 +223,58 @@ export function getElectronServiceOptions(): ElectronServiceOptions {
 
 export function getChromedriverOptions(): ChromedriverOptions | undefined {
   const binary = getEnv('CHROMEDRIVER_BINARY_PATH') || getEnv('CHROMEDRIVER_PATH');
+  const logPath =
+    getEnv('CHROMEDRIVER_LOG_PATH') ||
+    path.resolve(process.cwd(), 'reports/wdio-logs/chromedriver-session.log');
+  const verbose = getBooleanEnv('CHROMEDRIVER_VERBOSE', true);
+  const options: ChromedriverOptions = {
+    logPath,
+    ...(verbose ? { verbose } : {}),
+  };
 
-  if (!binary) {
-    return undefined;
+  if (binary) {
+    const normalizedBinary = normalizePathForCurrentHost(binary);
+    assertFileExists(normalizedBinary, 'CHROMEDRIVER_BINARY_PATH or CHROMEDRIVER_PATH');
+    options.binary = normalizedBinary;
   }
 
-  const normalizedBinary = normalizePathForCurrentHost(binary);
-  assertFileExists(normalizedBinary, 'CHROMEDRIVER_BINARY_PATH or CHROMEDRIVER_PATH');
+  return options;
+}
 
-  return {
-    binary: normalizedBinary,
-  };
+function writeCapabilityDebugFile(capability: ElectronCapability): void {
+  const debugFile = path.resolve(
+    process.cwd(),
+    'reports/wdio-logs/electron-capability-request.json',
+  );
+
+  try {
+    fs.mkdirSync(path.dirname(debugFile), { recursive: true });
+    fs.writeFileSync(debugFile, `${JSON.stringify(capability, null, 2)}\n`);
+  } catch {
+    // Diagnostics should never prevent WDIO from starting.
+  }
 }
 
 export function buildElectronCapability(): ElectronCapability {
   const serviceOptions = getElectronServiceOptions();
-  const browserVersion = getElectronBrowserVersion(
+  const browserVersion = getElectronCapabilityVersion(
     serviceOptions.appBinaryPath,
     serviceOptions.appArgs,
   );
   const chromedriverOptions = getChromedriverOptions();
+  const chromeArgs = getListEnv('ELECTRON_CHROME_ARGS');
+  const enableBidi = getBooleanEnv('WDIO_ENABLE_BIDI', false);
 
-  return {
+  const capability: ElectronCapability = {
     browserName: 'electron',
     ...(browserVersion ? { browserVersion } : {}),
+    webSocketUrl: enableBidi,
+    ...(chromeArgs.length > 0 ? { 'goog:chromeOptions': { args: chromeArgs } } : {}),
     'wdio:electronServiceOptions': serviceOptions,
     ...(chromedriverOptions ? { 'wdio:chromedriverOptions': chromedriverOptions } : {}),
   };
+
+  writeCapabilityDebugFile(capability);
+
+  return capability;
 }
