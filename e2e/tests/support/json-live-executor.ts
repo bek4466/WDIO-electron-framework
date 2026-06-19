@@ -463,6 +463,23 @@ function deleteByDottedPath(target: JsonRecord, dottedPath: string): void {
   delete current[last];
 }
 
+function updateProjectRootFolderPath(projectFile: string): void {
+  try {
+    const projectJson = JSON.parse(fs.readFileSync(projectFile, 'utf8')) as JsonRecord;
+    const system = asRecord(projectJson.system);
+
+    if (Object.keys(system).length === 0) {
+      return;
+    }
+
+    system.project_root_folder_path = path.dirname(projectFile);
+    projectJson.system = system;
+    fs.writeFileSync(projectFile, `${JSON.stringify(projectJson, null, 2)}\n`);
+  } catch {
+    // Some negative tests intentionally upload invalid JSON or protected project files.
+  }
+}
+
 function applyJsonMutations(projectFile: string, mutations: JsonRecord): void {
   const projectJson = JSON.parse(fs.readFileSync(projectFile, 'utf8')) as JsonRecord;
 
@@ -619,23 +636,36 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
     throw new Error(`Project file does not exist: ${absolutePath}`);
   }
 
-  await browser.execute((targetSelector) => {
-    const element = document.querySelector(targetSelector) as HTMLElement | null;
+  updateProjectRootFolderPath(absolutePath);
+  await attachJson('Project upload file', {
+    filePath: absolutePath,
+    exists: true,
+    sizeBytes: fs.statSync(absolutePath).size,
+  });
+
+  const uploadSelector = '#deploy-input-file-disabled';
+  const uploadInput = await browser.$(uploadSelector);
+  const uploadInputExists = await uploadInput.isExisting().catch(() => false);
+  const targetSelector = uploadInputExists ? uploadSelector : selector;
+
+  await browser.execute((inputSelector) => {
+    const element = document.querySelector(inputSelector) as HTMLInputElement | null;
     if (element) {
       element.style.display = 'block';
       element.removeAttribute('disabled');
+      element.removeAttribute('readonly');
     }
-  }, selector);
+  }, targetSelector);
 
-  const element = await findElement(selector);
+  const element = await findElement(targetSelector);
   await element.setValue(absolutePath);
 
-  await browser.execute((targetSelector) => {
-    const element = document.querySelector(targetSelector) as HTMLElement | null;
+  await browser.execute((inputSelector) => {
+    const element = document.querySelector(inputSelector) as HTMLElement | null;
     if (element) {
       element.style.display = 'none';
     }
-  }, selector);
+  }, targetSelector);
 }
 
 async function executeElementOperation(
