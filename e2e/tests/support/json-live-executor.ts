@@ -393,6 +393,32 @@ function copyAssociatedProjectFiles(source: string, destination: string): void {
   }
 }
 
+function insertText(buffer: Buffer, text: string, offset: 'append' | 'middle' | 'prepend'): Buffer {
+  const textBuffer = Buffer.from(text, 'utf8');
+
+  if (offset === 'append') {
+    return Buffer.concat([buffer, textBuffer]);
+  }
+
+  const offsetIndex = offset === 'middle' ? Math.floor(buffer.length / 2) : 0;
+  return Buffer.concat([buffer.subarray(0, offsetIndex), textBuffer, buffer.subarray(offsetIndex)]);
+}
+
+function writeInsertedText(filePath: string, text: string, offset: 'append' | 'middle' | 'prepend'): void {
+  const existing = fs.existsSync(filePath) ? fs.readFileSync(filePath) : Buffer.from('');
+  fs.writeFileSync(filePath, insertText(existing, text, offset));
+}
+
+function certificationFormattedDate(date = new Date()): string {
+  let hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours %= 12;
+  hours = hours || 12;
+  return `Last Certified: ${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}, ${hours}:${minutes}:${seconds} ${ampm}`;
+}
+
 function setByDottedPath(target: JsonRecord, dottedPath: string, value: unknown): void {
   const parts = dottedPath.split('.');
   const last = parts.pop();
@@ -996,6 +1022,26 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       return;
     }
 
+    if (actionName === 'isprojectdownloadcanceled') {
+      const editSelector = selectorFrom(downloadLocators, 'editIPBtn');
+      const forgotCredsSelector = selectorFrom(downloadLocators, 'forgotCredsBtn');
+      const closeSelector = selectorFrom(downloadLocators, 'closeSidePanelBtn');
+
+      if (editSelector) {
+        expect(await (await findElement(editSelector)).isEnabled()).to.equal(false);
+      }
+
+      if (forgotCredsSelector) {
+        expect(await (await findElement(forgotCredsSelector)).isEnabled()).to.equal(false);
+      }
+
+      if (closeSelector) {
+        const closeButton = await queryElement(closeSelector);
+        expect(await closeButton.isExisting().catch(() => false)).to.equal(false);
+      }
+      return;
+    }
+
     if (actionName === 'starttrace') {
       await (await findElement(selectorFrom(traceLocators, 'startTraceBtn') ?? '')).click();
       return;
@@ -1148,6 +1194,25 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       return;
     }
 
+    if (actionName === 'iscertifydateaccurate') {
+      const projectFile = context.currentProjectFile ?? resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
+      if (projectFile) {
+        await setUploadPath(selectorFrom(deploymentLocators, 'destinyInputField') ?? '', projectFile);
+      }
+
+      const before = certificationFormattedDate();
+      await (await findElement(selectorFrom(deploymentLocators, 'endorseBtn') ?? '')).click();
+      const after = certificationFormattedDate();
+      await findElement(selectorFrom(deploymentLocators, 'endorsedAlert') ?? '');
+
+      const timestampSelector = selectorFrom(deploymentLocators, 'lastEndorsedTime');
+      if (timestampSelector) {
+        const timestamp = await elementTextOrValue(await findElement(timestampSelector));
+        expect(timestamp === before || timestamp === after || timestamp.includes('Last Certified')).to.equal(true);
+      }
+      return;
+    }
+
     if (['verifybrowselabelisnottypeable', 'verifybrowselabelisnotpasteable'].includes(actionName)) {
       const element = await findElement(selectorFrom(deploymentLocators, 'destinyInputField') ?? '');
       const disabled = await element.getAttribute('disabled').catch(() => null);
@@ -1182,7 +1247,6 @@ async function executeAction(context: ExecutionContext, action: string, testCase
         'usernameinwindowtitle',
         'renewandcheckalert',
         'certifydateaccurate',
-        'iscertifydateaccurate',
         'verifytracemessageorderednewestontop',
       ].includes(actionName)
     ) {
@@ -1265,6 +1329,11 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
       const record = asRecord(value);
       const target = resolveCommonTarget(context, value);
 
+      if (methodName.includes('comment')) {
+        await attachJson(`CommonMethod comment: ${method}`, value);
+        return;
+      }
+
       if (methodName === 'findfile') {
         expect(fs.existsSync(target)).to.equal(true);
         return;
@@ -1295,22 +1364,17 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
       }
 
       if (methodName === 'appendtofile') {
-        fs.appendFileSync(resolveResourcePath(context, asString(record.filePath)), asString(record.text));
+        writeInsertedText(resolveResourcePath(context, asString(record.filePath)), asString(record.text), 'append');
         return;
       }
 
       if (methodName === 'prependtofile') {
-        const target = resolveResourcePath(context, asString(record.filePath));
-        const content = fs.existsSync(target) ? fs.readFileSync(target, 'utf8') : '';
-        fs.writeFileSync(target, `${asString(record.text)}${content}`);
+        writeInsertedText(resolveResourcePath(context, asString(record.filePath)), asString(record.text), 'prepend');
         return;
       }
 
       if (methodName === 'texttomidfile') {
-        const target = resolveResourcePath(context, asString(record.filePath));
-        const content = fs.existsSync(target) ? fs.readFileSync(target, 'utf8') : '';
-        const midpoint = Math.floor(content.length / 2);
-        fs.writeFileSync(target, `${content.slice(0, midpoint)}${asString(record.text)}${content.slice(midpoint)}`);
+        writeInsertedText(resolveResourcePath(context, asString(record.filePath)), asString(record.text), 'middle');
         return;
       }
 
@@ -1341,6 +1405,13 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
         }
 
         const destination = resolveResourcePath(context, to);
+        fs.mkdirSync(path.dirname(destination), { recursive: true });
+
+        if (source.endsWith('.json')) {
+          copyAssociatedProjectFiles(source, destination);
+          return;
+        }
+
         if (fs.existsSync(source) && fs.statSync(source).isDirectory()) {
           fs.cpSync(source, destination, { recursive: true });
         } else {

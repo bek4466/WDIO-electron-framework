@@ -75,3 +75,11 @@ All old top-level branch names from that master spec are now routed in the new e
 `AboutAction`, `AccessPageAction`, `AppAction`, `Banner`, `ChangeCredentials`, `ChangeName`, `ChangePythonFile`, `CheckECW`, `CheckNavCommands`, `CheckSpecificTraceMessages`, `CommonMethod`, `DeployAction`, `DeployPage`, `EditProjectFile`, `GmCommands`, `LoginPage`, `LoginPopUp`, `MiscellaneousAction`, `ProfileAction`, `ProfilePage`, `RenameFiles`, `SignOutAction`, `SignOutPopUp`, `Timeout`, `Toast`, `TroubleshootingAction`, `TroubleshootingPage`, `VerifyErrorUnderDeployFilePath`, `VerifyMessage`, `VerifyProgramMessageLogs`, `VerifyProgressBar`, `VerifyToastExists`, `VerifyTraceMessage`, `VerifyTraceMessageLogs`, `VerifyTroubleShootingMessage`, and `VerifyVTLP`.
 
 Device/network branches such as `GmCommands`, `CheckECW`, `CheckNavCommands`, and `VerifyVTLP` are intentionally mapped as structured Allure evidence because their old implementation reached outside the Electron app into lab devices or controller web pages.
+
+## Old Common Methods Parity
+
+The `CommonMethod` executor was also reviewed against `bek4466/e2e-wdio-refactor` branch `old-code-e2e`, file `e2e/tests/commonMethods.po.ts`.
+
+Ported helper behavior includes binary-safe file corruption (`appendToFile`, `prependToFile`, `textToMidFile`), project JSON sidecar copying for `copyFile`, recursive folder copying, project-relative `renameFiles`, `findFile` / `cannotFindFile` raw-path handling, `deleteFile`, `deleteFolder`, saved modified-date comparisons, saved file-content comparisons, and exported trace text checks.
+
+Old SSO/window-switching helpers remain represented by the live executor's app readiness and login/action mappings. Old communication-client and controller-web helpers remain device/environment dependent and are attached as structured Allure evidence when reached.
