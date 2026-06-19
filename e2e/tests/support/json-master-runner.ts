@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import allureReporter from '@wdio/allure-reporter';
 import { expect } from 'chai';
 import { annotateTest, allureStep, attachJson } from '../../../src/support/allure.js';
+import { executeJsonCaseLive } from './json-live-executor.js';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -298,12 +299,20 @@ export function defineJsonMasterSuite(config: MasterSuiteConfig): void {
         await attachJson('E2E JSON action summary', summarizeActions(testCase));
         await attachJson('E2E JSON test case', sanitizeForReport(testCase.raw));
 
-        if (executionMode !== 'catalog') {
-          await allureStep('Live UI execution placeholder', async () => {
-            throw new Error(
-              `Unsupported E2E_JSON_EXECUTION_MODE "${executionMode}". Use "catalog" until product-specific action dispatch is enabled.`,
-            );
-          });
+        if (executionMode === 'live') {
+          await allureStep('Execute JSON case against live Electron UI', () =>
+            executeJsonCaseLive({
+              id: testCase.id,
+              raw: testCase.raw,
+              projectFile: testCase.projectFile,
+              sourceFolder: testCase.sourceFolder,
+              sourceFile: testCase.sourceFile,
+            }),
+          );
+        } else if (executionMode !== 'catalog') {
+          throw new Error(
+            `Unsupported E2E_JSON_EXECUTION_MODE "${executionMode}". Use "catalog" or "live".`,
+          );
         }
       });
     }
