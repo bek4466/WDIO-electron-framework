@@ -16,6 +16,7 @@ $env:E2E_JSON_LIMIT="1"
 $env:E2E_JSON_FOLDERS="Deployment-tests"
 $env:E2E_APP_READY_TITLE="ControlScript Deployment Utility"
 $env:E2E_APP_READY_SELECTOR="#deploy-component"
+$env:E2E_JSON_BOOTSTRAP_PAUSE_MS="25000"
 $env:E2E_RESOURCE_ROOT="C:\path\to\e2e\resources"
 yarn wdio run ./wdio.conf.ts --logLevel debug --spec ./e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts
 ```
@@ -32,6 +33,8 @@ Remove `E2E_JSON_LIMIT` after the first live case is stable.
 | `E2E_APP_READY_TITLE`                        | Optional window title filter before tests start.                                   |
 | `E2E_APP_READY_SELECTOR`                     | Optional selector that proves the real app UI is ready.                            |
 | `E2E_APP_READY_TIMEOUT_MS`                   | Startup readiness timeout. Defaults to `60000`.                                    |
+| `E2E_APP_WINDOW_TIMEOUT_MS`                  | Main-window switch timeout. Defaults to `60000`.                                   |
+| `E2E_JSON_BOOTSTRAP_PAUSE_MS`                | One-time live startup pause before window switching. Defaults to `25000`.          |
 | `E2E_RESOURCE_ROOT`                          | Folder that contains project resources like `DeployProject\systeminfo.json`.       |
 | `E2E_JSON_STRICT_UNSUPPORTED=false`          | Allows unsupported JSON actions to be attached to Allure without failing the test. |
 | `CSDU_EXE_LOCATION`                          | Preferred CSDU executable path alias.                                              |
@@ -46,14 +49,16 @@ If the app opens but WDIO waits and then reports `WebDriverError: Operation was 
 
 1. Set `E2E_JSON_FOLDERS=Deployment-tests` and `E2E_JSON_LIMIT=1` so only the first deployment case runs.
 2. Set `E2E_APP_READY_SELECTOR` to a selector that only exists after the real deployment UI is loaded. Prefer a stable application selector over a splash-screen selector.
-3. Increase `E2E_APP_READY_TIMEOUT_MS` if the packaged `.exe` needs a longer first launch.
-4. Review `reports/wdio-logs` and the Allure attachment named `Electron renderer readiness state`; it records the last window title, URL, configured selector, and whether the selector was found.
+3. Keep `E2E_JSON_BOOTSTRAP_PAUSE_MS=25000` while debugging; this mirrors the old master spec's startup wait before switching to the main CSDU window.
+4. Increase `E2E_APP_READY_TIMEOUT_MS` if the packaged `.exe` needs a longer first launch.
+5. Review `reports/wdio-logs` and the Allure attachments named `Live Electron bootstrap state`, `Electron window switch state`, and `Electron renderer readiness state`; they record the main window title, certify/sign-in visibility, configured selector, and whether the selector was found.
 
 Example:
 
 ```powershell
 $env:E2E_JSON_FOLDERS="Deployment-tests"
 $env:E2E_JSON_LIMIT="1"
+$env:E2E_JSON_BOOTSTRAP_PAUSE_MS="25000"
 $env:E2E_APP_READY_TIMEOUT_MS="180000"
 $env:E2E_APP_READY_SELECTOR="#deploy-component"
 ```

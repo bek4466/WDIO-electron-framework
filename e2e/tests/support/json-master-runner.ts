@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import allureReporter from '@wdio/allure-reporter';
 import { expect } from 'chai';
 import { annotateTest, allureStep, attachJson } from '../../../src/support/allure.js';
-import { executeJsonCaseLive } from './json-live-executor.js';
+import { bootstrapLiveJsonSession, executeJsonCaseLive } from './json-live-executor.js';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -257,6 +257,12 @@ export function defineJsonMasterSuite(config: MasterSuiteConfig): void {
   const cases = discoverCases(config);
 
   describe(config.title, () => {
+    before(async () => {
+      if (executionMode === 'live') {
+        await bootstrapLiveJsonSession();
+      }
+    });
+
     it('loads JSON-driven test cases from manifests', async () => {
       await annotateTest({
         suite: config.suite,

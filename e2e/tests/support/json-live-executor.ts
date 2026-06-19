@@ -48,6 +48,9 @@ const extractLocators = readJson('extractProject.json');
 const programLogLocatorsValue = readJson('programLogLocators.json');
 const toastLocators = readJson('toastLocators.json');
 const timeoutValues = readJson('timeout.json');
+const tabTitles = readJson('tabTitles.json');
+
+let liveSessionBootstrapped = false;
 
 function asRecord(value: unknown): JsonRecord {
   return value && typeof value === 'object' && !Array.isArray(value) ? (value as JsonRecord) : {};
@@ -342,6 +345,10 @@ function tempProjectPath(projectPath: string): string {
   return path.join(parsed.dir, `${baseName}${parsed.ext}`);
 }
 
+function tempProjectCodePath(projectCodePath: string): string {
+  return path.join(path.dirname(projectCodePath), 'mainTmp.py');
+}
+
 function projectResourceBase(context: ExecutionContext, testCase?: JsonRecord): string {
   if (context.currentProjectFile) {
     return path.dirname(context.currentProjectFile);
@@ -501,7 +508,7 @@ function applyJsonMutations(projectFile: string, mutations: JsonRecord): void {
 
 async function ensureRendererReady(): Promise<void> {
   await allureStep('Wait for Electron renderer readiness', async () => {
-    const expectedTitle = process.env.E2E_APP_READY_TITLE;
+    const expectedTitle = process.env.E2E_APP_READY_TITLE ?? asString(tabTitles.mainTab);
     const readySelector = process.env.E2E_APP_READY_SELECTOR;
     let lastRendererState: JsonRecord = {};
 
@@ -515,12 +522,10 @@ async function ensureRendererReady(): Promise<void> {
         for (const handle of handles) {
           await browser.switchToWindow(handle);
           const title = await browser.getTitle().catch(() => '');
-          const url = await browser.getUrl().catch(() => '');
 
           lastRendererState = {
             handle,
             title,
-            url,
             expectedTitle: expectedTitle ?? null,
             readySelector: readySelector ?? null,
           };
@@ -539,19 +544,7 @@ async function ensureRendererReady(): Promise<void> {
             return selectorExists;
           }
 
-          const readyState = await browser.execute(() => document.readyState).catch((error: Error) => {
-            lastRendererState = {
-              ...lastRendererState,
-              readyState: '',
-              executeError: error.message,
-            };
-            return '';
-          });
-          lastRendererState = {
-            ...lastRendererState,
-            readyState,
-          };
-          return readyState === 'interactive' || readyState === 'complete';
+          return true;
         }
 
         return false;
@@ -563,6 +556,78 @@ async function ensureRendererReady(): Promise<void> {
     );
 
     await attachJson('Electron renderer readiness state', lastRendererState);
+  });
+}
+
+async function switchToWindowByTitle(expectedTitle: string): Promise<boolean> {
+  const seenWindows: JsonRecord[] = [];
+
+  const found = await browser
+    .waitUntil(
+      async () => {
+        const handles = await browser.getWindowHandles().catch(() => []);
+
+        for (const handle of handles) {
+          await browser.switchToWindow(handle);
+          const title = await browser.getTitle().catch(() => '');
+          seenWindows.push({ handle, title });
+
+          if (!expectedTitle || title.includes(expectedTitle)) {
+            return true;
+          }
+        }
+
+        return false;
+      },
+      {
+        timeout: Number(process.env.E2E_APP_WINDOW_TIMEOUT_MS ?? 60000),
+        timeoutMsg: `Unable to find Electron window titled "${expectedTitle}".`,
+      },
+    )
+    .catch(() => false);
+
+  await attachJson('Electron window switch state', {
+    expectedTitle,
+    found,
+    seenWindows: seenWindows.slice(-10),
+  });
+
+  return found;
+}
+
+export async function bootstrapLiveJsonSession(): Promise<void> {
+  if (liveSessionBootstrapped) {
+    return;
+  }
+
+  await allureStep('Bootstrap live Electron session', async () => {
+    const startupPauseMs = Number(process.env.E2E_JSON_BOOTSTRAP_PAUSE_MS ?? 25000);
+    const expectedTitle = process.env.E2E_APP_READY_TITLE ?? asString(tabTitles.mainTab);
+
+    if (startupPauseMs > 0) {
+      await browser.pause(startupPauseMs);
+    }
+
+    const foundMainWindow = await switchToWindowByTitle(expectedTitle);
+    const endorseSelector = selectorFrom(deploymentLocators, 'endorseBtn');
+    const signInSelector = selectorFrom(accessControlLocators, 'signInBtn');
+    const endorseButtonExists = endorseSelector
+      ? await browser.$(endorseSelector).isExisting().catch(() => false)
+      : false;
+    const signInButtonExists = signInSelector
+      ? await browser.$(signInSelector).isExisting().catch(() => false)
+      : false;
+
+    await attachJson('Live Electron bootstrap state', {
+      foundMainWindow,
+      expectedTitle,
+      endorseSelector,
+      endorseButtonExists,
+      signInSelector,
+      signInButtonExists,
+    });
+
+    liveSessionBootstrapped = true;
   });
 }
 
@@ -1801,15 +1866,29 @@ async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecor
     return;
   }
 
+  const projectName = asString(testCase.ProjectName);
+  const targetProject = projectName
+    ? path.join(path.dirname(sourceProject), `${projectName}.json`)
+    : tempProjectPath(sourceProject);
+
+  copyAssociatedProjectFiles(sourceProject, targetProject);
+
   if (testCase.Preconditions) {
-    const targetProject = tempProjectPath(sourceProject);
-    copyAssociatedProjectFiles(sourceProject, targetProject);
     applyJsonMutations(targetProject, asRecord(testCase.Preconditions));
-    context.currentProjectFile = targetProject;
+  }
+
+  context.currentProjectFile = targetProject;
+}
+
+function prepareProjectCode(context: ExecutionContext, testCase: JsonRecord): void {
+  const sourceProjectCode = resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectCode));
+
+  if (!sourceProjectCode || !fs.existsSync(sourceProjectCode)) {
     return;
   }
 
-  context.currentProjectFile = sourceProject;
+  const targetProjectCode = tempProjectCodePath(sourceProjectCode);
+  fs.copyFileSync(sourceProjectCode, targetProjectCode);
 }
 
 export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void> {
@@ -1834,6 +1913,11 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
   });
 
   await prepareProjectFile(context, testCase.raw);
+  prepareProjectCode(context, testCase.raw);
+  await attachJson('Prepared live JSON project files', {
+    currentProjectFile: context.currentProjectFile ?? null,
+    projectCode: asString(asRecord(testCase.raw.TestCaseInfo).ProjectCode) || null,
+  });
   await executeSteps(context, testCase.raw);
 
   if (testCase.raw.VerifyMessage) {
