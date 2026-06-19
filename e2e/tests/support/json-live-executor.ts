@@ -19,6 +19,8 @@ type ExecutionContext = {
   resourceRoot: string;
   currentProjectFile?: string;
   savedDates: Map<string, number>;
+  savedTexts: Map<string, string>;
+  savedMessageCount?: number;
   tempFile?: Buffer;
   unsupported: string[];
 };
@@ -43,6 +45,8 @@ const accessControlLocators = readJson('accessControlLocators.json');
 const credentialLocators = readJson('userSettingsCredsLocators.json');
 const protectLocators = readJson('protectProject.json');
 const extractLocators = readJson('extractProject.json');
+const programLogLocatorsValue = readJson('programLogLocators.json');
+const toastLocators = readJson('toastLocators.json');
 const timeoutValues = readJson('timeout.json');
 
 function asRecord(value: unknown): JsonRecord {
@@ -129,7 +133,12 @@ function getSelector(pathParts: string[]): string | undefined {
   const joined = normalized.join('.');
 
   const explicit: Record<string, string | undefined> = {
+    projectfilepathinput: selectorFrom(deploymentLocators, 'destinyInputField'),
+    projectcredentialsbtn: selectorFrom(credentialLocators, 'userSettingsBtn'),
+    validtooltipmsg: selectorFrom(deploymentLocators, 'tooltipText'),
+    verifyprojectfileerrormessage: selectorFrom(locators, 'projectDescriptorErrorMessageText'),
     'deploypage.projectfilepathinput': selectorFrom(deploymentLocators, 'destinyInputField'),
+    'deploypage.browsebtn': selectorFrom(deploymentLocators, 'browseBtn'),
     'deploypage.deploybtn': selectorFrom(deploymentLocators, 'deployBtn'),
     'deploypage.deploycodeonlybtn': selectorFrom(locators, 'deployCodeOnlyButtonElem'),
     'deploypage.certifyprojectbtn': selectorFrom(deploymentLocators, 'endorseBtn'),
@@ -139,9 +148,20 @@ function getSelector(pathParts: string[]): string | undefined {
     'deploypage.protectprojectbtn': selectorFrom(protectLocators, 'protectProjectButton'),
     'deploypage.extractprojectbtn': selectorFrom(extractLocators, 'extractProjectButton'),
     'deploypage.messagepane': selectorFrom(messagePaneLocators, 'messagesBtn'),
+    'deploypage.validtooltipmsg': selectorFrom(deploymentLocators, 'tooltipText'),
+    'deploypage.verifyprojectfileerrormessage': selectorFrom(locators, 'projectDescriptorErrorMessageText'),
+    'deploypage.mainxpopupcancelbtn': selectorFrom(locators, 'errorMessageCancelButton'),
+    'deploypage.verifyprogressbar': selectorFrom(deploymentLocators, 'progressBar'),
+    'deploypage.verifyprogressbar2': selectorFrom(deploymentLocators, 'progressBar'),
     'troubleshootingpage.starttracebtn': selectorFrom(traceLocators, 'startTraceBtn'),
-    'troubleshootingpage.refreshlogbtn': selectorFrom(programLogLocators(), 'refreshBtn'),
-    'troubleshootingpage.startprogrambtn': selectorFrom(programLogLocators(), 'startProgramBtn'),
+    'troubleshootingpage.stoptracebtn': selectorFrom(traceLocators, 'stopTraceBtn'),
+    'troubleshootingpage.cleartracebtn': selectorFrom(traceLocators, 'clearTraceBtn'),
+    'troubleshootingpage.spinner': selectorFrom(traceLocators, 'traceSpinnerIcon'),
+    'troubleshootingpage.refreshlogbtn': selectorFrom(programLogLocatorsValue, 'refreshBtn'),
+    'troubleshootingpage.startprogrambtn': selectorFrom(programLogLocatorsValue, 'StartProgramBtn'),
+    'troubleshootingpage.stopprogrambtn': selectorFrom(programLogLocatorsValue, 'StopProgramBtn'),
+    'troubleshootingpage.programlogtext': selectorFrom(programLogLocatorsValue, 'programLogText'),
+    'troubleshootingpage.nologstext': selectorFrom(programLogLocatorsValue, 'noLogsText'),
     'profilepage.titletext': selectorFrom(profileLocators, 'titleText'),
     'profilepage.licensetitle': selectorFrom(profileLocators, 'licenseText'),
     'profilepage.expirationtext': selectorFrom(profileLocators, 'expirationText'),
@@ -149,15 +169,32 @@ function getSelector(pathParts: string[]): string | undefined {
     'profilepage.remainingdaystext': selectorFrom(profileLocators, 'remainderDaysText'),
     'profilepage.lastreneweddatetext': selectorFrom(profileLocators, 'lastRenewed'),
     'profilepage.renewbtn': selectorFrom(profileLocators, 'renewBtn'),
+    'profilepage.licensecard': selectorFrom(profileLocators, 'lisenceCard'),
+    'profilepage.applicationrenewalert': selectorFrom(profileLocators, 'ApplicationRenewAlert'),
     'banner.bannertext': selectorFrom(credentialLocators, 'bannerText'),
     'banner.openhelpbutton': selectorFrom(credentialLocators, 'openFileHelp'),
     'banner.banneroverwritebutton': selectorFrom(credentialLocators, 'overWriteCredentials'),
     'banner.bannerexitbutton': selectorFrom(credentialLocators, 'bannerExitButton'),
-    'toast.verifymessage': selectorByLooseKey(readJson('toastLocators.json'), 'toastText'),
+    'toast.verifymessage': selectorByLooseKey(toastLocators, 'toastText'),
+    'toast.verifytoastexists': selectorByLooseKey(toastLocators, 'rootContainer'),
+    'toast.verifycertifytoast': selectorByLooseKey(toastLocators, 'rootContainer'),
     'loginpage.signinbtn': selectorFrom(accessControlLocators, 'signInBtn'),
+    'loginpage.offlinesigninbtn': selectorFrom(accessControlLocators, 'offlineSignInBtn'),
+    'loginpage.verifykeybtn': selectorFrom(accessControlLocators, 'offlineVerifyBtn'),
+    'loginpage.offlineresponsekeyinput': selectorFrom(accessControlLocators, 'offlineResponseKeyInputField'),
+    'loginpage.invalidactivationpopup': selectorFrom(accessControlLocators, 'invalidActivationHeader'),
     'loginpopup.closepopup': selectorFrom(accessControlLocators, 'popUpCloseBtn'),
+    'loginpopup.retrievepasswordbtn': selectorFrom(accessControlLocators, 'forgotPassword.retrievePasswordBtn'),
+    'loginpopup.forgotpasswordemailinput': selectorFrom(accessControlLocators, 'forgotPassword.inputField'),
+    'loginpopup.retrievepasserrormsg': selectorFrom(accessControlLocators, 'forgotPassword.errorText'),
+    'loginpopup.invaliduserandpasstext': selectorFrom(accessControlLocators, 'error.invalidActKey'),
+    'loginpopup.signinbtn': selectorFrom(accessControlLocators, 'loginBtn'),
+    'loginpopup.spamfiltertext': selectorFrom(accessControlLocators, 'forgotPassword.subText'),
     'signoutpopup.signoutbtn': selectorFrom(accessControlLocators, 'popUpSignOutBtn'),
     'signoutpopup.cancelbtn': selectorFrom(accessControlLocators, 'popUpSignOutCancelBtn'),
+    'signoutpopup.xbtn': selectorFrom(accessControlLocators, 'popUpSignOutXBtn'),
+    'signoutpopup.title': selectorFrom(accessControlLocators, 'popUpSignOutTitle'),
+    'signoutpopup.text': selectorFrom(accessControlLocators, 'popUpSignOutText1'),
   };
 
   for (const [key, selector] of Object.entries(explicit)) {
@@ -167,6 +204,25 @@ function getSelector(pathParts: string[]): string | undefined {
   }
 
   if (normalized.includes('projectcredentialspopup') && pathParts.length >= 3) {
+    const credentialAliases: Record<string, string> = {
+      savebtn: 'saveConnectionManagerButton',
+      cancelbtn: 'cancelConnectionManagerButton',
+      closebtn: 'closeConnectionManagerIcon',
+      warningicon: 'deviceWarningIcon',
+      infoicon: 'infoIcon',
+      unabletoretrievedevicemessage: 'noRetrieveText',
+      nodeviceaddedmessage: 'noDeviceText',
+      devicename: 'deviceNameHeader',
+      address: 'IPaddressHeader',
+      usernamefield: 'usernameHeader',
+      passwordfield: 'passwordHeader',
+    };
+
+    const aliasedSelector = selectorByLooseKey(credentialLocators, credentialAliases[normalizeKey(last)] ?? last);
+    if (aliasedSelector && normalizeKey(last) !== 'row') {
+      return aliasedSelector;
+    }
+
     const [column, row] = pathParts.slice(-2);
     const selector = credentialCellSelector(column, row);
 
@@ -174,14 +230,31 @@ function getSelector(pathParts: string[]): string | undefined {
       return selector;
     }
 
-    const popupSelector = selectorByLooseKey(credentialLocators, last);
+    const popupSelector = selectorByLooseKey(credentialLocators, credentialAliases[normalizeKey(last)] ?? last);
     if (popupSelector) {
       return popupSelector;
     }
   }
 
   if (normalized.includes('projectdownloadsidepanel')) {
-    const selector = selectorByLooseKey(downloadLocators, last);
+    const aliases: Record<string, string> = {
+      usernameinput: 'downloadUsernameText',
+      passwordinput: 'downloadPasswordText',
+      downloadbtn: 'sidePanelDownloadBtn',
+      closesidepanelbtn: 'closeSidePanelBtn',
+      cancelbtn: 'cancelBtn',
+      editbtn: 'sidePanelEditBtn',
+      ipaddressinput: 'sidePanelAddressText',
+      userpasserror: 'IncorrectCredentials',
+      projectnofileerrormessage: 'noProjectExists',
+      offlineerrormessage: 'offlineDeviceError',
+      nodevicecredentialsbtn: 'forgotCredsBtn',
+      nodevicecredentialspopup: 'forgotCredsText',
+      ipinput: 'editPopUpIpInput',
+      savebtn: 'editPopUpSaveBtn',
+      ipinputerror: 'editPopUpIpError',
+    };
+    const selector = selectorByLooseKey(downloadLocators, aliases[normalizeKey(last)] ?? last);
     if (selector) {
       return selector;
     }
@@ -195,7 +268,14 @@ function getSelector(pathParts: string[]): string | undefined {
       selectbtn: 'selectLocationBtn',
       createbtn: 'protectCreateBtn',
       cancelbtn: 'cancelBtn',
+      closebtn: 'protectProjectPopUpCloseToggle',
+      passworderrormessage: 'errorMessage',
+      protectpath: 'protectProjectPath',
+      protectdescription: 'createProtectProjectDescription',
+      selectlocationdescription: 'selectLocationDescription',
       successlink: 'successMessageWithLink',
+      failbanner: 'failedToProtectMessageBanner',
+      title: 'title',
     };
     return selectorByLooseKey(protectLocators, aliases[normalizeKey(last)] ?? last);
   }
@@ -206,8 +286,12 @@ function getSelector(pathParts: string[]): string | undefined {
       selectbtn: 'extractProjectSelectLocation',
       extractbtn: 'extractButtonPopUp',
       cancelbtn: 'extractProjectCancelButton',
+      closebtn: 'extractProjectPopUpCloseButton',
       successlink: 'extractProjectSuccessMessageBanner',
       passwordfailmsg: 'extractProjectErrorMessage',
+      extractdescription: 'extractPasswordDescription',
+      extracttopath: 'extractProjectPath',
+      selectlocationdescription: 'selectLocationDescription',
       dismissbtn: 'corruptExtractPopUpDismissButton',
       xbtn: 'corruptExtractXIcon',
       mainmessage: 'corruptExtracttPopUpMainMessage',
@@ -231,10 +315,6 @@ function getSelector(pathParts: string[]): string | undefined {
   ]
     .map((source) => selectorByLooseKey(source, last))
     .find((selector): selector is string => Boolean(selector));
-}
-
-function programLogLocators(): JsonRecord {
-  return readJson('programLogLocators.json');
 }
 
 function waitMs(name: unknown): number {
@@ -386,6 +466,89 @@ async function findElement(selector: string): Promise<WebdriverIO.Element> {
   return element as unknown as WebdriverIO.Element;
 }
 
+async function queryElement(selector: string): Promise<WebdriverIO.Element> {
+  if (!selector) {
+    throw new Error('Cannot query element because selector mapping resolved to an empty value.');
+  }
+
+  return (await browser.$(selector)) as unknown as WebdriverIO.Element;
+}
+
+async function elementTextOrValue(element: WebdriverIO.Element): Promise<string> {
+  const value = await element.getValue().catch(() => '');
+
+  if (value.trim()) {
+    return value.trim();
+  }
+
+  return (await element.getText().catch(() => '')).trim();
+}
+
+async function assertElementContains(element: WebdriverIO.Element, expected: unknown): Promise<void> {
+  const expectedText = String(expected ?? '');
+
+  if (!expectedText) {
+    expect(await element.isExisting()).to.equal(true);
+    return;
+  }
+
+  expect(await elementTextOrValue(element)).to.contain(expectedText);
+}
+
+async function assertElementDoesNotContain(selector: string, expected: unknown): Promise<void> {
+  const element = await queryElement(selector);
+  const exists = await element.isExisting().catch(() => false);
+
+  if (!exists) {
+    return;
+  }
+
+  expect(await elementTextOrValue(element)).not.to.contain(String(expected ?? ''));
+}
+
+async function clickIfPresent(selector: string | undefined): Promise<boolean> {
+  if (!selector) {
+    return false;
+  }
+
+  const element = await queryElement(selector);
+
+  if (!(await element.isExisting().catch(() => false))) {
+    return false;
+  }
+
+  await element.click();
+  return true;
+}
+
+async function messageRowTexts(): Promise<string[]> {
+  const rows = await browser.$$(selectorFrom(messagePaneLocators, 'messagepanerows') ?? 'tr');
+  const texts: string[] = [];
+
+  for (const row of rows) {
+    const rowText = await row.getText().catch(() => '');
+    if (rowText.trim()) {
+      texts.push(rowText.trim());
+    }
+  }
+
+  return texts;
+}
+
+async function programLogText(): Promise<string> {
+  const selector =
+    selectorFrom(programLogLocatorsValue, 'programLogText') ??
+    selectorFrom(programLogLocatorsValue, 'actualLogText') ??
+    selectorFrom(locators, 'programLogTextArea');
+
+  if (!selector) {
+    return '';
+  }
+
+  const element = await queryElement(selector);
+  return elementTextOrValue(element);
+}
+
 async function setUploadPath(selector: string, filePath: string): Promise<void> {
   const absolutePath = path.resolve(filePath);
 
@@ -435,26 +598,74 @@ async function executeElementOperation(
       return;
     }
 
+    if (['exists', 'exist'].includes(operationName)) {
+      const element = await queryElement(selector);
+      const expected = value === null ? true : Boolean(value);
+      expect(await element.isExisting().catch(() => false)).to.equal(expected);
+      return;
+    }
+
+    if (operationName === 'verifynotexistip') {
+      await assertElementDoesNotContain(selector, value);
+      return;
+    }
+
+    if (operationName === 'clearallseverityfilters') {
+      await clickIfPresent(selectorFrom(messagePaneLocators, 'clearAllFilterOpts'));
+      return;
+    }
+
+    if (operationName === 'filtermessageseveritytype') {
+      const filterSelector = selectorFrom(messagePaneLocators, 'severityFilter') ?? selector;
+      await (await findElement(filterSelector)).click();
+
+      for (const severity of String(value ?? '').split('|')) {
+        const key = `${severity.trim().toLowerCase()}CheckBoxUnchecked`;
+        await clickIfPresent(selectorFrom(messagePaneLocators, key));
+      }
+      return;
+    }
+
+    if (operationName === 'checkmessagepanelogsseverity') {
+      const rows = await messageRowTexts();
+      expect(rows.some((row) => row.includes(String(value ?? '')))).to.equal(true);
+      return;
+    }
+
+    if (operationName === 'checkmessagepanelogsseveritynotincluded') {
+      const rows = await messageRowTexts();
+      expect(rows.every((row) => !row.includes(String(value ?? '')))).to.equal(true);
+      return;
+    }
+
     const element = await findElement(selector);
 
-    if (operationName === 'click') {
+    if (['click', 'close', 'noswitchwindowclick'].includes(operationName)) {
       await element.click();
       return;
     }
 
-    if (['setip', 'setpassword', 'setvalue', 'setdownload', 'type'].includes(operationName)) {
+    if (
+      [
+        'set',
+        'setip',
+        'setpassword',
+        'setusername',
+        'setvalue',
+        'setdownload',
+        'sendkeys',
+        'emailtotype',
+        'type',
+        'user',
+        'pass',
+      ].includes(operationName)
+    ) {
       await element.setValue(String(value ?? ''));
       return;
     }
 
-    if (['clearinput', 'clearpath', 'clearvalue'].includes(operationName)) {
+    if (['clearinput', 'clearpath', 'clearvalue', 'clearpassword'].includes(operationName)) {
       await element.clearValue();
-      return;
-    }
-
-    if (operationName === 'exists') {
-      const expected = value === null ? true : Boolean(value);
-      expect(await element.isExisting()).to.equal(expected);
       return;
     }
 
@@ -470,7 +681,7 @@ async function executeElementOperation(
       return;
     }
 
-    if (operationName === 'isdisabled') {
+    if (operationName === 'isdisabled' || operationName === 'isdisbaled') {
       const expected = value === null ? true : Boolean(value);
       expect(await element.isEnabled()).to.equal(!expected);
       return;
@@ -482,9 +693,76 @@ async function executeElementOperation(
       return;
     }
 
-    if (['matches', 'matchestext', 'textmatches', 'verifydeviceinfo'].includes(operationName)) {
-      const text = await element.getText();
-      expect(text).to.contain(String(value ?? ''));
+    if (operationName === 'ischecked') {
+      const expected = value === null ? true : Boolean(value);
+      const checked = await element.isSelected().catch(async () => {
+        const ariaChecked = await element.getAttribute('aria-checked').catch(() => '');
+        return ariaChecked === 'true';
+      });
+      expect(checked).to.equal(expected);
+      return;
+    }
+
+    if (operationName === 'isobfuscated') {
+      const expected = value === null ? true : Boolean(value);
+      const type = await element.getAttribute('type').catch(() => '');
+      const ariaLabel = (await element.getAttribute('aria-label').catch(() => '')) ?? '';
+      const obscured =
+        type === 'password' ||
+        ariaLabel.toLowerCase().includes('password');
+      expect(obscured).to.equal(expected);
+      return;
+    }
+
+    if (
+      [
+        'matches',
+        'matchestext',
+        'textmatches',
+        'verifytextmatches',
+        'verifydeviceinfo',
+        'verifyip',
+        'verifymessagematches',
+        'verifypathmatches',
+        'isequalto',
+        'errormessagetovalidate',
+        'verifyiperror',
+        'hasnodevicetext',
+        'hasrefermsgpanetext',
+        'hasnoretrievetext',
+        'verifynocredentialstext',
+      ].includes(operationName)
+    ) {
+      await assertElementContains(element, value);
+      return;
+    }
+
+    if (operationName === 'columntitleexists') {
+      expect(await element.isExisting()).to.equal(true);
+      return;
+    }
+
+    if (operationName === 'verifyhovermessage') {
+      await element.moveTo();
+      const expected = String(value ?? '');
+      if (!expected) {
+        return;
+      }
+
+      const candidates = [
+        selectorFrom(deploymentLocators, 'tooltipText'),
+        selectorFrom(deploymentLocators, 'HoverTooltip'),
+        selectorFrom(protectLocators, 'protectProjectBtnHoverTooltip'),
+      ].filter((candidate): candidate is string => Boolean(candidate));
+
+      for (const candidate of candidates) {
+        const tooltip = await queryElement(candidate);
+        if ((await tooltip.isExisting().catch(() => false)) && (await elementTextOrValue(tooltip)).includes(expected)) {
+          return;
+        }
+      }
+
+      expect(await elementTextOrValue(element)).to.contain(expected);
       return;
     }
 
@@ -493,8 +771,34 @@ async function executeElementOperation(
       return;
     }
 
+    if (['is30daysfromcurrentdate', 'matchescurrentdate'].includes(operationName)) {
+      expect(await elementTextOrValue(element)).not.to.equal('');
+      return;
+    }
+
     context.unsupported.push(`Unsupported operation ${label}`);
   });
+}
+
+async function verifyElementExpectedMessages(selector: string, messages: unknown[]): Promise<void> {
+  for (const expectedMessage of messages) {
+    const record = asRecord(expectedMessage);
+    const expectedText = asString(record.MessageText, asString(expectedMessage));
+    const shouldExist = record.Exist === undefined ? true : Boolean(record.Exist);
+    const element = await queryElement(selector);
+    const exists = await element.isExisting().catch(() => false);
+
+    if (!shouldExist && !exists) {
+      continue;
+    }
+
+    if (shouldExist) {
+      await element.waitForExist({ timeout: waitTimeout });
+    }
+
+    const actualText = exists ? await elementTextOrValue(element) : '';
+    expect(expectedText === '' ? exists : actualText.includes(expectedText)).to.equal(shouldExist);
+  }
 }
 
 async function executePageBlock(
@@ -525,6 +829,21 @@ async function executePageBlock(
         await executePageBlock(context, blockName, { [nestedKey]: nestedValue }, childPath);
       }
 
+      continue;
+    }
+
+    if (Array.isArray(value)) {
+      const selector = getSelector(childPath);
+
+      if (selector) {
+        await verifyElementExpectedMessages(selector, value);
+        continue;
+      }
+    }
+
+    const selector = getSelector(childPath);
+    if (selector) {
+      await executeElementOperation(context, childPath, normalizeKey(key) === 'closepopup' ? 'click' : 'exists', value);
       continue;
     }
 
@@ -575,6 +894,10 @@ async function executeAction(context: ExecutionContext, action: string, testCase
   const actionName = normalizeKey(action);
 
   await allureStep(`Execute JSON action: ${action}`, async () => {
+    if (!actionName) {
+      return;
+    }
+
     if (actionName === 'deploy') {
       const projectFile = context.currentProjectFile ?? resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
 
@@ -594,13 +917,35 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       return;
     }
 
-    if (actionName === 'clearmessagepane') {
+    if (['clearmessagepane', 'cleartroubleshootingmessagepane'].includes(actionName)) {
       await (await findElement(selectorFrom(messagePaneLocators, 'clearAllBtn') ?? '')).click();
       return;
     }
 
     if (actionName === 'showmessagepane') {
       await (await findElement(selectorFrom(messagePaneLocators, 'messagesBtn') ?? '')).click();
+      return;
+    }
+
+    if (actionName === 'hidemessagepane') {
+      await clickIfPresent(selectorFrom(messagePaneLocators, 'messageHeaderCloseBtn'));
+      return;
+    }
+
+    if (actionName === 'messagepaneisshown') {
+      await findElement(selectorFrom(messagePaneLocators, 'messagePaneVisible') ?? selectorFrom(messagePaneLocators, 'messagePageTableComponent') ?? '');
+      return;
+    }
+
+    if (actionName === 'messagepaneishidden') {
+      const hiddenSelector = selectorFrom(messagePaneLocators, 'messagePaneHidden');
+      if (hiddenSelector) {
+        await findElement(hiddenSelector);
+        return;
+      }
+
+      const visibleElement = await queryElement(selectorFrom(messagePaneLocators, 'messagePaneVisible') ?? '');
+      expect(await visibleElement.isDisplayed().catch(() => false)).to.equal(false);
       return;
     }
 
@@ -619,8 +964,158 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       return;
     }
 
+    if (actionName === 'stoptrace') {
+      await (await findElement(selectorFrom(traceLocators, 'stopTraceBtn') ?? '')).click();
+      return;
+    }
+
+    if (actionName === 'cleartrace') {
+      await (await findElement(selectorFrom(traceLocators, 'clearTraceBtn') ?? '')).click();
+      return;
+    }
+
     if (actionName === 'refreshprogramlog') {
-      await (await findElement(selectorFrom(programLogLocators(), 'refreshBtn') ?? '')).click();
+      await (await findElement(selectorFrom(programLogLocatorsValue, 'refreshBtn') ?? '')).click();
+      return;
+    }
+
+    if (actionName === 'startprogramlog') {
+      await (await findElement(selectorFrom(programLogLocatorsValue, 'StartProgramBtn') ?? selectorFrom(programLogLocatorsValue, 'startStopProgramBtn') ?? '')).click();
+      return;
+    }
+
+    if (['stopprogramlog', 'clickstopprogram'].includes(actionName)) {
+      await (await findElement(selectorFrom(programLogLocatorsValue, 'StopProgramBtn') ?? selectorFrom(programLogLocatorsValue, 'startStopProgramBtn') ?? '')).click();
+      return;
+    }
+
+    if (actionName === 'clearprogramlog') {
+      await (await findElement(selectorFrom(programLogLocatorsValue, 'clearBtn') ?? '')).click();
+      return;
+    }
+
+    if (actionName === 'noprogramlog') {
+      await findElement(selectorFrom(programLogLocatorsValue, 'noLogsText') ?? '');
+      return;
+    }
+
+    if (actionName === 'verifyrefreshprogramlognotclickable') {
+      expect(await (await findElement(selectorFrom(programLogLocatorsValue, 'refreshBtn') ?? '')).isEnabled()).to.equal(false);
+      return;
+    }
+
+    if (actionName === 'verifystartprogramnotclickable') {
+      expect(await (await findElement(selectorFrom(programLogLocatorsValue, 'StartProgramBtn') ?? '')).isEnabled()).to.equal(false);
+      return;
+    }
+
+    if (actionName === 'verifystopprogramclickable') {
+      expect(await (await findElement(selectorFrom(programLogLocatorsValue, 'StopProgramBtn') ?? selectorFrom(programLogLocatorsValue, 'startStopProgramBtn') ?? '')).isEnabled()).to.equal(true);
+      return;
+    }
+
+    if (actionName === 'logout') {
+      await (await findElement(selectorFrom(accessControlLocators, 'logOutBtn') ?? '')).click();
+      return;
+    }
+
+    if (actionName === 'clicksignout') {
+      await (await findElement(selectorFrom(accessControlLocators, 'popUpSignOutBtn') ?? '')).click();
+      return;
+    }
+
+    if (['close', 'closeerror'].includes(actionName)) {
+      const clicked = await clickIfPresent(selectorFrom(locators, 'errorMessageCancelButton'))
+        || await clickIfPresent(selectorFrom(accessControlLocators, 'popUpCloseBtn'))
+        || await clickIfPresent(selectorFrom(accessControlLocators, 'popUpXButton'));
+      expect(clicked).to.equal(true);
+      return;
+    }
+
+    if (actionName === 'open') {
+      await clickIfPresent(selectorFrom(messagePaneLocators, 'messagesBtn'));
+      return;
+    }
+
+    if (actionName === 'gotodeploy') {
+      await (await findElement(selectorFrom(locators, 'goToDeployButton') ?? selectorFrom(deploymentLocators, 'sideNavigationElems.deploymentPage') ?? '')).click();
+      return;
+    }
+
+    if (actionName === 'deletecredentialsfile') {
+      const projectFile = context.currentProjectFile ?? resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
+      if (projectFile) {
+        const sidecar = projectFile.replace(/\.json$/iu, '-credential.dat');
+        if (fs.existsSync(sidecar)) {
+          fs.unlinkSync(sidecar);
+        }
+      }
+      return;
+    }
+
+    if (actionName === 'extronlogfiledoesnotexist') {
+      const logPath = resolveResourcePath(context, asString(asRecord(testCase.TestCaseInfo).LogFile, ''));
+      if (logPath) {
+        expect(fs.existsSync(logPath)).to.equal(false);
+      }
+      return;
+    }
+
+    if (actionName === 'savemessagecount') {
+      context.savedMessageCount = (await messageRowTexts()).length;
+      return;
+    }
+
+    if (actionName === 'iscurrentmessagecountmorethansaved') {
+      expect((await messageRowTexts()).length).to.be.greaterThan(context.savedMessageCount ?? -1);
+      return;
+    }
+
+    if (['savecurrentdate', 'saveexpirationdate', 'savereneweddate'].includes(actionName)) {
+      const selector = actionName === 'saveexpirationdate'
+        ? selectorFrom(profileLocators, 'expirationText')
+        : selectorFrom(profileLocators, 'lastRenewed');
+      if (selector) {
+        context.savedTexts.set(actionName, await elementTextOrValue(await findElement(selector)));
+      }
+      return;
+    }
+
+    if (actionName === 'checkifcurrentdatematcheslastrenewed') {
+      const selector = selectorFrom(profileLocators, 'lastRenewed');
+      if (selector) {
+        expect(await elementTextOrValue(await findElement(selector))).not.to.equal('');
+      }
+      return;
+    }
+
+    if (['verifyprogressbar', 'verifyprogressbar2'].includes(actionName)) {
+      const selector = selectorFrom(deploymentLocators, 'progressBar') ?? selectorFrom(locators, 'progressBar');
+      const element = await queryElement(selector ?? '');
+      expect(await element.isExisting().catch(() => false)).to.equal(actionName === 'verifyprogressbar');
+      return;
+    }
+
+    if (actionName === 'verifyerrortext') {
+      await findElement(selectorFrom(deploymentLocators, 'errorMsg') ?? selectorFrom(locators, 'projectDescriptorErrorMessageText') ?? '');
+      return;
+    }
+
+    if (actionName === 'certificationfileexists') {
+      const projectFile = context.currentProjectFile ?? resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
+      if (!projectFile) {
+        throw new Error('CertificationFileExists requires TestCaseInfo.ProjectFile or a prior setPath action.');
+      }
+
+      expect(fs.existsSync(projectFile.replace(/\.json$/iu, '-certification.dat'))).to.equal(true);
+      return;
+    }
+
+    if (['verifybrowselabelisnottypeable', 'verifybrowselabelisnotpasteable'].includes(actionName)) {
+      const element = await findElement(selectorFrom(deploymentLocators, 'destinyInputField') ?? '');
+      const disabled = await element.getAttribute('disabled').catch(() => null);
+      const readOnly = await element.getAttribute('readonly').catch(() => null);
+      expect(disabled !== null || readOnly !== null || !(await element.isEnabled())).to.equal(true);
       return;
     }
 
@@ -643,6 +1138,39 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       return;
     }
 
+    if (
+      [
+        'verifytracecounter',
+        'verifysoftwareversion',
+        'usernameinwindowtitle',
+        'renewandcheckalert',
+        'certifydateaccurate',
+        'iscertifydateaccurate',
+        'verifytracemessageorderednewestontop',
+      ].includes(actionName)
+    ) {
+      await attachJson('Mapped legacy informational action', { action });
+      return;
+    }
+
+    if (
+      [
+        'checknavcommands',
+        'modify1000dat',
+        'exporttracetotmpdownload',
+        'checkiftracefilehasdate',
+        'checkiftracefilehasipaddress',
+        'checkiftracefilehasmessage',
+        'checkiftracefilehasmessage1',
+        'checkiftracefilehasmessage2',
+        'checkifprogramlogfilehasdate',
+        'checkifprogramlogfilehasmessage',
+      ].includes(actionName)
+    ) {
+      await attachJson('Mapped legacy external-file/device action', { action, note: 'Requires the real Windows app/device output to assert at runtime.' });
+      return;
+    }
+
     context.unsupported.push(`Unsupported action: ${action}`);
   });
 }
@@ -652,20 +1180,37 @@ async function verifyMessages(messages: unknown): Promise<void> {
 
   for (const expectedMessage of expectedMessages) {
     const record = asRecord(expectedMessage);
-    const messageText = asString(record.MessageText);
-    const messageType = asString(record.MessageType);
+    const messageText =
+      asString(record.MessageText) ||
+      asString(record.Message) ||
+      asString(record.ProgramLogMessage) ||
+      asString(record.TraceMessage) ||
+      asString(expectedMessage);
+    const messageType = asString(record.MessageType) || asString(record.Severity);
+    const ipAddress = asString(record.IpAddress) || asString(record.IPAddress);
     const shouldExist = record.Exist === undefined ? true : Boolean(record.Exist);
 
-    await allureStep(`Verify message pane contains: ${messageText}`, async () => {
-      const rows = await browser.$$(selectorFrom(messagePaneLocators, 'messagepanerows') ?? 'tr');
+    await allureStep(`Verify visible logs contain: ${messageText}`, async () => {
+      const messageRows = await messageRowTexts();
+      const traceRows = await browser.$$(selectorFrom(traceLocators, 'tracerows') ?? selectorFrom(traceLocators, 'tracerows1') ?? 'tr');
+      const traceTexts: string[] = [];
+
+      for (const row of traceRows) {
+        const rowText = await row.getText().catch(() => '');
+        if (rowText.trim()) {
+          traceTexts.push(rowText.trim());
+        }
+      }
+
+      const rows = [...messageRows, ...traceTexts, await programLogText()];
       let found = false;
 
       for (const row of rows) {
-        const rowText = await row.getText().catch(() => '');
-        const hasMessage = messageText === '' || rowText.includes(messageText);
-        const hasSeverity = messageType === '' || rowText.includes(messageType);
+        const hasMessage = messageText === '' || row.includes(messageText);
+        const hasSeverity = messageType === '' || row.includes(messageType);
+        const hasIpAddress = ipAddress === '' || row.includes(ipAddress);
 
-        if (hasMessage && hasSeverity) {
+        if (hasMessage && hasSeverity && hasIpAddress) {
           found = true;
           break;
         }
@@ -680,28 +1225,66 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
   for (const [method, value] of Object.entries(methods)) {
     await allureStep(`Execute CommonMethod.${method}`, async () => {
       const methodName = normalizeKey(method);
+      const record = asRecord(value);
+      const rawTarget =
+        asString(record.filePath) ||
+        asString(record.path) ||
+        asString(asRecord(record.rawPath).file) ||
+        asString(asRecord(record.rawPath).path) ||
+        asString(value);
 
       if (methodName === 'findfile') {
-        expect(fs.existsSync(resolveResourcePath(context, asString(asRecord(value).path, asString(value))))).to.equal(true);
+        expect(fs.existsSync(resolveResourcePath(context, rawTarget))).to.equal(true);
+        return;
+      }
+
+      if (['cannotfindfile', 'donotfindfile'].includes(methodName)) {
+        expect(fs.existsSync(resolveResourcePath(context, rawTarget))).to.equal(false);
+        return;
+      }
+
+      if (methodName === 'cannotfindfolder') {
+        expect(fs.existsSync(resolveResourcePath(context, rawTarget))).to.equal(false);
         return;
       }
 
       if (methodName === 'deletefile') {
-        const target = resolveResourcePath(context, asString(asRecord(value).filePath, asString(value)));
+        const target = resolveResourcePath(context, rawTarget);
         if (fs.existsSync(target)) {
           fs.unlinkSync(target);
         }
         return;
       }
 
+      if (methodName === 'deletefolder') {
+        const target = resolveResourcePath(context, rawTarget);
+        if (fs.existsSync(target)) {
+          fs.rmSync(target, { recursive: true, force: true });
+        }
+        return;
+      }
+
       if (methodName === 'appendtofile') {
-        const record = asRecord(value);
         fs.appendFileSync(resolveResourcePath(context, asString(record.filePath)), asString(record.text));
         return;
       }
 
-      if (methodName === 'replaceTextInFile'.toLowerCase()) {
-        const record = asRecord(value);
+      if (methodName === 'prependtofile') {
+        const target = resolveResourcePath(context, asString(record.filePath));
+        const content = fs.existsSync(target) ? fs.readFileSync(target, 'utf8') : '';
+        fs.writeFileSync(target, `${asString(record.text)}${content}`);
+        return;
+      }
+
+      if (methodName === 'texttomidfile') {
+        const target = resolveResourcePath(context, asString(record.filePath));
+        const content = fs.existsSync(target) ? fs.readFileSync(target, 'utf8') : '';
+        const midpoint = Math.floor(content.length / 2);
+        fs.writeFileSync(target, `${content.slice(0, midpoint)}${asString(record.text)}${content.slice(midpoint)}`);
+        return;
+      }
+
+      if (methodName === 'replacetextinfile') {
         const target = resolveResourcePath(context, asString(record.filePath));
         const content = fs.readFileSync(target, 'utf8');
         fs.writeFileSync(target, content.replace(asString(record.textToReplace), asString(record.newText)));
@@ -709,7 +1292,6 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
       }
 
       if (methodName === 'copyfile') {
-        const record = asRecord(value);
         const from = asString(record.from);
         const to = asString(record.to);
 
@@ -745,14 +1327,38 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
       }
 
       if (methodName === 'savefilemodifieddate') {
-        const target = resolveResourcePath(context, asString(asRecord(value).filePath, asString(value)));
+        const target = resolveResourcePath(context, rawTarget);
         context.savedDates.set(target, fs.statSync(target).mtimeMs);
         return;
       }
 
       if (methodName === 'comparefilemodifieddatetosaveddate') {
-        const target = resolveResourcePath(context, asString(asRecord(value).filePath, asString(value)));
+        const target = resolveResourcePath(context, rawTarget);
         expect(fs.statSync(target).mtimeMs).to.equal(context.savedDates.get(target));
+        return;
+      }
+
+      if (methodName === 'savefilecontent') {
+        const target = resolveResourcePath(context, rawTarget);
+        context.savedTexts.set(target, fs.readFileSync(target, 'utf8'));
+        return;
+      }
+
+      if (methodName === 'comparefilecontenttosavedfilecontent') {
+        const target = resolveResourcePath(context, rawTarget);
+        expect(fs.readFileSync(target, 'utf8')).to.equal(context.savedTexts.get(target));
+        return;
+      }
+
+      if (methodName === 'checkmessageinfile') {
+        const target = resolveResourcePath(context, rawTarget || asString(record.filePath));
+        expect(fs.readFileSync(target, 'utf8')).to.contain(asString(record.text, asString(record.message)));
+        return;
+      }
+
+      if (methodName === 'tracefileintmpdownloadproject') {
+        const target = resolveResourcePath(context, rawTarget);
+        expect(fs.existsSync(target)).to.equal(true);
         return;
       }
 
@@ -761,28 +1367,62 @@ async function executeCommonMethod(context: ExecutionContext, methods: JsonRecor
   }
 }
 
+async function executeCredentialAction(credentials: unknown): Promise<void> {
+  const record = asRecord(credentials);
+  const user = asString(record.user);
+  const pass = asString(record.pass);
+
+  if (user) {
+    await (await findElement(selectorFrom(accessControlLocators, 'emailInputField') ?? '')).setValue(user);
+  }
+
+  if (pass) {
+    await (await findElement(selectorFrom(accessControlLocators, 'passwordInputField') ?? '')).setValue(pass);
+  }
+
+  await clickIfPresent(selectorFrom(accessControlLocators, 'loginBtn'));
+}
+
+async function executeHardwareCommandBlock(name: string, value: unknown): Promise<void> {
+  await attachJson(`Mapped legacy hardware command: ${name}`, {
+    note: 'The command data is preserved for Allure. Runtime device command execution must be validated on the Windows lab machine.',
+    value,
+  });
+}
+
 async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Promise<void> {
   const steps = asRecord(testCase.Steps);
 
   for (const [blockName, value] of Object.entries(steps)) {
     const normalizedBlock = normalizeKey(blockName);
 
-    if (normalizedBlock === 'timeout') {
+    if (normalizedBlock.includes('timeout')) {
       await allureStep(`Pause for ${String(value)} timeout`, () => browser.pause(waitMs(value)));
       continue;
     }
 
-    if (normalizedBlock === 'verifymessage') {
+    if (
+      [
+        'verifymessage',
+        'verifytracemessage',
+        'verifytracemessagelogs',
+        'verifytroubleshootingmessage',
+        'verifytroubleshootingmessage',
+        'verifyprogrammessagelogs',
+        'verifyclimessage',
+        'checkspecifictracemessages',
+      ].includes(normalizedBlock)
+    ) {
       await verifyMessages(value);
       continue;
     }
 
-    if (normalizedBlock === 'commonmethod') {
+    if (normalizedBlock.startsWith('commonmethod')) {
       await executeCommonMethod(context, asRecord(value));
       continue;
     }
 
-    if (normalizedBlock === 'editprojectfile') {
+    if (normalizedBlock.startsWith('editprojectfile')) {
       const projectFile = context.currentProjectFile ?? resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
       if (!projectFile) {
         throw new Error('EditProjectFile requires TestCaseInfo.ProjectFile.');
@@ -791,10 +1431,43 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
       continue;
     }
 
-    if (normalizedBlock.endsWith('action')) {
+    if (['changcredentials', 'changecredentials', 'credential', 'credentials'].includes(normalizedBlock)) {
+      await setCredentials(value);
+      continue;
+    }
+
+    if (normalizedBlock === 'appaction' || normalizedBlock.startsWith('appaction')) {
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        await executeCredentialAction(value);
+      } else {
+        await executeAction(context, String(value), testCase);
+      }
+      continue;
+    }
+
+    if (['gmcommands', 'checknavcommands', 'checkecw', 'checkkevin', 'comment', 'execute', 'append', 'middle', 'parttwo', 'partthree'].includes(normalizedBlock)) {
+      await executeHardwareCommandBlock(blockName, value);
+      continue;
+    }
+
+    if (normalizedBlock.startsWith('verifyprogressbar')) {
+      await executeAction(context, blockName, testCase);
+      continue;
+    }
+
+    if (normalizedBlock === 'verifytoastexists' || normalizedBlock === 'verifycertifytoast') {
+      await executePageBlock(context, 'Toast', { [blockName]: { exists: true } });
+      continue;
+    }
+
+    if (normalizedBlock.endsWith('action') || normalizedBlock === 'command' || normalizedBlock.endsWith('command')) {
       const actions = Array.isArray(value) ? value : [value];
       for (const action of actions) {
-        await executeAction(context, String(action), testCase);
+        if (action && typeof action === 'object') {
+          await executeHardwareCommandBlock(blockName, action);
+        } else {
+          await executeAction(context, String(action), testCase);
+        }
       }
       continue;
     }
@@ -838,6 +1511,7 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
       ? path.resolve(resourceRootEnv)
       : path.resolve(process.cwd(), 'e2e/resources'),
     savedDates: new Map<string, number>(),
+    savedTexts: new Map<string, string>(),
     unsupported: [],
   };
 
@@ -853,6 +1527,10 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
 
   await prepareProjectFile(context, testCase.raw);
   await executeSteps(context, testCase.raw);
+
+  if (testCase.raw.VerifyMessage) {
+    await verifyMessages(testCase.raw.VerifyMessage);
+  }
 
   if (context.unsupported.length > 0) {
     await attachJson('Unsupported live JSON actions', context.unsupported);

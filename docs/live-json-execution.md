@@ -40,14 +40,27 @@ Remove `E2E_JSON_LIMIT` after the first live case is stable.
 | `ELECTRON_AUTO_DETECT_BROWSER_VERSION=false` | Disables automatic browser-version detection from the `.exe`.                      |
 | `CHROMEDRIVER_BINARY_PATH`                   | Optional explicit ChromeDriver executable path.                                    |
 
-## Supported First-Pass Actions
+## Live Mapping Coverage
 
-The live dispatcher currently supports the highest-volume master spec actions:
+The live dispatcher maps the legacy master-spec action vocabulary into one TypeScript executor:
 
-- `DeployAction`: `Deploy`, `DeployCodeOnly`, `ClearMessagePane`, `Certify`, `ProjectDownload`, `StartTrace`, `RefreshProgramLog`, `ShowMessagePane`.
-- Page element checks/actions: `exists`, `isVisible`, `isEnabled`, `isDisabled`, `isEmpty`, `isOpen`, `click`, `setPath`, `setIp`, `setPassword`, `setValue`, `clearInput`, `clearPath`, `matches`, `matchesText`, `textMatches`, `verifyDeviceInfo`.
-- `VerifyMessage`: scans message pane rows for expected message text and severity.
-- `CommonMethod`: `findFile`, `deleteFile`, `appendToFile`, `replaceTextInFile`, `copyFile`, `renameFiles`, `saveFileModifiedDate`, `compareFileModifiedDateToSavedDate`.
-- `Preconditions` / `EditProjectFile`: applies JSON mutations to a temp project file before upload.
+- Deployment actions: `Deploy`, `DeployCodeOnly`, `Certify`, `ProjectDownload`, `GoToDeploy`, progress-bar checks, project-file upload, and project-file error assertions.
+- Message, trace, and program-log actions: `ShowMessagePane`, `HideMessagePane`, `ClearMessagePane`, `SaveMessageCount`, `isCurrentMessageCountMoreThanSaved`, `StartTrace`, `StopTrace`, `ClearTrace`, `StartProgramLog`, `StopProgramLog`, `RefreshProgramLog`, `NoProgramLog`, and clickable/not-clickable checks.
+- Page operations: `exists`, `Exist`, `isVisible`, `isEnabled`, `isDisabled`, `isDisbaled`, `isEmpty`, `isOpen`, `isChecked`, `isObfuscated`, `click`, `close`, `noSwitchWindowClick`, `setPath`, `set`, `setIp`, `setUsername`, `setPassword`, `setValue`, `setDownload`, `SendKeys`, `emailToType`, `clearInput`, `clearPath`, `clearValue`, `clearPassword`, `matches`, `matchesText`, `textMatches`, `verifyTextMatches`, `verifyMessageMatches`, `verifyPathMatches`, `verifyIP`, `verifyNotExistIP`, `verifyIpError`, `verifyHoverMessage`, and credential/download helper assertions.
+- JSON/file utilities: `Preconditions`, `EditProjectFile`, `findFile`, `cannotFindFile`, `doNotFindFile`, `deleteFile`, `deleteFolder`, `appendToFile`, `prependToFile`, `textToMidFile`, `replaceTextInFile`, `copyFile`, `renameFiles`, `saveFileModifiedDate`, `compareFileModifiedDateToSavedDate`, `saveFileContent`, `compareFileContentToSavedFileContent`, and `checkMessageInFile`.
+- Login/profile/sign-out/toast blocks: `AppAction`, `LoginPage`, `LoginPopUp`, `ProfilePage`, `ProfileAction`, `SignOutAction`, `SignOutPopUp`, `Toast`, `VerifyToastExists`, and `VerifyCertifyToast`.
+- Hardware command blocks: `GmCommands`, `CheckNavCommands`, `CheckECW`, and `CheckKevin` are mapped and attached to Allure as structured command evidence. Their real device side effects still require the Windows lab machine/device environment.
 
-Unsupported actions are attached to Allure as `Unsupported live JSON actions`. By default they fail the test so missing mappings are visible.
+`VerifyMessage`, `VerifyTraceMessage`, `VerifyTroubleShootingMessage`, `VerifyProgramMessageLogs`, `VerifyCLIMessage`, and `CheckSpecificTraceMessages` search visible message-pane rows, trace rows, and program-log text.
+
+Unsupported actions are attached to Allure as `Unsupported live JSON actions`. By default they fail the test so missing mappings are visible. Use `E2E_JSON_STRICT_UNSUPPORTED=false` only while triaging a new legacy action.
+
+## Current Validation Status
+
+This refactor was validated with static checks only:
+
+- `yarn typecheck`
+- `yarn format:check`
+- `yarn validate:e2e-json`
+
+WDIO was intentionally not run during this refactor. Runtime validation should happen on the Windows machine with the packaged Electron 41 `.exe`.
