@@ -264,6 +264,14 @@ export function buildElectronCapability(): ElectronCapability {
   );
   const chromedriverOptions = getChromedriverOptions();
   const chromeArgs = getListEnv('ELECTRON_CHROME_ARGS');
+  const userDataDir = getEnv('ELECTRON_USER_DATA_DIR') || getEnv('ELECTRON_APP_USER_DATA_DIR');
+  const normalizedUserDataDir = userDataDir ? normalizePathForCurrentHost(userDataDir) : undefined;
+  const resolvedChromeArgs = [
+    ...chromeArgs,
+    ...(normalizedUserDataDir && !chromeArgs.some((arg) => arg.includes('user-data-dir'))
+      ? [`--user-data-dir=${normalizedUserDataDir}`]
+      : []),
+  ];
   const enableBidi = getBooleanEnv('WDIO_ENABLE_BIDI', false);
 
   const capability: ElectronCapability = {
@@ -271,7 +279,9 @@ export function buildElectronCapability(): ElectronCapability {
     ...(browserVersion ? { browserVersion } : {}),
     ...(enableBidi ? { webSocketUrl: true } : {}),
     ...(!enableBidi ? { 'wdio:enforceWebDriverClassic': true } : {}),
-    ...(chromeArgs.length > 0 ? { 'goog:chromeOptions': { args: chromeArgs } } : {}),
+    ...(resolvedChromeArgs.length > 0
+      ? { 'goog:chromeOptions': { args: resolvedChromeArgs } }
+      : {}),
     'wdio:electronServiceOptions': serviceOptions,
     ...(chromedriverOptions ? { 'wdio:chromedriverOptions': chromedriverOptions } : {}),
   };

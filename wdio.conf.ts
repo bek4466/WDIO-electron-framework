@@ -21,6 +21,14 @@ function lifecycleLog(message: string, details?: Record<string, unknown>): void 
   fs.appendFileSync(lifecycleLogPath, `${line}\n`);
 }
 
+function writeDiagnosticJson(fileName: string, value: unknown): void {
+  fs.mkdirSync(reportPaths.wdioLogs, { recursive: true });
+  fs.writeFileSync(
+    path.join(reportPaths.wdioLogs, fileName),
+    `${JSON.stringify(value, null, 2)}\n`,
+  );
+}
+
 type WdioTestrunnerConfig = Options.Testrunner & {
   capabilities: Capabilities.TestrunnerCapabilities;
 };
@@ -94,11 +102,17 @@ export const config: WdioTestrunnerConfig = {
     });
   },
   beforeSession: (_config, capabilities, specs, cid) => {
+    writeDiagnosticJson('electron-capability-before-session.json', capabilities);
     lifecycleLog('beforeSession', {
       cid,
       specs,
       browserName: (capabilities as WebdriverIO.Capabilities).browserName,
       browserVersion: (capabilities as WebdriverIO.Capabilities).browserVersion,
+      enforceWebDriverClassic: Boolean(
+        (capabilities as WebdriverIO.Capabilities)['wdio:enforceWebDriverClassic'],
+      ),
+      hasWebSocketUrl: Object.prototype.hasOwnProperty.call(capabilities, 'webSocketUrl'),
+      chromeArgs: (capabilities as WebdriverIO.Capabilities)['goog:chromeOptions']?.args,
     });
   },
   before: async (_capabilities, specs) => {
