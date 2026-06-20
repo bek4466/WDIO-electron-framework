@@ -18,6 +18,7 @@
     "test:e2e-json:newmaster": "wdio run ./wdio.conf.ts --suite e2eJsonNewMaster",
     "test:e2e-json:nbp": "wdio run ./wdio.conf.ts --suite e2eJsonNbp",
     "test:e2e-json:hardware": "wdio run ./wdio.conf.ts --suite e2eJsonHardware",
+    "debug:electron-targets": "node ./scripts/inspect-electron-targets.mjs",
     "allure:generate": "allure generate ./reports/allure-results --clean -o ./reports/allure-report",
     "allure:open": "allure open ./reports/allure-report",
     "format": "prettier --write .",

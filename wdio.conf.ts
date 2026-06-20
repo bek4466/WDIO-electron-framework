@@ -29,6 +29,51 @@ function writeDiagnosticJson(fileName: string, value: unknown): void {
   );
 }
 
+async function logAttachedElectronWindows(): Promise<void> {
+  const diagnostics: Array<{
+    index: number;
+    handle: string;
+    title?: string;
+    url?: string;
+    error?: string;
+  }> = [];
+  const originalHandle = await browser.getWindowHandle().catch(() => undefined);
+  const handles = await browser.getWindowHandles();
+
+  for (const [index, handle] of handles.entries()) {
+    try {
+      await browser.switchToWindow(handle);
+      diagnostics.push({
+        index,
+        handle,
+        title: await browser.getTitle(),
+        url: await browser.getUrl(),
+      });
+    } catch (error) {
+      diagnostics.push({
+        index,
+        handle,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  if (originalHandle) {
+    await browser.switchToWindow(originalHandle).catch(() => undefined);
+  }
+
+  writeDiagnosticJson('electron-attached-windows.json', diagnostics);
+  lifecycleLog('attached Electron windows', {
+    windowCount: diagnostics.length,
+    windows: diagnostics.map(({ index, title, url, error }) => ({
+      index,
+      title,
+      url,
+      error,
+    })),
+  });
+}
+
 type WdioTestrunnerConfig = Options.Testrunner & {
   capabilities: Capabilities.TestrunnerCapabilities;
 };
@@ -129,6 +174,7 @@ export const config: WdioTestrunnerConfig = {
       specs,
       sessionId: browser.sessionId,
     });
+    await logAttachedElectronWindows();
   },
   beforeSuite: (suite) => {
     lifecycleLog('beforeSuite', {
