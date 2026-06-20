@@ -18,6 +18,7 @@
     "test:e2e-json:newmaster": "wdio run ./wdio.conf.ts --suite e2eJsonNewMaster",
     "test:e2e-json:nbp": "wdio run ./wdio.conf.ts --suite e2eJsonNbp",
     "test:e2e-json:hardware": "wdio run ./wdio.conf.ts --suite e2eJsonHardware",
+    "test:attach:e2e-json:newmaster": "wdio run ./wdio.attach.conf.ts --suite e2eJsonNewMaster",
     "debug:electron-targets": "node ./scripts/inspect-electron-targets.mjs",
     "debug:chromedriver-attach": "node ./scripts/probe-chromedriver-attach.mjs",
     "allure:generate": "allure generate ./reports/allure-results --clean -o ./reports/allure-report",
