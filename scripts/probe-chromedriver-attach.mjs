@@ -1,8 +1,10 @@
 import childProcess from 'node:child_process';
+import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import net from 'node:net';
 import path from 'node:path';
 
+const require = createRequire(import.meta.url);
 const reportDir = path.resolve(process.cwd(), 'reports/wdio-logs');
 const resultPath = path.join(reportDir, 'chromedriver-attach-probe.json');
 const logPath = path.join(reportDir, 'chromedriver-attach-probe.log');
@@ -37,7 +39,31 @@ function resolveChromedriverPath() {
     return configuredPath;
   }
 
-  return path.resolve(process.cwd(), 'node_modules/.bin/chromedriver');
+  try {
+    const chromedriver = require('chromedriver');
+
+    if (typeof chromedriver.path === 'string' && chromedriver.path) {
+      return chromedriver.path;
+    }
+  } catch {
+    // Fall back to package binary locations below.
+  }
+
+  const packageBinaryPath = path.resolve(
+    process.cwd(),
+    'node_modules/chromedriver/lib/chromedriver',
+    process.platform === 'win32' ? 'chromedriver.exe' : 'chromedriver',
+  );
+
+  if (fs.existsSync(packageBinaryPath)) {
+    return packageBinaryPath;
+  }
+
+  return path.resolve(
+    process.cwd(),
+    'node_modules/.bin',
+    process.platform === 'win32' ? 'chromedriver.cmd' : 'chromedriver',
+  );
 }
 
 function waitForPort(port, timeoutMs) {
@@ -153,11 +179,16 @@ async function main() {
       windowsHide: true,
     },
   );
+  const driverStartupError = new Promise((_, reject) => {
+    driver.once('error', (error) => {
+      reject(error);
+    });
+  });
 
   let sessionId;
 
   try {
-    await waitForPort(port, startupTimeoutMs);
+    await Promise.race([waitForPort(port, startupTimeoutMs), driverStartupError]);
 
     const sessionResponse = await webdriverRequest(port, 'POST', '/session', {
       capabilities: {
