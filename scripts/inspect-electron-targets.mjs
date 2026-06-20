@@ -25,6 +25,20 @@ function getNumberEnv(name, fallback) {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+function getPortEnv(name, fallback) {
+  const parsed = getNumberEnv(name, fallback);
+
+  if (parsed < 1 || parsed > 65535) {
+    console.warn(
+      `[electron-targets] Ignoring invalid ${name}=${parsed}. Using ${fallback} instead.`,
+    );
+
+    return fallback;
+  }
+
+  return parsed;
+}
+
 function getListEnv(name) {
   return getEnv(name)
     .split(',')
@@ -103,7 +117,7 @@ async function main() {
     throw new Error(`Electron app binary does not exist or is not a file: ${appBinaryPath}`);
   }
 
-  const port = getNumberEnv('ELECTRON_TARGET_INSPECT_PORT', 9229);
+  const port = getPortEnv('ELECTRON_TARGET_INSPECT_PORT', 9229);
   const timeoutMs = getNumberEnv('ELECTRON_TARGET_INSPECT_TIMEOUT_MS', 60000);
   const keepAppOpen = getBooleanEnv('ELECTRON_TARGET_INSPECT_KEEP_APP', false);
   const appCwd = getEnv('ELECTRON_APP_CWD') || path.dirname(appBinaryPath);
