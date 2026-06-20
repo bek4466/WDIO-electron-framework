@@ -45,9 +45,15 @@ function getListEnv(name, fallback = []) {
     .filter(Boolean);
 }
 
+function normalizeLocalHost(value) {
+  return value.toLowerCase() === 'localhost' ? '127.0.0.1' : value;
+}
+
 function describeError(error) {
   if (error instanceof Error) {
-    return error.stack || error.message || error.name;
+    const cause = error.cause ? `\nCaused by: ${describeError(error.cause)}` : '';
+
+    return `${error.stack || error.message || error.name}${cause}`;
   }
 
   try {
@@ -171,6 +177,28 @@ async function webdriverRequest(host, port, method, endpoint, body) {
   return payload;
 }
 
+async function webdriverRequestWithRetry(host, port, method, endpoint, body, timeoutMs) {
+  const startedAt = Date.now();
+  let lastError;
+
+  while (Date.now() - startedAt <= timeoutMs) {
+    try {
+      return await webdriverRequest(host, port, method, endpoint, body);
+    } catch (error) {
+      lastError = error;
+      await new Promise((resolve) => {
+        setTimeout(resolve, 500);
+      });
+    }
+  }
+
+  throw new Error(
+    `${method} ${endpoint} did not succeed within ${timeoutMs}ms. Last error: ${describeError(
+      lastError,
+    )}`,
+  );
+}
+
 async function inspectSession(host, port, sessionId) {
   const handlesResponse = await webdriverRequest(
     host,
@@ -207,9 +235,10 @@ async function main() {
 
   const chromedriverPath = resolveChromedriverPath();
   const debuggerAddress = getEnv('ELECTRON_DEBUGGER_ADDRESS', '127.0.0.1:9229');
-  const host = getEnv('CHROMEDRIVER_ATTACH_PROBE_HOST', '127.0.0.1');
+  const host = normalizeLocalHost(getEnv('CHROMEDRIVER_ATTACH_PROBE_HOST', '127.0.0.1'));
   const port = getNumberEnv('CHROMEDRIVER_ATTACH_PROBE_PORT', 9517);
   const startupTimeoutMs = getPositiveNumberEnv('CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS', 30000);
+  const sessionTimeoutMs = getPositiveNumberEnv('CHROMEDRIVER_ATTACH_SESSION_TIMEOUT_MS', 30000);
   const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES', ['tab', 'page', 'app', 'webview']);
 
   if (!fs.existsSync(chromedriverPath)) {
@@ -230,6 +259,7 @@ async function main() {
   logStream.write(`[chromedriver-probe] port: ${port}\n`);
   logStream.write(`[chromedriver-probe] debuggerAddress: ${debuggerAddress}\n`);
   logStream.write(`[chromedriver-probe] windowTypes: ${windowTypes.join(', ')}\n`);
+  logStream.write(`[chromedriver-probe] sessionTimeoutMs: ${sessionTimeoutMs}\n`);
   logStream.write(`[chromedriver-probe] driverLogPath: ${driverLogPath}\n`);
   fs.writeFileSync(
     driverLogPath,
@@ -292,17 +322,24 @@ async function main() {
       driverExitBeforeReady,
     ]);
 
-    const sessionResponse = await webdriverRequest(host, port, 'POST', '/session', {
-      capabilities: {
-        alwaysMatch: {
-          browserName: 'chrome',
-          'goog:chromeOptions': {
-            debuggerAddress,
-            windowTypes,
+    const sessionResponse = await webdriverRequestWithRetry(
+      host,
+      port,
+      'POST',
+      '/session',
+      {
+        capabilities: {
+          alwaysMatch: {
+            browserName: 'chrome',
+            'goog:chromeOptions': {
+              debuggerAddress,
+              windowTypes,
+            },
           },
         },
       },
-    });
+      sessionTimeoutMs,
+    );
 
     sessionId = sessionResponse.value?.sessionId || sessionResponse.sessionId;
 
