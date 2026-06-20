@@ -95,10 +95,19 @@ export const config: WdioTestrunnerConfig = {
       wdioLogs: reportPaths.wdioLogs,
     });
   },
-  onWorkerStart: (cid, _capabilities, specs) => {
+  onWorkerStart: (cid, _capabilities, specs, args) => {
+    const suiteArg = (args as { suite?: unknown }).suite;
+    const selectedSuite = Array.isArray(suiteArg) ? String(suiteArg[0]) : undefined;
+
+    if (selectedSuite) {
+      process.env.TESTTYPE = selectedSuite;
+    }
+
     lifecycleLog('onWorkerStart', {
       cid,
       specs,
+      selectedSuite,
+      testType: process.env.TESTTYPE,
     });
   },
   beforeSession: (_config, capabilities, specs, cid) => {
