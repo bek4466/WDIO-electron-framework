@@ -8,6 +8,7 @@ const require = createRequire(import.meta.url);
 const reportDir = path.resolve(process.cwd(), 'reports/wdio-logs');
 const resultPath = path.join(reportDir, 'chromedriver-attach-probe.json');
 const logPath = path.join(reportDir, 'chromedriver-attach-probe.log');
+const driverLogPath = path.join(reportDir, 'chromedriver-attach-probe-driver.log');
 
 function getEnv(name, fallback = '') {
   const value = process.env[name];
@@ -30,6 +31,30 @@ function getListEnv(name, fallback = []) {
     .split(',')
     .map((item) => item.trim())
     .filter(Boolean);
+}
+
+function describeError(error) {
+  if (error instanceof Error) {
+    return error.stack || error.message || error.name;
+  }
+
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return String(error);
+  }
+}
+
+function tailText(text, lineCount = 80) {
+  return text.split(/\r?\n/u).filter(Boolean).slice(-lineCount).join('\n');
+}
+
+function readTailIfExists(filePath, lineCount = 80) {
+  if (!fs.existsSync(filePath)) {
+    return '';
+  }
+
+  return tailText(fs.readFileSync(filePath, 'utf8'), lineCount);
 }
 
 function resolveChromedriverPath() {
@@ -68,6 +93,7 @@ function resolveChromedriverPath() {
 
 function waitForPort(host, port, timeoutMs) {
   const startedAt = Date.now();
+  let lastError;
 
   return new Promise((resolve, reject) => {
     const tryConnect = () => {
@@ -79,9 +105,16 @@ function waitForPort(host, port, timeoutMs) {
       });
       socket.once('error', (error) => {
         socket.destroy();
+        lastError = error;
 
         if (Date.now() - startedAt >= timeoutMs) {
-          reject(error);
+          reject(
+            new Error(
+              `Timed out waiting for ChromeDriver at ${host}:${port} after ${timeoutMs}ms. Last socket error: ${describeError(
+                lastError,
+              )}`,
+            ),
+          );
           return;
         }
 
@@ -170,11 +203,14 @@ async function main() {
   console.log(`[chromedriver-probe] windowTypes: ${windowTypes.join(', ')}`);
 
   const logStream = fs.createWriteStream(logPath, { flags: 'w' });
+  const stdoutChunks = [];
+  const stderrChunks = [];
   logStream.write(`[chromedriver-probe] chromedriver: ${chromedriverPath}\n`);
   logStream.write(`[chromedriver-probe] host: ${host}\n`);
   logStream.write(`[chromedriver-probe] port: ${port}\n`);
   logStream.write(`[chromedriver-probe] debuggerAddress: ${debuggerAddress}\n`);
   logStream.write(`[chromedriver-probe] windowTypes: ${windowTypes.join(', ')}\n`);
+  logStream.write(`[chromedriver-probe] driverLogPath: ${driverLogPath}\n`);
 
   const driver = childProcess.spawn(
     chromedriverPath,
@@ -182,7 +218,7 @@ async function main() {
       `--port=${port}`,
       '--allowed-origins=*',
       '--allowed-ips=0.0.0.0',
-      `--log-path=${logPath}`,
+      `--log-path=${driverLogPath}`,
       '--verbose',
     ],
     {
@@ -190,19 +226,47 @@ async function main() {
       windowsHide: true,
     },
   );
-  driver.stdout?.pipe(logStream, { end: false });
-  driver.stderr?.pipe(logStream, { end: false });
+  driver.stdout?.on('data', (chunk) => {
+    const text = chunk.toString();
+    stdoutChunks.push(text);
+    logStream.write(text);
+  });
+  driver.stderr?.on('data', (chunk) => {
+    const text = chunk.toString();
+    stderrChunks.push(text);
+    logStream.write(text);
+  });
   const driverStartupError = new Promise((_, reject) => {
     driver.once('error', (error) => {
-      logStream.write(`[chromedriver-probe] driver startup error: ${error.message}\n`);
-      reject(error);
+      const details = describeError(error);
+      logStream.write(`[chromedriver-probe] driver startup error: ${details}\n`);
+      reject(new Error(`ChromeDriver failed to start: ${details}`));
+    });
+  });
+  const driverExitBeforeReady = new Promise((_, reject) => {
+    driver.once('exit', (code, signal) => {
+      const message = [
+        `ChromeDriver exited before the probe could connect. code=${code ?? '(none)'} signal=${
+          signal ?? '(none)'
+        }`,
+        `stdout tail:\n${tailText(stdoutChunks.join('')) || '(empty)'}`,
+        `stderr tail:\n${tailText(stderrChunks.join('')) || '(empty)'}`,
+        `driver log tail:\n${readTailIfExists(driverLogPath) || '(empty)'}`,
+      ].join('\n');
+
+      logStream.write(`[chromedriver-probe] ${message}\n`);
+      reject(new Error(message));
     });
   });
 
   let sessionId;
 
   try {
-    await Promise.race([waitForPort(host, port, startupTimeoutMs), driverStartupError]);
+    await Promise.race([
+      waitForPort(host, port, startupTimeoutMs),
+      driverStartupError,
+      driverExitBeforeReady,
+    ]);
 
     const sessionResponse = await webdriverRequest(host, port, 'POST', '/session', {
       capabilities: {
@@ -260,7 +324,8 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(`[chromedriver-probe] ${error instanceof Error ? error.message : String(error)}`);
+  console.error(`[chromedriver-probe] ${describeError(error)}`);
   console.error(`[chromedriver-probe] See log: ${logPath}`);
+  console.error(`[chromedriver-probe] See ChromeDriver log: ${driverLogPath}`);
   process.exitCode = 1;
 });
