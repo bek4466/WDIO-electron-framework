@@ -25,6 +25,7 @@ export type ElectronCapability = {
   'wdio:enforceWebDriverClassic'?: boolean;
   'goog:chromeOptions'?: {
     args?: string[];
+    windowTypes?: string[];
     [key: string]: unknown;
   };
   'wdio:electronServiceOptions': ElectronServiceOptions;
@@ -288,6 +289,7 @@ export function buildElectronCapability(): ElectronCapability {
   const chromeArgs = getListEnv('ELECTRON_CHROME_ARGS');
   const userDataDir = getEnv('ELECTRON_USER_DATA_DIR') || getEnv('ELECTRON_APP_USER_DATA_DIR');
   const normalizedUserDataDir = userDataDir ? normalizePathForCurrentHost(userDataDir) : undefined;
+  const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES');
   const resolvedChromeArgs = [
     ...chromeArgs,
     ...(normalizedUserDataDir && !chromeArgs.some((arg) => arg.includes('user-data-dir'))
@@ -301,9 +303,10 @@ export function buildElectronCapability(): ElectronCapability {
     ...(browserVersion ? { browserVersion } : {}),
     ...(enableBidi ? { webSocketUrl: true } : {}),
     ...(!enableBidi ? { 'wdio:enforceWebDriverClassic': true } : {}),
-    ...(resolvedChromeArgs.length > 0
-      ? { 'goog:chromeOptions': { args: resolvedChromeArgs } }
-      : {}),
+    'goog:chromeOptions': {
+      windowTypes: windowTypes.length > 0 ? windowTypes : ['page', 'app', 'webview'],
+      ...(resolvedChromeArgs.length > 0 ? { args: resolvedChromeArgs } : {}),
+    },
     'wdio:electronServiceOptions': serviceOptions,
     ...(chromedriverOptions
       ? {
