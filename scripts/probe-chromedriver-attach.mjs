@@ -66,12 +66,12 @@ function resolveChromedriverPath() {
   );
 }
 
-function waitForPort(port, timeoutMs) {
+function waitForPort(host, port, timeoutMs) {
   const startedAt = Date.now();
 
   return new Promise((resolve, reject) => {
     const tryConnect = () => {
-      const socket = net.createConnection({ host: '127.0.0.1', port });
+      const socket = net.createConnection({ host, port });
 
       socket.once('connect', () => {
         socket.end();
@@ -93,8 +93,8 @@ function waitForPort(port, timeoutMs) {
   });
 }
 
-async function webdriverRequest(port, method, endpoint, body) {
-  const response = await fetch(`http://127.0.0.1:${port}${endpoint}`, {
+async function webdriverRequest(host, port, method, endpoint, body) {
+  const response = await fetch(`http://${host}:${port}${endpoint}`, {
     method,
     headers: {
       'content-type': 'application/json',
@@ -118,8 +118,9 @@ async function webdriverRequest(port, method, endpoint, body) {
   return payload;
 }
 
-async function inspectSession(port, sessionId) {
+async function inspectSession(host, port, sessionId) {
   const handlesResponse = await webdriverRequest(
+    host,
     port,
     'GET',
     `/session/${sessionId}/window/handles`,
@@ -131,10 +132,10 @@ async function inspectSession(port, sessionId) {
     const windowInfo = { index, handle };
 
     try {
-      await webdriverRequest(port, 'POST', `/session/${sessionId}/window`, { handle });
+      await webdriverRequest(host, port, 'POST', `/session/${sessionId}/window`, { handle });
       const [titleResponse, urlResponse] = await Promise.all([
-        webdriverRequest(port, 'GET', `/session/${sessionId}/title`),
-        webdriverRequest(port, 'GET', `/session/${sessionId}/url`),
+        webdriverRequest(host, port, 'GET', `/session/${sessionId}/title`),
+        webdriverRequest(host, port, 'GET', `/session/${sessionId}/url`),
       ]);
       windowInfo.title = titleResponse.value;
       windowInfo.url = urlResponse.value;
@@ -153,6 +154,7 @@ async function main() {
 
   const chromedriverPath = resolveChromedriverPath();
   const debuggerAddress = getEnv('ELECTRON_DEBUGGER_ADDRESS', '127.0.0.1:9229');
+  const host = getEnv('CHROMEDRIVER_ATTACH_PROBE_HOST', 'localhost');
   const port = getNumberEnv('CHROMEDRIVER_ATTACH_PROBE_PORT', 9517);
   const startupTimeoutMs = getNumberEnv('CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS', 30000);
   const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES', ['page', 'app', 'webview']);
@@ -162,8 +164,17 @@ async function main() {
   }
 
   console.log(`[chromedriver-probe] chromedriver: ${chromedriverPath}`);
+  console.log(`[chromedriver-probe] host: ${host}`);
+  console.log(`[chromedriver-probe] port: ${port}`);
   console.log(`[chromedriver-probe] debuggerAddress: ${debuggerAddress}`);
   console.log(`[chromedriver-probe] windowTypes: ${windowTypes.join(', ')}`);
+
+  const logStream = fs.createWriteStream(logPath, { flags: 'w' });
+  logStream.write(`[chromedriver-probe] chromedriver: ${chromedriverPath}\n`);
+  logStream.write(`[chromedriver-probe] host: ${host}\n`);
+  logStream.write(`[chromedriver-probe] port: ${port}\n`);
+  logStream.write(`[chromedriver-probe] debuggerAddress: ${debuggerAddress}\n`);
+  logStream.write(`[chromedriver-probe] windowTypes: ${windowTypes.join(', ')}\n`);
 
   const driver = childProcess.spawn(
     chromedriverPath,
@@ -175,12 +186,15 @@ async function main() {
       '--verbose',
     ],
     {
-      stdio: 'ignore',
+      stdio: ['ignore', 'pipe', 'pipe'],
       windowsHide: true,
     },
   );
+  driver.stdout?.pipe(logStream, { end: false });
+  driver.stderr?.pipe(logStream, { end: false });
   const driverStartupError = new Promise((_, reject) => {
     driver.once('error', (error) => {
+      logStream.write(`[chromedriver-probe] driver startup error: ${error.message}\n`);
       reject(error);
     });
   });
@@ -188,9 +202,9 @@ async function main() {
   let sessionId;
 
   try {
-    await Promise.race([waitForPort(port, startupTimeoutMs), driverStartupError]);
+    await Promise.race([waitForPort(host, port, startupTimeoutMs), driverStartupError]);
 
-    const sessionResponse = await webdriverRequest(port, 'POST', '/session', {
+    const sessionResponse = await webdriverRequest(host, port, 'POST', '/session', {
       capabilities: {
         alwaysMatch: {
           browserName: 'chrome',
@@ -210,10 +224,12 @@ async function main() {
       );
     }
 
-    const windows = await inspectSession(port, sessionId);
+    const windows = await inspectSession(host, port, sessionId);
     const result = {
       inspectedAt: new Date().toISOString(),
       chromedriverPath,
+      host,
+      port,
       debuggerAddress,
       windowTypes,
       session: sessionResponse,
@@ -232,12 +248,14 @@ async function main() {
     }
   } finally {
     if (sessionId) {
-      await webdriverRequest(port, 'DELETE', `/session/${sessionId}`).catch(() => undefined);
+      await webdriverRequest(host, port, 'DELETE', `/session/${sessionId}`).catch(() => undefined);
     }
 
     if (driver.pid) {
       driver.kill();
     }
+
+    logStream.end();
   }
 }
 
