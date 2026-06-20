@@ -20,6 +20,18 @@ function getNumberEnv(name, fallback) {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+function getPositiveNumberEnv(name, fallback) {
+  const parsed = getNumberEnv(name, fallback);
+
+  if (parsed <= 0) {
+    console.warn(`[chromedriver-probe] Ignoring invalid ${name}=${parsed}. Using ${fallback}.`);
+
+    return fallback;
+  }
+
+  return parsed;
+}
+
 function getListEnv(name, fallback = []) {
   const value = getEnv(name);
 
@@ -189,7 +201,7 @@ async function main() {
   const debuggerAddress = getEnv('ELECTRON_DEBUGGER_ADDRESS', '127.0.0.1:9229');
   const host = getEnv('CHROMEDRIVER_ATTACH_PROBE_HOST', 'localhost');
   const port = getNumberEnv('CHROMEDRIVER_ATTACH_PROBE_PORT', 9517);
-  const startupTimeoutMs = getNumberEnv('CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS', 30000);
+  const startupTimeoutMs = getPositiveNumberEnv('CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS', 30000);
   const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES', ['page', 'app', 'webview']);
 
   if (!fs.existsSync(chromedriverPath)) {
@@ -211,6 +223,10 @@ async function main() {
   logStream.write(`[chromedriver-probe] debuggerAddress: ${debuggerAddress}\n`);
   logStream.write(`[chromedriver-probe] windowTypes: ${windowTypes.join(', ')}\n`);
   logStream.write(`[chromedriver-probe] driverLogPath: ${driverLogPath}\n`);
+  fs.writeFileSync(
+    driverLogPath,
+    `[chromedriver-probe] Waiting for ChromeDriver to write driver logs here.\n`,
+  );
 
   const driver = childProcess.spawn(
     chromedriverPath,
