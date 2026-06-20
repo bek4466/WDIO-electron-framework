@@ -8,6 +8,8 @@ import { ensureReportDirectories, reportPaths } from './config/reporting.config.
 import { attachEvidence, startEvidenceCapture } from './src/support/evidence.js';
 
 const waitTimeout = getNumberEnv('WAIT_TIMEOUT_MS', 10000);
+const connectionRetryTimeout = getNumberEnv('WDIO_CONNECTION_RETRY_TIMEOUT_MS', 180000);
+const connectionRetryCount = getNumberEnv('WDIO_CONNECTION_RETRY_COUNT', 1);
 const lifecycleLogPath = path.join(reportPaths.wdioLogs, 'wdio-lifecycle.log');
 const debugCommands = process.env.E2E_DEBUG_COMMANDS === 'true';
 
@@ -101,8 +103,8 @@ export const config: WdioTestrunnerConfig = {
   bail: 0,
   baseUrl: '',
   waitforTimeout: waitTimeout,
-  connectionRetryTimeout: 120000,
-  connectionRetryCount: 1,
+  connectionRetryTimeout,
+  connectionRetryCount,
   services: ['electron'],
   framework: 'mocha',
   reporters: [
@@ -138,6 +140,8 @@ export const config: WdioTestrunnerConfig = {
       suites: Object.keys(config.suites ?? {}),
       allureResults: reportPaths.allureResults,
       wdioLogs: reportPaths.wdioLogs,
+      connectionRetryTimeout,
+      connectionRetryCount,
     });
   },
   onWorkerStart: (cid, _capabilities, specs, args) => {

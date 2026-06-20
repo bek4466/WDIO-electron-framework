@@ -118,7 +118,7 @@ async function main() {
   }
 
   const port = getPortEnv('ELECTRON_TARGET_INSPECT_PORT', 9229);
-  const timeoutMs = getNumberEnv('ELECTRON_TARGET_INSPECT_TIMEOUT_MS', 60000);
+  const timeoutMs = getNumberEnv('ELECTRON_TARGET_INSPECT_TIMEOUT_MS', 180000);
   const keepAppOpen = getBooleanEnv('ELECTRON_TARGET_INSPECT_KEEP_APP', false);
   const appCwd = getEnv('ELECTRON_APP_CWD') || path.dirname(appBinaryPath);
   const appArgs = [
