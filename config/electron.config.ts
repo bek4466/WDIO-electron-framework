@@ -163,6 +163,14 @@ function normalizePathForCurrentHost(value: string): string {
   return path.resolve(process.cwd(), value);
 }
 
+function dirnameForCurrentHost(value: string): string {
+  if (isWindowsAbsolutePath(value)) {
+    return path.win32.dirname(value);
+  }
+
+  return path.dirname(value);
+}
+
 function assertFileExists(filePath: string, description: string): void {
   if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
     throw new Error(`${description} does not exist or is not a file: ${filePath}`);
@@ -242,6 +250,16 @@ export function getChromedriverOptions(): ChromedriverOptions | undefined {
   return options;
 }
 
+function getChromedriverSpawnCwd(appBinaryPath: string): string {
+  const configuredCwd = getEnv('CHROMEDRIVER_SPAWN_CWD') || getEnv('ELECTRON_APP_CWD');
+
+  if (configuredCwd) {
+    return normalizePathForCurrentHost(configuredCwd);
+  }
+
+  return dirnameForCurrentHost(appBinaryPath);
+}
+
 function writeCapabilityDebugFile(capability: ElectronCapability): void {
   const debugFile = path.resolve(
     process.cwd(),
@@ -258,11 +276,15 @@ function writeCapabilityDebugFile(capability: ElectronCapability): void {
 
 export function buildElectronCapability(): ElectronCapability {
   const serviceOptions = getElectronServiceOptions();
-  const browserVersion = getElectronCapabilityVersion(
-    serviceOptions.appBinaryPath,
-    serviceOptions.appArgs,
-  );
+  const appBinaryPath = serviceOptions.appBinaryPath;
+
+  if (!appBinaryPath) {
+    throw new Error('Electron app binary path is required before building capabilities.');
+  }
+
+  const browserVersion = getElectronCapabilityVersion(appBinaryPath, serviceOptions.appArgs);
   const chromedriverOptions = getChromedriverOptions();
+  const chromedriverSpawnCwd = getChromedriverSpawnCwd(appBinaryPath);
   const chromeArgs = getListEnv('ELECTRON_CHROME_ARGS');
   const userDataDir = getEnv('ELECTRON_USER_DATA_DIR') || getEnv('ELECTRON_APP_USER_DATA_DIR');
   const normalizedUserDataDir = userDataDir ? normalizePathForCurrentHost(userDataDir) : undefined;
@@ -283,7 +305,17 @@ export function buildElectronCapability(): ElectronCapability {
       ? { 'goog:chromeOptions': { args: resolvedChromeArgs } }
       : {}),
     'wdio:electronServiceOptions': serviceOptions,
-    ...(chromedriverOptions ? { 'wdio:chromedriverOptions': chromedriverOptions } : {}),
+    ...(chromedriverOptions
+      ? {
+          'wdio:chromedriverOptions': {
+            ...chromedriverOptions,
+            spawnOpts: {
+              cwd: chromedriverSpawnCwd,
+              windowsHide: true,
+            },
+          },
+        }
+      : {}),
   };
 
   writeCapabilityDebugFile(capability);
