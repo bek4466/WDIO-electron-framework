@@ -207,7 +207,7 @@ async function main() {
 
   const chromedriverPath = resolveChromedriverPath();
   const debuggerAddress = getEnv('ELECTRON_DEBUGGER_ADDRESS', '127.0.0.1:9229');
-  const host = getEnv('CHROMEDRIVER_ATTACH_PROBE_HOST', 'localhost');
+  const host = getEnv('CHROMEDRIVER_ATTACH_PROBE_HOST', '127.0.0.1');
   const port = getNumberEnv('CHROMEDRIVER_ATTACH_PROBE_PORT', 9517);
   const startupTimeoutMs = getPositiveNumberEnv('CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS', 30000);
   const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES', ['tab', 'page', 'app', 'webview']);
