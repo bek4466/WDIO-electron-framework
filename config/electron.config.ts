@@ -307,7 +307,7 @@ export function buildElectronCapability(): ElectronCapability {
     ...(enableBidi ? { webSocketUrl: true } : {}),
     ...(!enableBidi ? { 'wdio:enforceWebDriverClassic': true } : {}),
     'goog:chromeOptions': {
-      windowTypes: windowTypes.length > 0 ? windowTypes : ['page', 'app', 'webview'],
+      windowTypes: windowTypes.length > 0 ? windowTypes : ['tab', 'page', 'app', 'webview'],
       ...(debuggerAddress ? { debuggerAddress } : {}),
       ...(resolvedChromeArgs.length > 0 ? { args: resolvedChromeArgs } : {}),
     },
