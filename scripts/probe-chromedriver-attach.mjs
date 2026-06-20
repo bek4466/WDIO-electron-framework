@@ -139,13 +139,21 @@ function waitForPort(host, port, timeoutMs) {
 }
 
 async function webdriverRequest(host, port, method, endpoint, body) {
-  const response = await fetch(`http://${host}:${port}${endpoint}`, {
-    method,
-    headers: {
-      'content-type': 'application/json',
-    },
-    ...(body === undefined ? {} : { body: JSON.stringify(body) }),
-  });
+  const url = `http://${host}:${port}${endpoint}`;
+  let response;
+
+  try {
+    response = await fetch(url, {
+      method,
+      headers: {
+        'content-type': 'application/json',
+      },
+      ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+    });
+  } catch (error) {
+    throw new Error(`${method} ${url} failed: ${describeError(error)}`);
+  }
+
   const text = await response.text();
   let payload;
 
@@ -202,7 +210,7 @@ async function main() {
   const host = getEnv('CHROMEDRIVER_ATTACH_PROBE_HOST', 'localhost');
   const port = getNumberEnv('CHROMEDRIVER_ATTACH_PROBE_PORT', 9517);
   const startupTimeoutMs = getPositiveNumberEnv('CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS', 30000);
-  const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES', ['page', 'app', 'webview']);
+  const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES', ['tab', 'page', 'app', 'webview']);
 
   if (!fs.existsSync(chromedriverPath)) {
     throw new Error(`ChromeDriver binary does not exist: ${chromedriverPath}`);
