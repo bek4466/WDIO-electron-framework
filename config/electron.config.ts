@@ -26,6 +26,7 @@ export type ElectronCapability = {
   'goog:chromeOptions'?: {
     args?: string[];
     windowTypes?: string[];
+    debuggerAddress?: string;
     [key: string]: unknown;
   };
   'wdio:electronServiceOptions': ElectronServiceOptions;
@@ -290,6 +291,8 @@ export function buildElectronCapability(): ElectronCapability {
   const userDataDir = getEnv('ELECTRON_USER_DATA_DIR') || getEnv('ELECTRON_APP_USER_DATA_DIR');
   const normalizedUserDataDir = userDataDir ? normalizePathForCurrentHost(userDataDir) : undefined;
   const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES');
+  const debuggerAddress =
+    getEnv('ELECTRON_DEBUGGER_ADDRESS') || getEnv('ELECTRON_CHROME_DEBUGGER_ADDRESS');
   const resolvedChromeArgs = [
     ...chromeArgs,
     ...(normalizedUserDataDir && !chromeArgs.some((arg) => arg.includes('user-data-dir'))
@@ -305,6 +308,7 @@ export function buildElectronCapability(): ElectronCapability {
     ...(!enableBidi ? { 'wdio:enforceWebDriverClassic': true } : {}),
     'goog:chromeOptions': {
       windowTypes: windowTypes.length > 0 ? windowTypes : ['page', 'app', 'webview'],
+      ...(debuggerAddress ? { debuggerAddress } : {}),
       ...(resolvedChromeArgs.length > 0 ? { args: resolvedChromeArgs } : {}),
     },
     'wdio:electronServiceOptions': serviceOptions,
