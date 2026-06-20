@@ -22,6 +22,7 @@ export type ElectronCapability = {
   browserName: 'electron';
   browserVersion?: string;
   webSocketUrl?: boolean;
+  'wdio:enforceWebDriverClassic'?: boolean;
   'goog:chromeOptions'?: {
     args?: string[];
     [key: string]: unknown;
@@ -269,6 +270,7 @@ export function buildElectronCapability(): ElectronCapability {
     browserName: 'electron',
     ...(browserVersion ? { browserVersion } : {}),
     ...(enableBidi ? { webSocketUrl: true } : {}),
+    ...(!enableBidi ? { 'wdio:enforceWebDriverClassic': true } : {}),
     ...(chromeArgs.length > 0 ? { 'goog:chromeOptions': { args: chromeArgs } } : {}),
     'wdio:electronServiceOptions': serviceOptions,
     ...(chromedriverOptions ? { 'wdio:chromedriverOptions': chromedriverOptions } : {}),
