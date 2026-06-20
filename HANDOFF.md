@@ -3,136 +3,240 @@
 ## Current System Architecture
 
 Repository: `bek4466/WDIO-electron-framework`
-Active branch: `feature-e2e`
+Branch: `feature-e2e`
 
-This is a TypeScript + Node.js + WebdriverIO 9 framework for testing packaged Electron 41 apps, primarily Windows `.exe` targets.
+This is a TypeScript + Node.js + WebdriverIO 9 automation framework for a packaged Windows Electron 41 application.
 
-Key architecture:
+Primary architecture:
 
-- `wdio.conf.ts`: WDIO runner configuration, Electron service wiring, suites, Allure hooks.
-- `config/electron.config.ts`: Electron 41 binary/chromedriver configuration, Windows `.exe` resolution, browser version handling.
-- `config/reporting.config.ts`: Report output directories for Allure, screenshots, videos, and logs.
-- `e2e/tests/support/json-master-runner.ts`: Discovers JSON-driven cases from legacy folders/manifests.
-- `e2e/tests/support/json-live-executor.ts`: Main live execution adapter that maps old JSON/master-spec actions into WDIO UI/file operations.
-- `e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts`: New master spec entrypoint calling `defineJsonMasterSuite`.
-- `docs/live-json-execution.md`: Current operational documentation for live JSON execution and legacy parity.
+- `wdio.conf.ts`: Main WDIO config using `wdio-electron-service`.
+- `wdio.attach.conf.ts`: Alternate manual attach WDIO config that spawns the packaged `.exe`, waits for the Electron DevTools port, then attaches ChromeDriver as plain Chrome via `debuggerAddress`.
+- `config/electron.config.ts`: Central Electron capability builder, packaged `.exe` path resolution, Electron 41 / Chromium 146 capability handling, ChromeDriver options, window target filtering.
+- `config/env.ts`: Env parsing helpers.
+- `config/reporting.config.ts`: Report/log/output directory paths.
+- `scripts/inspect-electron-targets.mjs`: Launches the `.exe` with a DevTools port and prints exposed Electron/Chromium targets.
+- `scripts/probe-chromedriver-attach.mjs`: Starts ChromeDriver directly, attaches to an already-running Electron DevTools endpoint, and probes session/window/title behavior outside WDIO.
+- `e2e/tests/support/json-master-runner.ts`: Discovers and registers JSON-driven master spec cases.
+- `e2e/tests/support/json-live-executor.ts`: Maps legacy JSON/master-spec actions to live WDIO UI/file operations.
+- `e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts`: JSON-driven master spec entrypoint.
 
 ## Active Files Under Development
 
-Primary active file:
-
-- `e2e/tests/support/json-live-executor.ts`
-
-Documentation:
-
-- `docs/live-json-execution.md`
-
-Important old-source references already reviewed:
-
-- `bek4466/e2e-wdio-refactor`, branch `old-code-e2e`
-- `e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts`
-- `e2e/tests/commonMethods.po.ts`
+- `config/electron.config.ts`
+- `wdio.conf.ts`
+- `wdio.attach.conf.ts`
+- `scripts/inspect-electron-targets.mjs`
+- `scripts/probe-chromedriver-attach.mjs`
+- `package.json`
+- `HANDOFF.md`
 
 ## Recent Engineering Decisions
 
-- The legacy huge master spec was not copied directly. Its behavior is being refactored into a centralized live JSON executor.
-- JSON execution supports catalog and live modes via `E2E_JSON_EXECUTION_MODE`.
-- All known old master-spec top-level branch names are now routed.
-- Old file helpers from `commonMethods.po.ts` were ported where relevant to current JSON tests.
-- Device/network operations such as `GmCommands`, `CheckECW`, `CheckNavCommands`, and `VerifyVTLP` are explicitly mapped as structured Allure evidence because they require real lab devices/controller web pages.
-- WDIO tests were intentionally not run on macOS because the real packaged Windows `.exe` is required.
-- Validation has been static only:
-  - `yarn typecheck`
-  - `yarn format:check`
-  - `yarn validate:e2e-json`
+- The current blocker is not the master spec or JSON mapping. WDIO fails before Mocha/spec execution during WebDriver session creation.
+- Lifecycle evidence repeatedly showed:
+  - `onPrepare`
+  - `onWorkerStart`
+  - `beforeSession`
+  - `onWorkerEnd exitCode -1`
+  - `onComplete exitCode -1`
+- Added lifecycle/capability diagnostics:
+  - `reports/wdio-logs/electron-capability-request.json`
+  - `reports/wdio-logs/electron-capability-before-session.json`
+  - `reports/wdio-logs/wdio-lifecycle.log`
+  - `reports/wdio-logs/electron-attached-windows.json`
+- WDIO 9 auto-injected BiDi unless disabled, so `wdio:enforceWebDriverClassic: true` was added by default.
+- `webSocketUrl` is only sent when `WDIO_ENABLE_BIDI=true`.
+- Electron app target discovery showed the real target is:
+  - `type: tab`
+  - `title: ControlScript Deployment Utility`
+- Framework and probe now default `windowTypes` to:
+  - `tab,page,app,webview`
+- The app exposes:
+  - `Browser: Chrome/146...`
+  - `User-Agent: Chrome/146...`
+  - `Protocol-Version: 1.3`
+  - `webSocketDebuggerUrl: ws://127.0.0.1:9229/devtools/browser/...`
+- ChromeDriver 146 is required. The repo dependency `chromedriver` is 132, so diagnostics must use `CHROMEDRIVER_BINARY_PATH` pointing to the discovered ChromeDriver 146 executable.
+- `@types/node` is already present in `devDependencies` and included in `tsconfig.json`.
 
-## Latest Pushed Commits On `feature-e2e`
+## Latest Relevant Commits
 
-- `fcb95de` - `Expand legacy JSON live mappings`
-- `95e8ef0` - `Complete old master spec live mappings`
-- `a75f0e4` - `Port old common method behavior`
+Recent pushed commits on `feature-e2e`:
 
-All commits use author:
+- `4270360` - `Add manual Electron attach WDIO config`
+- `5090944` - `Retry ChromeDriver attach probe session`
+- `8041482` - `Use IPv4 host for ChromeDriver attach probe`
+- `c7af7f8` - `Align attach probe with tab targets`
+- `8508e52` - `Include tab targets for Electron attach`
+- `7f4b83c` - `Guard ChromeDriver attach probe timeout`
+- `e0f85ec` - `Improve ChromeDriver attach probe errors`
+- `ae65881` - `Harden ChromeDriver attach probe logging`
+- `f4adaeb` - `Resolve ChromeDriver binary for attach probe`
+- `19a97b7` - `Add ChromeDriver attach probe`
+- `9520fd6` - `Support attaching ChromeDriver to Electron debugger`
+- `42c5b81` - `Include page targets for Electron ChromeDriver attach`
+- `8d0357a` - `Increase Electron startup diagnostics timeout`
+- `333a82a` - `Add Electron window target diagnostics`
+- `4f7e4c6` - `Enforce classic WebDriver for Electron sessions`
+
+Git author is configured as:
 
 ```text
 bek4466 <27562902+bek4466@users.noreply.github.com>
 ```
 
-## Current Coverage Status
+## Current Debugging State
 
-Mapped old master-spec branches include:
+Confirmed:
 
-`AboutAction`, `AccessPageAction`, `AppAction`, `Banner`, `ChangeCredentials`, `ChangeName`, `ChangePythonFile`, `CheckECW`, `CheckNavCommands`, `CheckSpecificTraceMessages`, `CommonMethod`, `DeployAction`, `DeployPage`, `EditProjectFile`, `GmCommands`, `LoginPage`, `LoginPopUp`, `MiscellaneousAction`, `ProfileAction`, `ProfilePage`, `RenameFiles`, `SignOutAction`, `SignOutPopUp`, `Timeout`, `Toast`, `TroubleshootingAction`, `TroubleshootingPage`, `VerifyErrorUnderDeployFilePath`, `VerifyMessage`, `VerifyProgramMessageLogs`, `VerifyProgressBar`, `VerifyToastExists`, `VerifyTraceMessage`, `VerifyTraceMessageLogs`, `VerifyTroubleShootingMessage`, `VerifyVTLP`.
+- The packaged app launches.
+- The app exposes a DevTools endpoint on `127.0.0.1:9229` when launched with `--remote-debugging-port=9229`.
+- `/json/version` reports Chrome 146.
+- ChromeDriver 146 starts successfully.
+- ChromeDriver sees the target:
 
-Ported common method behaviors include:
+```text
+type: tab
+title: ControlScript Deployment Utility
+url: file:///...
+attached: false
+```
 
-`copyFile`, `findFile`, `cannotFindFile`, `doNotFindFile`, `deleteFile`, `deleteFolder`, `appendToFile`, `prependToFile`, `textToMidFile`, `replaceTextInFile`, `renameFiles`, `saveFileModifiedDate`, `compareFileModifiedDateToSavedDate`, `saveFileContent`, `compareFileContentToSavedFileContent`, `checkMessageInFile`.
+Current failure:
 
-## Unresolved Bugs / Risks
+```text
+WebDriverError: operation aborted due to timeout
+POST /session timed out
+RESPONSE InitSession ERROR session not created: cannot connect to chrome not reachable
+```
 
-- Runtime behavior has not yet been validated against the real Windows Electron `.exe`.
-- Some device/network actions are evidence-only and need Windows lab validation.
-- Selectors may need adjustment once real UI execution starts.
-- `VerifyVTLP`, `CheckECW`, `CheckNavCommands`, and `GmCommands` cannot be fully validated without controller/device access.
-- The app previously launched but sat idle; this should be retested now that live mappings are expanded.
-- Some assertions are intentionally tolerant, especially date/certification checks, because old logic depended on timing windows.
+Attach probe also saw:
 
-## Exact Next Steps
+```text
+POST http://127.0.0.1:9519/session failed: TypeError: fetch failed
+Caused by HeadersTimeoutError
+```
 
-1. On Windows, pull latest `feature-e2e`:
+Interpretation:
+
+- ChromeDriver can see the DevTools target.
+- ChromeDriver cannot complete WebDriver `InitSession` against that target.
+- This is still before test/spec execution.
+- The next useful data is the tail of the raw ChromeDriver log around `InitSession`.
+
+## Commands To Resume
+
+Pull latest:
 
 ```powershell
 git checkout feature-e2e
 git pull origin feature-e2e
 ```
 
-2. Set the real `.exe` path:
+Clean stale processes before any run:
+
+```powershell
+taskkill /F /IM chromedriver.exe
+taskkill /F /IM "ControlScript Deployment Utility.exe"
+```
+
+Normal Electron-service WDIO run:
 
 ```powershell
 $env:CSDU_EXE_LOCATION="C:\path\to\ControlScript Deployment Utility.exe"
-```
-
-or:
-
-```powershell
-$env:ELECTRON_APP_BINARY_PATH="C:\path\to\ControlScript Deployment Utility.exe"
-```
-
-3. Run one live JSON case first:
-
-```powershell
-$env:E2E_JSON_EXECUTION_MODE="live"
-$env:E2E_JSON_LIMIT="1"
-$env:E2E_APP_READY_TITLE="ControlScript Deployment Utility"
-$env:E2E_RESOURCE_ROOT="C:\path\to\e2e\resources"
+$env:ELECTRON_CAPABILITY_VERSION="41.0.0"
+$env:ELECTRON_CHROME_WINDOW_TYPES="tab,page,app,webview"
+$env:CHROMEDRIVER_BINARY_PATH="C:\path\to\chromedriver-146.exe"
+$env:WDIO_CONNECTION_RETRY_TIMEOUT_MS="600000"
 
 yarn wdio run ./wdio.conf.ts --logLevel debug --spec ./e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts
 ```
 
-4. If the app launches but test appears idle, inspect:
-
-- `reports/wdio-logs`
-- `reports/allure-results`
-- screenshots/videos/log attachments
-- Allure attachment named `Unsupported live JSON actions`
-
-5. If unsupported actions appear, add mappings in:
-
-```text
-e2e/tests/support/json-live-executor.ts
-```
-
-6. If selector failures occur, update locator JSON mappings under:
-
-```text
-e2e/src/JSON
-```
-
-7. Regenerate and inspect Allure:
+Manual attach WDIO run:
 
 ```powershell
-yarn allure:generate
-yarn allure:open
+$env:CSDU_EXE_LOCATION="C:\path\to\ControlScript Deployment Utility.exe"
+$env:CHROMEDRIVER_BINARY_PATH="C:\path\to\chromedriver-146.exe"
+$env:ELECTRON_ATTACH_DEBUG_PORT="9229"
+$env:ELECTRON_CHROME_WINDOW_TYPES="tab,page,app,webview"
+$env:ELECTRON_ATTACH_TIMEOUT_MS="300000"
+$env:WDIO_CONNECTION_RETRY_TIMEOUT_MS="600000"
+
+yarn test:attach:e2e-json:newmaster
 ```
 
-8. After Windows validation, commit only source/docs changes. Do not commit generated reports.
+Inspect app DevTools targets:
+
+```powershell
+$env:CSDU_EXE_LOCATION="C:\path\to\ControlScript Deployment Utility.exe"
+$env:ELECTRON_TARGET_INSPECT_PORT="9229"
+$env:ELECTRON_TARGET_INSPECT_TIMEOUT_MS="300000"
+$env:ELECTRON_TARGET_INSPECT_KEEP_APP="true"
+
+yarn debug:electron-targets
+```
+
+Probe ChromeDriver attach directly, with app already open from `debug:electron-targets`:
+
+```powershell
+$env:CHROMEDRIVER_BINARY_PATH="C:\path\to\chromedriver-146.exe"
+$env:ELECTRON_DEBUGGER_ADDRESS="127.0.0.1:9229"
+$env:ELECTRON_CHROME_WINDOW_TYPES="tab,page,app,webview"
+$env:CHROMEDRIVER_ATTACH_PROBE_HOST="127.0.0.1"
+$env:CHROMEDRIVER_ATTACH_PROBE_PORT="9519"
+$env:CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS="30000"
+$env:CHROMEDRIVER_ATTACH_SESSION_TIMEOUT_MS="30000"
+
+yarn debug:chromedriver-attach
+```
+
+## Exact Next Steps
+
+1. Re-run the manual attach config first:
+
+```powershell
+yarn test:attach:e2e-json:newmaster
+```
+
+2. If it fails, collect:
+
+```powershell
+Get-Content reports\wdio-logs\wdio-attach-lifecycle.log -Tail 100
+
+Get-ChildItem reports\wdio-logs -Filter "*chromedriver*.log" |
+  Sort-Object LastWriteTime -Descending |
+  Select-Object -First 5 FullName, LastWriteTime
+```
+
+3. Tail the newest ChromeDriver log:
+
+```powershell
+Get-Content "PASTE_NEWEST_CHROMEDRIVER_LOG_PATH" -Tail 150
+```
+
+4. Look specifically for:
+
+```text
+COMMAND InitSession
+RESPONSE InitSession ERROR
+chrome not reachable
+unable to discover open pages
+Target.getTargets
+type: tab
+ControlScript Deployment Utility
+```
+
+5. If ChromeDriver still sees `type: tab` and fails `chrome not reachable`, consider one of:
+
+- Try only `ELECTRON_CHROME_WINDOW_TYPES="tab"`.
+- Try only `ELECTRON_CHROME_WINDOW_TYPES="page"` as a control.
+- Run app manually with `--remote-debugging-port=9229` and attach ChromeDriver probe.
+- Investigate whether the app blocks ChromeDriver attach to `file:///...renderer.html` targets despite exposing DevTools.
+
+## Unresolved Bugs / Risks
+
+- Runtime tests have not reached Mocha yet on Windows because WebDriver session creation fails.
+- Generated reports/logs must not be committed.
+- `chromedriver` package in `node_modules` is 132 and should not be used for Electron 41 diagnostics; always point `CHROMEDRIVER_BINARY_PATH` to ChromeDriver 146.
+- `wdio-electron-service` may not support this app’s exposed target shape cleanly; manual attach config exists to isolate that.
+- JSON live executor mapping work exists, but it cannot be validated until session creation succeeds.
