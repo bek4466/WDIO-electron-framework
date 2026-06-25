@@ -14,6 +14,8 @@ Recommended Confluence page structure:
    - Source: `allure-evidence-and-steps.md`
 5. `WDIO Electron Master Spec Refactor Design`
    - Source: `master-spec-refactor-design.md`
+6. `WDIO 8 To WDIO 9 Dependency Upgrade`
+   - Source: `wdio-8-to-9-dependency-upgrade.md`
 
 ## Upload Notes
 
