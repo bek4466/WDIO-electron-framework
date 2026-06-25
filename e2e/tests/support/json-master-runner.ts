@@ -33,10 +33,33 @@ type NormalizedCase = {
 
 const defaultLimit = Number(process.env.E2E_JSON_LIMIT ?? 0);
 const executionMode = (process.env.E2E_JSON_EXECUTION_MODE ?? 'catalog').toLowerCase();
+const fileFilters = parseEnvList('E2E_JSON_FILES').map((fileName) => path.basename(fileName));
+const caseFilters = parseEnvList('E2E_JSON_CASES');
+const includeManifestTest = parseBooleanEnv(
+  'E2E_JSON_INCLUDE_MANIFEST_TEST',
+  fileFilters.length === 0 && caseFilters.length === 0,
+);
 
 function debugLog(message: string, details?: JsonRecord): void {
   const suffix = details ? ` ${JSON.stringify(details)}` : '';
   console.info(`[E2E JSON][${new Date().toISOString()}] ${message}${suffix}`);
+}
+
+function parseEnvList(name: string): string[] {
+  return (process.env[name] ?? '')
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function parseBooleanEnv(name: string, fallback: boolean): boolean {
+  const value = process.env[name];
+
+  if (value === undefined || value.trim() === '') {
+    return fallback;
+  }
+
+  return ['1', 'true', 'yes', 'y'].includes(value.trim().toLowerCase());
 }
 
 function readJsonFile<T>(filePath: string): T {
@@ -199,6 +222,22 @@ function readManifest(dataDir: string, manifestFileName?: string): string[] {
   return readJsonFile<string[]>(manifestPath).filter((fileName) => fileName.endsWith('.json'));
 }
 
+function matchesFileFilter(fileName: string): boolean {
+  if (fileFilters.length === 0) {
+    return true;
+  }
+
+  return fileFilters.includes(path.basename(fileName));
+}
+
+function matchesCaseFilter(caseId: string): boolean {
+  if (caseFilters.length === 0) {
+    return true;
+  }
+
+  return caseFilters.includes(caseId);
+}
+
 function discoverCases(config: MasterSuiteConfig): NormalizedCase[] {
   const baseDir = path.dirname(fileURLToPath(config.baseDirUrl));
   const repoRoot = path.resolve(baseDir, '../../../..');
@@ -211,6 +250,8 @@ function discoverCases(config: MasterSuiteConfig): NormalizedCase[] {
     executionMode,
     limit: defaultLimit || 'none',
     folders,
+    fileFilters: fileFilters.length > 0 ? fileFilters : 'none',
+    caseFilters: caseFilters.length > 0 ? caseFilters : 'none',
   });
 
   for (const folder of folders) {
@@ -225,7 +266,7 @@ function discoverCases(config: MasterSuiteConfig): NormalizedCase[] {
       manifestCount: manifest.length,
     });
 
-    for (const fileName of manifest) {
+    for (const fileName of manifest.filter(matchesFileFilter)) {
       const filePath = path.join(dataDir, fileName);
       const fileJson = replaceTokens(readJsonFile<JsonRecord>(filePath), repoRoot);
       const rootExecute = fileJson.Execute;
@@ -238,6 +279,10 @@ function discoverCases(config: MasterSuiteConfig): NormalizedCase[] {
         const candidateRecord = candidate as JsonRecord;
 
         if (!isExecutableCase(rootExecute, caseId, candidateRecord)) {
+          continue;
+        }
+
+        if (!matchesCaseFilter(caseId)) {
           continue;
         }
 
@@ -288,29 +333,46 @@ export function defineJsonMasterSuite(config: MasterSuiteConfig): void {
   const cases = discoverCases(config);
 
   describe(config.title, () => {
-    it('loads JSON-driven test cases from manifests', async () => {
-      await annotateTest({
-        suite: config.suite,
-        epic: 'Data-driven E2E',
-        feature: 'JSON manifest loading',
-        story: config.title,
-        severity: 'critical',
-        owner: 'QA Automation',
-        tags: ['e2e-json', 'manifest'],
-        description: 'Verifies that the master spec can discover executable JSON test cases.',
-      });
+    if (cases.length === 0) {
+      it('discovers matching JSON-driven test cases', async () => {
+        await attachJson('JSON discovery filters', {
+          folders: config.folderFilterEnv ? process.env[config.folderFilterEnv] || 'default' : 'default',
+          fileFilters: fileFilters.length > 0 ? fileFilters : 'none',
+          caseFilters: caseFilters.length > 0 ? caseFilters : 'none',
+          executionMode,
+        });
 
-      await attachJson('Discovered case summary', {
-        total: cases.length,
-        limit: defaultLimit || 'none',
-        executionMode,
+        expect(cases.length).to.be.greaterThan(0);
       });
+    }
 
-      expect(cases.length).to.be.greaterThan(0);
-    });
+    if (includeManifestTest) {
+      it('loads JSON-driven test cases from manifests', async () => {
+        await annotateTest({
+          suite: config.suite,
+          epic: 'Data-driven E2E',
+          feature: 'JSON manifest loading',
+          story: config.title,
+          severity: 'critical',
+          owner: 'QA Automation',
+          tags: ['e2e-json', 'manifest'],
+          description: 'Verifies that the master spec can discover executable JSON test cases.',
+        });
+
+        await attachJson('Discovered case summary', {
+          total: cases.length,
+          limit: defaultLimit || 'none',
+          executionMode,
+          fileFilters: fileFilters.length > 0 ? fileFilters : 'none',
+          caseFilters: caseFilters.length > 0 ? caseFilters : 'none',
+        });
+
+        expect(cases.length).to.be.greaterThan(0);
+      });
+    }
 
     for (const testCase of cases) {
-      it(`[${testCase.sourceFolder}] ${testCase.id} - ${testCase.description}`, async () => {
+      it(`[${testCase.sourceFolder}/${testCase.sourceFile}] ${testCase.id} - ${testCase.description}`, async () => {
         debugLog('Starting JSON test case', {
           caseId: testCase.id,
           sourceFolder: testCase.sourceFolder,
