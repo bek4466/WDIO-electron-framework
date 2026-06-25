@@ -155,10 +155,15 @@ function targetMatchesCloseFilter(target: DevToolsTarget, selectedTarget: DevToo
   }
 
   const closeOtherTargets = getBooleanEnv('ELECTRON_ATTACH_CLOSE_OTHER_TARGETS', false);
+  const closeEmptyTargets = getBooleanEnv('ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS', true);
   const closeTitlePattern = getEnv('ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN');
   const closeUrlPattern = getEnv('ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN');
 
   if (closeOtherTargets) {
+    return true;
+  }
+
+  if (closeEmptyTargets && !(target.title ?? '').trim() && !(target.url ?? '').trim()) {
     return true;
   }
 
@@ -238,16 +243,28 @@ async function prepareAttachTarget(selectedTarget: DevToolsTarget): Promise<void
     }
   }
 
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000);
+  });
+
+  const targetsAfterActions = await fetchDevToolsTargets().catch((error: unknown) => [
+    {
+      error: error instanceof Error ? error.message : String(error),
+    },
+  ]);
+
   writeDiagnosticJson('electron-attach-target-actions.json', {
     actedAt: new Date().toISOString(),
     debuggerAddress,
     selectedTarget,
     closeFilters: {
       closeOtherTargets: getBooleanEnv('ELECTRON_ATTACH_CLOSE_OTHER_TARGETS', false),
+      closeEmptyTargets: getBooleanEnv('ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS', true),
       title: getEnv('ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN') || '(none)',
       url: getEnv('ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN') || '(none)',
     },
     actions,
+    targetsAfterActions,
   });
 
   lifecycleLog('prepared Electron attach target', {
@@ -258,6 +275,7 @@ async function prepareAttachTarget(selectedTarget: DevToolsTarget): Promise<void
       url: selectedTarget.url,
     },
     actions,
+    targetsAfterActions,
   });
 }
 

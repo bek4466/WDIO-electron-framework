@@ -265,10 +265,15 @@ function targetMatchesCloseFilter(target, selectedTarget) {
   }
 
   const closeOtherTargets = getBooleanEnv('ELECTRON_ATTACH_CLOSE_OTHER_TARGETS', false);
+  const closeEmptyTargets = getBooleanEnv('ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS', true);
   const closeTitlePattern = getEnv('ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN');
   const closeUrlPattern = getEnv('ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN');
 
   if (closeOtherTargets) {
+    return true;
+  }
+
+  if (closeEmptyTargets && !(target.title || '').trim() && !(target.url || '').trim()) {
     return true;
   }
 
@@ -352,6 +357,16 @@ async function prepareAttachTarget(debuggerAddress, selectedTarget, logStream) {
     }
   }
 
+  await sleep(1000);
+
+  const targetsAfterActions = await fetchJson(`http://${debuggerAddress}/json/list`).catch(
+    (error) => [
+      {
+        error: error instanceof Error ? error.message : String(error),
+      },
+    ],
+  );
+
   fs.writeFileSync(
     path.join(reportDir, 'chromedriver-attach-probe-target-actions.json'),
     `${JSON.stringify(
@@ -361,10 +376,12 @@ async function prepareAttachTarget(debuggerAddress, selectedTarget, logStream) {
         selectedTarget,
         closeFilters: {
           closeOtherTargets: getBooleanEnv('ELECTRON_ATTACH_CLOSE_OTHER_TARGETS', false),
+          closeEmptyTargets: getBooleanEnv('ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS', true),
           title: getEnv('ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN') || '(none)',
           url: getEnv('ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN') || '(none)',
         },
         actions,
+        targetsAfterActions,
       },
       null,
       2,

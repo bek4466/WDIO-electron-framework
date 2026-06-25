@@ -60,10 +60,12 @@ Primary architecture:
 - `@types/node` is already present in `devDependencies` and included in `tsconfig.json`.
 - Manual attach now waits for a stable DevTools target before allowing ChromeDriver `POST /session`.
 - Manual attach also calls `/json/activate/{targetId}` for the selected target before ChromeDriver session creation.
+- Manual attach closes empty title/empty URL DevTools targets by default with `ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS=true`.
 - If ChromeDriver still attaches to the wrong hidden window, manual attach can optionally close pre-session targets using:
   - `ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN`
   - `ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN`
   - `ELECTRON_ATTACH_CLOSE_OTHER_TARGETS`
+  - `ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS`
 - The stable target wait can be filtered with:
   - `ELECTRON_ATTACH_TARGET_TITLE`
   - `ELECTRON_ATTACH_TARGET_URL_PATTERN`
@@ -135,6 +137,7 @@ Interpretation:
 - ChromeDriver cannot complete WebDriver `InitSession` against that target.
 - This is still before test/spec execution.
 - The next useful data is whether the new stable target wait reaches `stable Electron DevTools target is ready` before `beforeSession`, and then the tail of the raw ChromeDriver log around `InitSession`.
+- Latest logs showed our config selected and activated `ControlScript Deployment Utility`, then ChromeDriver attached to a blank `tab` target with empty title/url before it reached the real app tab. The current mitigation is to close empty DevTools page targets before ChromeDriver starts session creation.
 
 ## Commands To Resume
 
@@ -175,6 +178,7 @@ $env:ELECTRON_ATTACH_TIMEOUT_MS="300000"
 $env:ELECTRON_ATTACH_TARGET_TIMEOUT_MS="300000"
 $env:ELECTRON_ATTACH_TARGET_STABLE_MS="5000"
 $env:ELECTRON_ATTACH_TARGET_TITLE="ControlScript Deployment Utility"
+$env:ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS="true"
 $env:WDIO_CONNECTION_RETRY_TIMEOUT_MS="600000"
 
 yarn test:attach:e2e-json:newmaster
@@ -200,6 +204,7 @@ $env:ELECTRON_CHROME_WINDOW_TYPES="tab,page,app,webview"
 $env:ELECTRON_ATTACH_TARGET_TIMEOUT_MS="300000"
 $env:ELECTRON_ATTACH_TARGET_STABLE_MS="5000"
 $env:ELECTRON_ATTACH_TARGET_TITLE="ControlScript Deployment Utility"
+$env:ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS="true"
 $env:CHROMEDRIVER_ATTACH_PROBE_HOST="127.0.0.1"
 $env:CHROMEDRIVER_ATTACH_PROBE_PORT="9519"
 $env:CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS="30000"
