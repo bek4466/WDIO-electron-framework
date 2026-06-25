@@ -58,6 +58,13 @@ Primary architecture:
   - `webSocketDebuggerUrl: ws://127.0.0.1:9229/devtools/browser/...`
 - ChromeDriver 146 is required. The repo dependency `chromedriver` is 132, so diagnostics must use `CHROMEDRIVER_BINARY_PATH` pointing to the discovered ChromeDriver 146 executable.
 - `@types/node` is already present in `devDependencies` and included in `tsconfig.json`.
+- Manual attach now waits for a stable DevTools target before allowing ChromeDriver `POST /session`.
+- The stable target wait can be filtered with:
+  - `ELECTRON_ATTACH_TARGET_TITLE`
+  - `ELECTRON_ATTACH_TARGET_URL_PATTERN`
+  - `ELECTRON_ATTACH_EXCLUDE_TARGET_URL_PATTERN`
+  - `ELECTRON_ATTACH_TARGET_TIMEOUT_MS`
+  - `ELECTRON_ATTACH_TARGET_STABLE_MS`
 
 ## Latest Relevant Commits
 
@@ -122,7 +129,7 @@ Interpretation:
 - ChromeDriver can see the DevTools target.
 - ChromeDriver cannot complete WebDriver `InitSession` against that target.
 - This is still before test/spec execution.
-- The next useful data is the tail of the raw ChromeDriver log around `InitSession`.
+- The next useful data is whether the new stable target wait reaches `stable Electron DevTools target is ready` before `beforeSession`, and then the tail of the raw ChromeDriver log around `InitSession`.
 
 ## Commands To Resume
 
@@ -160,6 +167,9 @@ $env:CHROMEDRIVER_BINARY_PATH="C:\path\to\chromedriver-146.exe"
 $env:ELECTRON_ATTACH_DEBUG_PORT="9229"
 $env:ELECTRON_CHROME_WINDOW_TYPES="tab,page,app,webview"
 $env:ELECTRON_ATTACH_TIMEOUT_MS="300000"
+$env:ELECTRON_ATTACH_TARGET_TIMEOUT_MS="300000"
+$env:ELECTRON_ATTACH_TARGET_STABLE_MS="5000"
+$env:ELECTRON_ATTACH_TARGET_TITLE="ControlScript Deployment Utility"
 $env:WDIO_CONNECTION_RETRY_TIMEOUT_MS="600000"
 
 yarn test:attach:e2e-json:newmaster
@@ -182,6 +192,9 @@ Probe ChromeDriver attach directly, with app already open from `debug:electron-t
 $env:CHROMEDRIVER_BINARY_PATH="C:\path\to\chromedriver-146.exe"
 $env:ELECTRON_DEBUGGER_ADDRESS="127.0.0.1:9229"
 $env:ELECTRON_CHROME_WINDOW_TYPES="tab,page,app,webview"
+$env:ELECTRON_ATTACH_TARGET_TIMEOUT_MS="300000"
+$env:ELECTRON_ATTACH_TARGET_STABLE_MS="5000"
+$env:ELECTRON_ATTACH_TARGET_TITLE="ControlScript Deployment Utility"
 $env:CHROMEDRIVER_ATTACH_PROBE_HOST="127.0.0.1"
 $env:CHROMEDRIVER_ATTACH_PROBE_PORT="9519"
 $env:CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS="30000"
@@ -202,6 +215,7 @@ yarn test:attach:e2e-json:newmaster
 
 ```powershell
 Get-Content reports\wdio-logs\wdio-attach-lifecycle.log -Tail 100
+Get-Content reports\wdio-logs\electron-attach-targets.json -Tail 120
 
 Get-ChildItem reports\wdio-logs -Filter "*chromedriver*.log" |
   Sort-Object LastWriteTime -Descending |
@@ -230,6 +244,12 @@ ControlScript Deployment Utility
 
 - Try only `ELECTRON_CHROME_WINDOW_TYPES="tab"`.
 - Try only `ELECTRON_CHROME_WINDOW_TYPES="page"` as a control.
+- Try excluding the splash target:
+
+```powershell
+$env:ELECTRON_ATTACH_EXCLUDE_TARGET_URL_PATTERN="splash"
+```
+
 - Run app manually with `--remote-debugging-port=9229` and attach ChromeDriver probe.
 - Investigate whether the app blocks ChromeDriver attach to `file:///...renderer.html` targets despite exposing DevTools.
 

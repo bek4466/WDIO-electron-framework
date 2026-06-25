@@ -19,11 +19,22 @@ const connectionRetryTimeout = getNumberEnv('WDIO_CONNECTION_RETRY_TIMEOUT_MS', 
 const connectionRetryCount = getNumberEnv('WDIO_CONNECTION_RETRY_COUNT', 1);
 const attachPort = getNumberEnv('ELECTRON_ATTACH_DEBUG_PORT', 9229);
 const attachTimeout = getNumberEnv('ELECTRON_ATTACH_TIMEOUT_MS', 300000);
+const attachTargetTimeout = getNumberEnv('ELECTRON_ATTACH_TARGET_TIMEOUT_MS', attachTimeout);
+const attachTargetStableMs = getNumberEnv('ELECTRON_ATTACH_TARGET_STABLE_MS', 3000);
 const debuggerAddress = getEnv('ELECTRON_DEBUGGER_ADDRESS', `127.0.0.1:${attachPort}`);
 const attachLifecycleLogPath = path.join(reportPaths.wdioLogs, 'wdio-attach-lifecycle.log');
 
 type WdioTestrunnerConfig = Options.Testrunner & {
   capabilities: Capabilities.TestrunnerCapabilities;
+};
+
+type DevToolsTarget = {
+  id?: string;
+  type?: string;
+  title?: string;
+  url?: string;
+  attached?: boolean;
+  webSocketDebuggerUrl?: string;
 };
 
 function lifecycleLog(message: string, details?: Record<string, unknown>): void {
@@ -89,6 +100,111 @@ async function waitForDevToolsEndpoint(timeoutMs: number): Promise<Record<string
   );
 }
 
+async function fetchDevToolsTargets(): Promise<DevToolsTarget[]> {
+  const response = await fetch(`http://${debuggerAddress}/json/list`);
+
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
+
+  return (await response.json()) as DevToolsTarget[];
+}
+
+function getAttachWindowTypes(): string[] {
+  const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES');
+
+  return windowTypes.length > 0 ? windowTypes : ['tab', 'page', 'app', 'webview'];
+}
+
+function matchesOptionalPattern(value: string | undefined, pattern: string): boolean {
+  if (!pattern) {
+    return true;
+  }
+
+  try {
+    return new RegExp(pattern, 'iu').test(value ?? '');
+  } catch {
+    return (value ?? '').toLowerCase().includes(pattern.toLowerCase());
+  }
+}
+
+function findAttachTarget(targets: DevToolsTarget[]): DevToolsTarget | undefined {
+  const windowTypes = getAttachWindowTypes();
+  const titlePattern = getEnv('ELECTRON_ATTACH_TARGET_TITLE');
+  const urlPattern = getEnv('ELECTRON_ATTACH_TARGET_URL_PATTERN');
+  const excludeUrlPattern = getEnv('ELECTRON_ATTACH_EXCLUDE_TARGET_URL_PATTERN');
+  const candidates = targets.filter((target) => {
+    const typeMatches = target.type ? windowTypes.includes(target.type) : false;
+    const titleMatches = matchesOptionalPattern(target.title, titlePattern);
+    const urlMatches = matchesOptionalPattern(target.url, urlPattern);
+    const urlExcluded = excludeUrlPattern && matchesOptionalPattern(target.url, excludeUrlPattern);
+
+    return typeMatches && titleMatches && urlMatches && !urlExcluded;
+  });
+
+  return (
+    candidates.find((target) => target.title && target.url) ??
+    candidates.find((target) => target.url) ??
+    candidates[0]
+  );
+}
+
+async function waitForAttachTarget(timeoutMs: number): Promise<DevToolsTarget> {
+  const startedAt = Date.now();
+  let lastError = '';
+  let firstStableSeenAt = 0;
+  let stableTargetKey = '';
+  let lastTargetSummary: Array<Pick<DevToolsTarget, 'id' | 'type' | 'title' | 'url'>> = [];
+
+  while (Date.now() - startedAt <= timeoutMs) {
+    try {
+      const targets = await fetchDevToolsTargets();
+      const target = findAttachTarget(targets);
+      lastTargetSummary = targets.map(({ id, type, title, url }) => ({ id, type, title, url }));
+      writeDiagnosticJson('electron-attach-targets.json', {
+        inspectedAt: new Date().toISOString(),
+        debuggerAddress,
+        targetFilters: {
+          windowTypes: getAttachWindowTypes(),
+          title: getEnv('ELECTRON_ATTACH_TARGET_TITLE') || '(any)',
+          url: getEnv('ELECTRON_ATTACH_TARGET_URL_PATTERN') || '(any)',
+          excludeUrl: getEnv('ELECTRON_ATTACH_EXCLUDE_TARGET_URL_PATTERN') || '(none)',
+          stableMs: attachTargetStableMs,
+        },
+        targets,
+        selectedTarget: target,
+      });
+
+      if (target) {
+        const currentTargetKey = `${target.id ?? ''}|${target.type ?? ''}|${target.title ?? ''}|${
+          target.url ?? ''
+        }`;
+
+        if (currentTargetKey !== stableTargetKey) {
+          stableTargetKey = currentTargetKey;
+          firstStableSeenAt = Date.now();
+        }
+
+        if (Date.now() - firstStableSeenAt >= attachTargetStableMs) {
+          return target;
+        }
+      }
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
+    }
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
+  }
+
+  throw new Error(
+    `Timed out waiting for a stable Electron DevTools target at ${debuggerAddress} after ${timeoutMs}ms. Last error: ${
+      lastError || '(none)'
+    }. Last targets: ${JSON.stringify(lastTargetSummary)}`,
+  );
+}
+
 function writeDiagnosticJson(fileName: string, value: unknown): void {
   fs.mkdirSync(reportPaths.wdioLogs, { recursive: true });
   fs.writeFileSync(
@@ -138,7 +254,6 @@ async function logAttachedWindows(): Promise<void> {
 }
 
 function buildAttachCapability(): WebdriverIO.Capabilities {
-  const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES');
   const chromedriverOptions = getChromedriverOptions();
 
   return {
@@ -146,7 +261,7 @@ function buildAttachCapability(): WebdriverIO.Capabilities {
     'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       debuggerAddress,
-      windowTypes: windowTypes.length > 0 ? windowTypes : ['tab', 'page', 'app', 'webview'],
+      windowTypes: getAttachWindowTypes(),
     },
     ...(chromedriverOptions ? { 'wdio:chromedriverOptions': chromedriverOptions } : {}),
   };
@@ -237,6 +352,15 @@ export const config: WdioTestrunnerConfig = {
       Browser: version.Browser,
       'Protocol-Version': version['Protocol-Version'],
       'User-Agent': version['User-Agent'],
+    });
+
+    const attachTarget = await waitForAttachTarget(attachTargetTimeout);
+    lifecycleLog('stable Electron DevTools target is ready', {
+      id: attachTarget.id,
+      type: attachTarget.type,
+      title: attachTarget.title,
+      url: attachTarget.url,
+      stableMs: attachTargetStableMs,
     });
   },
   onWorkerStart: (cid, _capabilities, specs, args) => {

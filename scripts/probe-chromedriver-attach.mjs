@@ -45,6 +45,12 @@ function getListEnv(name, fallback = []) {
     .filter(Boolean);
 }
 
+function sleep(milliseconds) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}
+
 function normalizeLocalHost(value) {
   return value.toLowerCase() === 'localhost' ? '127.0.0.1' : value;
 }
@@ -199,6 +205,115 @@ async function webdriverRequestWithRetry(host, port, method, endpoint, body, tim
   );
 }
 
+async function fetchJson(url) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+function matchesOptionalPattern(value, pattern) {
+  if (!pattern) {
+    return true;
+  }
+
+  try {
+    return new RegExp(pattern, 'iu').test(value || '');
+  } catch {
+    return String(value || '')
+      .toLowerCase()
+      .includes(pattern.toLowerCase());
+  }
+}
+
+function findAttachTarget(targets, windowTypes) {
+  const titlePattern = getEnv('ELECTRON_ATTACH_TARGET_TITLE');
+  const urlPattern = getEnv('ELECTRON_ATTACH_TARGET_URL_PATTERN');
+  const excludeUrlPattern = getEnv('ELECTRON_ATTACH_EXCLUDE_TARGET_URL_PATTERN');
+  const candidates = targets.filter((target) => {
+    const typeMatches = target.type ? windowTypes.includes(target.type) : false;
+    const titleMatches = matchesOptionalPattern(target.title, titlePattern);
+    const urlMatches = matchesOptionalPattern(target.url, urlPattern);
+    const urlExcluded = excludeUrlPattern && matchesOptionalPattern(target.url, excludeUrlPattern);
+
+    return typeMatches && titleMatches && urlMatches && !urlExcluded;
+  });
+
+  return (
+    candidates.find((target) => target.title && target.url) ||
+    candidates.find((target) => target.url) ||
+    candidates[0]
+  );
+}
+
+async function waitForAttachTarget(debuggerAddress, windowTypes, timeoutMs, stableMs, logStream) {
+  const startedAt = Date.now();
+  let lastError = '';
+  let firstStableSeenAt = 0;
+  let stableTargetKey = '';
+  let lastTargetSummary = [];
+
+  while (Date.now() - startedAt <= timeoutMs) {
+    try {
+      const targets = await fetchJson(`http://${debuggerAddress}/json/list`);
+      const target = findAttachTarget(targets, windowTypes);
+      lastTargetSummary = targets.map(({ id, type, title, url }) => ({ id, type, title, url }));
+
+      fs.writeFileSync(
+        path.join(reportDir, 'chromedriver-attach-probe-targets.json'),
+        `${JSON.stringify(
+          {
+            inspectedAt: new Date().toISOString(),
+            debuggerAddress,
+            targetFilters: {
+              windowTypes,
+              title: getEnv('ELECTRON_ATTACH_TARGET_TITLE') || '(any)',
+              url: getEnv('ELECTRON_ATTACH_TARGET_URL_PATTERN') || '(any)',
+              excludeUrl: getEnv('ELECTRON_ATTACH_EXCLUDE_TARGET_URL_PATTERN') || '(none)',
+              stableMs,
+            },
+            targets,
+            selectedTarget: target,
+          },
+          null,
+          2,
+        )}\n`,
+      );
+
+      if (target) {
+        const currentTargetKey = `${target.id || ''}|${target.type || ''}|${target.title || ''}|${
+          target.url || ''
+        }`;
+
+        if (currentTargetKey !== stableTargetKey) {
+          stableTargetKey = currentTargetKey;
+          firstStableSeenAt = Date.now();
+          logStream.write(
+            `[chromedriver-probe] attach target candidate: ${JSON.stringify(target)}\n`,
+          );
+        }
+
+        if (Date.now() - firstStableSeenAt >= stableMs) {
+          return target;
+        }
+      }
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
+    }
+
+    await sleep(500);
+  }
+
+  throw new Error(
+    `Timed out waiting for a stable Electron DevTools target at ${debuggerAddress} after ${timeoutMs}ms. Last error: ${
+      lastError || '(none)'
+    }. Last targets: ${JSON.stringify(lastTargetSummary)}`,
+  );
+}
+
 async function inspectSession(host, port, sessionId) {
   const handlesResponse = await webdriverRequest(
     host,
@@ -239,6 +354,11 @@ async function main() {
   const port = getNumberEnv('CHROMEDRIVER_ATTACH_PROBE_PORT', 9517);
   const startupTimeoutMs = getPositiveNumberEnv('CHROMEDRIVER_ATTACH_PROBE_TIMEOUT_MS', 30000);
   const sessionTimeoutMs = getPositiveNumberEnv('CHROMEDRIVER_ATTACH_SESSION_TIMEOUT_MS', 30000);
+  const targetTimeoutMs = getPositiveNumberEnv(
+    'ELECTRON_ATTACH_TARGET_TIMEOUT_MS',
+    getPositiveNumberEnv('ELECTRON_ATTACH_TIMEOUT_MS', 300000),
+  );
+  const targetStableMs = getPositiveNumberEnv('ELECTRON_ATTACH_TARGET_STABLE_MS', 3000);
   const windowTypes = getListEnv('ELECTRON_CHROME_WINDOW_TYPES', ['tab', 'page', 'app', 'webview']);
 
   if (!fs.existsSync(chromedriverPath)) {
@@ -250,6 +370,8 @@ async function main() {
   console.log(`[chromedriver-probe] port: ${port}`);
   console.log(`[chromedriver-probe] debuggerAddress: ${debuggerAddress}`);
   console.log(`[chromedriver-probe] windowTypes: ${windowTypes.join(', ')}`);
+  console.log(`[chromedriver-probe] targetTimeoutMs: ${targetTimeoutMs}`);
+  console.log(`[chromedriver-probe] targetStableMs: ${targetStableMs}`);
 
   const logStream = fs.createWriteStream(logPath, { flags: 'w' });
   const stdoutChunks = [];
@@ -259,6 +381,8 @@ async function main() {
   logStream.write(`[chromedriver-probe] port: ${port}\n`);
   logStream.write(`[chromedriver-probe] debuggerAddress: ${debuggerAddress}\n`);
   logStream.write(`[chromedriver-probe] windowTypes: ${windowTypes.join(', ')}\n`);
+  logStream.write(`[chromedriver-probe] targetTimeoutMs: ${targetTimeoutMs}\n`);
+  logStream.write(`[chromedriver-probe] targetStableMs: ${targetStableMs}\n`);
   logStream.write(`[chromedriver-probe] sessionTimeoutMs: ${sessionTimeoutMs}\n`);
   logStream.write(`[chromedriver-probe] driverLogPath: ${driverLogPath}\n`);
   fs.writeFileSync(
@@ -321,6 +445,20 @@ async function main() {
       driverStartupError,
       driverExitBeforeReady,
     ]);
+
+    const attachTarget = await waitForAttachTarget(
+      debuggerAddress,
+      windowTypes,
+      targetTimeoutMs,
+      targetStableMs,
+      logStream,
+    );
+    logStream.write(`[chromedriver-probe] stable attach target: ${JSON.stringify(attachTarget)}\n`);
+    console.log(
+      `[chromedriver-probe] stable target: type=${attachTarget.type || ''} title=${JSON.stringify(
+        attachTarget.title || '',
+      )} url=${JSON.stringify(attachTarget.url || '')}`,
+    );
 
     const sessionResponse = await webdriverRequestWithRetry(
       host,
