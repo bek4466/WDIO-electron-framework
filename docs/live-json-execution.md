@@ -30,6 +30,8 @@ Remove `E2E_JSON_LIMIT` after the first live case is stable.
 | `E2E_JSON_EXECUTION_MODE=live`               | Enables real UI execution.                                                         |
 | `E2E_JSON_LIMIT=1`                           | Runs only the first discovered executable case while debugging.                    |
 | `E2E_JSON_FOLDERS=smoke-tests`               | Limits `UpdatedMaster.e2e-spec.ts` discovery to one folder.                        |
+| `E2E_JSON_FILES=CSP-326.e2e-spec.json`       | Limits discovery to one or more comma-separated JSON files.                        |
+| `E2E_JSON_CASES=TestCase1`                   | Limits discovery to one or more comma-separated case ids inside selected files.    |
 | `E2E_APP_READY_TITLE`                        | Optional window title filter before tests start.                                   |
 | `E2E_APP_READY_SELECTOR`                     | Optional selector that proves the real app UI is ready.                            |
 | `E2E_APP_READY_TIMEOUT_MS`                   | Startup readiness timeout. Defaults to `60000`.                                    |

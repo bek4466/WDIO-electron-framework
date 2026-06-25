@@ -41,6 +41,18 @@ Run selected `NEWMASTERSPEC` folders:
 E2E_JSON_FOLDERS=smoke-tests yarn test:e2e-json:newmaster
 ```
 
+Run one JSON file from a selected `NEWMASTERSPEC` folder:
+
+```bash
+E2E_JSON_FOLDERS=Deployment-tests E2E_JSON_FILES=CSP-326.e2e-spec.json yarn test:e2e-json:newmaster
+```
+
+Run one case inside one JSON file:
+
+```bash
+E2E_JSON_FOLDERS=Deployment-tests E2E_JSON_FILES=CSP-326.e2e-spec.json E2E_JSON_CASES=TestCase1 yarn test:e2e-json:newmaster
+```
+
 Run selected hardware folders:
 
 ```bash

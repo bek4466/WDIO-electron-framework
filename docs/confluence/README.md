@@ -12,6 +12,8 @@ Recommended Confluence page structure:
    - Source: `test-authoring-guide.md`
 4. `Allure Evidence and Step Reporting`
    - Source: `allure-evidence-and-steps.md`
+5. `WDIO Electron Master Spec Refactor Design`
+   - Source: `master-spec-refactor-design.md`
 
 ## Upload Notes
 
