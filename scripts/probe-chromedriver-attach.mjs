@@ -32,6 +32,16 @@ function getPositiveNumberEnv(name, fallback) {
   return parsed;
 }
 
+function getBooleanEnv(name, fallback = false) {
+  const value = getEnv(name);
+
+  if (!value) {
+    return fallback;
+  }
+
+  return ['1', 'true', 'yes', 'y'].includes(value.toLowerCase());
+}
+
 function getListEnv(name, fallback = []) {
   const value = getEnv(name);
 
@@ -249,6 +259,123 @@ function findAttachTarget(targets, windowTypes) {
   );
 }
 
+function targetMatchesCloseFilter(target, selectedTarget) {
+  if (target.id && selectedTarget.id && target.id === selectedTarget.id) {
+    return false;
+  }
+
+  const closeOtherTargets = getBooleanEnv('ELECTRON_ATTACH_CLOSE_OTHER_TARGETS', false);
+  const closeTitlePattern = getEnv('ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN');
+  const closeUrlPattern = getEnv('ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN');
+
+  if (closeOtherTargets) {
+    return true;
+  }
+
+  return (
+    (closeTitlePattern && matchesOptionalPattern(target.title, closeTitlePattern)) ||
+    (closeUrlPattern && matchesOptionalPattern(target.url, closeUrlPattern))
+  );
+}
+
+async function callDevToolsJsonEndpoint(debuggerAddress, endpoint) {
+  const response = await fetch(`http://${debuggerAddress}${endpoint}`);
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}: ${text}`);
+  }
+
+  return text;
+}
+
+async function prepareAttachTarget(debuggerAddress, selectedTarget, logStream) {
+  const targets = await fetchJson(`http://${debuggerAddress}/json/list`);
+  const targetsToClose = targets.filter((target) =>
+    targetMatchesCloseFilter(target, selectedTarget),
+  );
+  const actions = [];
+
+  for (const target of targetsToClose) {
+    if (!target.id) {
+      continue;
+    }
+
+    try {
+      const result = await callDevToolsJsonEndpoint(
+        debuggerAddress,
+        `/json/close/${encodeURIComponent(target.id)}`,
+      );
+      actions.push({
+        action: 'close',
+        id: target.id,
+        type: target.type,
+        title: target.title,
+        url: target.url,
+        result,
+      });
+    } catch (error) {
+      actions.push({
+        action: 'close',
+        id: target.id,
+        type: target.type,
+        title: target.title,
+        url: target.url,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  if (selectedTarget.id) {
+    try {
+      const result = await callDevToolsJsonEndpoint(
+        debuggerAddress,
+        `/json/activate/${encodeURIComponent(selectedTarget.id)}`,
+      );
+      actions.push({
+        action: 'activate',
+        id: selectedTarget.id,
+        type: selectedTarget.type,
+        title: selectedTarget.title,
+        url: selectedTarget.url,
+        result,
+      });
+    } catch (error) {
+      actions.push({
+        action: 'activate',
+        id: selectedTarget.id,
+        type: selectedTarget.type,
+        title: selectedTarget.title,
+        url: selectedTarget.url,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  fs.writeFileSync(
+    path.join(reportDir, 'chromedriver-attach-probe-target-actions.json'),
+    `${JSON.stringify(
+      {
+        actedAt: new Date().toISOString(),
+        debuggerAddress,
+        selectedTarget,
+        closeFilters: {
+          closeOtherTargets: getBooleanEnv('ELECTRON_ATTACH_CLOSE_OTHER_TARGETS', false),
+          title: getEnv('ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN') || '(none)',
+          url: getEnv('ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN') || '(none)',
+        },
+        actions,
+      },
+      null,
+      2,
+    )}\n`,
+  );
+
+  logStream.write(`[chromedriver-probe] target actions: ${JSON.stringify(actions)}\n`);
+
+  return actions;
+}
+
 async function waitForAttachTarget(debuggerAddress, windowTypes, timeoutMs, stableMs, logStream) {
   const startedAt = Date.now();
   let lastError = '';
@@ -459,6 +586,7 @@ async function main() {
         attachTarget.title || '',
       )} url=${JSON.stringify(attachTarget.url || '')}`,
     );
+    await prepareAttachTarget(debuggerAddress, attachTarget, logStream);
 
     const sessionResponse = await webdriverRequestWithRetry(
       host,

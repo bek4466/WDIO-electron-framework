@@ -8,7 +8,7 @@ import {
   getChromedriverOptions,
   getElectronServiceOptions,
 } from './config/electron.config.js';
-import { getEnv, getListEnv, getNumberEnv } from './config/env.js';
+import { getBooleanEnv, getEnv, getListEnv, getNumberEnv } from './config/env.js';
 import { ensureReportDirectories, reportPaths } from './config/reporting.config.js';
 import { attachEvidence, startEvidenceCapture } from './src/support/evidence.js';
 
@@ -147,6 +147,118 @@ function findAttachTarget(targets: DevToolsTarget[]): DevToolsTarget | undefined
     candidates.find((target) => target.url) ??
     candidates[0]
   );
+}
+
+function targetMatchesCloseFilter(target: DevToolsTarget, selectedTarget: DevToolsTarget): boolean {
+  if (target.id && selectedTarget.id && target.id === selectedTarget.id) {
+    return false;
+  }
+
+  const closeOtherTargets = getBooleanEnv('ELECTRON_ATTACH_CLOSE_OTHER_TARGETS', false);
+  const closeTitlePattern = getEnv('ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN');
+  const closeUrlPattern = getEnv('ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN');
+
+  if (closeOtherTargets) {
+    return true;
+  }
+
+  return (
+    (Boolean(closeTitlePattern) && matchesOptionalPattern(target.title, closeTitlePattern)) ||
+    (Boolean(closeUrlPattern) && matchesOptionalPattern(target.url, closeUrlPattern))
+  );
+}
+
+async function callDevToolsJsonEndpoint(endpoint: string): Promise<string> {
+  const response = await fetch(`http://${debuggerAddress}${endpoint}`);
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}: ${text}`);
+  }
+
+  return text;
+}
+
+async function prepareAttachTarget(selectedTarget: DevToolsTarget): Promise<void> {
+  const targets = await fetchDevToolsTargets();
+  const targetsToClose = targets.filter((target) =>
+    targetMatchesCloseFilter(target, selectedTarget),
+  );
+  const actions: Array<Record<string, unknown>> = [];
+
+  for (const target of targetsToClose) {
+    if (!target.id) {
+      continue;
+    }
+
+    try {
+      const result = await callDevToolsJsonEndpoint(`/json/close/${encodeURIComponent(target.id)}`);
+      actions.push({
+        action: 'close',
+        id: target.id,
+        type: target.type,
+        title: target.title,
+        url: target.url,
+        result,
+      });
+    } catch (error) {
+      actions.push({
+        action: 'close',
+        id: target.id,
+        type: target.type,
+        title: target.title,
+        url: target.url,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  if (selectedTarget.id) {
+    try {
+      const result = await callDevToolsJsonEndpoint(
+        `/json/activate/${encodeURIComponent(selectedTarget.id)}`,
+      );
+      actions.push({
+        action: 'activate',
+        id: selectedTarget.id,
+        type: selectedTarget.type,
+        title: selectedTarget.title,
+        url: selectedTarget.url,
+        result,
+      });
+    } catch (error) {
+      actions.push({
+        action: 'activate',
+        id: selectedTarget.id,
+        type: selectedTarget.type,
+        title: selectedTarget.title,
+        url: selectedTarget.url,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  writeDiagnosticJson('electron-attach-target-actions.json', {
+    actedAt: new Date().toISOString(),
+    debuggerAddress,
+    selectedTarget,
+    closeFilters: {
+      closeOtherTargets: getBooleanEnv('ELECTRON_ATTACH_CLOSE_OTHER_TARGETS', false),
+      title: getEnv('ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN') || '(none)',
+      url: getEnv('ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN') || '(none)',
+    },
+    actions,
+  });
+
+  lifecycleLog('prepared Electron attach target', {
+    selectedTarget: {
+      id: selectedTarget.id,
+      type: selectedTarget.type,
+      title: selectedTarget.title,
+      url: selectedTarget.url,
+    },
+    actions,
+  });
 }
 
 async function waitForAttachTarget(timeoutMs: number): Promise<DevToolsTarget> {
@@ -362,6 +474,7 @@ export const config: WdioTestrunnerConfig = {
       url: attachTarget.url,
       stableMs: attachTargetStableMs,
     });
+    await prepareAttachTarget(attachTarget);
   },
   onWorkerStart: (cid, _capabilities, specs, args) => {
     const suiteArg = (args as { suite?: unknown }).suite;

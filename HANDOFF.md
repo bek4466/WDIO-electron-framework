@@ -59,6 +59,11 @@ Primary architecture:
 - ChromeDriver 146 is required. The repo dependency `chromedriver` is 132, so diagnostics must use `CHROMEDRIVER_BINARY_PATH` pointing to the discovered ChromeDriver 146 executable.
 - `@types/node` is already present in `devDependencies` and included in `tsconfig.json`.
 - Manual attach now waits for a stable DevTools target before allowing ChromeDriver `POST /session`.
+- Manual attach also calls `/json/activate/{targetId}` for the selected target before ChromeDriver session creation.
+- If ChromeDriver still attaches to the wrong hidden window, manual attach can optionally close pre-session targets using:
+  - `ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN`
+  - `ELECTRON_ATTACH_CLOSE_TARGET_URL_PATTERN`
+  - `ELECTRON_ATTACH_CLOSE_OTHER_TARGETS`
 - The stable target wait can be filtered with:
   - `ELECTRON_ATTACH_TARGET_TITLE`
   - `ELECTRON_ATTACH_TARGET_URL_PATTERN`
@@ -216,6 +221,7 @@ yarn test:attach:e2e-json:newmaster
 ```powershell
 Get-Content reports\wdio-logs\wdio-attach-lifecycle.log -Tail 100
 Get-Content reports\wdio-logs\electron-attach-targets.json -Tail 120
+Get-Content reports\wdio-logs\electron-attach-target-actions.json -Tail 120
 
 Get-ChildItem reports\wdio-logs -Filter "*chromedriver*.log" |
   Sort-Object LastWriteTime -Descending |
@@ -248,6 +254,12 @@ ControlScript Deployment Utility
 
 ```powershell
 $env:ELECTRON_ATTACH_EXCLUDE_TARGET_URL_PATTERN="splash"
+```
+
+- If ChromeDriver still attaches to the hidden Service Initializer target, close that pre-session target:
+
+```powershell
+$env:ELECTRON_ATTACH_CLOSE_TARGET_TITLE_PATTERN="Service Initializer"
 ```
 
 - Run app manually with `--remote-debugging-port=9229` and attach ChromeDriver probe.
