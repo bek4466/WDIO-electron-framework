@@ -1,6 +1,6 @@
 # Allure Reporting
 
-Allure is configured through `wdio.conf.ts` with results stored in:
+Allure is configured through the WDIO configs with results stored in:
 
 ```text
 reports/allure-results
@@ -67,4 +67,4 @@ E2E_RECORD_VIDEO=true E2E_VIDEO_MAX_SECONDS=15 E2E_VIDEO_FPS=10 yarn test:smoke
 
 On non-Windows machines, the framework skips video recording and attaches a `Video recording` status JSON so local macOS validation can still run without changing committed Windows behavior. If `ffmpeg` is missing or blocked on Windows, the test still passes or fails normally and Allure receives a status attachment explaining why a video file was not produced.
 
-Environment metadata is reported from `wdio.conf.ts`, including the Electron version, Node version, OS platform, architecture, and packaged Electron target information.
+Environment metadata is reported from the active WDIO config, including the Electron version, Node version, OS platform, architecture, and packaged Electron target information.

@@ -18,7 +18,7 @@ $env:E2E_APP_READY_TITLE="ControlScript Deployment Utility"
 $env:E2E_APP_READY_SELECTOR="#deploy-component"
 $env:E2E_JSON_BOOTSTRAP_PAUSE_MS="25000"
 $env:E2E_RESOURCE_ROOT="C:\path\to\e2e\resources"
-yarn wdio run ./wdio.conf.ts --logLevel debug --spec ./e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts
+yarn test:e2e-json:newmaster
 ```
 
 Remove `E2E_JSON_LIMIT` after the first live case is stable.

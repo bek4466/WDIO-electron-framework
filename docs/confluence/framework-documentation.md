@@ -51,7 +51,8 @@ reports/                        Generated test output, ignored by git
 
 | File                                    | Responsibility                                    |
 | --------------------------------------- | ------------------------------------------------- |
-| `wdio.conf.ts`                          | WDIO runner, suites, services, reporters, hooks   |
+| `wdio.conf.ts`                          | Electron service WDIO config                      |
+| `wdio.attach.conf.ts`                   | Packaged `.exe` attach WDIO config                |
 | `config/electron.config.ts`             | Electron binary resolution and service capability |
 | `config/env.ts`                         | Typed environment variable helpers                |
 | `config/reporting.config.ts`            | Report and screenshot output paths                |
@@ -141,7 +142,7 @@ Benefits:
 
 ## Reporting
 
-Allure reporting is configured in `wdio.conf.ts` and supported by `src/support/allure.ts`.
+Allure reporting is configured in the WDIO configs and supported by `src/support/allure.ts`.
 
 Each run writes raw results to:
 

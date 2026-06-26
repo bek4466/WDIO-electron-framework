@@ -67,7 +67,7 @@ sequenceDiagram
 
   Engineer->>Yarn: yarn test:smoke
   Engineer->>Yarn: set ELECTRON_APP_BINARY_PATH
-  Yarn->>WDIO: wdio run ./wdio.conf.ts --suite smoke
+  Yarn->>WDIO: wdio run ./wdio.attach.conf.ts --suite smoke
   WDIO->>Service: create Electron capability
   Service->>Driver: start browser automation session
   Driver->>App: launch Electron 41 binary

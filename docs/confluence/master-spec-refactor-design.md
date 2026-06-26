@@ -173,7 +173,7 @@ $env:ELECTRON_ATTACH_CLOSE_EMPTY_TARGETS="true"
 
 $env:E2E_JSON_EXECUTION_MODE="live"
 
-yarn test:attach:e2e-json:newmaster
+yarn test:e2e-json:newmaster
 ```
 
 ### Run One Folder
@@ -182,7 +182,7 @@ yarn test:attach:e2e-json:newmaster
 $env:E2E_JSON_EXECUTION_MODE="live"
 $env:E2E_JSON_FOLDERS="Deployment-tests"
 
-yarn test:attach:e2e-json:newmaster
+yarn test:e2e-json:newmaster
 ```
 
 ### Run One JSON File
@@ -192,7 +192,7 @@ $env:E2E_JSON_EXECUTION_MODE="live"
 $env:E2E_JSON_FOLDERS="Deployment-tests"
 $env:E2E_JSON_FILES="CSP-326.e2e-spec.json"
 
-yarn test:attach:e2e-json:newmaster
+yarn test:e2e-json:newmaster
 ```
 
 ### Run One Case Inside One JSON File
@@ -203,7 +203,7 @@ $env:E2E_JSON_FOLDERS="Deployment-tests"
 $env:E2E_JSON_FILES="CSP-326.e2e-spec.json"
 $env:E2E_JSON_CASES="TestCase1"
 
-yarn test:attach:e2e-json:newmaster
+yarn test:e2e-json:newmaster
 ```
 
 ### Run Multiple Files Or Cases
@@ -238,7 +238,7 @@ $env:E2E_JSON_FOLDERS="Deployment-tests"
 $env:E2E_JSON_FILES="CSP-326.e2e-spec.json"
 $env:E2E_JSON_CASES="TestCase1"
 
-yarn test:attach:e2e-json:newmaster
+yarn test:e2e-json:newmaster
 ```
 
 ## Allure And Evidence

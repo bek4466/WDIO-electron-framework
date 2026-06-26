@@ -11,7 +11,7 @@ Earlier temporary local validation assets have been removed. The framework now e
 ```mermaid
 flowchart TD
   A["ELECTRON_APP_BINARY_PATH set"] --> B["yarn test:e2e-json"]
-  B --> C["wdio.conf.ts e2eJson suite"]
+  B --> C["wdio.attach.conf.ts e2eJson suite"]
   C --> D["Refactored master specs"]
   D --> E["defineJsonMasterSuite()"]
   E --> F["Manifest discovery"]

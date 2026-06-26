@@ -81,7 +81,7 @@ This prevents WDIO from using an incompatible ChromeDriver from `node_modules`.
 
 ### Main WDIO Config
 
-`wdio.conf.ts` remains the standard config:
+`wdio.conf.ts` remains available as the Electron service config:
 
 ```text
 services: ['electron']
@@ -90,7 +90,7 @@ reporters: ['spec', ['allure', ...]]
 capabilities: [buildElectronCapability()]
 ```
 
-Use this config for normal Electron service execution when session creation is stable.
+Use this config for Electron service execution when session creation is stable or when comparing service behavior against the attach config. Package test scripts now default to `wdio.attach.conf.ts` for packaged `.exe` runs.
 
 ### Manual Attach Config
 
@@ -234,7 +234,7 @@ $env:E2E_JSON_FOLDERS="Deployment-tests"
 $env:E2E_JSON_FILES="CSP-326.e2e-spec.json"
 $env:E2E_JSON_CASES="TestCase1"
 
-yarn test:attach:e2e-json:newmaster
+yarn test:e2e-json:newmaster
 ```
 
 ## Package Manager Change
@@ -296,7 +296,7 @@ $env:E2E_JSON_FOLDERS="Deployment-tests"
 $env:E2E_JSON_FILES="CSP-326.e2e-spec.json"
 $env:E2E_JSON_CASES="TestCase1"
 
-yarn test:attach:e2e-json:newmaster
+yarn test:e2e-json:newmaster
 ```
 
 ## Risk And Mitigation
