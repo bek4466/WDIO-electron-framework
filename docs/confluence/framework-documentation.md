@@ -104,12 +104,15 @@ yarn test:smoke
 | `yarn typecheck`       | Run TypeScript compile checks                      |
 | `yarn format:check`    | Verify Prettier formatting                         |
 | `yarn format`          | Format project files                               |
-| `yarn clean`           | Remove generated reports and transient output      |
+| `yarn clean:reports`   | Remove generated report output only                |
+| `yarn clean`           | Remove reports plus full transient output          |
 | `yarn test:smoke`      | Run smoke suite                                    |
 | `yarn test:regression` | Run regression suite                               |
 | `yarn test:exe`        | Run smoke suite against configured packaged binary |
 | `yarn allure:generate` | Generate HTML report from Allure results           |
 | `yarn allure:open`     | Open generated Allure HTML report                  |
+
+All `yarn test:*` scripts run `yarn clean:reports` before WDIO starts. Reports are preserved after the test finishes so the user can inspect logs or generate Allure.
 
 ## Page Object Model
 

@@ -253,6 +253,26 @@ yarn install
 
 The repo should use `yarn.lock`. Do not add or commit `package-lock.json`.
 
+## Report Cleanup Behavior
+
+All test scripts run `yarn clean:reports` before WDIO starts. This removes stale report output from the previous run, then leaves the new run's reports in place after execution.
+
+Use:
+
+```powershell
+yarn clean:reports
+```
+
+to remove only report output.
+
+Use:
+
+```powershell
+yarn clean
+```
+
+for full cleanup, including generated distribution output.
+
 ## Verification Commands
 
 Use these commands after dependency/config changes:

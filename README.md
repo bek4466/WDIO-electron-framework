@@ -79,6 +79,8 @@ yarn allure:generate
 yarn allure:open
 ```
 
+Test scripts run `yarn clean:reports` before WDIO starts. The new reports remain available after the run for Allure generation and log review. Use `yarn clean` when you want a full cleanup including generated distribution output.
+
 ## Allure Reporting
 
 Each WDIO run writes Allure results to `reports/allure-results`. Generate the HTML report after a run with:
