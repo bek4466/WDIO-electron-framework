@@ -81,6 +81,8 @@ yarn allure:open
 
 Test scripts run `yarn clean:reports` before WDIO starts. The new reports remain available after the run for Allure generation and log review. Use `yarn clean` when you want a full cleanup including generated distribution output.
 
+`yarn test:smoke` runs `UpdatedMaster.e2e-spec.ts` in live mode and limits JSON discovery to `e2e/tests/regression/NEWMASTERSPEC/smoke-tests`.
+
 ## Allure Reporting
 
 Each WDIO run writes Allure results to `reports/allure-results`. Generate the HTML report after a run with:
@@ -106,7 +108,7 @@ The report includes suite/epic/feature/story labels, severity, owner, tags, envi
 1. Add stable `data-testid` attributes or other automation-friendly selectors in the app.
 2. Create a screen object in `src/screens`.
 3. Add scenario data in `src/test-data`.
-4. Add specs under `src/specs/smoke` or `src/specs/regression`.
+4. Add smoke JSON cases under `e2e/tests/regression/NEWMASTERSPEC/smoke-tests/datajson`.
 5. Run with the packaged `.exe` path:
 
 ```powershell

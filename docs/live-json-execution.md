@@ -7,6 +7,8 @@ The JSON master specs support two execution modes:
 
 Use `live` when you want the master specs to click/type/verify against the packaged `.exe`.
 
+`yarn test:smoke` automatically selects live execution and reads only `NEWMASTERSPEC/smoke-tests`. `TESTTYPE` values `smoke`, `smoke tests`, and `smoke-tests` are treated as the same smoke filter.
+
 ## Windows Command
 
 ```powershell
@@ -46,6 +48,7 @@ Remove `E2E_JSON_LIMIT` after the first live case is stable.
 | `ELECTRON_APP_BROWSER_VERSION`               | Optional explicit Chromium/browser version for ChromeDriver matching.                    |
 | `ELECTRON_AUTO_DETECT_BROWSER_VERSION=false` | Disables automatic browser-version detection from the `.exe`.                            |
 | `CHROMEDRIVER_BINARY_PATH`                   | Optional explicit ChromeDriver executable path.                                          |
+| `MOCHA_TIMEOUT_MS`                           | Maximum duration for one test case. Defaults to `600000` (10 minutes).                   |
 
 ## Startup Timeout Triage
 

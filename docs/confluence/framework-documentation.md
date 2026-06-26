@@ -95,25 +95,26 @@ yarn test:smoke
 | `CHROMEDRIVER_BINARY_PATH`             | No       | Explicit ChromeDriver executable path.                          | `C:\tools\chromedriver.exe`                                        |
 | `EXPECTED_WINDOW_TITLES`               | No       | Comma-separated titles used by launch validation.               | `Your App,Login`                                                   |
 | `WAIT_TIMEOUT_MS`                      | No       | Default wait timeout in milliseconds.                           | `15000`                                                            |
+| `MOCHA_TIMEOUT_MS`                     | No       | Maximum duration allowed for one test case.                     | `600000`                                                           |
 | `E2E_JSON_MESSAGE_TIMEOUT_MS`          | No       | Maximum wait for an expected live JSON log message.             | `400000`                                                           |
 | `E2E_JSON_MESSAGE_POLL_INTERVAL_MS`    | No       | Interval between live JSON message checks.                      | `1000`                                                             |
 
 ## Common Commands
 
-| Command                | Purpose                                            |
-| ---------------------- | -------------------------------------------------- |
-| `yarn install`         | Install dependencies from `yarn.lock`              |
-| `yarn verify:electron` | Confirm Electron is pinned to `41.0.0`             |
-| `yarn typecheck`       | Run TypeScript compile checks                      |
-| `yarn format:check`    | Verify Prettier formatting                         |
-| `yarn format`          | Format project files                               |
-| `yarn clean:reports`   | Remove generated report output only                |
-| `yarn clean`           | Remove reports plus full transient output          |
-| `yarn test:smoke`      | Run smoke suite                                    |
-| `yarn test:regression` | Run regression suite                               |
-| `yarn test:exe`        | Run smoke suite against configured packaged binary |
-| `yarn allure:generate` | Generate HTML report from Allure results           |
-| `yarn allure:open`     | Open generated Allure HTML report                  |
+| Command                | Purpose                                              |
+| ---------------------- | ---------------------------------------------------- |
+| `yarn install`         | Install dependencies from `yarn.lock`                |
+| `yarn verify:electron` | Confirm Electron is pinned to `41.0.0`               |
+| `yarn typecheck`       | Run TypeScript compile checks                        |
+| `yarn format:check`    | Verify Prettier formatting                           |
+| `yarn format`          | Format project files                                 |
+| `yarn clean:reports`   | Remove generated report output only                  |
+| `yarn clean`           | Remove reports plus full transient output            |
+| `yarn test:smoke`      | Run live JSON cases from `NEWMASTERSPEC/smoke-tests` |
+| `yarn test:regression` | Run regression suite                                 |
+| `yarn test:exe`        | Run smoke suite against configured packaged binary   |
+| `yarn allure:generate` | Generate HTML report from Allure results             |
+| `yarn allure:open`     | Open generated Allure HTML report                    |
 
 All `yarn test:*` scripts run `yarn clean:reports` before WDIO starts. Reports are preserved after the test finishes so the user can inspect logs or generate Allure.
 

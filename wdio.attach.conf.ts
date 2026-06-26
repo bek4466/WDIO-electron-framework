@@ -15,6 +15,7 @@ import { attachEvidence, startEvidenceCapture } from './src/support/evidence.js'
 let electronProcess: childProcess.ChildProcess | undefined;
 
 const waitTimeout = getNumberEnv('WAIT_TIMEOUT_MS', 10000);
+const mochaTimeout = getNumberEnv('MOCHA_TIMEOUT_MS', 600000);
 const connectionRetryTimeout = getNumberEnv('WDIO_CONNECTION_RETRY_TIMEOUT_MS', 300000);
 const connectionRetryCount = getNumberEnv('WDIO_CONNECTION_RETRY_COUNT', 1);
 const attachPort = getNumberEnv('ELECTRON_ATTACH_DEBUG_PORT', 9229);
@@ -402,7 +403,7 @@ export const config: WdioTestrunnerConfig = {
   outputDir: reportPaths.wdioLogs,
   specs: ['./src/specs/**/*.spec.ts'],
   suites: {
-    smoke: ['./src/specs/smoke/**/*.spec.ts'],
+    smoke: ['./e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts'],
     regression: ['./src/specs/regression/**/*.spec.ts'],
     e2eJson: [
       './e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts',
@@ -446,7 +447,7 @@ export const config: WdioTestrunnerConfig = {
   ],
   mochaOpts: {
     ui: 'bdd',
-    timeout: 120000,
+    timeout: mochaTimeout,
   },
   onPrepare: async () => {
     ensureReportDirectories();
@@ -507,7 +508,17 @@ export const config: WdioTestrunnerConfig = {
       process.env.TESTTYPE = selectedSuite;
     }
 
-    lifecycleLog('onWorkerStart', { cid, specs, selectedSuite, testType: process.env.TESTTYPE });
+    if (selectedSuite === 'smoke' && !process.env.E2E_JSON_EXECUTION_MODE) {
+      process.env.E2E_JSON_EXECUTION_MODE = 'live';
+    }
+
+    lifecycleLog('onWorkerStart', {
+      cid,
+      specs,
+      selectedSuite,
+      testType: process.env.TESTTYPE,
+      jsonExecutionMode: process.env.E2E_JSON_EXECUTION_MODE,
+    });
   },
   beforeSession: (_config, capabilities, specs, cid) => {
     writeDiagnosticJson('electron-attach-capability-before-session.json', capabilities);

@@ -15,6 +15,11 @@ export function getBooleanEnv(name: string, fallback = false): boolean {
 
 export function getNumberEnv(name: string, fallback: number): number {
   const value = getEnv(name);
+
+  if (!value) {
+    return fallback;
+  }
+
   const parsed = Number(value);
 
   return Number.isFinite(parsed) ? parsed : fallback;

@@ -8,6 +8,7 @@ import { ensureReportDirectories, reportPaths } from './config/reporting.config.
 import { attachEvidence, startEvidenceCapture } from './src/support/evidence.js';
 
 const waitTimeout = getNumberEnv('WAIT_TIMEOUT_MS', 10000);
+const mochaTimeout = getNumberEnv('MOCHA_TIMEOUT_MS', 600000);
 const connectionRetryTimeout = getNumberEnv('WDIO_CONNECTION_RETRY_TIMEOUT_MS', 180000);
 const connectionRetryCount = getNumberEnv('WDIO_CONNECTION_RETRY_COUNT', 1);
 const lifecycleLogPath = path.join(reportPaths.wdioLogs, 'wdio-lifecycle.log');
@@ -85,7 +86,7 @@ export const config: WdioTestrunnerConfig = {
   outputDir: reportPaths.wdioLogs,
   specs: ['./src/specs/**/*.spec.ts'],
   suites: {
-    smoke: ['./src/specs/smoke/**/*.spec.ts'],
+    smoke: ['./e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts'],
     regression: ['./src/specs/regression/**/*.spec.ts'],
     e2eJson: [
       './e2e/tests/regression/NEWMASTERSPEC/UpdatedMaster.e2e-spec.ts',
@@ -130,7 +131,7 @@ export const config: WdioTestrunnerConfig = {
   ],
   mochaOpts: {
     ui: 'bdd',
-    timeout: 120000,
+    timeout: mochaTimeout,
   },
   onPrepare: () => {
     ensureReportDirectories();
@@ -152,11 +153,16 @@ export const config: WdioTestrunnerConfig = {
       process.env.TESTTYPE = selectedSuite;
     }
 
+    if (selectedSuite === 'smoke' && !process.env.E2E_JSON_EXECUTION_MODE) {
+      process.env.E2E_JSON_EXECUTION_MODE = 'live';
+    }
+
     lifecycleLog('onWorkerStart', {
       cid,
       specs,
       selectedSuite,
       testType: process.env.TESTTYPE,
+      jsonExecutionMode: process.env.E2E_JSON_EXECUTION_MODE,
     });
   },
   beforeSession: (_config, capabilities, specs, cid) => {
