@@ -508,8 +508,9 @@ export const config: WdioTestrunnerConfig = {
       process.env.TESTTYPE = selectedSuite;
     }
 
-    if (selectedSuite === 'smoke' && !process.env.E2E_JSON_EXECUTION_MODE) {
-      process.env.E2E_JSON_EXECUTION_MODE = 'live';
+    if (selectedSuite === 'smoke') {
+      process.env.E2E_JSON_FOLDERS = 'smoke-tests';
+      process.env.E2E_JSON_EXECUTION_MODE ||= 'live';
     }
 
     lifecycleLog('onWorkerStart', {
@@ -518,6 +519,7 @@ export const config: WdioTestrunnerConfig = {
       selectedSuite,
       testType: process.env.TESTTYPE,
       jsonExecutionMode: process.env.E2E_JSON_EXECUTION_MODE,
+      jsonFolders: process.env.E2E_JSON_FOLDERS,
     });
   },
   beforeSession: (_config, capabilities, specs, cid) => {
