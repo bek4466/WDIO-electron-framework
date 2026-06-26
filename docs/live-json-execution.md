@@ -25,25 +25,27 @@ Remove `E2E_JSON_LIMIT` after the first live case is stable.
 
 ## Important Environment Variables
 
-| Variable                                     | Purpose                                                                            |
-| -------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `E2E_JSON_EXECUTION_MODE=live`               | Enables real UI execution.                                                         |
-| `E2E_JSON_LIMIT=1`                           | Runs only the first discovered executable case while debugging.                    |
-| `E2E_JSON_FOLDERS=smoke-tests`               | Limits `UpdatedMaster.e2e-spec.ts` discovery to one folder.                        |
-| `E2E_JSON_FILES=CSP-326.e2e-spec.json`       | Limits discovery to one or more comma-separated JSON files.                        |
-| `E2E_JSON_CASES=TestCase1`                   | Limits discovery to one or more comma-separated case ids inside selected files.    |
-| `E2E_APP_READY_TITLE`                        | Optional window title filter before tests start.                                   |
-| `E2E_APP_READY_SELECTOR`                     | Optional selector that proves the real app UI is ready.                            |
-| `E2E_APP_READY_TIMEOUT_MS`                   | Startup readiness timeout. Defaults to `60000`.                                    |
-| `E2E_APP_WINDOW_TIMEOUT_MS`                  | Main-window switch timeout. Defaults to `60000`.                                   |
-| `E2E_JSON_BOOTSTRAP_PAUSE_MS`                | One-time live startup pause before window switching. Defaults to `25000`.          |
-| `E2E_RESOURCE_ROOT`                          | Folder that contains project resources like `DeployProject\systeminfo.json`.       |
-| `E2E_JSON_STRICT_UNSUPPORTED=false`          | Allows unsupported JSON actions to be attached to Allure without failing the test. |
-| `CSDU_EXE_LOCATION`                          | Preferred CSDU executable path alias.                                              |
-| `ELECTRON_APP_BINARY_PATH`                   | Generic packaged Electron executable path.                                         |
-| `ELECTRON_APP_BROWSER_VERSION`               | Optional explicit Chromium/browser version for ChromeDriver matching.              |
-| `ELECTRON_AUTO_DETECT_BROWSER_VERSION=false` | Disables automatic browser-version detection from the `.exe`.                      |
-| `CHROMEDRIVER_BINARY_PATH`                   | Optional explicit ChromeDriver executable path.                                    |
+| Variable                                     | Purpose                                                                                  |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `E2E_JSON_EXECUTION_MODE=live`               | Enables real UI execution.                                                               |
+| `E2E_JSON_LIMIT=1`                           | Runs only the first discovered executable case while debugging.                          |
+| `E2E_JSON_FOLDERS=smoke-tests`               | Limits `UpdatedMaster.e2e-spec.ts` discovery to one folder.                              |
+| `E2E_JSON_FILES=CSP-326.e2e-spec.json`       | Limits discovery to one or more comma-separated JSON files.                              |
+| `E2E_JSON_CASES=TestCase1`                   | Limits discovery to one or more comma-separated case ids inside selected files.          |
+| `E2E_APP_READY_TITLE`                        | Optional window title filter before tests start.                                         |
+| `E2E_APP_READY_SELECTOR`                     | Optional selector that proves the real app UI is ready.                                  |
+| `E2E_APP_READY_TIMEOUT_MS`                   | Startup readiness timeout. Defaults to `60000`.                                          |
+| `E2E_APP_WINDOW_TIMEOUT_MS`                  | Main-window switch timeout. Defaults to `60000`.                                         |
+| `E2E_JSON_BOOTSTRAP_PAUSE_MS`                | One-time live startup pause before window switching. Defaults to `25000`.                |
+| `E2E_JSON_MESSAGE_TIMEOUT_MS`                | Maximum wait for an expected message, trace, or program-log entry. Defaults to `400000`. |
+| `E2E_JSON_MESSAGE_POLL_INTERVAL_MS`          | Interval between message checks. Defaults to `1000`.                                     |
+| `E2E_RESOURCE_ROOT`                          | Folder that contains project resources like `DeployProject\systeminfo.json`.             |
+| `E2E_JSON_STRICT_UNSUPPORTED=false`          | Allows unsupported JSON actions to be attached to Allure without failing the test.       |
+| `CSDU_EXE_LOCATION`                          | Preferred CSDU executable path alias.                                                    |
+| `ELECTRON_APP_BINARY_PATH`                   | Generic packaged Electron executable path.                                               |
+| `ELECTRON_APP_BROWSER_VERSION`               | Optional explicit Chromium/browser version for ChromeDriver matching.                    |
+| `ELECTRON_AUTO_DETECT_BROWSER_VERSION=false` | Disables automatic browser-version detection from the `.exe`.                            |
+| `CHROMEDRIVER_BINARY_PATH`                   | Optional explicit ChromeDriver executable path.                                          |
 
 ## Startup Timeout Triage
 
@@ -78,6 +80,8 @@ The live dispatcher maps the legacy master-spec action vocabulary into one TypeS
 - Hardware command blocks: `GmCommands`, `CheckNavCommands`, `CheckECW`, and `CheckKevin` are mapped and attached to Allure as structured command evidence. Their real device side effects still require the Windows lab machine/device environment.
 
 `VerifyMessage`, `VerifyTraceMessage`, `VerifyTroubleShootingMessage`, `VerifyProgramMessageLogs`, `VerifyCLIMessage`, and `CheckSpecificTraceMessages` search visible message-pane rows, trace rows, and program-log text.
+
+Expected messages are polled until they appear or `E2E_JSON_MESSAGE_TIMEOUT_MS` expires. On timeout, the rows observed during the final check are written to the console and attached to Allure as `Message verification timeout`.
 
 Unsupported actions are attached to Allure as `Unsupported live JSON actions`. By default they fail the test so missing mappings are visible. Use `E2E_JSON_STRICT_UNSUPPORTED=false` only while triaging a new legacy action.
 

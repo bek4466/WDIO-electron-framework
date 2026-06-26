@@ -26,6 +26,8 @@ type ExecutionContext = {
 };
 
 const waitTimeout = Number(process.env.WAIT_TIMEOUT_MS ?? 10000);
+const messageTimeout = Number(process.env.E2E_JSON_MESSAGE_TIMEOUT_MS ?? 400000);
+const messagePollInterval = Number(process.env.E2E_JSON_MESSAGE_POLL_INTERVAL_MS ?? 1000);
 const resourceRootEnv = process.env.E2E_RESOURCE_ROOT;
 const strictUnsupported = process.env.E2E_JSON_STRICT_UNSUPPORTED !== 'false';
 
@@ -1540,32 +1542,79 @@ async function verifyMessages(messages: unknown): Promise<void> {
     const shouldExist = record.Exist === undefined ? true : Boolean(record.Exist);
 
     await allureStep(`Verify visible logs contain: ${messageText}`, async () => {
-      const messageRows = await messageRowTexts();
-      const traceRows = await browser.$$(selectorFrom(traceLocators, 'tracerows') ?? selectorFrom(traceLocators, 'tracerows1') ?? 'tr');
-      const traceTexts: string[] = [];
+      let observedRows: string[] = [];
 
-      for (const row of traceRows) {
-        const rowText = await row.getText().catch(() => '');
-        if (rowText.trim()) {
-          traceTexts.push(rowText.trim());
+      const readMatch = async (): Promise<boolean> => {
+        const messageRows = await messageRowTexts().catch(() => []);
+        const traceRows = await browser.$$(
+          selectorFrom(traceLocators, 'tracerows') ?? selectorFrom(traceLocators, 'tracerows1') ?? 'tr',
+        );
+        const traceTexts: string[] = [];
+
+        for (const row of traceRows) {
+          const rowText = await row.getText().catch(() => '');
+          if (rowText.trim()) {
+            traceTexts.push(rowText.trim());
+          }
         }
+
+        const programText = await programLogText().catch(() => '');
+        observedRows = [...messageRows, ...traceTexts, programText].filter((row) => row.trim() !== '');
+
+        return observedRows.some((row) => {
+          const hasMessage = messageText === '' || row.includes(messageText);
+          const hasSeverity = messageType === '' || row.includes(messageType);
+          const hasIpAddress = ipAddress === '' || row.includes(ipAddress);
+          return hasMessage && hasSeverity && hasIpAddress;
+        });
+      };
+
+      if (!shouldExist) {
+        expect(await readMatch(), `Unexpected log message was found: ${messageText}`).to.equal(false);
+        return;
       }
 
-      const rows = [...messageRows, ...traceTexts, await programLogText()];
+      debugLog('Waiting for expected log message', {
+        messageText,
+        messageType,
+        ipAddress,
+        timeoutMs: messageTimeout,
+        pollIntervalMs: messagePollInterval,
+      });
+
       let found = false;
-
-      for (const row of rows) {
-        const hasMessage = messageText === '' || row.includes(messageText);
-        const hasSeverity = messageType === '' || row.includes(messageType);
-        const hasIpAddress = ipAddress === '' || row.includes(ipAddress);
-
-        if (hasMessage && hasSeverity && hasIpAddress) {
-          found = true;
-          break;
-        }
+      try {
+        await browser.waitUntil(
+          async () => {
+            found = await readMatch();
+            return found;
+          },
+          {
+            timeout: messageTimeout,
+            interval: messagePollInterval,
+            timeoutMsg: `Expected log message did not appear within ${messageTimeout}ms: ${messageText}`,
+          },
+        );
+      } catch (error) {
+        await attachJson('Message verification timeout', {
+          expectedMessage: messageText,
+          expectedType: messageType,
+          expectedIpAddress: ipAddress,
+          timeoutMs: messageTimeout,
+          observedRows,
+        });
+        debugLog('Expected log message was not found', {
+          messageText,
+          messageType,
+          observedRows,
+          error: error instanceof Error ? error.message : String(error),
+        });
       }
 
-      expect(found).to.equal(shouldExist);
+      expect(
+        found,
+        `Expected log message was not found: "${messageText}" (${messageType || 'any severity'}). Observed: ${observedRows.join(' | ') || '<none>'}`,
+      ).to.equal(true);
     });
   }
 }

@@ -95,6 +95,8 @@ yarn test:smoke
 | `CHROMEDRIVER_BINARY_PATH`             | No       | Explicit ChromeDriver executable path.                          | `C:\tools\chromedriver.exe`                                        |
 | `EXPECTED_WINDOW_TITLES`               | No       | Comma-separated titles used by launch validation.               | `Your App,Login`                                                   |
 | `WAIT_TIMEOUT_MS`                      | No       | Default wait timeout in milliseconds.                           | `15000`                                                            |
+| `E2E_JSON_MESSAGE_TIMEOUT_MS`          | No       | Maximum wait for an expected live JSON log message.             | `400000`                                                           |
+| `E2E_JSON_MESSAGE_POLL_INTERVAL_MS`    | No       | Interval between live JSON message checks.                      | `1000`                                                             |
 
 ## Common Commands
 
