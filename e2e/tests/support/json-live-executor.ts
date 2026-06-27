@@ -17,6 +17,7 @@ export type LiveJsonCase = {
 type ExecutionContext = {
   repoRoot: string;
   resourceRoot: string;
+  currentPage?: 'about' | 'deploy' | 'profile' | 'troubleshooting';
   currentProjectFile?: string;
   savedDates: Map<string, number>;
   savedTexts: Map<string, string>;
@@ -777,6 +778,63 @@ async function clickIfPresent(selector: string | undefined): Promise<boolean> {
   return true;
 }
 
+async function navigateToPage(
+  context: ExecutionContext,
+  page: 'about' | 'deploy' | 'troubleshooting',
+): Promise<void> {
+  if (context.currentPage === page) {
+    return;
+  }
+
+  await allureStep(`Navigate to ${page} page`, async () => {
+    if (page === 'about') {
+      const helpMenu = await findElement(
+        selectorFrom(deploymentLocators, 'sideNavigationElems.helpNavigation') ?? '',
+      );
+      await helpMenu.click();
+
+      const aboutButton = await findElement(
+        selectorFrom(deploymentLocators, 'sideNavigationElems.aboutPage') ??
+          selectorFrom(aboutLocators, 'aboutPage') ??
+          '',
+      );
+      await aboutButton.click();
+      await (await findElement(selectorFrom(aboutLocators, 'aboutTitle') ?? '')).waitForDisplayed({
+        timeout: waitTimeout,
+      });
+    } else if (page === 'troubleshooting') {
+      const troubleshootingButton = await findElement(
+        selectorFrom(deploymentLocators, 'sideNavigationElems.troubleshootingPage') ??
+          selectorFrom(locators, 'sideNavTroubleshootingBtn') ??
+          '',
+      );
+      await troubleshootingButton.click();
+      await (
+        await findElement(
+          selectorFrom(traceLocators, 'traceTextTitle') ?? selectorFrom(locators, 'traceTxtTitle') ?? '',
+        )
+      ).waitForDisplayed({ timeout: waitTimeout });
+    } else {
+      const deployButton = await findElement(
+        selectorFrom(deploymentLocators, 'sideNavigationElems.deploymentPage') ??
+          selectorFrom(locators, 'sideNavDeployBtn') ??
+          '',
+      );
+      await deployButton.click();
+      await (
+        await findElement(
+          selectorFrom(deploymentLocators, 'projectDeploymentTitle') ??
+            selectorFrom(deploymentLocators, 'destinyInputField') ??
+            '',
+        )
+      ).waitForDisplayed({ timeout: waitTimeout });
+    }
+
+    context.currentPage = page;
+    debugLog('Navigation completed', { page });
+  });
+}
+
 async function messageRowTexts(): Promise<string[]> {
   const rows = await browser.$$(selectorFrom(messagePaneLocators, 'messagepanerows') ?? 'tr');
   const texts: string[] = [];
@@ -1206,6 +1264,7 @@ async function executeProfileAction(context: ExecutionContext, value: unknown): 
 
     const profileTitle = await findElement(selectorFrom(profileLocators, 'titleText') ?? '');
     await profileTitle.waitForDisplayed({ timeout: waitTimeout });
+    context.currentPage = 'profile';
   });
 
   const actions = Array.isArray(value) ? value : [value];
@@ -1536,13 +1595,59 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       return;
     }
 
-    if (['allsubmenuexist', 'allaboutpageelementsexist'].includes(actionName)) {
+    if (actionName === 'allsubmenuexist') {
+      const submenuSelectors = [
+        selectorFrom(deploymentLocators, 'sideNavigationElems.aboutPage'),
+        selectorFrom(deploymentLocators, 'sideNavigationElems.helpFile'),
+        selectorFrom(deploymentLocators, 'sideNavigationElems.csDocBtn'),
+      ].filter((selector): selector is string => Boolean(selector));
+      const submenuVisible = await Promise.all(
+        submenuSelectors.map(async (selector) =>
+          (await queryElement(selector)).isDisplayed().catch(() => false),
+        ),
+      );
+
+      if (submenuVisible.some((visible) => !visible)) {
+        await (
+          await findElement(
+            selectorFrom(deploymentLocators, 'sideNavigationElems.helpNavigation') ?? '',
+          )
+        ).click();
+      }
+
+      for (const selector of submenuSelectors) {
+        await (await findElement(selector)).waitForDisplayed({ timeout: waitTimeout });
+      }
+      return;
+    }
+
+    if (actionName === 'allaboutpageelementsexist') {
+      const aboutMenuSelector = selectorFrom(deploymentLocators, 'sideNavigationElems.aboutPage');
+      if (
+        aboutMenuSelector &&
+        (await (await queryElement(aboutMenuSelector)).isDisplayed().catch(() => false))
+      ) {
+        await (
+          await findElement(
+            selectorFrom(deploymentLocators, 'sideNavigationElems.helpNavigation') ?? '',
+          )
+        ).click();
+      }
+
       for (const selector of [
-        selectorFrom(aboutLocators, 'aboutPage'),
         selectorFrom(aboutLocators, 'aboutTitle'),
+        selectorFrom(aboutLocators, 'copyright'),
+        selectorFrom(aboutLocators, 'disclaimer'),
+        selectorFrom(aboutLocators, 'eulaLink'),
+        selectorFrom(aboutLocators, 'partNumber'),
         selectorFrom(aboutLocators, 'versionNumber'),
-      ].filter((value): value is string => Boolean(value))) {
-        await findElement(selector);
+      ].filter((entry): entry is string => Boolean(entry))) {
+        await (await findElement(selector)).waitForDisplayed({ timeout: waitTimeout });
+      }
+
+      const partNumberSelector = selectorFrom(aboutLocators, 'partNumber');
+      if (partNumberSelector) {
+        expect(await elementTextOrValue(await findElement(partNumberSelector))).to.contain('79-774-01');
       }
       return;
     }
@@ -1992,6 +2097,20 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
       blockName,
       normalizedBlock,
     });
+
+    if (normalizedBlock.startsWith('aboutaction')) {
+      await navigateToPage(context, 'about');
+    } else if (
+      normalizedBlock.startsWith('troubleshootingaction') ||
+      normalizedBlock.startsWith('troubleshootingpage')
+    ) {
+      await navigateToPage(context, 'troubleshooting');
+    } else if (
+      normalizedBlock.startsWith('deployaction') ||
+      normalizedBlock.startsWith('deploypage')
+    ) {
+      await navigateToPage(context, 'deploy');
+    }
 
     if (normalizedBlock.includes('timeout')) {
       debugLog('Pausing for JSON timeout block', {
