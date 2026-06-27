@@ -19,6 +19,7 @@ type ExecutionContext = {
   resourceRoot: string;
   currentPage?: 'about' | 'deploy' | 'profile' | 'troubleshooting';
   currentProjectFile?: string;
+  projectSelected?: boolean;
   savedDates: Map<string, number>;
   savedTexts: Map<string, string>;
   savedMessageCount?: number;
@@ -823,8 +824,8 @@ async function navigateToPage(
       await deployButton.click();
       await (
         await findElement(
-          selectorFrom(deploymentLocators, 'projectDeploymentTitle') ??
-            selectorFrom(deploymentLocators, 'destinyInputField') ??
+          selectorFrom(deploymentLocators, 'destinyInputField') ??
+            selectorFrom(deploymentLocators, 'projectDeploymentTitle') ??
             '',
         )
       ).waitForDisplayed({ timeout: waitTimeout });
@@ -918,6 +919,34 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
   }, targetSelector);
 }
 
+async function ensureProjectSelected(context: ExecutionContext): Promise<void> {
+  if (context.projectSelected || !context.currentProjectFile) {
+    return;
+  }
+
+  await navigateToPage(context, 'deploy');
+  await allureStep('Select prepared project before page navigation', async () => {
+    await setUploadPath(
+      selectorFrom(deploymentLocators, 'destinyInputField') ?? '#deploy-input-text',
+      context.currentProjectFile ?? '',
+    );
+
+    const deployButton = await findElement(
+      selectorFrom(deploymentLocators, 'deployBtn') ?? '#deploy-deploy-btn',
+    );
+    await browser.waitUntil(() => deployButton.isEnabled(), {
+      timeout: waitTimeout,
+      interval: 500,
+      timeoutMsg: `Project was selected but CSDU did not finish loading it within ${waitTimeout}ms: ${context.currentProjectFile}`,
+    });
+
+    context.projectSelected = true;
+    debugLog('Prepared project selected in CSDU', {
+      projectFile: context.currentProjectFile,
+    });
+  });
+}
+
 async function executeElementOperation(
   context: ExecutionContext,
   pathParts: string[],
@@ -949,6 +978,7 @@ async function executeElementOperation(
       const targetPath = resolveResourcePath(context, asString(value));
       context.currentProjectFile = targetPath.endsWith('.json') ? targetPath : context.currentProjectFile;
       await setUploadPath(selector, targetPath);
+      context.projectSelected = true;
       return;
     }
 
@@ -1336,6 +1366,7 @@ async function executeAction(context: ExecutionContext, action: string, testCase
 
       context.currentProjectFile = projectFile;
       await setUploadPath(selectorFrom(deploymentLocators, 'destinyInputField') ?? '#deploy-input-file-disabled', projectFile);
+      context.projectSelected = true;
       await setCredentials(testCase.Credentials);
       await (await findElement(selectorFrom(deploymentLocators, 'deployBtn') ?? '#deploy-deploy-btn')).click();
       return;
@@ -2104,6 +2135,7 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
       normalizedBlock.startsWith('troubleshootingaction') ||
       normalizedBlock.startsWith('troubleshootingpage')
     ) {
+      await ensureProjectSelected(context);
       await navigateToPage(context, 'troubleshooting');
     } else if (
       normalizedBlock.startsWith('deployaction') ||
