@@ -51,6 +51,7 @@ const programLogLocatorsValue = readJson('programLogLocators.json');
 const toastLocators = readJson('toastLocators.json');
 const timeoutValues = readJson('timeout.json');
 const tabTitles = readJson('tabTitles.json');
+const dataValues = readJson('dataTool.json');
 
 let liveSessionBootstrapped = false;
 
@@ -894,9 +895,13 @@ async function executeElementOperation(
     }
 
     if (['exists', 'exist'].includes(operationName)) {
-      const element = await queryElement(selector);
       const expected = value === null ? true : Boolean(value);
-      expect(await element.isExisting().catch(() => false)).to.equal(expected);
+
+      if (expected) {
+        await findElement(selector);
+      } else {
+        expect(await (await queryElement(selector)).isExisting().catch(() => false)).to.equal(false);
+      }
       return;
     }
 
@@ -1192,6 +1197,62 @@ async function setCredentials(credentials: unknown): Promise<void> {
       await (await findElement(saveSelector)).click();
     }
   });
+}
+
+async function executeProfileAction(context: ExecutionContext, value: unknown): Promise<void> {
+  await allureStep('Open profile page', async () => {
+    const profileTab = await findElement(selectorFrom(profileLocators, 'profilePage') ?? '');
+    await profileTab.click();
+
+    const profileTitle = await findElement(selectorFrom(profileLocators, 'titleText') ?? '');
+    await profileTitle.waitForDisplayed({ timeout: waitTimeout });
+  });
+
+  const actions = Array.isArray(value) ? value : [value];
+
+  for (const action of actions) {
+    const actionName = normalizeKey(String(action ?? ''));
+
+    if (!actionName) {
+      continue;
+    }
+
+    await allureStep(`Execute ProfileAction: ${String(action)}`, async () => {
+      if (actionName === 'usernameinwindowtitle') {
+        const expectedUsername = asString(dataValues.licensedUser1);
+        const profileTitle = await findElement(selectorFrom(profileLocators, 'titleText') ?? '');
+        expect(await elementTextOrValue(profileTitle)).to.contain(expectedUsername);
+        return;
+      }
+
+      if (actionName === 'savecurrentdate') {
+        context.savedTexts.set('profile.currentDate', new Date().toString());
+        return;
+      }
+
+      if (actionName === 'saveexpirationdate') {
+        const expiration = await findElement(selectorFrom(profileLocators, 'expirationText') ?? '');
+        context.savedTexts.set('profile.expirationDate', await elementTextOrValue(expiration));
+        return;
+      }
+
+      if (actionName === 'savereneweddate') {
+        const renewed = await findElement(selectorFrom(profileLocators, 'lastRenewed') ?? '');
+        context.savedTexts.set('profile.renewedDate', await elementTextOrValue(renewed));
+        return;
+      }
+
+      if (actionName === 'checkifcurrentdatematcheslastrenewed') {
+        const currentDate = context.savedTexts.get('profile.currentDate') ?? '';
+        const renewed = await findElement(selectorFrom(profileLocators, 'lastRenewed') ?? '');
+        const renewedText = await elementTextOrValue(renewed);
+        expect(renewedText).to.contain(new Date(currentDate).getFullYear().toString());
+        return;
+      }
+
+      context.unsupported.push(`Unsupported ProfileAction: ${String(action)}`);
+    });
+  }
 }
 
 async function executeAction(context: ExecutionContext, action: string, testCase: JsonRecord): Promise<void> {
@@ -2023,6 +2084,11 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
 
     if (normalizedBlock === 'verifytoastexists' || normalizedBlock === 'verifycertifytoast') {
       await executeVerifyToastExists(value);
+      continue;
+    }
+
+    if (normalizedBlock.startsWith('profileaction')) {
+      await executeProfileAction(context, value);
       continue;
     }
 
