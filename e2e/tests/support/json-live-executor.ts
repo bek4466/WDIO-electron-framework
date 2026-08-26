@@ -3,6 +3,7 @@ import path from 'node:path';
 import { browser } from '@wdio/globals';
 import { expect } from 'chai';
 import { allureStep, attachJson } from '../../../src/support/allure.js';
+import { authenticationSession } from './auth-session.js';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -703,6 +704,15 @@ export async function bootstrapLiveJsonSession(): Promise<void> {
       signInButtonExists,
     });
 
+    const authBootstrapMode = (process.env.E2E_AUTH_BOOTSTRAP_MODE ?? 'certified').toLowerCase();
+    if (authBootstrapMode === 'certified') {
+      await authenticationSession.ensureCertifiedUser();
+    } else if (!['preserve', 'none'].includes(authBootstrapMode)) {
+      throw new Error(
+        `Unsupported E2E_AUTH_BOOTSTRAP_MODE "${authBootstrapMode}". Use "certified" or "preserve".`,
+      );
+    }
+
     liveSessionBootstrapped = true;
   });
 }
@@ -955,6 +965,7 @@ async function executeElementOperation(
 ): Promise<void> {
   const selector = getSelector(pathParts);
   const operationName = normalizeKey(operation);
+  const normalizedPath = pathParts.map(normalizeKey).join('.');
   const label = `${pathParts.join('.')} -> ${operation}`;
 
   if (!selector) {
@@ -1030,6 +1041,12 @@ async function executeElementOperation(
 
     if (['click', 'close', 'noswitchwindowclick'].includes(operationName)) {
       await element.click();
+
+      if (normalizedPath.endsWith('loginpage.signinbtn')) {
+        await authenticationSession.switchToSsoWindow();
+      } else if (normalizedPath.endsWith('signoutpopup.signoutbtn')) {
+        await authenticationSession.waitForState('signed-out');
+      }
       return;
     }
 
@@ -1495,12 +1512,12 @@ async function executeAction(context: ExecutionContext, action: string, testCase
     }
 
     if (actionName === 'logout') {
-      await (await findElement(selectorFrom(accessControlLocators, 'logOutBtn') ?? '')).click();
+      await authenticationSession.signOut();
       return;
     }
 
     if (actionName === 'clicksignout') {
-      await (await findElement(selectorFrom(accessControlLocators, 'popUpSignOutBtn') ?? '')).click();
+      await authenticationSession.openSignOutDialog();
       return;
     }
 
@@ -1996,16 +2013,35 @@ async function executeCredentialAction(credentials: unknown): Promise<void> {
   const record = asRecord(credentials);
   const user = asString(record.user);
   const pass = asString(record.pass);
+  await authenticationSession.signIn(user || 'certified', pass || user || 'certified');
+}
 
-  if (user) {
-    await (await findElement(selectorFrom(accessControlLocators, 'emailInputField') ?? '')).setValue(user);
+async function executeAppAction(
+  context: ExecutionContext,
+  value: unknown,
+  testCase: JsonRecord,
+): Promise<void> {
+  const actions = Array.isArray(value) ? value : [value];
+
+  for (const action of actions) {
+    if (action && typeof action === 'object') {
+      await executeCredentialAction(action);
+      continue;
+    }
+
+    const actionName = normalizeKey(String(action ?? ''));
+    if (actionName === 'open') {
+      await authenticationSession.switchToMainWindow();
+      continue;
+    }
+
+    if (actionName === 'close') {
+      debugLog('Legacy AppAction Close does not terminate the shared Electron session');
+      continue;
+    }
+
+    await executeAction(context, String(action), testCase);
   }
-
-  if (pass) {
-    await (await findElement(selectorFrom(accessControlLocators, 'passwordInputField') ?? '')).setValue(pass);
-  }
-
-  await clickIfPresent(selectorFrom(accessControlLocators, 'loginBtn'));
 }
 
 async function executeHardwareCommandBlock(name: string, value: unknown): Promise<void> {
@@ -2205,11 +2241,7 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
     }
 
     if (normalizedBlock === 'appaction' || normalizedBlock.startsWith('appaction')) {
-      if (value && typeof value === 'object' && !Array.isArray(value)) {
-        await executeCredentialAction(value);
-      } else {
-        await executeAction(context, String(value), testCase);
-      }
+      await executeAppAction(context, value, testCase);
       continue;
     }
 

@@ -115,3 +115,20 @@ The `CommonMethod` executor was also reviewed against `bek4466/e2e-wdio-refactor
 Ported helper behavior includes binary-safe file corruption (`appendToFile`, `prependToFile`, `textToMidFile`), project JSON sidecar copying for `copyFile`, recursive folder copying, project-relative `renameFiles`, `findFile` / `cannotFindFile` raw-path handling, `deleteFile`, `deleteFolder`, saved modified-date comparisons, saved file-content comparisons, and exported trace text checks.
 
 Old SSO/window-switching helpers remain represented by the live executor's app readiness and login/action mappings. Old communication-client and controller-web helpers remain device/environment dependent and are attached as structured Allure evidence when reached.
+
+## Authentication lifecycle
+
+Live JSON execution starts with a certified user by default, matching the legacy master spec. The authentication helper detects the current CSDU state, switches between the CSDU and Extron Insider windows, and verifies each sign-in or sign-out transition instead of relying on fixed pauses.
+
+Configure credentials through environment variables:
+
+```powershell
+$env:CSDU_LICENSED_USERNAME="licensed-user@example.com"
+$env:CSDU_LICENSED_PASSWORD="provided-by-secret-store"
+$env:CSDU_UNCERTIFIED_USERNAME="uncertified-user@example.com"
+$env:CSDU_UNCERTIFIED_PASSWORD="provided-by-secret-store"
+```
+
+`E2E_AUTH_BOOTSTRAP_MODE=certified` is the default. Set it to `preserve` when a focused authentication test must use the application state left by the environment. `E2E_AUTH_TIMEOUT_MS` controls how long window and authentication transitions may take and defaults to 90000 milliseconds.
+
+JSON `AppAction` credential objects continue to support the legacy `certified` and `uncertified` aliases. `AppAction.Logout` completes the full logout flow, while `SignOutAction.ClickSignOut` only opens the confirmation dialog so the JSON case can inspect or confirm it separately.
