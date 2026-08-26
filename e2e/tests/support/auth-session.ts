@@ -47,10 +47,6 @@ function stringValue(value: unknown): string {
   return typeof value === 'string' ? value : '';
 }
 
-function env(name: string, fallback = ''): string {
-  return process.env[name]?.trim() || fallback;
-}
-
 const mainWindowTitle = stringValue(tabTitles.mainTab) || 'ControlScript Deployment Utility';
 const ssoWindowTitle = stringValue(tabTitles.ExtronInsider);
 const signInSelector = selector(accessLocators, 'signInBtn');
@@ -133,25 +129,16 @@ class AuthenticationSession {
 
     if (role === 'uncertified') {
       return {
-        username: env(
-          'CSDU_UNCERTIFIED_USERNAME',
-          stringValue(legacyCredentials.unLicensedUser1),
-        ),
-        password: env(
-          'CSDU_UNCERTIFIED_PASSWORD',
-          stringValue(legacyCredentials.unLicensedUser1pass),
-        ),
+        username: stringValue(legacyCredentials.unLicensedUser1),
+        password: stringValue(legacyCredentials.unLicensedUser1pass),
         role,
       };
     }
 
     if (role === 'certified') {
       return {
-        username: env('CSDU_LICENSED_USERNAME', stringValue(legacyCredentials.licensedUser1)),
-        password: env(
-          'CSDU_LICENSED_PASSWORD',
-          stringValue(legacyCredentials.licensedUser1pass),
-        ),
+        username: stringValue(legacyCredentials.licensedUser1),
+        password: stringValue(legacyCredentials.licensedUser1pass),
         role,
       };
     }
@@ -262,7 +249,7 @@ class AuthenticationSession {
 
     if (!credentials.username || !credentials.password) {
       throw new Error(
-        `Missing ${credentials.role} CSDU credentials. Set the corresponding CSDU_*_USERNAME and CSDU_*_PASSWORD variables.`,
+        `Missing ${credentials.role} CSDU credentials in e2e/src/JSON/dataTool.json.`,
       );
     }
 

@@ -118,16 +118,7 @@ Old SSO/window-switching helpers remain represented by the live executor's app r
 
 ## Authentication lifecycle
 
-Live JSON execution starts with a certified user by default, matching the legacy master spec. The authentication helper detects the current CSDU state, switches between the CSDU and Extron Insider windows, and verifies each sign-in or sign-out transition instead of relying on fixed pauses.
-
-Configure credentials through environment variables:
-
-```powershell
-$env:CSDU_LICENSED_USERNAME="licensed-user@example.com"
-$env:CSDU_LICENSED_PASSWORD="provided-by-secret-store"
-$env:CSDU_UNCERTIFIED_USERNAME="uncertified-user@example.com"
-$env:CSDU_UNCERTIFIED_PASSWORD="provided-by-secret-store"
-```
+Live JSON execution starts with a certified user by default, matching the legacy master spec. The authentication helper detects the current CSDU state, switches between the CSDU and Extron Insider windows, and verifies each sign-in or sign-out transition instead of relying on fixed pauses. Certified and uncertified credentials are read from `e2e/src/JSON/dataTool.json`, preserving the existing framework behavior.
 
 `E2E_AUTH_BOOTSTRAP_MODE=certified` is the default. Set it to `preserve` when a focused authentication test must use the application state left by the environment. `E2E_AUTH_TIMEOUT_MS` controls how long window and authentication transitions may take and defaults to 90000 milliseconds.
 
