@@ -793,6 +793,8 @@ async function navigateToPage(
   context: ExecutionContext,
   page: 'about' | 'deploy' | 'troubleshooting',
 ): Promise<void> {
+  await authenticationSession.ensureSignedInUser();
+
   if (context.currentPage === page) {
     return;
   }
@@ -826,19 +828,28 @@ async function navigateToPage(
         )
       ).waitForDisplayed({ timeout: waitTimeout });
     } else {
+      const deployContentSelector =
+        selectorFrom(deploymentLocators, 'destinyInputField') ??
+        selectorFrom(deploymentLocators, 'projectDeploymentTitle') ??
+        '';
+      const deployContent = await queryElement(deployContentSelector);
+      const deployAlreadyVisible = await deployContent.isDisplayed().catch(() => false);
+
+      if (deployAlreadyVisible) {
+        context.currentPage = 'deploy';
+        debugLog('Deploy page is already visible; navigation click is not needed', {
+          deployContentSelector,
+        });
+        return;
+      }
+
       const deployButton = await findElement(
         selectorFrom(deploymentLocators, 'sideNavigationElems.deploymentPage') ??
           selectorFrom(locators, 'sideNavDeployBtn') ??
           '',
       );
       await deployButton.click();
-      await (
-        await findElement(
-          selectorFrom(deploymentLocators, 'destinyInputField') ??
-            selectorFrom(deploymentLocators, 'projectDeploymentTitle') ??
-            '',
-        )
-      ).waitForDisplayed({ timeout: waitTimeout });
+      await (await findElement(deployContentSelector)).waitForDisplayed({ timeout: waitTimeout });
     }
 
     context.currentPage = page;

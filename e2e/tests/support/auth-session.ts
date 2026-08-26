@@ -324,6 +324,17 @@ class AuthenticationSession {
 
     await this.signIn('certified', 'certified');
   }
+
+  async ensureSignedInUser(): Promise<void> {
+    const state = await this.detectState();
+
+    if (['signed-in-certified', 'signed-in-uncertified'].includes(state)) {
+      await this.switchToMainWindow();
+      return;
+    }
+
+    await this.signIn('certified', 'certified');
+  }
 }
 
 export const authenticationSession = new AuthenticationSession();
