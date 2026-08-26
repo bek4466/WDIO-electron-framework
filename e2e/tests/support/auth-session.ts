@@ -18,6 +18,10 @@ type Credentials = {
   role: 'certified' | 'uncertified' | 'custom';
 };
 
+type ElementQueryBrowser = {
+  $(elementSelector: string): Promise<WebdriverIO.Element>;
+};
+
 function readJson(fileName: string): JsonRecord {
   const filePath = path.join(process.cwd(), 'e2e/src/JSON', fileName);
   return JSON.parse(fs.readFileSync(filePath, 'utf8')) as JsonRecord;
@@ -58,6 +62,10 @@ const passwordSelector = selector(accessLocators, 'passwordInputField');
 const loginSelector = selector(accessLocators, 'loginBtn');
 const certifySelector = selector(deploymentLocators, 'endorseBtn');
 
+async function queryElement(elementSelector: string): Promise<WebdriverIO.Element> {
+  return (browser as unknown as ElementQueryBrowser).$(elementSelector);
+}
+
 class AuthenticationSession {
   private readonly timeout = Number(process.env.E2E_AUTH_TIMEOUT_MS ?? 90000);
 
@@ -66,7 +74,7 @@ class AuthenticationSession {
       return false;
     }
 
-    const element = await browser.$(elementSelector);
+    const element = await queryElement(elementSelector);
     return element.isExisting().catch(() => false);
   }
 
@@ -227,8 +235,8 @@ class AuthenticationSession {
       throw new Error(`Cannot open sign-out dialog from authentication state "${state}".`);
     }
 
-    await (await browser.$(logoutSelector)).click();
-    await (await browser.$(logoutConfirmSelector)).waitForDisplayed({ timeout: this.timeout });
+    await (await queryElement(logoutSelector)).click();
+    await (await queryElement(logoutConfirmSelector)).waitForDisplayed({ timeout: this.timeout });
   }
 
   async signOut(): Promise<void> {
@@ -239,7 +247,7 @@ class AuthenticationSession {
       }
 
       await this.openSignOutDialog();
-      await (await browser.$(logoutConfirmSelector)).click();
+      await (await queryElement(logoutConfirmSelector)).click();
       await this.waitForState('signed-out');
     });
   }
@@ -265,14 +273,14 @@ class AuthenticationSession {
 
       if ((await this.detectState()) !== 'sso-window') {
         await this.switchToMainWindow();
-        await (await browser.$(signInSelector)).waitForClickable({ timeout: this.timeout });
-        await (await browser.$(signInSelector)).click();
+        await (await queryElement(signInSelector)).waitForClickable({ timeout: this.timeout });
+        await (await queryElement(signInSelector)).click();
       }
 
       await this.switchToSsoWindow();
-      await (await browser.$(emailSelector)).setValue(credentials.username);
-      await (await browser.$(passwordSelector)).setValue(credentials.password);
-      await (await browser.$(loginSelector)).click();
+      await (await queryElement(emailSelector)).setValue(credentials.username);
+      await (await queryElement(passwordSelector)).setValue(credentials.password);
+      await (await queryElement(loginSelector)).click();
 
       let finalState: AuthenticationState;
       if (credentials.role === 'custom') {
