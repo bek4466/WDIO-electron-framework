@@ -829,7 +829,7 @@ async function navigateToPage(
       ).waitForDisplayed({ timeout: waitTimeout });
     } else {
       const deployContentSelector =
-        selectorFrom(deploymentLocators, 'destinyInputField') ??
+        selectorFrom(deploymentLocators, 'browseBtn') ??
         selectorFrom(deploymentLocators, 'projectDeploymentTitle') ??
         '';
       const deployContent = await queryElement(deployContentSelector);
@@ -904,15 +904,42 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
     sizeBytes: fs.statSync(absolutePath).size,
   });
 
-  const uploadSelector = '#deploy-input-file-disabled';
-  const uploadInput = await browser.$(uploadSelector);
-  const uploadInputExists = await uploadInput.isExisting().catch(() => false);
-  const targetSelector = uploadInputExists ? uploadSelector : selector;
+  const browseSelector =
+    selectorFrom(deploymentLocators, 'browseBtn') ??
+    selectorFrom(locators, 'chooseFileBtn') ??
+    '';
+  await findElement(browseSelector);
+
+  const uploadSelectors = [
+    process.env.E2E_PROJECT_FILE_INPUT_SELECTOR,
+    '#deploy-input-file-disabled',
+    'input[type="file"]',
+  ].filter((candidate): candidate is string => Boolean(candidate));
+  let targetSelector = '';
+
+  await browser.waitUntil(
+    async () => {
+      for (const candidate of uploadSelectors) {
+        const uploadInput = await queryElement(candidate);
+        if (await uploadInput.isExisting().catch(() => false)) {
+          targetSelector = candidate;
+          return true;
+        }
+      }
+
+      return false;
+    },
+    {
+      timeout: waitTimeout,
+      interval: 250,
+      timeoutMsg: `Browse button is available, but no file input was found. Checked: ${uploadSelectors.join(', ')}`,
+    },
+  );
 
   debugLog('Resolved upload input selector', {
     configuredSelector: selector,
-    uploadSelector,
-    uploadInputExists,
+    browseSelector,
+    uploadSelectors,
     targetSelector,
   });
 
