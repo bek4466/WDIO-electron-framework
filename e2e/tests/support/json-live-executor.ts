@@ -789,6 +789,36 @@ async function clickIfPresent(selector: string | undefined): Promise<boolean> {
   return true;
 }
 
+async function checkboxIsChecked(selector: string): Promise<boolean> {
+  return browser.execute((checkboxSelector) => {
+    const input = document.querySelector(checkboxSelector) as HTMLInputElement | null;
+    return Boolean(input?.checked || input?.getAttribute('aria-checked') === 'true');
+  }, selector);
+}
+
+async function clickCheckbox(selector: string): Promise<void> {
+  await browser.execute((checkboxSelector) => {
+    const input = document.querySelector(checkboxSelector) as HTMLInputElement | null;
+    if (!input) {
+      throw new Error(`Checkbox not found: ${checkboxSelector}`);
+    }
+
+    const label = input.closest('label') ??
+      (input.id ? document.querySelector(`label[for="${input.id}"]`) : null);
+    (label as HTMLElement | null)?.click();
+
+    if (!label) {
+      input.click();
+    }
+  }, selector);
+
+  await browser.waitUntil(() => checkboxIsChecked(selector), {
+    timeout: waitTimeout,
+    interval: 100,
+    timeoutMsg: `Checkbox did not become checked after clicking its visible control: ${selector}`,
+  });
+}
+
 async function navigateToPage(
   context: ExecutionContext,
   page: 'about' | 'deploy' | 'troubleshooting',
@@ -1078,6 +1108,15 @@ async function executeElementOperation(
     const element = await findElement(selector);
 
     if (['click', 'close', 'noswitchwindowclick'].includes(operationName)) {
+      if (
+        normalizedPath.endsWith(
+          'protectprojectpopup.allowdeployandtroubleshootwithoutpasswordcheckbox',
+        )
+      ) {
+        await clickCheckbox(selector);
+        return;
+      }
+
       await element.click();
 
       if (normalizedPath.endsWith('loginpage.signinbtn')) {
@@ -1138,10 +1177,14 @@ async function executeElementOperation(
 
     if (operationName === 'ischecked') {
       const expected = value === null ? true : Boolean(value);
-      const checked = await element.isSelected().catch(async () => {
-        const ariaChecked = await element.getAttribute('aria-checked').catch(() => '');
-        return ariaChecked === 'true';
-      });
+      const checked = normalizedPath.endsWith(
+        'protectprojectpopup.allowdeployandtroubleshootwithoutpasswordcheckbox',
+      )
+        ? await checkboxIsChecked(selector)
+        : await element.isSelected().catch(async () => {
+            const ariaChecked = await element.getAttribute('aria-checked').catch(() => '');
+            return ariaChecked === 'true';
+          });
       expect(checked).to.equal(expected);
       return;
     }
