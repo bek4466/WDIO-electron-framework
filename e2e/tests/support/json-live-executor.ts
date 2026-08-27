@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { browser } from '@wdio/globals';
 import { expect } from 'chai';
 import { allureStep, attachJson } from '../../../src/support/allure.js';
@@ -997,6 +998,58 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
   }, targetSelector);
 }
 
+async function selectNativeOutputDirectory(selector: string, directoryPath: string): Promise<void> {
+  const absolutePath = path.resolve(directoryPath);
+  fs.mkdirSync(absolutePath, { recursive: true });
+
+  debugLog('Selecting native output directory', {
+    selector,
+    directoryPath: absolutePath,
+  });
+
+  await attachJson('Native output directory', {
+    directoryPath: absolutePath,
+    exists: fs.existsSync(absolutePath),
+  });
+
+  if (process.platform !== 'win32') {
+    throw new Error(
+      `Protect/Extract output folder selection requires Windows. Folder created at: ${absolutePath}`,
+    );
+  }
+
+  await (await findElement(selector)).click();
+  await browser.pause(750);
+
+  execFileSync(
+    'powershell.exe',
+    [
+      '-NoProfile',
+      '-STA',
+      '-Command',
+      [
+        'Add-Type -AssemblyName System.Windows.Forms',
+        'Set-Clipboard -Value $env:E2E_NATIVE_DIALOG_PATH',
+        'Start-Sleep -Milliseconds 500',
+        "[System.Windows.Forms.SendKeys]::SendWait('^l')",
+        "[System.Windows.Forms.SendKeys]::SendWait('^v')",
+        "[System.Windows.Forms.SendKeys]::SendWait('{ENTER}')",
+        'Start-Sleep -Milliseconds 500',
+        "[System.Windows.Forms.SendKeys]::SendWait('{TAB}')",
+        "[System.Windows.Forms.SendKeys]::SendWait('{ENTER}')",
+      ].join('; '),
+    ],
+    {
+      env: {
+        ...process.env,
+        E2E_NATIVE_DIALOG_PATH: absolutePath,
+      },
+      stdio: 'pipe',
+      windowsHide: true,
+    },
+  );
+}
+
 async function ensureProjectSelected(context: ExecutionContext): Promise<void> {
   if (context.projectSelected || !context.currentProjectFile) {
     return;
@@ -1055,6 +1108,15 @@ async function executeElementOperation(
   await allureStep(label, async () => {
     if (operationName === 'setpath') {
       const targetPath = resolveResourcePath(context, asString(value));
+
+      if (
+        normalizedPath.includes('protectprojectpopup.selectbtn') ||
+        normalizedPath.includes('extractprojectpopup.selectbtn')
+      ) {
+        await selectNativeOutputDirectory(selector, targetPath);
+        return;
+      }
+
       context.currentProjectFile = targetPath.endsWith('.json') ? targetPath : context.currentProjectFile;
       await setUploadPath(selector, targetPath);
       context.projectSelected = true;
