@@ -1813,20 +1813,27 @@ async function executeAction(context: ExecutionContext, action: string, testCase
     }
 
     if (actionName === 'allaboutpageelementsexist') {
+      const aboutTitleSelector = selectorFrom(aboutLocators, 'aboutTitle') ?? '';
       const aboutMenuSelector = selectorFrom(deploymentLocators, 'sideNavigationElems.aboutPage');
-      if (
-        aboutMenuSelector &&
-        (await (await queryElement(aboutMenuSelector)).isDisplayed().catch(() => false))
-      ) {
-        await (
-          await findElement(
-            selectorFrom(deploymentLocators, 'sideNavigationElems.helpNavigation') ?? '',
-          )
-        ).click();
+
+      if (!(await (await queryElement(aboutTitleSelector)).isDisplayed().catch(() => false))) {
+        if (
+          aboutMenuSelector &&
+          !(await (await queryElement(aboutMenuSelector)).isDisplayed().catch(() => false))
+        ) {
+          await (
+            await findElement(
+              selectorFrom(deploymentLocators, 'sideNavigationElems.helpNavigation') ?? '',
+            )
+          ).click();
+        }
+
+        await (await findElement(aboutMenuSelector ?? '')).click();
+        context.currentPage = 'about';
       }
 
       for (const selector of [
-        selectorFrom(aboutLocators, 'aboutTitle'),
+        aboutTitleSelector,
         selectorFrom(aboutLocators, 'copyright'),
         selectorFrom(aboutLocators, 'disclaimer'),
         selectorFrom(aboutLocators, 'eulaLink'),
@@ -2308,7 +2315,10 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
       normalizedBlock,
     });
 
-    if (normalizedBlock.startsWith('aboutaction')) {
+    if (
+      normalizedBlock.startsWith('aboutaction') &&
+      (!Array.isArray(value) || value.length === 0)
+    ) {
       await navigateToPage(context, 'about');
     } else if (
       normalizedBlock.startsWith('troubleshootingaction') ||
