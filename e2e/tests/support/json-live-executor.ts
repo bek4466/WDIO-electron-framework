@@ -26,7 +26,15 @@ type ExecutionContext = {
   savedTexts: Map<string, string>;
   savedMessageCount?: number;
   tempFile?: Buffer;
+  cleanupFiles: Set<string>;
+  restoreFiles: Array<{ source: string; target: string }>;
   unsupported: string[];
+};
+
+type MessageRow = {
+  severity: string;
+  message: string;
+  text: string;
 };
 
 const waitTimeout = Number(process.env.WAIT_TIMEOUT_MS ?? 10000);
@@ -889,17 +897,23 @@ async function navigateToPage(
 }
 
 async function messageRowTexts(): Promise<string[]> {
+  return (await messageRows()).map((row) => row.text);
+}
+
+async function messageRows(): Promise<MessageRow[]> {
   const rows = await browser.$$(selectorFrom(messagePaneLocators, 'messagepanerows') ?? 'tr');
-  const texts: string[] = [];
+  const messages: MessageRow[] = [];
 
   for (const row of rows) {
-    const rowText = await row.getText().catch(() => '');
-    if (rowText.trim()) {
-      texts.push(rowText.trim());
+    const text = (await row.getText().catch(() => '')).trim();
+    if (text) {
+      const severity = (await row.$('td:nth-child(2)').getText().catch(() => '')).trim();
+      const message = (await row.$('td:nth-child(3)').getText().catch(() => '')).trim();
+      messages.push({ severity, message, text });
     }
   }
 
-  return texts;
+  return messages;
 }
 
 async function programLogText(): Promise<string> {
@@ -1123,6 +1137,28 @@ async function executeElementOperation(
       return;
     }
 
+    if (operationName === 'errormessagetovalidate') {
+      const errorSelector =
+        selectorFrom(deploymentLocators, 'errorMsg') ??
+        selectorFrom(locators, 'projectDescriptorErrorMessageText') ??
+        selectorFrom(locators, 'errorMsg');
+
+      if (!errorSelector) {
+        throw new Error(`No project-file validation error selector is configured for ${label}.`);
+      }
+
+      const errorElement = await findElement(errorSelector);
+      await browser.waitUntil(
+        async () => (await elementTextOrValue(errorElement)).includes(String(value ?? '')),
+        {
+          timeout: waitTimeout,
+          interval: 250,
+          timeoutMsg: `Project-file validation message did not contain: ${String(value ?? '')}`,
+        },
+      );
+      return;
+    }
+
     if (['exists', 'exist'].includes(operationName)) {
       const expected = value === null ? true : Boolean(value);
 
@@ -1273,7 +1309,6 @@ async function executeElementOperation(
         'verifymessagematches',
         'verifypathmatches',
         'isequalto',
-        'errormessagetovalidate',
         'verifyiperror',
         'hasnodevicetext',
         'hasrefermsgpanetext',
@@ -1906,10 +1941,10 @@ async function verifyMessages(messages: unknown): Promise<void> {
     const shouldExist = record.Exist === undefined ? true : Boolean(record.Exist);
 
     await allureStep(`Verify visible logs contain: ${messageText}`, async () => {
-      let observedRows: string[] = [];
+      let observedRows: MessageRow[] = [];
 
       const readMatch = async (): Promise<boolean> => {
-        const messageRows = await messageRowTexts().catch(() => []);
+        const paneRows = await messageRows().catch(() => []);
         const traceRows = await browser.$$(
           selectorFrom(traceLocators, 'tracerows') ?? selectorFrom(traceLocators, 'tracerows1') ?? 'tr',
         );
@@ -1923,12 +1958,20 @@ async function verifyMessages(messages: unknown): Promise<void> {
         }
 
         const programText = await programLogText().catch(() => '');
-        observedRows = [...messageRows, ...traceTexts, programText].filter((row) => row.trim() !== '');
+        observedRows = [
+          ...paneRows,
+          ...traceTexts.map((text) => ({ severity: '', message: text, text })),
+          ...(programText ? [{ severity: '', message: programText, text: programText }] : []),
+        ];
+
+        if (messageText === 'isEmpty') {
+          return observedRows.length === 0;
+        }
 
         return observedRows.some((row) => {
-          const hasMessage = messageText === '' || row.includes(messageText);
-          const hasSeverity = messageType === '' || row.includes(messageType);
-          const hasIpAddress = ipAddress === '' || row.includes(ipAddress);
+          const hasMessage = messageText === '' || row.message.includes(messageText);
+          const hasSeverity = messageType === '' || row.severity === messageType;
+          const hasIpAddress = ipAddress === '' || row.text.includes(ipAddress);
           return hasMessage && hasSeverity && hasIpAddress;
         });
       };
@@ -1977,7 +2020,7 @@ async function verifyMessages(messages: unknown): Promise<void> {
 
       expect(
         found,
-        `Expected log message was not found: "${messageText}" (${messageType || 'any severity'}). Observed: ${observedRows.join(' | ') || '<none>'}`,
+        `Expected log message was not found: "${messageText}" (${messageType || 'any severity'}). Observed: ${observedRows.map((row) => row.text).join(' | ') || '<none>'}`,
       ).to.equal(true);
     });
   }
@@ -2234,6 +2277,9 @@ async function executeChangeName(context: ExecutionContext, value: unknown, test
 
         const target = path.join(path.dirname(source), `${targetName}.json`);
         fs.renameSync(source, target);
+        if (context.cleanupFiles.delete(source)) {
+          context.cleanupFiles.add(target);
+        }
         context.currentProjectFile = target;
         continue;
       }
@@ -2242,6 +2288,7 @@ async function executeChangeName(context: ExecutionContext, value: unknown, test
         const source = path.resolve(projectResourceBase(context, testCase), '..', 'dataFile_rename', 'DataFile.json');
         const target = path.resolve(projectResourceBase(context, testCase), '..', 'dataFile_rename', `${targetName}.json`);
         fs.renameSync(source, target);
+        context.restoreFiles.push({ source, target });
       }
     }
   });
@@ -2479,6 +2526,12 @@ async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecor
     : tempProjectPath(sourceProject);
 
   copyAssociatedProjectFiles(sourceProject, targetProject);
+  if (targetProject !== sourceProject) {
+    context.cleanupFiles.add(targetProject);
+    for (const suffix of ['-credential.dat', '-certification.dat']) {
+      context.cleanupFiles.add(targetProject.replace(/\.json$/iu, suffix));
+    }
+  }
 
   if (testCase.Preconditions) {
     applyJsonMutations(targetProject, asRecord(testCase.Preconditions));
@@ -2508,10 +2561,94 @@ function prepareProjectCode(context: ExecutionContext, testCase: JsonRecord): vo
 
   const targetProjectCode = tempProjectCodePath(sourceProjectCode);
   fs.copyFileSync(sourceProjectCode, targetProjectCode);
+  if (targetProjectCode !== sourceProjectCode) {
+    context.cleanupFiles.add(targetProjectCode);
+  }
   debugLog('Prepared project code', {
     sourceProjectCode,
     targetProjectCode,
   });
+}
+
+async function cleanupJsonCase(context: ExecutionContext): Promise<void> {
+  const cleanupErrors: JsonRecord[] = [];
+  const attempt = async (name: string, action: () => void | Promise<void>): Promise<void> => {
+    try {
+      await action();
+    } catch (error) {
+      cleanupErrors.push({ name, error: error instanceof Error ? error.message : String(error) });
+    }
+  };
+
+  await attempt('delete prepared files', () => {
+    for (const filePath of context.cleanupFiles) {
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+        fs.unlinkSync(filePath);
+      }
+    }
+  });
+
+  await attempt('restore renamed source files', () => {
+    for (const { source, target } of [...context.restoreFiles].reverse()) {
+      if (fs.existsSync(target)) {
+        fs.renameSync(target, source);
+      }
+    }
+  });
+
+  await attempt('clear TmpDownloadProject', () => {
+    const downloadPath = path.join(context.resourceRoot, 'TmpDownloadProject');
+    if (!fs.existsSync(downloadPath)) {
+      return;
+    }
+    for (const entry of fs.readdirSync(downloadPath)) {
+      fs.rmSync(path.join(downloadPath, entry), { recursive: true, force: true });
+    }
+  });
+
+  await attempt('close open dialog', async () => {
+    await clickIfPresent('[class="cdk-global-overlay-wrapper"] [class="sync-icon-btn"]');
+    await clickIfPresent('[class="cdk-global-overlay-wrapper"] [type="button"]:nth-of-type(2)');
+  });
+  await attempt('close download panel', async () => {
+    await clickIfPresent(selectorFrom(downloadLocators, 'closeSidePanelBtn'));
+  });
+  await attempt('close overwrite banner', async () => {
+    await clickIfPresent('(//sync-banner-alert//button)[2]');
+  });
+
+  if (context.currentPage === 'troubleshooting') {
+    await attempt('reset troubleshooting state', async () => {
+      await clickIfPresent(selectorFrom(programLogLocatorsValue, 'clearBtn'));
+      const showHide = await queryElement('//*[@id="message-trigger-button"]/span');
+      if (
+        (await showHide.isExisting().catch(() => false)) &&
+        (await showHide.getText().catch(() => '')).trim().toUpperCase() === 'HIDE'
+      ) {
+        await showHide.click();
+      }
+      if (await (await queryElement(selectorFrom(traceLocators, 'traceSpinnerIcon') ?? '')).isExisting().catch(() => false)) {
+        await clickIfPresent(selectorFrom(traceLocators, 'stopTraceBtn'));
+      }
+      await clickIfPresent(selectorFrom(traceLocators, 'clearTraceBtn'));
+    });
+  }
+
+  await attempt('return to deploy page', async () => {
+    context.currentPage = undefined;
+    await navigateToPage(context, 'deploy');
+  });
+  await attempt('clear deployment messages', async () => {
+    await clickIfPresent(selectorFrom(messagePaneLocators, 'clearAllBtn'));
+  });
+
+  await attempt('attach cleanup result', () =>
+    attachJson('Live JSON cleanup result', {
+      cleanupFiles: [...context.cleanupFiles],
+      restoredFiles: context.restoreFiles,
+      errors: cleanupErrors,
+    }),
+  );
 }
 
 export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void> {
@@ -2522,6 +2659,8 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
       : path.resolve(process.cwd(), 'e2e/resources'),
     savedDates: new Map<string, number>(),
     savedTexts: new Map<string, string>(),
+    cleanupFiles: new Set<string>(),
+    restoreFiles: [],
     unsupported: [],
   };
 
@@ -2545,29 +2684,33 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
     configuredReadySelector: process.env.E2E_APP_READY_SELECTOR ?? null,
   });
 
-  await prepareProjectFile(context, testCase.raw);
-  prepareProjectCode(context, testCase.raw);
-  await attachJson('Prepared live JSON project files', {
-    currentProjectFile: context.currentProjectFile ?? null,
-    projectCode: asString(asRecord(testCase.raw.TestCaseInfo).ProjectCode) || null,
-  });
-  await executeSteps(context, testCase.raw);
-
-  if (testCase.raw.VerifyMessage) {
-    debugLog('Executing root VerifyMessage block', {
-      caseId: testCase.id,
+  try {
+    await prepareProjectFile(context, testCase.raw);
+    prepareProjectCode(context, testCase.raw);
+    await attachJson('Prepared live JSON project files', {
+      currentProjectFile: context.currentProjectFile ?? null,
+      projectCode: asString(asRecord(testCase.raw.TestCaseInfo).ProjectCode) || null,
     });
-    await verifyMessages(testCase.raw.VerifyMessage);
-  }
+    await executeSteps(context, testCase.raw);
 
-  if (context.unsupported.length > 0) {
-    await attachJson('Unsupported live JSON actions', context.unsupported);
-
-    if (strictUnsupported) {
-      throw new Error(
-        `Live JSON execution encountered ${context.unsupported.length} unsupported action(s). See Allure attachment "Unsupported live JSON actions".`,
-      );
+    if (testCase.raw.VerifyMessage) {
+      debugLog('Executing root VerifyMessage block', {
+        caseId: testCase.id,
+      });
+      await verifyMessages(testCase.raw.VerifyMessage);
     }
+
+    if (context.unsupported.length > 0) {
+      await attachJson('Unsupported live JSON actions', context.unsupported);
+
+      if (strictUnsupported) {
+        throw new Error(
+          `Live JSON execution encountered ${context.unsupported.length} unsupported action(s). See Allure attachment "Unsupported live JSON actions".`,
+        );
+      }
+    }
+  } finally {
+    await cleanupJsonCase(context);
   }
 
   debugLog('Finished live JSON case execution', {
