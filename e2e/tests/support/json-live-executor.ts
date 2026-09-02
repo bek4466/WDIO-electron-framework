@@ -38,6 +38,7 @@ type MessageRow = {
 };
 
 const waitTimeout = Number(process.env.WAIT_TIMEOUT_MS ?? 10000);
+const stateTimeout = Number(process.env.E2E_JSON_STATE_TIMEOUT_MS ?? 30000);
 const messageTimeout = Number(process.env.E2E_JSON_MESSAGE_TIMEOUT_MS ?? 400000);
 const messagePollInterval = Number(process.env.E2E_JSON_MESSAGE_POLL_INTERVAL_MS ?? 1000);
 const resourceRootEnv = process.env.E2E_RESOURCE_ROOT;
@@ -1257,13 +1258,38 @@ async function executeElementOperation(
 
     if (operationName === 'isenabled') {
       const expected = value === null ? true : Boolean(value);
-      expect(await element.isEnabled()).to.equal(expected);
+      let actual = false;
+      await browser.waitUntil(
+        async () => {
+          const currentElement = await queryElement(selector);
+          actual = await currentElement.isEnabled().catch(() => false);
+          return actual === expected;
+        },
+        {
+          timeout: stateTimeout,
+          interval: 250,
+          timeoutMsg: `${label} expected enabled=${expected}, but the last observed value was ${actual}`,
+        },
+      );
       return;
     }
 
     if (operationName === 'isdisabled' || operationName === 'isdisbaled') {
       const expected = value === null ? true : Boolean(value);
-      expect(await element.isEnabled()).to.equal(!expected);
+      const expectedEnabled = !expected;
+      let actualEnabled = false;
+      await browser.waitUntil(
+        async () => {
+          const currentElement = await queryElement(selector);
+          actualEnabled = await currentElement.isEnabled().catch(() => false);
+          return actualEnabled === expectedEnabled;
+        },
+        {
+          timeout: stateTimeout,
+          interval: 250,
+          timeoutMsg: `${label} expected disabled=${expected}, but the last observed enabled value was ${actualEnabled}`,
+        },
+      );
       return;
     }
 

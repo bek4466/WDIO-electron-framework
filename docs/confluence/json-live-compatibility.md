@@ -20,6 +20,8 @@ JSON element operations run in their declared order. For example:
 
 The executor uploads the requested file first, then waits for the deployment validation element and verifies its displayed text. `errorMessageToValidate` is a semantic assertion and is not evaluated against the project-file input itself.
 
+Enabled and disabled assertions poll the current DOM element until CSDU finishes asynchronous project validation. The timeout defaults to 30 seconds and can be changed with `E2E_JSON_STATE_TIMEOUT_MS`.
+
 ## Structured Message Verification
 
 Each object in `VerifyMessage`, including numbered variants such as `VerifyMessage2`, is evaluated as one complete expectation:
