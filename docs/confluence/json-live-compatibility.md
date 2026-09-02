@@ -45,3 +45,18 @@ Cleanup runs in a `finally` block after every live JSON case, including failed c
 - Returns the application to Deploy and clears deployment messages.
 
 Cleanup problems are collected and attached to Allure so they do not replace the original test failure.
+
+## Allure Steps and Screenshots
+
+Allure uses readable action descriptions such as `Select project file: touch.wav`, `Verify Deploy button is disabled`, and `Verify invalid project file message`. JSON suffixes used for ordering, such as `_2`, are intentionally omitted from display names.
+
+Screenshots are captured at review-worthy state changes:
+
+- Electron renderer readiness and page navigation.
+- Project-file and Protect/Extract output-folder selection.
+- Project validation errors.
+- Deployment, protection, extraction, authentication, and download actions.
+- Successful positive and negative message verification.
+- Final test state or failure state through the WDIO evidence hook.
+
+Routine value entry and simple presence checks do not automatically capture screenshots. This keeps the report useful without generating excessive duplicate images.

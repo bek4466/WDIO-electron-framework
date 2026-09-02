@@ -3,7 +3,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { browser } from '@wdio/globals';
 import { expect } from 'chai';
-import { allureStep, attachJson } from '../../../src/support/allure.js';
+import { allureStep, attachJson, attachScreenshot } from '../../../src/support/allure.js';
 import { authenticationSession } from './auth-session.js';
 
 type JsonRecord = Record<string, unknown>;
@@ -87,6 +87,74 @@ function normalizeKey(value: string): string {
     .replace(/\d+$/u, '')
     .replace(/[^a-z0-9]/giu, '')
     .toLowerCase();
+}
+
+function humanize(value: string): string {
+  return value
+    .replace(/_\d+$/u, '')
+    .replace(/([a-z0-9])([A-Z])/gu, '$1 $2')
+    .replace(/[_-]+/gu, ' ')
+    .replace(/\bbtn\b/giu, 'button')
+    .replace(/\bpopup\b/giu, 'dialog')
+    .replace(/\s+/gu, ' ')
+    .trim();
+}
+
+function operationStepName(pathParts: string[], operation: string, value: unknown): string {
+  const target = humanize(pathParts.at(-1) ?? 'element');
+  const operationName = normalizeKey(operation);
+
+  if (operationName === 'setpath') {
+    return `Select ${target.toLowerCase()}: ${path.basename(String(value ?? ''))}`;
+  }
+  if (operationName === 'errormessagetovalidate') {
+    return `Verify invalid project file message: ${String(value ?? '')}`;
+  }
+  if (['click', 'close', 'noswitchwindowclick'].includes(operationName)) {
+    return `${operationName === 'close' ? 'Close' : 'Click'} ${target}`;
+  }
+  if (['exists', 'exist'].includes(operationName)) {
+    return `Verify ${target} ${Boolean(value ?? true) ? 'is present' : 'is not present'}`;
+  }
+  if (operationName === 'isenabled') {
+    return `Verify ${target} is ${Boolean(value ?? true) ? 'enabled' : 'disabled'}`;
+  }
+  if (operationName === 'isdisabled' || operationName === 'isdisbaled') {
+    return `Verify ${target} is ${Boolean(value ?? true) ? 'disabled' : 'enabled'}`;
+  }
+  if (operationName.startsWith('set')) {
+    return `Enter value in ${target}`;
+  }
+  if (operationName.includes('match') || operationName.includes('verify')) {
+    return `Verify ${target}: ${String(value ?? '')}`;
+  }
+
+  return `${humanize(operation)} ${target}`;
+}
+
+async function captureStepScreenshot(name: string): Promise<void> {
+  try {
+    await attachScreenshot(name);
+  } catch (error) {
+    debugLog('Unable to capture Allure step screenshot', {
+      name,
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
+function isImportantClick(normalizedPath: string): boolean {
+  return [
+    'deploybtn',
+    'deploycodeonlybtn',
+    'protectprojectbtn',
+    'extractprojectbtn',
+    'createbtn',
+    'extractbtn',
+    'signinbtn',
+    'signoutbtn',
+    'downloadbtn',
+  ].some((target) => normalizedPath.endsWith(target));
 }
 
 function findValueByPath(source: JsonRecord, dottedPath: string): unknown {
@@ -613,6 +681,7 @@ async function ensureRendererReady(): Promise<void> {
 
     debugLog('Electron renderer readiness finished', lastRendererState);
     await attachJson('Electron renderer readiness state', lastRendererState);
+    await captureStepScreenshot('Application ready');
   });
 }
 
@@ -880,6 +949,7 @@ async function navigateToPage(
         debugLog('Deploy page is already visible; navigation click is not needed', {
           deployContentSelector,
         });
+        await captureStepScreenshot('Deploy page ready');
         return;
       }
 
@@ -894,6 +964,7 @@ async function navigateToPage(
 
     context.currentPage = page;
     debugLog('Navigation completed', { page });
+    await captureStepScreenshot(`${humanize(page)} page opened`);
   });
 }
 
@@ -1102,7 +1173,7 @@ async function executeElementOperation(
   const selector = getSelector(pathParts);
   const operationName = normalizeKey(operation);
   const normalizedPath = pathParts.map(normalizeKey).join('.');
-  const label = `${pathParts.join('.')} -> ${operation}`;
+  const label = operationStepName(pathParts, operation, value);
 
   if (!selector) {
     debugLog('No selector mapping for operation', {
@@ -1129,12 +1200,14 @@ async function executeElementOperation(
         normalizedPath.includes('extractprojectpopup.selectbtn')
       ) {
         await selectNativeOutputDirectory(selector, targetPath);
+        await captureStepScreenshot('Output folder selected');
         return;
       }
 
       context.currentProjectFile = targetPath.endsWith('.json') ? targetPath : context.currentProjectFile;
       await setUploadPath(selector, targetPath);
       context.projectSelected = true;
+      await captureStepScreenshot(`${humanize(pathParts.at(-1) ?? 'Project file')} selected`);
       return;
     }
 
@@ -1157,6 +1230,7 @@ async function executeElementOperation(
           timeoutMsg: `Project-file validation message did not contain: ${String(value ?? '')}`,
         },
       );
+      await captureStepScreenshot('Invalid project file message displayed');
       return;
     }
 
@@ -1222,6 +1296,10 @@ async function executeElementOperation(
         await authenticationSession.switchToSsoWindow();
       } else if (normalizedPath.endsWith('signoutpopup.signoutbtn')) {
         await authenticationSession.waitForState('signed-out');
+      }
+
+      if (isImportantClick(normalizedPath)) {
+        await captureStepScreenshot(`${humanize(pathParts.at(-1) ?? 'Action')} completed`);
       }
       return;
     }
@@ -1573,7 +1651,7 @@ async function executeAction(context: ExecutionContext, action: string, testCase
     actionName,
   });
 
-  await allureStep(`Execute JSON action: ${action}`, async () => {
+  await allureStep(humanize(action), async () => {
     if (!actionName) {
       return;
     }
@@ -1590,11 +1668,13 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       context.projectSelected = true;
       await setCredentials(testCase.Credentials);
       await (await findElement(selectorFrom(deploymentLocators, 'deployBtn') ?? '#deploy-deploy-btn')).click();
+      await captureStepScreenshot('Deployment started');
       return;
     }
 
     if (actionName === 'deploycodeonly') {
       await (await findElement(selectorFrom(locators, 'deployCodeOnlyButtonElem') ?? '')).click();
+      await captureStepScreenshot('Code-only deployment started');
       return;
     }
 
@@ -2004,6 +2084,7 @@ async function verifyMessages(messages: unknown): Promise<void> {
 
       if (!shouldExist) {
         expect(await readMatch(), `Unexpected log message was found: ${messageText}`).to.equal(false);
+        await captureStepScreenshot(`Verified message is absent: ${messageText}`);
         return;
       }
 
@@ -2048,6 +2129,7 @@ async function verifyMessages(messages: unknown): Promise<void> {
         found,
         `Expected log message was not found: "${messageText}" (${messageType || 'any severity'}). Observed: ${observedRows.map((row) => row.text).join(' | ') || '<none>'}`,
       ).to.equal(true);
+      await captureStepScreenshot(`Verified message: ${messageText}`);
     });
   }
 }

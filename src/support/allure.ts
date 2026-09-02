@@ -73,3 +73,8 @@ export async function allureStep<T>(name: string, action: () => Promise<T>): Pro
 export async function attachJson(name: string, value: unknown): Promise<void> {
   await allureReporter.addAttachment(name, JSON.stringify(value, null, 2), 'application/json');
 }
+
+export async function attachScreenshot(name: string): Promise<void> {
+  const screenshot = await browser.takeScreenshot();
+  await allureReporter.addAttachment(name, Buffer.from(screenshot, 'base64'), 'image/png');
+}
