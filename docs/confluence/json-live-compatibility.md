@@ -67,7 +67,7 @@ Popup-level checks such as `ProjectCredentialsPopUp.isOpen` resolve to the popup
 
 ## Catalog Discovery and Ordered Blocks
 
-`UpdatedMaster.e2e-spec.ts` discovers every `NEWMASTERSPEC` child folder that contains a `datajson` directory. A newly added test area no longer needs a second hardcoded registration in the master spec. `TESTTYPE=smoke` remains intentionally limited to `smoke-tests`, while `E2E_JSON_FOLDERS` can select one or more folders explicitly.
+`UpdatedMaster.e2e-spec.ts` contains the complete, visible list of `NEWMASTERSPEC` test folders. QA can temporarily comment out entries when selecting a folder locally without environment variables. `TESTTYPE=smoke` remains intentionally limited to `smoke-tests`; `E2E_JSON_FOLDERS` remains available as an optional command-line override.
 
 Numbered suffixes are ordering labels, not different commands. Blocks such as `DeployAction_2`, `TroubleshootingAction_3`, `VerifyMessage_2`, and `Timeout_2a` execute through the same handlers as their unnumbered forms and retain their position in the JSON object.
 
