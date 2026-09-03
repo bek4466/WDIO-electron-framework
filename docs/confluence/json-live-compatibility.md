@@ -48,6 +48,10 @@ Cleanup runs in a `finally` block after every live JSON case, including failed c
 
 Cleanup problems are collected and attached to Allure so they do not replace the original test failure.
 
+## Project Credentials Ordering
+
+When a test case contains a top-level `Credentials` array, the executor selects the prepared project file, opens Project Credentials, enters and saves the values, and then begins the declared `Steps`. This preserves the legacy master-spec ordering and allows the first step to assert that Deploy is enabled. A later `DeployAction` reuses the prepared credentials instead of entering them a second time.
+
 ## Allure Steps and Screenshots
 
 Allure uses readable action descriptions such as `Select project file: touch.wav`, `Verify Deploy button is disabled`, and `Verify invalid project file message`. JSON suffixes used for ordering, such as `_2`, are intentionally omitted from display names.

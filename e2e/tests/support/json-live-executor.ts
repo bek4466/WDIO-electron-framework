@@ -22,6 +22,7 @@ type ExecutionContext = {
   currentPage?: 'about' | 'deploy' | 'profile' | 'troubleshooting';
   currentProjectFile?: string;
   projectSelected?: boolean;
+  credentialsPrepared?: boolean;
   savedDates: Map<string, number>;
   savedTexts: Map<string, string>;
   savedMessageCount?: number;
@@ -1678,6 +1679,35 @@ async function setCredentials(credentials: unknown): Promise<void> {
   });
 }
 
+async function prepareTopLevelCredentials(
+  context: ExecutionContext,
+  testCase: JsonRecord,
+): Promise<void> {
+  if (!Array.isArray(testCase.Credentials) || testCase.Credentials.length === 0) {
+    return;
+  }
+
+  const projectFile =
+    context.currentProjectFile ??
+    resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
+
+  if (!projectFile) {
+    throw new Error('Top-level Credentials requires TestCaseInfo.ProjectFile.');
+  }
+
+  await allureStep('Prepare project and credentials before test steps', async () => {
+    context.currentProjectFile = projectFile;
+    await setUploadPath(
+      selectorFrom(deploymentLocators, 'destinyInputField') ?? '#deploy-input-file-disabled',
+      projectFile,
+    );
+    context.projectSelected = true;
+    await setCredentials(testCase.Credentials);
+    context.credentialsPrepared = true;
+    await captureStepScreenshot('Project credentials prepared');
+  });
+}
+
 async function executeProfileAction(context: ExecutionContext, value: unknown): Promise<void> {
   await allureStep('Open profile page', async () => {
     const profileTab = await findElement(selectorFrom(profileLocators, 'profilePage') ?? '');
@@ -1771,7 +1801,10 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       context.currentProjectFile = projectFile;
       await setUploadPath(selectorFrom(deploymentLocators, 'destinyInputField') ?? '#deploy-input-file-disabled', projectFile);
       context.projectSelected = true;
-      await setCredentials(testCase.Credentials);
+      if (!context.credentialsPrepared) {
+        await setCredentials(testCase.Credentials);
+        context.credentialsPrepared = true;
+      }
       await (await findElement(selectorFrom(deploymentLocators, 'deployBtn') ?? '#deploy-deploy-btn')).click();
       await captureStepScreenshot('Deployment started');
       return;
@@ -2907,6 +2940,7 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
       currentProjectFile: context.currentProjectFile ?? null,
       projectCode: asString(asRecord(testCase.raw.TestCaseInfo).ProjectCode) || null,
     });
+    await prepareTopLevelCredentials(context, testCase.raw);
     await executeSteps(context, testCase.raw);
 
     if (context.pendingMissingProjectPath) {
