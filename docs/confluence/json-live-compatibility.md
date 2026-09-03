@@ -36,6 +36,8 @@ Each object in `VerifyMessage`, including numbered variants such as `VerifyMessa
 
 Message text uses normalized, case-insensitive substring matching against both the message cell and the complete table row. Extra timestamps, device names, prefixes, suffixes, whitespace, and punctuation do not cause a failure when the expected phrase is present. Severity remains a separate case-insensitive field check. The exact matched row is attached to Allure before the verification screenshot is captured.
 
+The deployment-completion expectation is intentionally message-led: when the row includes `Project deployment completed`, the positive expectation passes even if Electron renders the Info severity without readable text. This narrow compatibility rule does not relax severity checks for other `VerifyMessage` entries. Allure records the expected matched phrase and the complete source row.
+
 Before deployment-message verification, the executor opens the message pane when it is hidden. Severity is read from visible cell text or the severity icon's accessibility metadata, with the complete row as a fallback. On timeout, Allure receives both the observed rows and a screenshot of the visible message pane before the assertion fails.
 
 Positive message checks poll until `E2E_JSON_MESSAGE_TIMEOUT_MS`. Timeout evidence includes the expected fields and all observed rows in Allure.

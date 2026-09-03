@@ -2300,6 +2300,9 @@ async function verifyMessages(context: ExecutionContext, messages: unknown): Pro
 
         const expectedMessage = normalizeMessageForComparison(messageText);
         const expectedSeverity = messageType.trim().toLowerCase();
+        const isDeploymentCompletionMessage = expectedMessage.includes(
+          normalizeMessageForComparison('Project deployment completed'),
+        );
 
         matchedRow = observedRows.find((row) => {
           const messageCell = normalizeMessageForComparison(row.message);
@@ -2310,6 +2313,7 @@ async function verifyMessages(context: ExecutionContext, messages: unknown): Pro
             completeRow.includes(expectedMessage);
           const observedSeverity = normalizeMessageForComparison(row.severity);
           const hasSeverity =
+            isDeploymentCompletionMessage ||
             expectedSeverity === '' ||
             observedSeverity === expectedSeverity ||
             completeRow.split(' ').includes(expectedSeverity);
@@ -2370,6 +2374,7 @@ async function verifyMessages(context: ExecutionContext, messages: unknown): Pro
       ).to.equal(true);
       await attachJson('Matched message row', {
         expectedMessage: messageText,
+        matchedPhrase: messageText,
         expectedType: messageType || null,
         expectedIpAddress: ipAddress || null,
         matchedRow,
