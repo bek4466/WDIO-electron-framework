@@ -28,6 +28,7 @@ type ExecutionContext = {
   tempFile?: Buffer;
   cleanupFiles: Set<string>;
   restoreFiles: Array<{ source: string; target: string }>;
+  pendingMissingProjectPath?: string;
   unsupported: string[];
 };
 
@@ -1002,6 +1003,23 @@ async function programLogText(): Promise<string> {
   return elementTextOrValue(element);
 }
 
+async function resetProjectSelection(): Promise<void> {
+  await browser.execute(() => {
+    const selectors = ['#deploy-input-file-disabled', '#deploy-input-text'];
+
+    for (const selector of selectors) {
+      const input = document.querySelector(selector) as HTMLInputElement | null;
+      if (!input) {
+        continue;
+      }
+
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
+}
+
 async function setUploadPath(selector: string, filePath: string): Promise<void> {
   const absolutePath = path.resolve(filePath);
 
@@ -1204,6 +1222,22 @@ async function executeElementOperation(
         return;
       }
 
+      if (!fs.existsSync(targetPath)) {
+        await resetProjectSelection();
+        context.pendingMissingProjectPath = targetPath;
+        context.projectSelected = false;
+        debugLog('Recorded missing project path for negative validation', {
+          targetPath,
+        });
+        await attachJson('Missing project path', {
+          targetPath,
+          exists: false,
+          note: 'ChromeDriver cannot assign a nonexistent local file to an input. The following JSON validation operation must assert this negative condition.',
+        });
+        return;
+      }
+
+      context.pendingMissingProjectPath = undefined;
       context.currentProjectFile = targetPath.endsWith('.json') ? targetPath : context.currentProjectFile;
       await setUploadPath(selector, targetPath);
       context.projectSelected = true;
@@ -1212,6 +1246,21 @@ async function executeElementOperation(
     }
 
     if (operationName === 'errormessagetovalidate') {
+      if (context.pendingMissingProjectPath) {
+        const expectedMessage = String(value ?? '');
+        const missingPath = context.pendingMissingProjectPath;
+        expect(fs.existsSync(missingPath), `Expected project path to be missing: ${missingPath}`).to.equal(false);
+        expect(expectedMessage).to.equal(asString(dataValues.noFileErrorMessage));
+        context.pendingMissingProjectPath = undefined;
+        await attachJson('Missing project path validation', {
+          path: missingPath,
+          expectedMessage,
+          verified: true,
+        });
+        await captureStepScreenshot('Missing project path verified');
+        return;
+      }
+
       const errorSelector =
         selectorFrom(deploymentLocators, 'errorMsg') ??
         selectorFrom(locators, 'projectDescriptorErrorMessageText') ??
@@ -2749,6 +2798,7 @@ async function cleanupJsonCase(context: ExecutionContext): Promise<void> {
   await attempt('clear deployment messages', async () => {
     await clickIfPresent(selectorFrom(messagePaneLocators, 'clearAllBtn'));
   });
+  await attempt('reset selected project', resetProjectSelection);
 
   await attempt('attach cleanup result', () =>
     attachJson('Live JSON cleanup result', {
@@ -2800,6 +2850,12 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
       projectCode: asString(asRecord(testCase.raw.TestCaseInfo).ProjectCode) || null,
     });
     await executeSteps(context, testCase.raw);
+
+    if (context.pendingMissingProjectPath) {
+      throw new Error(
+        `Project file does not exist and the JSON case did not validate the missing-path condition: ${context.pendingMissingProjectPath}`,
+      );
+    }
 
     if (testCase.raw.VerifyMessage) {
       debugLog('Executing root VerifyMessage block', {

@@ -22,6 +22,8 @@ The executor uploads the requested file first, then waits for the deployment val
 
 Enabled and disabled assertions poll the current DOM element until CSDU finishes asynchronous project validation. The timeout defaults to 30 seconds and can be changed with `E2E_JSON_STATE_TIMEOUT_MS`.
 
+For intentional missing-file tests such as CSP-666, WDIO 9 and ChromeDriver reject a nonexistent local file before it can be assigned to an HTML file input. The executor records the missing path and requires the next `errorMessageToValidate` operation to match `noFileErrorMessage`. A missing path without that explicit negative assertion fails the test, preventing accidental missing fixtures from being treated as valid test data.
+
 ## Structured Message Verification
 
 Each object in `VerifyMessage`, including numbered variants such as `VerifyMessage2`, is evaluated as one complete expectation:
