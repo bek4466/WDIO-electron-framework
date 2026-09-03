@@ -34,6 +34,8 @@ Each object in `VerifyMessage`, including numbered variants such as `VerifyMessa
 - `MessageText: "isEmpty"` verifies that no message rows are present.
 - `IpAddress` or `IPAddress`, when supplied, must occur in the same row.
 
+Message text uses normalized, case-insensitive substring matching against both the message cell and the complete table row. Extra timestamps, device names, prefixes, suffixes, whitespace, and punctuation do not cause a failure when the expected phrase is present. Severity remains a separate case-insensitive field check. The exact matched row is attached to Allure before the verification screenshot is captured.
+
 Positive message checks poll until `E2E_JSON_MESSAGE_TIMEOUT_MS`. Timeout evidence includes the expected fields and all observed rows in Allure.
 
 ## Per-Test Cleanup

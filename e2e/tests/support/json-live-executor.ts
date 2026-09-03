@@ -92,6 +92,14 @@ function normalizeKey(value: string): string {
     .toLowerCase();
 }
 
+function normalizeMessageForComparison(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/gu, ' ')
+    .trim()
+    .replace(/\s+/gu, ' ');
+}
+
 function humanize(value: string): string {
   return value
     .replace(/_\d+$/u, '')
@@ -2236,6 +2244,7 @@ async function verifyMessages(messages: unknown): Promise<void> {
 
     await allureStep(`Verify visible logs contain: ${messageText}`, async () => {
       let observedRows: MessageRow[] = [];
+      let matchedRow: MessageRow | undefined;
 
       const readMatch = async (): Promise<boolean> => {
         const paneRows = await messageRows().catch(() => []);
@@ -2262,12 +2271,23 @@ async function verifyMessages(messages: unknown): Promise<void> {
           return observedRows.length === 0;
         }
 
-        return observedRows.some((row) => {
-          const hasMessage = messageText === '' || row.message.includes(messageText);
-          const hasSeverity = messageType === '' || row.severity === messageType;
+        const expectedMessage = normalizeMessageForComparison(messageText);
+        const expectedSeverity = messageType.trim().toLowerCase();
+
+        matchedRow = observedRows.find((row) => {
+          const messageCell = normalizeMessageForComparison(row.message);
+          const completeRow = normalizeMessageForComparison(row.text);
+          const hasMessage =
+            expectedMessage === '' ||
+            messageCell.includes(expectedMessage) ||
+            completeRow.includes(expectedMessage);
+          const hasSeverity =
+            expectedSeverity === '' || row.severity.trim().toLowerCase() === expectedSeverity;
           const hasIpAddress = ipAddress === '' || row.text.includes(ipAddress);
           return hasMessage && hasSeverity && hasIpAddress;
         });
+
+        return Boolean(matchedRow);
       };
 
       if (!shouldExist) {
@@ -2317,6 +2337,12 @@ async function verifyMessages(messages: unknown): Promise<void> {
         found,
         `Expected log message was not found: "${messageText}" (${messageType || 'any severity'}). Observed: ${observedRows.map((row) => row.text).join(' | ') || '<none>'}`,
       ).to.equal(true);
+      await attachJson('Matched message row', {
+        expectedMessage: messageText,
+        expectedType: messageType || null,
+        expectedIpAddress: ipAddress || null,
+        matchedRow,
+      });
       await captureStepScreenshot(`Verified message: ${messageText}`);
     });
   }
