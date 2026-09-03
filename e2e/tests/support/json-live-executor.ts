@@ -123,6 +123,9 @@ function operationStepName(pathParts: string[], operation: string, value: unknow
   if (operationName === 'isdisabled' || operationName === 'isdisbaled') {
     return `Verify ${target} is ${Boolean(value ?? true) ? 'disabled' : 'enabled'}`;
   }
+  if (operationName === 'isopen') {
+    return `Verify ${target} is ${Boolean(value ?? true) ? 'open' : 'closed'}`;
+  }
   if (operationName.startsWith('set')) {
     return `Enter value in ${target}`;
   }
@@ -228,6 +231,7 @@ function getSelector(pathParts: string[]): string | undefined {
   const explicit: Record<string, string | undefined> = {
     projectfilepathinput: selectorFrom(deploymentLocators, 'destinyInputField'),
     projectcredentialsbtn: selectorFrom(credentialLocators, 'userSettingsBtn'),
+    projectcredentialspopup: selectorFrom(credentialLocators, 'table'),
     validtooltipmsg: selectorFrom(deploymentLocators, 'tooltipText'),
     verifyprojectfileerrormessage: selectorFrom(locators, 'projectDescriptorErrorMessageText'),
     'deploypage.projectfilepathinput': selectorFrom(deploymentLocators, 'destinyInputField'),
@@ -1327,6 +1331,26 @@ async function executeElementOperation(
       return;
     }
 
+    if (operationName === 'isopen') {
+      const expected = value === null ? true : Boolean(value);
+      let actual = false;
+      await browser.waitUntil(
+        async () => {
+          const currentElement = await queryElement(selector);
+          const exists = await currentElement.isExisting().catch(() => false);
+          actual = exists && (await currentElement.isDisplayed().catch(() => false));
+          return actual === expected;
+        },
+        {
+          timeout: stateTimeout,
+          interval: 250,
+          timeoutMsg: `${label} expected open=${expected}, but the last observed value was ${actual}`,
+        },
+      );
+      await captureStepScreenshot(`${humanize(pathParts.at(-1) ?? 'Dialog')} open state verified`);
+      return;
+    }
+
     const element = await findElement(selector);
 
     if (['click', 'close', 'noswitchwindowclick'].includes(operationName)) {
@@ -1499,11 +1523,6 @@ async function executeElementOperation(
       }
 
       expect(await elementTextOrValue(element)).to.contain(expected);
-      return;
-    }
-
-    if (operationName === 'isopen') {
-      expect(await element.isDisplayed()).to.equal(value === null ? true : Boolean(value));
       return;
     }
 

@@ -62,3 +62,5 @@ Screenshots are captured at review-worthy state changes:
 - Final test state or failure state through the WDIO evidence hook.
 
 Routine value entry and simple presence checks do not automatically capture screenshots. This keeps the report useful without generating excessive duplicate images.
+
+Popup-level checks such as `ProjectCredentialsPopUp.isOpen` resolve to the popup's root table and wait for the requested open or closed state. This supports both `isOpen: true` and `isOpen: false` without requiring a child control in the JSON block.
