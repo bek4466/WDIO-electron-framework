@@ -231,7 +231,9 @@ function getSelector(pathParts: string[]): string | undefined {
   const explicit: Record<string, string | undefined> = {
     projectfilepathinput: selectorFrom(deploymentLocators, 'destinyInputField'),
     projectcredentialsbtn: selectorFrom(credentialLocators, 'userSettingsBtn'),
-    projectcredentialspopup: selectorFrom(credentialLocators, 'table'),
+    projectcredentialspopup:
+      selectorFrom(credentialLocators, 'credsComponent') ??
+      selectorFrom(credentialLocators, 'table'),
     validtooltipmsg: selectorFrom(deploymentLocators, 'tooltipText'),
     verifyprojectfileerrormessage: selectorFrom(locators, 'projectDescriptorErrorMessageText'),
     'deploypage.projectfilepathinput': selectorFrom(deploymentLocators, 'destinyInputField'),
@@ -1334,11 +1336,28 @@ async function executeElementOperation(
     if (operationName === 'isopen') {
       const expected = value === null ? true : Boolean(value);
       let actual = false;
+      let observedSelectors: JsonRecord[] = [];
+      const stateSelectors = normalizedPath.includes('projectcredentialspopup')
+        ? [
+            selectorFrom(credentialLocators, 'credsComponent'),
+            selectorFrom(credentialLocators, 'table'),
+          ].filter((candidate): candidate is string => Boolean(candidate))
+        : [selector];
+
       await browser.waitUntil(
         async () => {
-          const currentElement = await queryElement(selector);
-          const exists = await currentElement.isExisting().catch(() => false);
-          actual = exists && (await currentElement.isDisplayed().catch(() => false));
+          observedSelectors = [];
+
+          for (const stateSelector of stateSelectors) {
+            const currentElement = await queryElement(stateSelector);
+            const exists = await currentElement.isExisting().catch(() => false);
+            const displayed = exists
+              ? await currentElement.isDisplayed().catch(() => false)
+              : false;
+            observedSelectors.push({ selector: stateSelector, exists, displayed });
+          }
+
+          actual = observedSelectors.some((state) => state.displayed === true);
           return actual === expected;
         },
         {
@@ -1347,6 +1366,11 @@ async function executeElementOperation(
           timeoutMsg: `${label} expected open=${expected}, but the last observed value was ${actual}`,
         },
       );
+      await attachJson(`${humanize(pathParts.at(-1) ?? 'Dialog')} open-state selectors`, {
+        expected,
+        actual,
+        observedSelectors,
+      });
       await captureStepScreenshot(`${humanize(pathParts.at(-1) ?? 'Dialog')} open state verified`);
       return;
     }
