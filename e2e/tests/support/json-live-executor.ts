@@ -989,6 +989,40 @@ async function messageRowTexts(): Promise<string[]> {
   return (await messageRows()).map((row) => row.text);
 }
 
+const messagePaneStateSelectors = [
+  '.message-pane-container',
+  "[id*='message-table']",
+  "//*[@id='message-trigger-button']/span[contains(translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 'HIDE')]",
+];
+
+async function isMessagePaneVisible(): Promise<boolean> {
+  for (const selector of messagePaneStateSelectors) {
+    const element = await queryElement(selector);
+    if (await element.isDisplayed().catch(() => false)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+async function ensureMessagePaneVisible(): Promise<void> {
+  if (await isMessagePaneVisible()) {
+    return;
+  }
+
+  const toggleSelector = selectorFrom(messagePaneLocators, 'messagesBtn') ?? '#message-trigger-button';
+  const toggle = await findElement(toggleSelector);
+  await toggle.waitForClickable({ timeout: waitTimeout });
+  await toggle.click();
+
+  await browser.waitUntil(isMessagePaneVisible, {
+    timeout: waitTimeout,
+    interval: 250,
+    timeoutMsg: `Message pane did not become visible after clicking ${toggleSelector}. Checked: ${messagePaneStateSelectors.join(', ')}`,
+  });
+}
+
 async function messageRows(): Promise<MessageRow[]> {
   const rows = await browser.$$(selectorFrom(messagePaneLocators, 'messagepanerows') ?? 'tr');
   const messages: MessageRow[] = [];
@@ -1894,7 +1928,7 @@ async function executeAction(context: ExecutionContext, action: string, testCase
     }
 
     if (actionName === 'showmessagepane') {
-      await (await findElement(selectorFrom(messagePaneLocators, 'messagesBtn') ?? '')).click();
+      await ensureMessagePaneVisible();
       return;
     }
 
@@ -1904,7 +1938,7 @@ async function executeAction(context: ExecutionContext, action: string, testCase
     }
 
     if (actionName === 'messagepaneisshown') {
-      await findElement(selectorFrom(messagePaneLocators, 'messagePaneVisible') ?? selectorFrom(messagePaneLocators, 'messagePageTableComponent') ?? '');
+      await ensureMessagePaneVisible();
       return;
     }
 
@@ -2245,16 +2279,7 @@ async function verifyMessages(context: ExecutionContext, messages: unknown): Pro
   const expectedMessages = Array.isArray(messages) ? messages : [messages];
 
   if (context.currentPage === 'deploy') {
-    const paneSelector = selectorFrom(messagePaneLocators, 'messagePaneVisible') ?? '';
-    const pane = paneSelector ? await queryElement(paneSelector) : undefined;
-    const paneVisible = pane ? await pane.isDisplayed().catch(() => false) : false;
-
-    if (!paneVisible) {
-      await clickIfPresent(selectorFrom(messagePaneLocators, 'messagesBtn'));
-      if (paneSelector) {
-        await (await findElement(paneSelector)).waitForDisplayed({ timeout: waitTimeout });
-      }
-    }
+    await ensureMessagePaneVisible();
   }
 
   for (const expectedMessage of expectedMessages) {
