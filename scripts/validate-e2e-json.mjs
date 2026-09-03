@@ -2,21 +2,68 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const repoRoot = process.cwd();
+const normalizeKey = (value) =>
+  String(value)
+    .replace(/[^a-z0-9]/giu, '')
+    .toLowerCase();
+const baseBlockName = (value) => normalizeKey(value).replace(/\d+[a-z]?$/u, '');
+const supportedProfileActions = new Set([
+  'checkifcurrentdatematcheslastrenewed',
+  'renewandcheckalert',
+  'savecurrentdate',
+  'saveexpirationdate',
+  'savereneweddate',
+  'usernameinwindowtitle',
+]);
+const supportedActions = new Set([
+  'allaboutpageelementsexist',
+  'allsubmenuexist',
+  'certificationfileexists',
+  'certify',
+  'clearmessagepane',
+  'clearprogramlog',
+  'cleartrace',
+  'cleartroubleshootingmessagepane',
+  'clicksignout',
+  'clickstopprogram',
+  'close',
+  'closeerror',
+  'deletecredentialsfile',
+  'deploy',
+  'deploycodeonly',
+  'exporttracetotmpdownload',
+  'gotodeploy',
+  'hidemessagepane',
+  'iscertifydateaccurate',
+  'iscurrentmessagecountmorethansaved',
+  'logout',
+  'messagepaneishidden',
+  'messagepaneisshown',
+  'modify1000dat',
+  'noprogramlog',
+  'notracemessage',
+  'open',
+  'projectdownload',
+  'refreshprogramlog',
+  'savemessagecount',
+  'showmessagepane',
+  'startprogramlog',
+  'starttrace',
+  'stopprogramlog',
+  'stoptrace',
+  'verifyerrortext',
+  'verifyrefreshprogramlognotclickable',
+  'verifysoftwareversion',
+  'verifystartprogramnotclickable',
+  'verifytracecounter',
+  'verifytracecountnotpresent',
+  'verifytracemessageorderednewestontop',
+]);
 const suites = [
   {
     name: 'NEWMASTERSPEC',
     baseDir: path.join(repoRoot, 'e2e/tests/regression/NEWMASTERSPEC'),
-    folders: [
-      'Deployment-tests',
-      'deviceValidation-tests',
-      'systemValidation-tests',
-      'messagePane-tests',
-      'projectCredentials-tests',
-      'projectEndorsement-tests',
-      'projectDownload-tests',
-      'smoke-tests',
-      'protectingSensitiveData-tests',
-    ],
+    discoverFolders: true,
   },
   {
     name: 'NBP',
@@ -80,11 +127,49 @@ function validateCase(suiteName, folder, fileName, caseId, candidate) {
     errors.push('missing Steps, VerifyMessage, or ModifyTestData');
   }
 
+  const steps = candidate.Steps && typeof candidate.Steps === 'object' ? candidate.Steps : {};
+  for (const [blockName, value] of Object.entries(steps)) {
+    const baseBlock = baseBlockName(blockName);
+
+    if (baseBlock !== 'profileaction' && !baseBlock.endsWith('action')) {
+      continue;
+    }
+
+    for (const action of Array.isArray(value) ? value : [value]) {
+      if (typeof action !== 'string') {
+        continue;
+      }
+
+      const actionName = normalizeKey(action);
+      const supported =
+        baseBlock === 'profileaction'
+          ? supportedProfileActions.has(actionName)
+          : supportedActions.has(actionName);
+
+      if (!supported) {
+        errors.push(`unsupported ${blockName} value: ${action}`);
+      }
+    }
+  }
+
   return errors.map((error) => `${suiteName}/${folder}/${fileName}/${caseId}: ${error}`);
 }
 
+function discoverDataFolders(baseDir) {
+  return fs
+    .readdirSync(baseDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .filter((folder) => fs.existsSync(path.join(baseDir, folder, 'datajson')))
+    .sort();
+}
+
 function discoverSuite(suite) {
-  const folders = suite.dataDirName ? ['.'] : suite.folders;
+  const folders = suite.dataDirName
+    ? ['.']
+    : suite.discoverFolders
+      ? discoverDataFolders(suite.baseDir)
+      : suite.folders;
   const errors = [];
   let files = 0;
   let cases = 0;

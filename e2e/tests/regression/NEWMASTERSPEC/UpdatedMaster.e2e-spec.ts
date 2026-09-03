@@ -10,18 +10,5 @@ defineJsonMasterSuite({
   baseDirUrl: import.meta.url,
   suite: 'E2E JSON',
   folderFilterEnv: 'E2E_JSON_FOLDERS',
-  folders: isSmokeRun
-        ? ['smoke-tests']
-        : [
-          'Deployment-tests',
-          'accessControl-tests',
-          'deviceValidation-tests',
-          'systemValidation-tests',
-          'messagePane-tests',
-          'projectCredentials-tests',
-          'projectEndorsement-tests',
-          'projectDownload-tests',
-          'smoke-tests',
-          'protectingSensitiveData-tests',
-      ],
+  folders: isSmokeRun ? ['smoke-tests'] : undefined,
 });

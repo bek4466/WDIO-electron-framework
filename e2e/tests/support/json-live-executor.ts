@@ -1681,6 +1681,19 @@ async function executeProfileAction(context: ExecutionContext, value: unknown): 
         return;
       }
 
+      if (actionName === 'renewandcheckalert') {
+        const renewButton = await findElement(selectorFrom(profileLocators, 'renewBtn') ?? '');
+        await renewButton.click();
+
+        const renewAlert = await findElement(
+          selectorFrom(profileLocators, 'ApplicationRenewAlert') ?? '',
+        );
+        await renewAlert.waitForDisplayed({ timeout: stateTimeout });
+        expect(await renewAlert.isDisplayed()).to.equal(true);
+        await captureStepScreenshot('Application license renewed confirmation');
+        return;
+      }
+
       if (actionName === 'savecurrentdate') {
         context.savedTexts.set('profile.currentDate', new Date().toString());
         return;
@@ -2532,26 +2545,28 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
 
   for (const [blockName, value] of Object.entries(steps)) {
     const normalizedBlock = normalizeKey(blockName);
+    const baseBlock = normalizedBlock.replace(/\d+[a-z]?$/u, '');
 
     debugLog('Executing JSON step block', {
       blockName,
       normalizedBlock,
+      baseBlock,
     });
 
     if (
-      normalizedBlock.startsWith('aboutaction') &&
+      baseBlock === 'aboutaction' &&
       (!Array.isArray(value) || value.length === 0)
     ) {
       await navigateToPage(context, 'about');
     } else if (
-      normalizedBlock.startsWith('troubleshootingaction') ||
-      normalizedBlock.startsWith('troubleshootingpage')
+      baseBlock === 'troubleshootingaction' ||
+      baseBlock === 'troubleshootingpage'
     ) {
       await ensureProjectSelected(context);
       await navigateToPage(context, 'troubleshooting');
     } else if (
-      normalizedBlock.startsWith('deployaction') ||
-      normalizedBlock.startsWith('deploypage')
+      baseBlock === 'deployaction' ||
+      baseBlock === 'deploypage'
     ) {
       await navigateToPage(context, 'deploy');
     }
@@ -2576,18 +2591,18 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
         'verifyprogrammessagelogs',
         'verifyclimessage',
         'checkspecifictracemessages',
-      ].includes(normalizedBlock)
+      ].includes(baseBlock)
     ) {
       await verifyMessages(value);
       continue;
     }
 
-    if (normalizedBlock.startsWith('commonmethod')) {
+    if (baseBlock === 'commonmethod') {
       await executeCommonMethod(context, asRecord(value));
       continue;
     }
 
-    if (normalizedBlock.startsWith('editprojectfile')) {
+    if (baseBlock === 'editprojectfile') {
       const projectFile = context.currentProjectFile ?? resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
       if (!projectFile) {
         throw new Error('EditProjectFile requires TestCaseInfo.ProjectFile.');
@@ -2596,62 +2611,62 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
       continue;
     }
 
-    if (normalizedBlock.startsWith('changepythonfile')) {
+    if (baseBlock === 'changepythonfile') {
       await executeChangePythonFile(context, value, testCase);
       continue;
     }
 
-    if (normalizedBlock.startsWith('renamefiles')) {
+    if (baseBlock === 'renamefiles') {
       await executeRenameFiles(context, value, testCase);
       continue;
     }
 
-    if (normalizedBlock.startsWith('changename')) {
+    if (baseBlock === 'changename') {
       await executeChangeName(context, value, testCase);
       continue;
     }
 
-    if (['changcredentials', 'changecredentials', 'credential', 'credentials'].includes(normalizedBlock)) {
+    if (['changcredentials', 'changecredentials', 'credential', 'credentials'].includes(baseBlock)) {
       await setCredentials(value);
       continue;
     }
 
-    if (normalizedBlock === 'appaction' || normalizedBlock.startsWith('appaction')) {
+    if (baseBlock === 'appaction') {
       await executeAppAction(context, value, testCase);
       continue;
     }
 
-    if (['gmcommands', 'checknavcommands', 'checkecw', 'checkkevin', 'comment', 'execute', 'append', 'middle', 'parttwo', 'partthree'].includes(normalizedBlock)) {
+    if (['gmcommands', 'checknavcommands', 'checkecw', 'checkkevin', 'comment', 'execute', 'append', 'middle', 'parttwo', 'partthree'].includes(baseBlock)) {
       await executeHardwareCommandBlock(blockName, value);
       continue;
     }
 
-    if (normalizedBlock === 'verifyvtlp') {
+    if (baseBlock === 'verifyvtlp') {
       await executeVerifyVtlp(value);
       continue;
     }
 
-    if (normalizedBlock.startsWith('verifyerrorunderdeployfilepath')) {
+    if (baseBlock === 'verifyerrorunderdeployfilepath') {
       await executeVerifyErrorUnderDeployFilePath(value);
       continue;
     }
 
-    if (normalizedBlock.startsWith('verifyprogressbar')) {
+    if (baseBlock === 'verifyprogressbar') {
       await executeAction(context, blockName, testCase);
       continue;
     }
 
-    if (normalizedBlock === 'verifytoastexists' || normalizedBlock === 'verifycertifytoast') {
+    if (baseBlock === 'verifytoastexists' || baseBlock === 'verifycertifytoast') {
       await executeVerifyToastExists(value);
       continue;
     }
 
-    if (normalizedBlock.startsWith('profileaction')) {
+    if (baseBlock === 'profileaction') {
       await executeProfileAction(context, value);
       continue;
     }
 
-    if (normalizedBlock.endsWith('action') || normalizedBlock === 'command' || normalizedBlock.endsWith('command')) {
+    if (baseBlock.endsWith('action') || baseBlock === 'command' || baseBlock.endsWith('command')) {
       const actions = Array.isArray(value) ? value : [value];
       for (const action of actions) {
         if (action && typeof action === 'object') {
