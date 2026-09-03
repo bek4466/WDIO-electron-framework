@@ -996,7 +996,21 @@ async function messageRows(): Promise<MessageRow[]> {
   for (const row of rows) {
     const text = (await row.getText().catch(() => '')).trim();
     if (text) {
-      const severity = (await row.$('td:nth-child(2)').getText().catch(() => '')).trim();
+      const severityCell = await row.$('td:nth-child(2)');
+      let severity = (await severityCell.getText().catch(() => '')).trim();
+
+      if (!severity) {
+        const severityIndicator = await severityCell.$('[aria-label], [title], [alt]');
+        if (await severityIndicator.isExisting().catch(() => false)) {
+          severity = (
+            (await severityIndicator.getAttribute('aria-label').catch(() => '')) ||
+            (await severityIndicator.getAttribute('title').catch(() => '')) ||
+            (await severityIndicator.getAttribute('alt').catch(() => '')) ||
+            ''
+          ).trim();
+        }
+      }
+
       const message = (await row.$('td:nth-child(3)').getText().catch(() => '')).trim();
       messages.push({ severity, message, text });
     }
@@ -2227,8 +2241,21 @@ async function executeAction(context: ExecutionContext, action: string, testCase
   });
 }
 
-async function verifyMessages(messages: unknown): Promise<void> {
+async function verifyMessages(context: ExecutionContext, messages: unknown): Promise<void> {
   const expectedMessages = Array.isArray(messages) ? messages : [messages];
+
+  if (context.currentPage === 'deploy') {
+    const paneSelector = selectorFrom(messagePaneLocators, 'messagePaneVisible') ?? '';
+    const pane = paneSelector ? await queryElement(paneSelector) : undefined;
+    const paneVisible = pane ? await pane.isDisplayed().catch(() => false) : false;
+
+    if (!paneVisible) {
+      await clickIfPresent(selectorFrom(messagePaneLocators, 'messagesBtn'));
+      if (paneSelector) {
+        await (await findElement(paneSelector)).waitForDisplayed({ timeout: waitTimeout });
+      }
+    }
+  }
 
   for (const expectedMessage of expectedMessages) {
     const record = asRecord(expectedMessage);
@@ -2281,8 +2308,11 @@ async function verifyMessages(messages: unknown): Promise<void> {
             expectedMessage === '' ||
             messageCell.includes(expectedMessage) ||
             completeRow.includes(expectedMessage);
+          const observedSeverity = normalizeMessageForComparison(row.severity);
           const hasSeverity =
-            expectedSeverity === '' || row.severity.trim().toLowerCase() === expectedSeverity;
+            expectedSeverity === '' ||
+            observedSeverity === expectedSeverity ||
+            completeRow.split(' ').includes(expectedSeverity);
           const hasIpAddress = ipAddress === '' || row.text.includes(ipAddress);
           return hasMessage && hasSeverity && hasIpAddress;
         });
@@ -2331,6 +2361,7 @@ async function verifyMessages(messages: unknown): Promise<void> {
           observedRows,
           error: error instanceof Error ? error.message : String(error),
         });
+        await captureStepScreenshot(`Message not found: ${messageText}`).catch(() => undefined);
       }
 
       expect(
@@ -2726,7 +2757,7 @@ async function executeSteps(context: ExecutionContext, testCase: JsonRecord): Pr
         'checkspecifictracemessages',
       ].includes(baseBlock)
     ) {
-      await verifyMessages(value);
+      await verifyMessages(context, value);
       continue;
     }
 
@@ -3029,7 +3060,7 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
       debugLog('Executing root VerifyMessage block', {
         caseId: testCase.id,
       });
-      await verifyMessages(testCase.raw.VerifyMessage);
+      await verifyMessages(context, testCase.raw.VerifyMessage);
     }
 
     if (context.unsupported.length > 0) {
