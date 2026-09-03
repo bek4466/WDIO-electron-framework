@@ -43,6 +43,7 @@ const waitTimeout = Number(process.env.WAIT_TIMEOUT_MS ?? 10000);
 const stateTimeout = Number(process.env.E2E_JSON_STATE_TIMEOUT_MS ?? 120000);
 const messageTimeout = Number(process.env.E2E_JSON_MESSAGE_TIMEOUT_MS ?? 400000);
 const messagePollInterval = Number(process.env.E2E_JSON_MESSAGE_POLL_INTERVAL_MS ?? 1000);
+const cleanupPauseMs = Math.max(0, Number(process.env.E2E_JSON_CLEANUP_PAUSE_MS ?? 5000));
 const resourceRootEnv = process.env.E2E_RESOURCE_ROOT;
 const strictUnsupported = process.env.E2E_JSON_STRICT_UNSUPPORTED !== 'false';
 
@@ -3015,6 +3016,14 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
       }
     }
   } finally {
+    debugLog('Waiting before live JSON cleanup', {
+      caseId: testCase.id,
+      cleanupPauseMs,
+    });
+    await captureStepScreenshot('Final application state before cleanup').catch(() => undefined);
+    if (cleanupPauseMs > 0) {
+      await browser.pause(cleanupPauseMs);
+    }
     await cleanupJsonCase(context);
   }
 

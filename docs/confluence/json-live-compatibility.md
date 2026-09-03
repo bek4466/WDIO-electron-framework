@@ -48,6 +48,8 @@ Cleanup runs in a `finally` block after every live JSON case, including failed c
 
 Cleanup problems are collected and attached to Allure so they do not replace the original test failure.
 
+Before cleanup starts, the executor captures the final application state and pauses for 5 seconds. Set `E2E_JSON_CLEANUP_PAUSE_MS` to change this delay, or set it to `0` to disable the pause. The delay also applies after failed test steps so the last visible state is not immediately removed.
+
 ## Project Credentials Ordering
 
 When a test case contains a top-level `Credentials` array, the executor selects the prepared project file, opens Project Credentials, enters and saves the values, and then begins the declared `Steps`. This preserves the legacy master-spec ordering and allows the first step to assert that Deploy is enabled. A later `DeployAction` reuses the prepared credentials instead of entering them a second time.

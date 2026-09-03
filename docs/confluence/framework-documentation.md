@@ -98,6 +98,7 @@ yarn test:smoke
 | `MOCHA_TIMEOUT_MS`                     | No       | Maximum duration allowed for one test case.                     | `600000`                                                           |
 | `E2E_JSON_MESSAGE_TIMEOUT_MS`          | No       | Maximum wait for an expected live JSON log message.             | `400000`                                                           |
 | `E2E_JSON_MESSAGE_POLL_INTERVAL_MS`    | No       | Interval between live JSON message checks.                      | `1000`                                                             |
+| `E2E_JSON_CLEANUP_PAUSE_MS`            | No       | Delay before per-test cleanup starts.                           | `5000`                                                             |
 
 ## Common Commands
 
