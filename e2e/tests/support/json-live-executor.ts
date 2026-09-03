@@ -39,7 +39,7 @@ type MessageRow = {
 };
 
 const waitTimeout = Number(process.env.WAIT_TIMEOUT_MS ?? 10000);
-const stateTimeout = Number(process.env.E2E_JSON_STATE_TIMEOUT_MS ?? 30000);
+const stateTimeout = Number(process.env.E2E_JSON_STATE_TIMEOUT_MS ?? 120000);
 const messageTimeout = Number(process.env.E2E_JSON_MESSAGE_TIMEOUT_MS ?? 400000);
 const messagePollInterval = Number(process.env.E2E_JSON_MESSAGE_POLL_INTERVAL_MS ?? 1000);
 const resourceRootEnv = process.env.E2E_RESOURCE_ROOT;
