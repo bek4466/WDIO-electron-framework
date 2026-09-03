@@ -1655,20 +1655,38 @@ async function setCredentials(credentials: unknown): Promise<void> {
       const usernameSelector = selectorFrom(credentialLocators, `UserNameCol.row${row}UserName`);
       const passwordSelector = selectorFrom(credentialLocators, `PasswordCol.row${row}Password`);
 
-      if (usernameSelector && record.user) {
+      if (usernameSelector && Object.hasOwn(record, 'user')) {
         const userCell = await findElement(usernameSelector);
         await userCell.doubleClick();
-        await browser.keys(['Control', 'a']);
-        await browser.keys('Backspace');
-        await browser.keys(String(record.user));
+        const usernameInput = await findElement(
+          `#deploy-creds-table-username-row-${index}-input`,
+        );
+        const username = String(record.user ?? '');
+        await usernameInput.setValue(username);
+
+        if (username === '') {
+          await usernameInput.click();
+          await browser.keys('A');
+          await browser.keys('Backspace');
+          expect(await usernameInput.getValue()).to.equal('');
+        }
       }
 
-      if (passwordSelector && record.pass) {
+      if (passwordSelector && Object.hasOwn(record, 'pass')) {
         const passwordCell = await findElement(passwordSelector);
         await passwordCell.doubleClick();
-        await browser.keys(['Control', 'a']);
-        await browser.keys('Backspace');
-        await browser.keys(String(record.pass));
+        const passwordInput = await findElement(
+          `#deploy-creds-table-password-row-${index}-input`,
+        );
+        const password = String(record.pass ?? '');
+        await passwordInput.setValue(password);
+
+        if (password === '') {
+          await passwordInput.click();
+          await browser.keys('A');
+          await browser.keys('Backspace');
+          expect(await passwordInput.getValue()).to.equal('');
+        }
       }
     }
 
