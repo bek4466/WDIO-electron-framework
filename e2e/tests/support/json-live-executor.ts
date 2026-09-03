@@ -1020,9 +1020,14 @@ async function resetProjectSelection(): Promise<void> {
         continue;
       }
 
-      input.value = '';
+      const valueSetter = Object.getOwnPropertyDescriptor(
+        HTMLInputElement.prototype,
+        'value',
+      )?.set;
+      valueSetter?.call(input, '');
       input.dispatchEvent(new Event('input', { bubbles: true }));
       input.dispatchEvent(new Event('change', { bubbles: true }));
+      input.dispatchEvent(new Event('blur', { bubbles: true }));
     }
   });
 }
@@ -1421,7 +1426,26 @@ async function executeElementOperation(
       return;
     }
 
-    if (['clearinput', 'clearpath', 'clearvalue', 'clearpassword'].includes(operationName)) {
+    if (operationName === 'clearpath') {
+      await resetProjectSelection();
+      context.projectSelected = false;
+      await browser.waitUntil(
+        async () => {
+          const displayedPath = await queryElement('#deploy-input-text');
+          const exists = await displayedPath.isExisting().catch(() => false);
+          return !exists || (await elementTextOrValue(displayedPath)) === '';
+        },
+        {
+          timeout: stateTimeout,
+          interval: 250,
+          timeoutMsg: `${label} did not clear the displayed project path`,
+        },
+      );
+      await captureStepScreenshot('Project file selection cleared');
+      return;
+    }
+
+    if (['clearinput', 'clearvalue', 'clearpassword'].includes(operationName)) {
       await element.clearValue();
       return;
     }
@@ -1454,18 +1478,25 @@ async function executeElementOperation(
       const expected = value === null ? true : Boolean(value);
       const expectedEnabled = !expected;
       let actualEnabled = false;
-      await browser.waitUntil(
-        async () => {
-          const currentElement = await queryElement(selector);
-          actualEnabled = await currentElement.isEnabled().catch(() => false);
-          return actualEnabled === expectedEnabled;
-        },
-        {
-          timeout: stateTimeout,
-          interval: 250,
-          timeoutMsg: `${label} expected disabled=${expected}, but the last observed enabled value was ${actualEnabled}`,
-        },
-      );
+      const reachedExpectedState = await browser
+        .waitUntil(
+          async () => {
+            const currentElement = await queryElement(selector);
+            actualEnabled = await currentElement.isEnabled().catch(() => false);
+            return actualEnabled === expectedEnabled;
+          },
+          {
+            timeout: stateTimeout,
+            interval: 250,
+          },
+        )
+        .then(() => true)
+        .catch(() => false);
+
+      expect(
+        reachedExpectedState,
+        `${label} expected disabled=${expected}, but the final observed enabled value was ${actualEnabled}`,
+      ).to.equal(true);
       return;
     }
 

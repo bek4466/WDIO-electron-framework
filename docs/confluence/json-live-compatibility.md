@@ -54,6 +54,8 @@ When a test case contains a top-level `Credentials` array, the executor selects 
 
 Blank usernames and passwords are intentional negative-test values. The executor edits the active table input, applies the legacy Angular empty-value workaround, and verifies that the field is empty before saving. It does not skip empty strings as missing data.
 
+`ProjectFilePathInput.clearPath` clears both the hidden file input and displayed path using the native input setter, then dispatches input, change, and blur events so Angular updates the Deploy button state. The executor waits for the displayed path to become empty before continuing.
+
 ## Allure Steps and Screenshots
 
 Allure uses readable action descriptions such as `Select project file: touch.wav`, `Verify Deploy button is disabled`, and `Verify invalid project file message`. JSON suffixes used for ordering, such as `_2`, are intentionally omitted from display names.
