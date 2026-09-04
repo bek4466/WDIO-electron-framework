@@ -30,6 +30,8 @@ type ExecutionContext = {
   cleanupFiles: Set<string>;
   restoreFiles: Array<{ source: string; target: string }>;
   pendingMissingProjectPath?: string;
+  deploymentMessageBaseline?: Record<string, number>;
+  lastObservedMessageCounts?: Record<string, number>;
   unsupported: string[];
 };
 
@@ -1148,6 +1150,57 @@ async function messageRows(): Promise<MessageRow[]> {
   return messages;
 }
 
+function countMessageRows(rows: MessageRow[]): Record<string, number> {
+  return rows.reduce<Record<string, number>>((counts, row) => {
+    const signature = normalizeMessageForComparison(row.text);
+    counts[signature] = (counts[signature] ?? 0) + 1;
+    return counts;
+  }, {});
+}
+
+function mergeMessageCounts(
+  first: Record<string, number>,
+  second: Record<string, number>,
+): Record<string, number> {
+  const merged = { ...first };
+  for (const [signature, count] of Object.entries(second)) {
+    merged[signature] = Math.max(merged[signature] ?? 0, count);
+  }
+  return merged;
+}
+
+function messageRowsAfterBaseline(
+  rows: MessageRow[],
+  baseline: Record<string, number> | undefined,
+): MessageRow[] {
+  if (!baseline) {
+    return rows;
+  }
+
+  const remainingBaseline = { ...baseline };
+  return rows.filter((row) => {
+    const signature = normalizeMessageForComparison(row.text);
+    const priorCount = remainingBaseline[signature] ?? 0;
+    if (priorCount > 0) {
+      remainingBaseline[signature] = priorCount - 1;
+      return false;
+    }
+    return true;
+  });
+}
+
+async function markDeploymentAttempt(context: ExecutionContext): Promise<void> {
+  const visibleRows = await messageRows().catch(() => []);
+  context.deploymentMessageBaseline = mergeMessageCounts(
+    countMessageRows(visibleRows),
+    context.lastObservedMessageCounts ?? {},
+  );
+  debugLog('Captured deployment message baseline', {
+    rowCount: visibleRows.length,
+    baseline: context.deploymentMessageBaseline,
+  });
+}
+
 async function programLogText(): Promise<string> {
   const selector =
     selectorFrom(programLogLocatorsValue, 'programLogText') ??
@@ -1543,6 +1596,10 @@ async function executeElementOperation(
       ) {
         await clickCheckbox(selector);
         return;
+      }
+
+      if (normalizedPath.endsWith('deploypage.deploybtn')) {
+        await markDeploymentAttempt(context);
       }
 
       await element.click();
@@ -2044,6 +2101,7 @@ async function executeAction(context: ExecutionContext, action: string, testCase
         await setCredentials(testCase.Credentials);
         context.credentialsPrepared = true;
       }
+      await markDeploymentAttempt(context);
       await (await findElement(selectorFrom(deploymentLocators, 'deployBtn') ?? '#deploy-deploy-btn')).click();
       await captureStepScreenshot('Deployment started');
       return;
@@ -2430,6 +2488,7 @@ async function verifyMessages(context: ExecutionContext, messages: unknown): Pro
     await allureStep(`Verify visible logs contain: ${messageText}`, async () => {
       let observedRows: MessageRow[] = [];
       let matchedRow: MessageRow | undefined;
+      let terminalFailureRow: MessageRow | undefined;
 
       const readMatch = async (): Promise<boolean> => {
         const paneRows = await messageRows().catch(() => []);
@@ -2461,8 +2520,32 @@ async function verifyMessages(context: ExecutionContext, messages: unknown): Pro
         const isDeploymentCompletionMessage = expectedMessage.includes(
           normalizeMessageForComparison('Project deployment completed'),
         );
+        const isDeploymentFailureMessage = expectedMessage.includes(
+          normalizeMessageForComparison('Project deployment failed'),
+        );
+        const attemptRows = messageRowsAfterBaseline(
+          paneRows,
+          context.deploymentMessageBaseline,
+        );
+        const candidateRows =
+          (isDeploymentCompletionMessage || isDeploymentFailureMessage) &&
+          context.deploymentMessageBaseline
+            ? attemptRows
+            : observedRows;
 
-        matchedRow = observedRows.find((row) => {
+        if (isDeploymentCompletionMessage) {
+          const failurePhrase = normalizeMessageForComparison('Project deployment failed');
+          terminalFailureRow = attemptRows.find(
+            (row) =>
+              normalizeMessageForComparison(row.message).includes(failurePhrase) ||
+              normalizeMessageForComparison(row.text).includes(failurePhrase),
+          );
+          if (terminalFailureRow) {
+            return true;
+          }
+        }
+
+        matchedRow = candidateRows.find((row) => {
           const messageCell = normalizeMessageForComparison(row.message);
           const completeRow = normalizeMessageForComparison(row.text);
           const hasMessage =
@@ -2510,6 +2593,9 @@ async function verifyMessages(context: ExecutionContext, messages: unknown): Pro
           },
         );
       } catch (error) {
+        context.lastObservedMessageCounts = countMessageRows(
+          observedRows.filter((row) => row.text),
+        );
         await attachJson('Message verification timeout', {
           expectedMessage: messageText,
           expectedType: messageType,
@@ -2524,6 +2610,23 @@ async function verifyMessages(context: ExecutionContext, messages: unknown): Pro
           error: error instanceof Error ? error.message : String(error),
         });
         await captureStepScreenshot(`Message not found: ${messageText}`).catch(() => undefined);
+      }
+
+      context.lastObservedMessageCounts = countMessageRows(
+        observedRows.filter((row) => row.text),
+      );
+
+      if (terminalFailureRow) {
+        await attachJson('Deployment failed while waiting for successful completion', {
+          expectedMessage: messageText,
+          failureRow: terminalFailureRow,
+        });
+        await captureStepScreenshot('Deployment failed before successful completion').catch(
+          () => undefined,
+        );
+        throw new Error(
+          `Deployment failed while waiting for "${messageText}": ${terminalFailureRow.text}`,
+        );
       }
 
       expect(
