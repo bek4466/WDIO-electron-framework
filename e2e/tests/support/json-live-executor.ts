@@ -20,6 +20,7 @@ type ExecutionContext = {
   repoRoot: string;
   resourceRoot: string;
   currentPage?: 'about' | 'deploy' | 'profile' | 'troubleshooting';
+  sourceProjectFile?: string;
   currentProjectFile?: string;
   projectSelected?: boolean;
   credentialsPrepared?: boolean;
@@ -1428,7 +1429,24 @@ async function executeElementOperation(
 
   await allureStep(label, async () => {
     if (operationName === 'setpath') {
-      const targetPath = resolveResourcePath(context, asString(value));
+      const requestedPath = resolveResourcePath(context, asString(value));
+      const targetPath =
+        context.sourceProjectFile &&
+        context.currentProjectFile &&
+        path.resolve(requestedPath) === path.resolve(context.sourceProjectFile)
+          ? context.currentProjectFile
+          : requestedPath;
+
+      if (targetPath !== requestedPath) {
+        debugLog('Mapped source project selection to prepared project file', {
+          requestedPath,
+          targetPath,
+        });
+        await attachJson('Prepared project selected instead of original source', {
+          requestedPath,
+          preparedPath: targetPath,
+        });
+      }
 
       if (
         normalizedPath.includes('protectprojectpopup.selectbtn') ||
@@ -3134,6 +3152,7 @@ async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecor
   }
 
   if (!fs.existsSync(sourceProject)) {
+    context.sourceProjectFile = sourceProject;
     context.currentProjectFile = sourceProject;
     debugLog('Project source file does not exist; using unresolved path', {
       sourceProject,
@@ -3161,6 +3180,7 @@ async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecor
   updateProjectRootFolderPath(targetProject);
   await attachProjectFileComparison(sourceProject, targetProject);
 
+  context.sourceProjectFile = sourceProject;
   context.currentProjectFile = targetProject;
   debugLog('Prepared project file', {
     sourceProject,
