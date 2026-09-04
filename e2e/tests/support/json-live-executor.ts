@@ -1456,6 +1456,27 @@ async function executeElementOperation(
         await authenticationSession.switchToSsoWindow();
       } else if (normalizedPath.endsWith('signoutpopup.signoutbtn')) {
         await authenticationSession.waitForState('signed-out');
+      } else if (normalizedPath.endsWith('deploypage.projectcredentialsbtn')) {
+        const popupSelectors = [
+          selectorFrom(credentialLocators, 'credsComponent'),
+          selectorFrom(credentialLocators, 'table'),
+        ].filter((candidate): candidate is string => Boolean(candidate));
+
+        await browser.waitUntil(
+          async () => {
+            for (const popupSelector of popupSelectors) {
+              if (await (await queryElement(popupSelector)).isDisplayed().catch(() => false)) {
+                return true;
+              }
+            }
+            return false;
+          },
+          {
+            timeout: stateTimeout,
+            interval: 250,
+            timeoutMsg: 'Project Credentials popup did not become visible after clicking its button.',
+          },
+        );
       }
 
       if (isImportantClick(normalizedPath)) {
@@ -1687,11 +1708,17 @@ async function executePageBlock(
       const record = value as JsonRecord;
       const operationEntries = Object.entries(record).filter(
         ([operation, operationValue]) =>
-          !operationValue || typeof operationValue !== 'object' || Array.isArray(operationValue),
+          !operationValue ||
+          typeof operationValue !== 'object' ||
+          Array.isArray(operationValue) ||
+          Object.keys(operationValue).length === 0,
       );
       const nestedEntries = Object.entries(record).filter(
         ([, operationValue]) =>
-          operationValue && typeof operationValue === 'object' && !Array.isArray(operationValue),
+          operationValue &&
+          typeof operationValue === 'object' &&
+          !Array.isArray(operationValue) &&
+          Object.keys(operationValue).length > 0,
       );
 
       for (const [operation, operationValue] of operationEntries) {
