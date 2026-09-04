@@ -1346,7 +1346,7 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
           return false;
         }
 
-        const pathLabel = await queryElement('[for="deploy-input-text"]');
+        const pathLabel = await queryElement('(//*[@class="sync-truncate-end"])[2]');
         displayedPathEvidence = {
           value: await pathElement.getValue().catch(() => ''),
           text: await pathElement.getText().catch(() => ''),
