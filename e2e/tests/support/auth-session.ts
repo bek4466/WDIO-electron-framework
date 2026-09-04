@@ -61,6 +61,8 @@ const emailSelector = selector(accessLocators, 'emailInputField');
 const passwordSelector = selector(accessLocators, 'passwordInputField');
 const loginSelector = selector(accessLocators, 'loginBtn');
 const certifySelector = selector(deploymentLocators, 'endorseBtn');
+const deployTitleSelector = selector(deploymentLocators, 'projectDeploymentTitle');
+const deployBrowseSelector = selector(deploymentLocators, 'browseBtn');
 
 async function queryElement(elementSelector: string): Promise<WebdriverIO.Element> {
   return (browser as unknown as ElementQueryBrowser).$(elementSelector);
@@ -76,6 +78,15 @@ class AuthenticationSession {
 
     const element = await queryElement(elementSelector);
     return element.isExisting().catch(() => false);
+  }
+
+  private async isVisible(elementSelector: string): Promise<boolean> {
+    if (!elementSelector) {
+      return false;
+    }
+
+    const element = await queryElement(elementSelector);
+    return element.isDisplayed().catch(() => false);
   }
 
   private async switchToMatchingWindow(
@@ -180,7 +191,7 @@ class AuthenticationSession {
       await browser.switchToWindow(handle);
       const title = await browser.getTitle().catch(() => '');
 
-      if ((ssoWindowTitle && title.includes(ssoWindowTitle)) || (await this.isPresent(emailSelector))) {
+      if ((ssoWindowTitle && title.includes(ssoWindowTitle)) || (await this.isVisible(emailSelector))) {
         ssoWindowFound = true;
         continue;
       }
@@ -189,14 +200,21 @@ class AuthenticationSession {
         continue;
       }
 
-      if (await this.isPresent(signInSelector)) {
-        return 'signed-out';
-      }
+      const certifyPresent = await this.isPresent(certifySelector);
+      const signedInUiVisible =
+        certifyPresent ||
+        (await this.isVisible(logoutSelector)) ||
+        (await this.isVisible(deployTitleSelector)) ||
+        (await this.isVisible(deployBrowseSelector));
 
-      if (await this.isPresent(logoutSelector)) {
-        return (await this.isPresent(certifySelector))
+      if (signedInUiVisible) {
+        return certifyPresent
           ? 'signed-in-certified'
           : 'signed-in-uncertified';
+      }
+
+      if (await this.isVisible(signInSelector)) {
+        return 'signed-out';
       }
     }
 
