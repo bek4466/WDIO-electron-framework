@@ -1346,6 +1346,7 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
           return false;
         }
 
+        const pathLabel = await queryElement('[for="deploy-input-text"]');
         displayedPathEvidence = {
           value: await pathElement.getValue().catch(() => ''),
           text: await pathElement.getText().catch(() => ''),
@@ -1353,6 +1354,11 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
           ariaLabel: (await pathElement.getAttribute('aria-label').catch(() => null)) ?? '',
           textContent:
             (await pathElement.getProperty('textContent').catch(() => null))?.toString() ?? '',
+          labelText: await pathLabel.getText().catch(() => ''),
+          labelTitle: (await pathLabel.getAttribute('title').catch(() => null)) ?? '',
+          labelAriaLabel: (await pathLabel.getAttribute('aria-label').catch(() => null)) ?? '',
+          labelTextContent:
+            (await pathLabel.getProperty('textContent').catch(() => null))?.toString() ?? '',
         };
         uploadInputValue = await element.getValue().catch(() => '');
         displayedPath = Object.values(displayedPathEvidence)
