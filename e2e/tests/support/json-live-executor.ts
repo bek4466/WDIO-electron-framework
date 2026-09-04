@@ -1759,19 +1759,47 @@ async function executeElementOperation(
 
     if (operationName === 'isenabled') {
       const expected = value === null ? true : Boolean(value);
-      let actual = false;
-      await browser.waitUntil(
-        async () => {
-          const currentElement = await queryElement(selector);
-          actual = await elementIsEffectivelyEnabled(currentElement);
-          return actual === expected;
-        },
-        {
-          timeout: stateTimeout,
-          interval: 250,
-          timeoutMsg: `${label} expected enabled=${expected}, but the last observed value was ${actual}`,
-        },
-      );
+      let actual = await elementIsEffectivelyEnabled(element);
+
+      if (!expected) {
+        expect(actual, `${label} expected enabled=false, but the element was enabled`).to.equal(false);
+        return;
+      }
+
+      const reachedExpectedState = await browser
+        .waitUntil(
+          async () => {
+            const currentElement = await queryElement(selector);
+            actual = await elementIsEffectivelyEnabled(currentElement);
+            return actual;
+          },
+          {
+            timeout: stateTimeout,
+            interval: 250,
+          },
+        )
+        .then(() => true)
+        .catch(() => false);
+
+      if (!reachedExpectedState) {
+        const currentElement = await queryElement(selector);
+        const state = {
+          selector,
+          expectedEnabled: true,
+          actualEnabled: actual,
+          ariaDisabled: await currentElement.getAttribute('aria-disabled').catch(() => null),
+          disabled: await currentElement.getAttribute('disabled').catch(() => null),
+        };
+        await attachJson(`${humanize(pathParts.at(-1) ?? 'Element')} enabled-state failure`, state);
+        await captureStepScreenshot(`${humanize(pathParts.at(-1) ?? 'Element')} remained disabled`).catch(
+          () => undefined,
+        );
+      }
+
+      expect(
+        reachedExpectedState,
+        `${label} expected enabled=true, but the final observed enabled value was ${actual}`,
+      ).to.equal(true);
       return;
     }
 
