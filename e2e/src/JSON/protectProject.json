@@ -1,5 +1,5 @@
 {
-    "protectProjectButton": "//p[@class='ng-star-inserted' and contains ( text(), 'Protect Project')]",
+    "protectProjectButton": "//button[.//p[contains(normalize-space(.), 'Protect Project')]]",
     "protectProjectIcon": "[data-mat-icon-name='sync_lock_fill']",
     "passwordField": "[id='protect-dialog-password-input']",
     "passwordFieldConfirm": "[id='protect-dialog-password-reenter-input']",
