@@ -24,6 +24,14 @@ The framework adds report metadata through `src/support/allure.ts`:
 
 ## Evidence Attachments
 
+For live JSON tests that use a project file, the `Compare original and prepared project files` step includes:
+
+- the original source project JSON, such as `systeminfo.json`
+- the prepared project JSON used by CSDU, such as `systeminfoTmp.json`
+- a structured before-and-after diff listing every added, removed, or modified JSON path
+
+This makes the test-case precondition changes and the generated `project_root_folder_path` visible without modifying the original resource file.
+
 The framework adds evidence through `src/support/evidence.ts` after every test:
 
 - final PNG screenshot

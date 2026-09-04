@@ -39,6 +39,13 @@ type MessageRow = {
   text: string;
 };
 
+type JsonDifference = {
+  path: string;
+  change: 'added' | 'removed' | 'modified';
+  original?: unknown;
+  prepared?: unknown;
+};
+
 const waitTimeout = Number(process.env.WAIT_TIMEOUT_MS ?? 10000);
 const stateTimeout = Number(process.env.E2E_JSON_STATE_TIMEOUT_MS ?? 120000);
 const messageTimeout = Number(process.env.E2E_JSON_MESSAGE_TIMEOUT_MS ?? 400000);
@@ -635,6 +642,89 @@ function applyJsonMutations(projectFile: string, mutations: JsonRecord): void {
   }
 
   fs.writeFileSync(projectFile, `${JSON.stringify(projectJson, null, 2)}\n`);
+}
+
+function collectJsonDifferences(
+  original: unknown,
+  prepared: unknown,
+  currentPath = '$',
+): JsonDifference[] {
+  if (Object.is(original, prepared)) {
+    return [];
+  }
+
+  const originalIsObject = original !== null && typeof original === 'object';
+  const preparedIsObject = prepared !== null && typeof prepared === 'object';
+  const sameCollectionType = Array.isArray(original) === Array.isArray(prepared);
+
+  if (originalIsObject && preparedIsObject && sameCollectionType) {
+    const originalRecord = original as JsonRecord;
+    const preparedRecord = prepared as JsonRecord;
+    const keys = new Set([...Object.keys(originalRecord), ...Object.keys(preparedRecord)]);
+    const differences: JsonDifference[] = [];
+
+    for (const key of keys) {
+      const originalHasKey = Object.hasOwn(originalRecord, key);
+      const preparedHasKey = Object.hasOwn(preparedRecord, key);
+      const childPath = Array.isArray(original)
+        ? `${currentPath}[${key}]`
+        : `${currentPath}.${key}`;
+
+      if (!originalHasKey) {
+        differences.push({
+          path: childPath,
+          change: 'added',
+          prepared: preparedRecord[key],
+        });
+      } else if (!preparedHasKey) {
+        differences.push({
+          path: childPath,
+          change: 'removed',
+          original: originalRecord[key],
+        });
+      } else {
+        differences.push(
+          ...collectJsonDifferences(originalRecord[key], preparedRecord[key], childPath),
+        );
+      }
+    }
+
+    return differences;
+  }
+
+  return [{ path: currentPath, change: 'modified', original, prepared }];
+}
+
+async function attachProjectFileComparison(
+  sourceProject: string,
+  preparedProject: string,
+): Promise<void> {
+  await allureStep('Compare original and prepared project files', async () => {
+    try {
+      const original = JSON.parse(fs.readFileSync(sourceProject, 'utf8')) as unknown;
+      const prepared = JSON.parse(fs.readFileSync(preparedProject, 'utf8')) as unknown;
+      const differences = collectJsonDifferences(original, prepared);
+
+      await attachJson(`Original project file - ${path.basename(sourceProject)}`, original);
+      await attachJson(`Prepared project file used by test - ${path.basename(preparedProject)}`, prepared);
+      await attachJson(
+        `Project file changes - ${path.basename(sourceProject)} to ${path.basename(preparedProject)}`,
+        {
+          sourceProject,
+          preparedProject,
+          changeCount: differences.length,
+          differences,
+        },
+      );
+    } catch (error) {
+      await attachJson('Project file comparison unavailable', {
+        sourceProject,
+        preparedProject,
+        error: error instanceof Error ? error.message : String(error),
+        note: 'One or both project files are not valid JSON. This can be expected for negative tests.',
+      });
+    }
+  });
 }
 
 async function ensureRendererReady(): Promise<void> {
@@ -2964,6 +3054,9 @@ async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecor
   if (testCase.Preconditions) {
     applyJsonMutations(targetProject, asRecord(testCase.Preconditions));
   }
+
+  updateProjectRootFolderPath(targetProject);
+  await attachProjectFileComparison(sourceProject, targetProject);
 
   context.currentProjectFile = targetProject;
   debugLog('Prepared project file', {
