@@ -196,6 +196,12 @@ class AuthenticationSession {
         continue;
       }
 
+      // CSDU can change or briefly clear its title after logout. The visible
+      // sign-in control is a stronger state signal than the window title.
+      if (await this.isVisible(signInSelector)) {
+        return 'signed-out';
+      }
+
       if (!title.includes(mainWindowTitle)) {
         continue;
       }
@@ -211,10 +217,6 @@ class AuthenticationSession {
         return certifyPresent
           ? 'signed-in-certified'
           : 'signed-in-uncertified';
-      }
-
-      if (await this.isVisible(signInSelector)) {
-        return 'signed-out';
       }
     }
 
@@ -335,8 +337,12 @@ class AuthenticationSession {
     const state = await this.detectState();
     await attachJson('Authentication bootstrap state', { state });
 
-    if (state === 'signed-in-certified') {
+    if (['signed-in-certified', 'signed-in-uncertified'].includes(state)) {
       await this.switchToMainWindow();
+      await attachJson('Authentication bootstrap decision', {
+        state,
+        action: 'preserve-existing-session',
+      });
       return;
     }
 
