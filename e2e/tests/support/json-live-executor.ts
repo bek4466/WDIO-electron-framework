@@ -1335,6 +1335,8 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
   const displayedPathSelector = selector || '#deploy-input-text';
   const expectedFileName = path.basename(absolutePath).toLowerCase();
   let displayedPath = '';
+  let uploadInputValue = '';
+  let displayedPathEvidence: Record<string, string> = {};
 
   try {
     await browser.waitUntil(
@@ -1344,8 +1346,22 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
           return false;
         }
 
-        displayedPath = await elementTextOrValue(pathElement);
-        return displayedPath.toLowerCase().includes(expectedFileName);
+        displayedPathEvidence = {
+          value: await pathElement.getValue().catch(() => ''),
+          text: await pathElement.getText().catch(() => ''),
+          title: (await pathElement.getAttribute('title').catch(() => null)) ?? '',
+          ariaLabel: (await pathElement.getAttribute('aria-label').catch(() => null)) ?? '',
+          textContent:
+            (await pathElement.getProperty('textContent').catch(() => null))?.toString() ?? '',
+        };
+        uploadInputValue = await element.getValue().catch(() => '');
+        displayedPath = Object.values(displayedPathEvidence)
+          .map((candidate) => candidate.trim())
+          .find(Boolean) ?? '';
+
+        return [...Object.values(displayedPathEvidence), uploadInputValue].some((candidate) =>
+          candidate.toLowerCase().includes(expectedFileName),
+        );
       },
       {
         timeout: stateTimeout,
@@ -1357,9 +1373,10 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
     await attachJson('Project upload was not accepted by CSDU', {
       uploadedPath: absolutePath,
       uploadInputSelector: targetSelector,
-      uploadInputValue: await element.getValue().catch(() => ''),
+      uploadInputValue,
       displayedPathSelector,
       displayedPath,
+      displayedPathEvidence,
       error: error instanceof Error ? error.message : String(error),
     });
     await captureStepScreenshot('Project upload not accepted').catch(() => undefined);
@@ -1368,8 +1385,10 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
 
   await attachJson('Project upload accepted by CSDU', {
     uploadedPath: absolutePath,
+    uploadInputValue,
     displayedPath,
     displayedPathSelector,
+    displayedPathEvidence,
   });
 }
 
