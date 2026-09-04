@@ -427,8 +427,13 @@ function getSelector(pathParts: string[]): string | undefined {
 }
 
 function waitMs(name: unknown): number {
+  if (typeof name === 'number' && Number.isFinite(name)) {
+    return name;
+  }
+
   const value = timeoutValues[asString(name)];
-  return typeof value === 'number' ? value : Number(value ?? waitTimeout);
+  const parsed = Number(value ?? name);
+  return Number.isFinite(parsed) ? parsed : waitTimeout;
 }
 
 function resolveResourcePath(context: ExecutionContext, value: string): string {
@@ -1703,6 +1708,17 @@ async function executePageBlock(
 ): Promise<void> {
   for (const [key, value] of Object.entries(block)) {
     const childPath = [...pathParts, key];
+
+    if (normalizeKey(key).startsWith('timeout')) {
+      const durationMs = waitMs(value);
+      debugLog('Pausing for nested JSON timeout', {
+        path: childPath.join('.'),
+        timeoutName: String(value),
+        timeoutMs: durationMs,
+      });
+      await allureStep(`Pause for ${durationMs} ms`, () => browser.pause(durationMs));
+      continue;
+    }
 
     if (value && typeof value === 'object' && !Array.isArray(value)) {
       const record = value as JsonRecord;
