@@ -1001,7 +1001,23 @@ async function checkboxIsChecked(selector: string): Promise<boolean> {
   }, selector);
 }
 
-async function clickCheckbox(selector: string): Promise<void> {
+async function clickCheckbox(selector: string, element: WebdriverIO.Element): Promise<void> {
+  if (selector.startsWith('(') || selector.startsWith('/')) {
+    await element.click();
+    const associatedInput = await element.$('xpath=ancestor::label[1]//input[@type="checkbox"]');
+    await browser.waitUntil(
+      async () =>
+        (await associatedInput.isSelected().catch(() => false)) ||
+        (await associatedInput.getAttribute('aria-checked').catch(() => null)) === 'true',
+      {
+        timeout: waitTimeout,
+        interval: 100,
+        timeoutMsg: `Checkbox associated with ${selector} did not become checked`,
+      },
+    );
+    return;
+  }
+
   await browser.execute((checkboxSelector) => {
     const input = document.querySelector(checkboxSelector) as HTMLInputElement | null;
     if (!input) {
@@ -1723,7 +1739,7 @@ async function executeElementOperation(
           'protectprojectpopup.allowdeployandtroubleshootwithoutpasswordcheckbox',
         )
       ) {
-        await clickCheckbox(selector);
+        await clickCheckbox(selector, element);
         return;
       }
 
