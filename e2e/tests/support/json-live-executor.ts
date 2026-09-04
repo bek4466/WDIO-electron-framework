@@ -19,6 +19,7 @@ export type LiveJsonCase = {
 type ExecutionContext = {
   repoRoot: string;
   resourceRoot: string;
+  sourceFolder: string;
   currentPage?: 'about' | 'deploy' | 'profile' | 'troubleshooting';
   sourceProjectFile?: string;
   currentProjectFile?: string;
@@ -1248,7 +1249,11 @@ async function resetProjectSelection(): Promise<void> {
   });
 }
 
-async function setUploadPath(selector: string, filePath: string): Promise<void> {
+async function setUploadPath(
+  context: ExecutionContext,
+  selector: string,
+  filePath: string,
+): Promise<void> {
   const absolutePath = path.resolve(filePath);
 
   debugLog('Preparing upload path', {
@@ -1332,7 +1337,12 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
     }
   }, targetSelector);
 
-  const displayedPathSelector = selector || '#deploy-input-text';
+  const isProtectingSensitiveDataCase = normalizeKey(context.sourceFolder).includes(
+    'protectingsensitivedatatests',
+  );
+  const displayedPathSelector = isProtectingSensitiveDataCase
+    ? '(//*[@class="sync-truncate-end"])[2]'
+    : selector || '#deploy-input-text';
   const expectedFileName = path.basename(absolutePath).toLowerCase();
   let displayedPath = '';
   let uploadInputValue = '';
@@ -1341,24 +1351,18 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
   try {
     await browser.waitUntil(
       async () => {
-        const pathElement = await queryElement(displayedPathSelector);
-        if (!(await pathElement.isExisting().catch(() => false))) {
+        const pathDisplay = await queryElement(displayedPathSelector);
+        if (!(await pathDisplay.isExisting().catch(() => false))) {
           return false;
         }
 
-        const pathLabel = await queryElement('(//*[@class="sync-truncate-end"])[2]');
         displayedPathEvidence = {
-          value: await pathElement.getValue().catch(() => ''),
-          text: await pathElement.getText().catch(() => ''),
-          title: (await pathElement.getAttribute('title').catch(() => null)) ?? '',
-          ariaLabel: (await pathElement.getAttribute('aria-label').catch(() => null)) ?? '',
+          value: await pathDisplay.getValue().catch(() => ''),
+          text: await pathDisplay.getText().catch(() => ''),
+          title: (await pathDisplay.getAttribute('title').catch(() => null)) ?? '',
+          ariaLabel: (await pathDisplay.getAttribute('aria-label').catch(() => null)) ?? '',
           textContent:
-            (await pathElement.getProperty('textContent').catch(() => null))?.toString() ?? '',
-          labelText: await pathLabel.getText().catch(() => ''),
-          labelTitle: (await pathLabel.getAttribute('title').catch(() => null)) ?? '',
-          labelAriaLabel: (await pathLabel.getAttribute('aria-label').catch(() => null)) ?? '',
-          labelTextContent:
-            (await pathLabel.getProperty('textContent').catch(() => null))?.toString() ?? '',
+            (await pathDisplay.getProperty('textContent').catch(() => null))?.toString() ?? '',
         };
         uploadInputValue = await element.getValue().catch(() => '');
         displayedPath = Object.values(displayedPathEvidence)
@@ -1458,6 +1462,7 @@ async function ensureProjectSelected(context: ExecutionContext): Promise<void> {
   await navigateToPage(context, 'deploy');
   await allureStep('Select prepared project before page navigation', async () => {
     await setUploadPath(
+      context,
       selectorFrom(deploymentLocators, 'destinyInputField') ?? '#deploy-input-text',
       context.currentProjectFile ?? '',
     );
@@ -1552,7 +1557,7 @@ async function executeElementOperation(
 
       context.pendingMissingProjectPath = undefined;
       context.currentProjectFile = targetPath.endsWith('.json') ? targetPath : context.currentProjectFile;
-      await setUploadPath(selector, targetPath);
+      await setUploadPath(context, selector, targetPath);
       context.projectSelected = true;
       await captureStepScreenshot(`${humanize(pathParts.at(-1) ?? 'Project file')} selected`);
       return;
@@ -2118,6 +2123,7 @@ async function prepareTopLevelCredentials(
   await allureStep('Prepare project and credentials before test steps', async () => {
     context.currentProjectFile = projectFile;
     await setUploadPath(
+      context,
       selectorFrom(deploymentLocators, 'destinyInputField') ?? '#deploy-input-file-disabled',
       projectFile,
     );
@@ -2219,7 +2225,11 @@ async function executeAction(context: ExecutionContext, action: string, testCase
       }
 
       context.currentProjectFile = projectFile;
-      await setUploadPath(selectorFrom(deploymentLocators, 'destinyInputField') ?? '#deploy-input-file-disabled', projectFile);
+      await setUploadPath(
+        context,
+        selectorFrom(deploymentLocators, 'destinyInputField') ?? '#deploy-input-file-disabled',
+        projectFile,
+      );
       context.projectSelected = true;
       if (!context.credentialsPrepared) {
         await setCredentials(testCase.Credentials);
@@ -2454,7 +2464,11 @@ async function executeAction(context: ExecutionContext, action: string, testCase
     if (actionName === 'iscertifydateaccurate') {
       const projectFile = context.currentProjectFile ?? resolveProjectFile(context, asString(asRecord(testCase.TestCaseInfo).ProjectFile));
       if (projectFile) {
-        await setUploadPath(selectorFrom(deploymentLocators, 'destinyInputField') ?? '', projectFile);
+        await setUploadPath(
+          context,
+          selectorFrom(deploymentLocators, 'destinyInputField') ?? '',
+          projectFile,
+        );
       }
 
       const before = certificationFormattedDate();
@@ -3408,6 +3422,7 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
     resourceRoot: resourceRootEnv
       ? path.resolve(resourceRootEnv)
       : path.resolve(process.cwd(), 'e2e/resources'),
+    sourceFolder: testCase.sourceFolder,
     savedDates: new Map<string, number>(),
     savedTexts: new Map<string, string>(),
     cleanupFiles: new Set<string>(),
