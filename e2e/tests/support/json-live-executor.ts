@@ -948,9 +948,12 @@ async function elementTextOrValue(element: WebdriverIO.Element): Promise<string>
 
 async function elementIsEffectivelyEnabled(element: WebdriverIO.Element): Promise<boolean> {
   const nativeEnabled = await element.isEnabled().catch(() => false);
-  const ariaDisabled = (await element.getAttribute('aria-disabled').catch(() => null)) === 'true';
+  const ariaDisabledValue = await element.getAttribute('aria-disabled').catch(() => null);
+  const ariaDisabled = ariaDisabledValue?.toLowerCase() === 'true';
   const disabledAttribute = await element.getAttribute('disabled').catch(() => null);
-  return nativeEnabled && !ariaDisabled && disabledAttribute === null;
+  const hasDisabledAttribute =
+    disabledAttribute !== null && disabledAttribute.toLowerCase() !== 'false';
+  return nativeEnabled && !ariaDisabled && !hasDisabledAttribute;
 }
 
 async function assertElementContains(element: WebdriverIO.Element, expected: unknown): Promise<void> {
@@ -1313,6 +1316,9 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
   }, targetSelector);
 
   const element = await findElement(targetSelector);
+  // Preserve the legacy upload timing so Angular has time to bind the file input
+  // after it is made visible.
+  await browser.pause(3000);
   await element.setValue(absolutePath);
   debugLog('Set upload input value', {
     targetSelector,
@@ -1330,22 +1336,35 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
   const expectedFileName = path.basename(absolutePath).toLowerCase();
   let displayedPath = '';
 
-  await browser.waitUntil(
-    async () => {
-      const pathElement = await queryElement(displayedPathSelector);
-      if (!(await pathElement.isExisting().catch(() => false))) {
-        return false;
-      }
+  try {
+    await browser.waitUntil(
+      async () => {
+        const pathElement = await queryElement(displayedPathSelector);
+        if (!(await pathElement.isExisting().catch(() => false))) {
+          return false;
+        }
 
-      displayedPath = await elementTextOrValue(pathElement);
-      return displayedPath.toLowerCase().includes(expectedFileName);
-    },
-    {
-      timeout: stateTimeout,
-      interval: 250,
-      timeoutMsg: `CSDU did not display the selected project file "${path.basename(absolutePath)}" in ${displayedPathSelector}. Last displayed path: "${displayedPath}"`,
-    },
-  );
+        displayedPath = await elementTextOrValue(pathElement);
+        return displayedPath.toLowerCase().includes(expectedFileName);
+      },
+      {
+        timeout: stateTimeout,
+        interval: 250,
+        timeoutMsg: `CSDU did not display the selected project file "${path.basename(absolutePath)}" in ${displayedPathSelector}. Last displayed path: "${displayedPath}"`,
+      },
+    );
+  } catch (error) {
+    await attachJson('Project upload was not accepted by CSDU', {
+      uploadedPath: absolutePath,
+      uploadInputSelector: targetSelector,
+      uploadInputValue: await element.getValue().catch(() => ''),
+      displayedPathSelector,
+      displayedPath,
+      error: error instanceof Error ? error.message : String(error),
+    });
+    await captureStepScreenshot('Project upload not accepted').catch(() => undefined);
+    throw error;
+  }
 
   await attachJson('Project upload accepted by CSDU', {
     uploadedPath: absolutePath,
