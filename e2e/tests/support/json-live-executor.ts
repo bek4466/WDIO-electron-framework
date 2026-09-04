@@ -946,6 +946,13 @@ async function elementTextOrValue(element: WebdriverIO.Element): Promise<string>
   return (await element.getText().catch(() => '')).trim();
 }
 
+async function elementIsEffectivelyEnabled(element: WebdriverIO.Element): Promise<boolean> {
+  const nativeEnabled = await element.isEnabled().catch(() => false);
+  const ariaDisabled = (await element.getAttribute('aria-disabled').catch(() => null)) === 'true';
+  const disabledAttribute = await element.getAttribute('disabled').catch(() => null);
+  return nativeEnabled && !ariaDisabled && disabledAttribute === null;
+}
+
 async function assertElementContains(element: WebdriverIO.Element, expected: unknown): Promise<void> {
   const expectedText = String(expected ?? '');
 
@@ -1318,6 +1325,33 @@ async function setUploadPath(selector: string, filePath: string): Promise<void> 
       element.style.display = 'none';
     }
   }, targetSelector);
+
+  const displayedPathSelector = selector || '#deploy-input-text';
+  const expectedFileName = path.basename(absolutePath).toLowerCase();
+  let displayedPath = '';
+
+  await browser.waitUntil(
+    async () => {
+      const pathElement = await queryElement(displayedPathSelector);
+      if (!(await pathElement.isExisting().catch(() => false))) {
+        return false;
+      }
+
+      displayedPath = await elementTextOrValue(pathElement);
+      return displayedPath.toLowerCase().includes(expectedFileName);
+    },
+    {
+      timeout: stateTimeout,
+      interval: 250,
+      timeoutMsg: `CSDU did not display the selected project file "${path.basename(absolutePath)}" in ${displayedPathSelector}. Last displayed path: "${displayedPath}"`,
+    },
+  );
+
+  await attachJson('Project upload accepted by CSDU', {
+    uploadedPath: absolutePath,
+    displayedPath,
+    displayedPathSelector,
+  });
 }
 
 async function selectNativeOutputDirectory(selector: string, directoryPath: string): Promise<void> {
@@ -1710,7 +1744,7 @@ async function executeElementOperation(
       await browser.waitUntil(
         async () => {
           const currentElement = await queryElement(selector);
-          actual = await currentElement.isEnabled().catch(() => false);
+          actual = await elementIsEffectivelyEnabled(currentElement);
           return actual === expected;
         },
         {
@@ -1730,7 +1764,7 @@ async function executeElementOperation(
         .waitUntil(
           async () => {
             const currentElement = await queryElement(selector);
-            actualEnabled = await currentElement.isEnabled().catch(() => false);
+            actualEnabled = await elementIsEffectivelyEnabled(currentElement);
             return actualEnabled === expectedEnabled;
           },
           {
