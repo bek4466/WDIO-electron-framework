@@ -961,7 +961,34 @@ async function elementIsEffectivelyEnabled(element: WebdriverIO.Element): Promis
   const hasDisabledAttribute =
     disabledAttribute !== null && disabledAttribute.toLowerCase() !== 'false';
   const hasDisabledClass = className.split(/\s+/u).includes('disabled-btn');
-  return nativeEnabled && !ariaDisabled && !hasDisabledAttribute && !hasDisabledClass;
+  const disabledByWrapper = await browser
+    .execute((node: HTMLElement) => {
+      let current: HTMLElement | null = node.parentElement;
+
+      while (current) {
+        const wrapperAriaDisabled = current.getAttribute('aria-disabled')?.toLowerCase() === 'true';
+        const wrapperDisabledAttribute =
+          current.hasAttribute('disabled') && current.getAttribute('disabled')?.toLowerCase() !== 'false';
+        const wrapperDisabledClass = current.classList.contains('disabled-btn');
+
+        if (wrapperAriaDisabled || wrapperDisabledAttribute || wrapperDisabledClass) {
+          return true;
+        }
+
+        current = current.parentElement;
+      }
+
+      return false;
+    }, element)
+    .catch(() => false);
+
+  return (
+    nativeEnabled &&
+    !ariaDisabled &&
+    !hasDisabledAttribute &&
+    !hasDisabledClass &&
+    !disabledByWrapper
+  );
 }
 
 async function expectElementEffectivelyDisabled(
@@ -1987,6 +2014,24 @@ async function executeElementOperation(
         )
         .then(() => true)
         .catch(() => false);
+
+      if (!reachedExpectedState) {
+        const currentElement = await queryElement(selector);
+        const state = {
+          path: pathParts.join('.'),
+          selector,
+          expectedDisabled: expected,
+          expectedEnabled,
+          actualEnabled,
+          ariaDisabled: await currentElement.getAttribute('aria-disabled').catch(() => null),
+          disabled: await currentElement.getAttribute('disabled').catch(() => null),
+          className: await currentElement.getAttribute('class').catch(() => null),
+        };
+        await attachJson(`${humanize(pathParts.at(-1) ?? 'Element')} disabled-state failure`, state);
+        await captureStepScreenshot(`${humanize(pathParts.at(-1) ?? 'Element')} disabled-state failure`).catch(
+          () => undefined,
+        );
+      }
 
       expect(
         reachedExpectedState,
