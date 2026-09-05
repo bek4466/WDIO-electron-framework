@@ -1740,6 +1740,30 @@ async function executeElementOperation(
       return;
     }
 
+    if (
+      operationName === 'isempty' &&
+      /deploypage\d*\.projectfilepathinput\d*$/u.test(normalizedPath)
+    ) {
+      const expectedEmpty = value === null ? true : Boolean(value);
+      const pathElement = await queryElement(selector);
+      const exists = await pathElement.isExisting().catch(() => false);
+      const displayedPath = exists ? await elementTextOrValue(pathElement) : '';
+      const actualEmpty = !exists || displayedPath === '';
+
+      await attachJson(`${humanize(pathParts.at(-1) ?? 'Project path')} empty-state`, {
+        selector,
+        expectedEmpty,
+        actualEmpty,
+        exists,
+        displayedPath,
+      });
+      expect(
+        actualEmpty,
+        `${label} expected empty=${expectedEmpty}, but the observed path was "${displayedPath}"`,
+      ).to.equal(expectedEmpty);
+      return;
+    }
+
     const element = await findElement(selector);
 
     if (['click', 'close', 'noswitchwindowclick'].includes(operationName)) {
