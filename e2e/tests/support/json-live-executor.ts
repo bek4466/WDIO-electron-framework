@@ -406,6 +406,8 @@ function getSelector(pathParts: string[]): string | undefined {
     normalized.includes('extractprojectcorruptpopup')
   ) {
     const aliases: Record<string, string> = {
+      extractprojectpopup: 'title',
+      extractprojectcorruptpopup: 'corruptExtractPopUpTitle',
       passwordinputbox: 'extractProjectPasswordField',
       selectbtn: 'extractProjectSelectLocation',
       extractbtn: 'extractButtonPopUp',
