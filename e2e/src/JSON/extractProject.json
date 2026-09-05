@@ -16,7 +16,7 @@
     "extractPasswordDescription": "//*[@id='extract-dialog-content']/p",
     "selectLocationDescription": "//*[@id='extract-dialog-browse-container']/p",
     "extractThreeSecondWaitMessage": "//*[@id='extract-dialog-content']/form/sync-input-error/div/comment()[1]",
-    "corruptExtractPopUpDismissButton": "//button[text()=' DISMISS ']",
+    "corruptExtractPopUpDismissButton": "(//button[@type='button'])[12]",
     "corruptExtracttPopUpMainMessage": "//p[contains(@class, 'sync-dialog-content') and contains(@class, 'dialog-message-text')]",
     "corruptExtractPopUpTitle": "(//h2[contains(@class, 'title')])[2]",
     "corruptExtractWarningIcon": "//mat-icon[contains(@class, 'mat-icon') and @ng-reflect-svg-icon='sync_warning']",
