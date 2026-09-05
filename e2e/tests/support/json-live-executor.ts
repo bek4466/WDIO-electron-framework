@@ -921,17 +921,20 @@ export async function bootstrapLiveJsonSession(): Promise<void> {
   });
 }
 
-async function findElement(selector: string): Promise<WebdriverIO.Element> {
+async function findElement(
+  selector: string,
+  timeoutMs = waitTimeout,
+): Promise<WebdriverIO.Element> {
   if (!selector) {
     throw new Error('Cannot find element because selector mapping resolved to an empty value.');
   }
 
   debugLog('Waiting for element', {
     selector,
-    timeoutMs: waitTimeout,
+    timeoutMs,
   });
   const element = await browser.$(selector);
-  await element.waitForExist({ timeout: waitTimeout });
+  await element.waitForExist({ timeout: timeoutMs });
   debugLog('Element exists', {
     selector,
   });
@@ -1722,7 +1725,10 @@ async function executeElementOperation(
       const expected = value === null ? true : Boolean(value);
 
       if (expected) {
-        await findElement(selector);
+        const existenceTimeout = normalizedPath.includes('extractprojectcorruptpopup')
+          ? stateTimeout
+          : waitTimeout;
+        await findElement(selector, existenceTimeout);
       } else {
         expect(await (await queryElement(selector)).isExisting().catch(() => false)).to.equal(false);
       }
