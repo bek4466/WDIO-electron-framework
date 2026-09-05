@@ -22,6 +22,7 @@ type ExecutionContext = {
   sourceFolder: string;
   currentPage?: 'about' | 'deploy' | 'profile' | 'troubleshooting';
   sourceProjectFile?: string;
+  preparedProjectFile?: string;
   currentProjectFile?: string;
   projectSelected?: boolean;
   credentialsPrepared?: boolean;
@@ -1004,7 +1005,7 @@ async function checkboxIsChecked(selector: string): Promise<boolean> {
 async function clickCheckbox(selector: string, element: WebdriverIO.Element): Promise<void> {
   if (selector.startsWith('(') || selector.startsWith('/')) {
     await element.click();
-    const associatedInput = await element.$('xpath=ancestor::label[1]//input[@type="checkbox"]');
+    const associatedInput = await element.$('./ancestor::label[1]//input[@type="checkbox"]');
     await browser.waitUntil(
       async () =>
         (await associatedInput.isSelected().catch(() => false)) ||
@@ -1559,9 +1560,9 @@ async function executeElementOperation(
       const requestedPath = resolveResourcePath(context, asString(value));
       const targetPath =
         context.sourceProjectFile &&
-        context.currentProjectFile &&
+        context.preparedProjectFile &&
         path.resolve(requestedPath) === path.resolve(context.sourceProjectFile)
-          ? context.currentProjectFile
+          ? context.preparedProjectFile
           : requestedPath;
 
       if (targetPath !== requestedPath) {
@@ -3317,6 +3318,7 @@ async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecor
 
   if (!fs.existsSync(sourceProject)) {
     context.sourceProjectFile = sourceProject;
+    context.preparedProjectFile = sourceProject;
     context.currentProjectFile = sourceProject;
     debugLog('Project source file does not exist; using unresolved path', {
       sourceProject,
@@ -3345,6 +3347,7 @@ async function prepareProjectFile(context: ExecutionContext, testCase: JsonRecor
   await attachProjectFileComparison(sourceProject, targetProject);
 
   context.sourceProjectFile = sourceProject;
+  context.preparedProjectFile = targetProject;
   context.currentProjectFile = targetProject;
   debugLog('Prepared project file', {
     sourceProject,
