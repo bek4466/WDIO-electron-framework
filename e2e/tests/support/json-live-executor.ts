@@ -401,7 +401,10 @@ function getSelector(pathParts: string[]): string | undefined {
     return selectorByLooseKey(protectLocators, aliases[normalizeKey(last)] ?? last);
   }
 
-  if (normalized.includes('extractprojectpopup')) {
+  if (
+    normalized.includes('extractprojectpopup') ||
+    normalized.includes('extractprojectcorruptpopup')
+  ) {
     const aliases: Record<string, string> = {
       passwordinputbox: 'extractProjectPasswordField',
       selectbtn: 'extractProjectSelectLocation',
@@ -417,6 +420,7 @@ function getSelector(pathParts: string[]): string | undefined {
       xbtn: 'corruptExtractXIcon',
       mainmessage: 'corruptExtracttPopUpMainMessage',
       title: 'corruptExtractPopUpTitle',
+      isopen: 'corruptExtractPopUpTitle',
     };
     return selectorByLooseKey(extractLocators, aliases[normalizeKey(last)] ?? last);
   }
@@ -1773,6 +1777,35 @@ async function executeElementOperation(
         )
       ) {
         await clickCheckbox(selector, element);
+        return;
+      }
+
+      if (normalizedPath.endsWith('extractprojectcorruptpopup.dismissbtn')) {
+        await element.scrollIntoView().catch(() => undefined);
+        await browser.execute((button) => {
+          (button as unknown as HTMLElement).click();
+        }, element);
+
+        const corruptDialogSelector = selectorFrom(
+          extractLocators,
+          'corruptExtractPopUpTitle',
+        );
+        await browser.waitUntil(
+          async () => {
+            if (!corruptDialogSelector) {
+              return true;
+            }
+
+            const dialogTitle = await queryElement(corruptDialogSelector);
+            return !(await dialogTitle.isDisplayed().catch(() => false));
+          },
+          {
+            timeout: stateTimeout,
+            interval: 250,
+            timeoutMsg: 'Corrupted project dialog remained open after clicking Dismiss.',
+          },
+        );
+        await captureStepScreenshot('Corrupted project dialog dismissed');
         return;
       }
 
