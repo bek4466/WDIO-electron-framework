@@ -1361,6 +1361,7 @@ async function setUploadPath(
     ? '(//*[@class="sync-truncate-end"])[2]'
     : selector || '#deploy-input-text';
   const expectedFileName = path.basename(absolutePath).toLowerCase();
+  const isProtectedProjectFile = path.extname(absolutePath).toLowerCase() === '.cspp';
   let displayedPath = '';
   let uploadInputValue = '';
   let displayedPathEvidence: Record<string, string> = {};
@@ -1368,6 +1369,14 @@ async function setUploadPath(
   try {
     await browser.waitUntil(
       async () => {
+        uploadInputValue = await element.getValue().catch(() => '');
+        if (
+          isProtectedProjectFile &&
+          uploadInputValue.toLowerCase().includes(expectedFileName)
+        ) {
+          return true;
+        }
+
         const pathDisplay = await queryElement(displayedPathSelector);
         if (!(await pathDisplay.isExisting().catch(() => false))) {
           return false;
@@ -1381,7 +1390,6 @@ async function setUploadPath(
           textContent:
             (await pathDisplay.getProperty('textContent').catch(() => null))?.toString() ?? '',
         };
-        uploadInputValue = await element.getValue().catch(() => '');
         displayedPath = Object.values(displayedPathEvidence)
           .map((candidate) => candidate.trim())
           .find(Boolean) ?? '';
