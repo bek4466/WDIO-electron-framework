@@ -957,9 +957,35 @@ async function elementIsEffectivelyEnabled(element: WebdriverIO.Element): Promis
   const ariaDisabledValue = await element.getAttribute('aria-disabled').catch(() => null);
   const ariaDisabled = ariaDisabledValue?.toLowerCase() === 'true';
   const disabledAttribute = await element.getAttribute('disabled').catch(() => null);
+  const className = (await element.getAttribute('class').catch(() => null)) ?? '';
   const hasDisabledAttribute =
     disabledAttribute !== null && disabledAttribute.toLowerCase() !== 'false';
-  return nativeEnabled && !ariaDisabled && !hasDisabledAttribute;
+  const hasDisabledClass = className.split(/\s+/u).includes('disabled-btn');
+  return nativeEnabled && !ariaDisabled && !hasDisabledAttribute && !hasDisabledClass;
+}
+
+async function expectElementEffectivelyDisabled(
+  selector: string,
+  description: string,
+): Promise<void> {
+  let enabled = true;
+  await browser.waitUntil(
+    async () => {
+      const element = await queryElement(selector);
+      if (!(await element.isExisting().catch(() => false))) {
+        return false;
+      }
+
+      enabled = await elementIsEffectivelyEnabled(element);
+      return !enabled;
+    },
+    {
+      timeout: stateTimeout,
+      interval: 250,
+      timeoutMsg: `${description} remained effectively enabled`,
+    },
+  );
+  expect(enabled, `${description} expected enabled=false`).to.equal(false);
 }
 
 async function assertElementContains(element: WebdriverIO.Element, expected: unknown): Promise<void> {
@@ -2460,12 +2486,16 @@ async function executeAction(context: ExecutionContext, action: string, testCase
     }
 
     if (actionName === 'verifyrefreshprogramlognotclickable') {
-      expect(await (await findElement(selectorFrom(programLogLocatorsValue, 'refreshBtn') ?? '')).isEnabled()).to.equal(false);
+      const refreshSelector = selectorFrom(programLogLocatorsValue, 'refreshBtn') ?? '';
+      await findElement(refreshSelector);
+      await expectElementEffectivelyDisabled(refreshSelector, 'Program Log Refresh button');
       return;
     }
 
     if (actionName === 'verifystartprogramnotclickable') {
-      expect(await (await findElement(selectorFrom(programLogLocatorsValue, 'StartProgramBtn') ?? '')).isEnabled()).to.equal(false);
+      const startSelector = selectorFrom(programLogLocatorsValue, 'StartProgramBtn') ?? '';
+      await findElement(startSelector);
+      await expectElementEffectivelyDisabled(startSelector, 'Start Program button');
       return;
     }
 
