@@ -20,6 +20,8 @@ type ExecutionContext = {
   repoRoot: string;
   resourceRoot: string;
   sourceFolder: string;
+  caseId: string;
+  sourceFile: string;
   currentPage?: 'about' | 'deploy' | 'profile' | 'troubleshooting';
   sourceProjectFile?: string;
   preparedProjectFile?: string;
@@ -1612,7 +1614,9 @@ async function executeElementOperation(
       path: pathParts.join('.'),
       operation,
     });
-    context.unsupported.push(`No selector mapping for ${label}`);
+    context.unsupported.push(
+      `No selector mapping for ${label} (JSON path: ${pathParts.join('.')}, operation: ${operation})`,
+    );
     return;
   }
 
@@ -1622,7 +1626,8 @@ async function executeElementOperation(
     operationName,
   });
 
-  await allureStep(label, async () => {
+  try {
+    await allureStep(label, async () => {
     if (operationName === 'setpath') {
       const requestedPath = resolveResourcePath(context, asString(value));
       const targetPath =
@@ -2129,13 +2134,32 @@ async function executeElementOperation(
       return;
     }
 
-      context.unsupported.push(`Unsupported operation ${label}`);
+      context.unsupported.push(
+        `Unsupported operation ${label} (JSON path: ${pathParts.join('.')}, operation: ${operation})`,
+      );
       debugLog('Unsupported element operation', {
         label,
         selector,
         operationName,
       });
-  });
+    });
+  } catch (error) {
+    const failure = {
+      caseId: context.caseId,
+      sourceFolder: context.sourceFolder,
+      sourceFile: context.sourceFile,
+      jsonPath: pathParts.join('.'),
+      operation,
+      expectedValue: value,
+      selector,
+      step: label,
+      error: error instanceof Error ? error.message : String(error),
+    };
+    debugLog('Live JSON action failed', failure);
+    await attachJson('Failed JSON action', failure).catch(() => undefined);
+    await captureStepScreenshot(`Failure - ${label}`).catch(() => undefined);
+    throw error;
+  }
 }
 
 async function verifyElementExpectedMessages(selector: string, messages: unknown[]): Promise<void> {
@@ -3612,6 +3636,8 @@ export async function executeJsonCaseLive(testCase: LiveJsonCase): Promise<void>
       ? path.resolve(resourceRootEnv)
       : path.resolve(process.cwd(), 'e2e/resources'),
     sourceFolder: testCase.sourceFolder,
+    caseId: testCase.id,
+    sourceFile: testCase.sourceFile,
     savedDates: new Map<string, number>(),
     savedTexts: new Map<string, string>(),
     cleanupFiles: new Set<string>(),
